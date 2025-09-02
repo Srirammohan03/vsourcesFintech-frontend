@@ -45,11 +45,19 @@ export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0); // Add this line
   const location = useLocation();
 
-  // Scroll listener
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 10);
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10);
+
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = (scrollTop / docHeight) * 100;
+      setScrollProgress(progress);
+    };
+
     handleScroll();
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -91,8 +99,8 @@ export function Navbar() {
       active
         ? "text-red-600"
         : isScrolled
-        ? "text-black hover:text-red-600"
-        : "text-white hover:text-red-600"
+          ? "text-black hover:text-red-600"
+          : "text-white hover:text-red-600"
     );
 
   return (
@@ -171,7 +179,15 @@ export function Navbar() {
             );
           })}
         </nav>
-
+        {/* Progress Bar */}
+        {scrollProgress > 0 && (
+          <div className="absolute bottom-0 left-0 w-full h-[3px] bg-gray-200">
+            <div
+              className="h-[3px] bg-red-600 transition-all duration-75"
+              style={{ width: `${scrollProgress}%` }}
+            />
+          </div>
+        )}
         {/* Mobile toggle */}
         <button
           className="md:hidden"

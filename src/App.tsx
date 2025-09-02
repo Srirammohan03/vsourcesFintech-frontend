@@ -10,8 +10,14 @@ import Resources from "./pages/Resources";
 import Country from "./pages/Country";
 import Contact from "./pages/Contact";
 import LoanCalculator from "./pages/tools/LoanCalculator";
-import NotFound from "./pages/NotFound";
 
+import NotFound from "./pages/NotFound";
+import PartnerDetails from "./components/layout/PartnerDetails";
+import ContactBar from "./components/ContactBar";
+import { Footer } from "./components/ui/footer";
+import GoVirtual from "./services/GoVirtual";
+import { Navbar } from "./components/ui/navbar";
+const isGoVirtualPage = location.pathname === "/meeting";
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -21,16 +27,28 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Layout>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/tools" element={<Tools />} />
-            <Route path="/tools/loan-calculator" element={<LoanCalculator />} />
-            <Route path="/resources" element={<Resources />} />
-            <Route path="/country" element={<Country />} />
-            <Route path="/contact" element={<Contact />} />
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+          <div className="flex flex-col min-h-screen">
+            {!isGoVirtualPage && <Navbar />}
+            <main>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/tools" element={<Tools />} />
+                <Route path="/tools/loan-calculator" element={<LoanCalculator />} />
+                <Route path="/resources" element={<Resources />} />
+                <Route path="/country" element={<Country />} />
+                <Route path="/contact" element={<Contact />} />
+
+                <Route path="/partners/:slug" element={<PartnerDetails />} />
+
+                <Route path="/meeting" element={<GoVirtual />} />
+                {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </main>
+
+            {!isGoVirtualPage && <ContactBar />}
+            {!isGoVirtualPage && <Footer />}
+          </div>
         </Layout>
       </BrowserRouter>
     </TooltipProvider>

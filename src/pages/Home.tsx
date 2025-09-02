@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { 
-  Calculator, 
-  GraduationCap, 
-  Shield, 
-  TrendingUp, 
-  Users, 
+import {
+  Calculator,
+  GraduationCap,
+  Shield,
+  TrendingUp,
+  Users,
   CheckCircle,
   Star,
   ArrowRight
@@ -16,27 +16,34 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { SearchHero } from '@/components/ui/search-hero';
 import AboutSection from './AboutSection';
 import Accreditation from './AccreditationSection';
+import { Partner, partners } from '@/lib/partners';
+import VideoSection from '@/components/VideoSection';
+
 
 const tools = [
   {
-    title: 'Loan Calculator',
-    description: 'Calculate your education loan EMI and total interest',
+    title: "Loan Calculator",
+    description: "Calculate your education loan EMI and total interest",
     icon: Calculator,
-    path: '/tools/loan-calculator'
+    path: "/tools/loan-calculator",
+    image: "/assets/images/loan-calculator.jpg",
   },
   {
-    title: 'Cost Calculator',
-    description: 'Estimate the cost of studying abroad',
+    title: "Cost Calculator",
+    description: "Estimate the cost of studying abroad",
     icon: TrendingUp,
-    path: '/tools/cost-calculator'
+    path: "/tools/cost-calculator",
+    image: "/assets/images/Cost-Calculator.jpg",
   },
   {
-    title: 'Eligibility Checker',
-    description: 'Check your loan eligibility instantly',
+    title: "Eligibility Checker",
+    description: "Check your loan eligibility instantly",
     icon: CheckCircle,
-    path: '/tools/eligibility-checker'
-  }
+    path: "/tools/eligibility-checker",
+    image: "/assets/images/Eligibility-Checker.jpg",
+  },
 ];
+
 
 const benefits = [
   'Quick loan approval process',
@@ -47,14 +54,6 @@ const benefits = [
   'Hassle-free documentation'
 ];
 
-const partners = [
-  'HDFC Bank',
-  'ICICI Bank',
-  'Avanse',
-  'Incred',
-  'Auxilo',
-  'Prodigy Finance'
-];
 
 const testimonials = [
   {
@@ -78,13 +77,28 @@ const testimonials = [
 ];
 
 export default function Home() {
+ const [visibleCount, setVisibleCount] = useState(8); // show first 8 (4x2)
+
+  const visiblePartners: Partner[] = partners.slice(0, visibleCount);
+
+  const handleToggle = () => {
+    if (visibleCount >= partners.length) {
+      setVisibleCount(8); // reset to first 8
+    } else {
+      setVisibleCount((prev) => prev + 8); // load next 8
+    }
+  };
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative bg-gradient-hero text-white py-10 lg:py-24 overflow-hidden">
-        <div className="absolute inset-0 bg-black/20"></div>
+      <section className="relative bg-gradient-hero text-white py-28 lg:pt-28 overflow-hidden"
+      style={{ backgroundImage: "url('/assets/images/banner with map changed.jpg')",
+           backgroundSize: "cover",
+    backgroundPosition: "center",
+       }}>
+        <div className="absolute inset-0 bg-black/60"></div>
         <div className="relative w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -95,7 +109,7 @@ export default function Home() {
               <span className="block text-highlight">Studying Abroad</span>
             </h1>
             <p className="text-xl lg:text-2xl text-white/90 max-w-3xl mx-auto">
-              Get instant access to education loans, scholarships, and expert guidance 
+              Get instant access to education loans, scholarships, and expert guidance
               to make your international education dreams a reality.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -109,7 +123,7 @@ export default function Home() {
             </div>
           </motion.div>
 
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
@@ -119,12 +133,12 @@ export default function Home() {
           </motion.div>
         </div>
       </section>
-<AboutSection />
-            <Accreditation />
+      <AboutSection />
+      <Accreditation />
       {/* Tools Overview Section */}
-      <section className="py-16 lg:py-24 bg-surface">
+      <section className="py-10 lg:py-16 bg-surface">
         <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -146,31 +160,48 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
               >
-                <Card className="h-full hover:shadow-elegant transition-all duration-300 group cursor-pointer">
-                  <CardHeader className="text-center">
-                    <div className="mx-auto w-12 h-12 bg-gradient-primary rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                      <tool.icon className="h-6 w-6 text-white" />
-                    </div>
-                    <CardTitle className="text-xl">{tool.title}</CardTitle>
-                  </CardHeader>
-                  <CardContent className="text-center">
-                    <p className="text-muted-foreground mb-4">{tool.description}</p>
-                    <Button asChild variant="outline" className="group-hover:bg-primary group-hover:text-primary-foreground">
-                      <Link to={tool.path}>
-                        Try Now
-                        <ArrowRight className="ml-2 h-4 w-4" />
-                      </Link>
-                    </Button>
-                  </CardContent>
+                <Card className="h-full relative group cursor-pointer overflow-hidden rounded-2xl">
+                  {/* Background Image */}
+                  <div
+                    className="absolute inset-0 bg-cover bg-center"
+                    style={{ backgroundImage: `url(${tool.image})` }}
+                  />
+
+                  {/* Overlay */}
+                  <div className="absolute inset-0 bg-black/70 transition-all duration-300" />
+
+                  {/* Content */}
+                  <div className="relative z-10 flex flex-col h-full justify-between">
+                    <CardHeader className="text-center">
+                      <div className="mx-auto w-12 h-12 bg-gradient-primary rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                        <tool.icon className="h-6 w-6 text-white" />
+                      </div>
+                      <CardTitle className="text-xl text-white">{tool.title}</CardTitle>
+                    </CardHeader>
+                    <CardContent className="text-center">
+                      <p className="text-gray-200 mb-4">{tool.description}</p>
+                      <Button
+                        asChild
+                        variant="outline"
+                        className="group-hover:bg-primary group-hover:text-primary-foreground bg-white/90 backdrop-blur-sm"
+                      >
+                        <Link to={tool.path}>
+                          Try Now
+                          <ArrowRight className="ml-2 h-4 w-4" />
+                        </Link>
+                      </Button>
+                    </CardContent>
+                  </div>
                 </Card>
               </motion.div>
             ))}
           </div>
+
         </div>
       </section>
-            
+
       {/* Why Choose Us Section */}
-      <section className="py-16 lg:py-24">
+      <section className="py-10 lg:py-16">
         <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <motion.div
@@ -182,7 +213,7 @@ export default function Home() {
                 Why Choose EduLoan?
               </h2>
               <p className="text-lg text-muted-foreground mb-8">
-                We've helped thousands of students achieve their dreams of studying abroad 
+                We've helped thousands of students achieve their dreams of studying abroad
                 with our comprehensive loan and scholarship services.
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -204,71 +235,110 @@ export default function Home() {
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6 }}
-              className="relative"
+              className="relative rounded-2xl overflow-hidden"
             >
-              <div className="bg-gradient-secondary rounded-2xl p-8 text-white">
+              {/* Background Image */}
+              <div
+                className="absolute inset-0 bg-cover bg-center"
+                style={{ backgroundImage: "url('/assets/images/Choose-EduLoan.jpg')" }}
+              />
+
+              {/* Overlay */}
+              <div className="absolute inset-0 bg-black/60" />
+
+              {/* Content */}
+              <div className="relative z-10 p-8 text-white">
                 <div className="flex items-center mb-6">
-                  <Users className="h-8 w-8 mr-3" />
+                  <Users className="h-8 w-8 mr-3 text-red-600" />
                   <div>
-                    <h3 className="text-2xl font-bold">50,000+</h3>
+                    <h3 className="text-2xl font-bold">50,000 <span className='text-red-600'>+</span></h3>
                     <p className="text-white/90">Students Helped</p>
                   </div>
                 </div>
                 <div className="flex items-center mb-6">
-                  <Shield className="h-8 w-8 mr-3" />
+                  <Shield className="h-8 w-8 mr-3 text-red-600" />
                   <div>
-                    <h3 className="text-2xl font-bold">₹1000 Cr+</h3>
+                    <h3 className="text-2xl font-bold">₹1000 Cr <span className='text-red-600'>+</span></h3>
                     <p className="text-white/90">Loans Disbursed</p>
                   </div>
                 </div>
                 <div className="flex items-center">
-                  <GraduationCap className="h-8 w-8 mr-3" />
+                  <GraduationCap className="h-8 w-8 mr-3 text-red-600" />
                   <div>
-                    <h3 className="text-2xl font-bold">50+</h3>
+                    <h3 className="text-2xl font-bold">50 <span className='text-red-600'>+</span></h3>
                     <p className="text-white/90">Countries Covered</p>
                   </div>
                 </div>
               </div>
             </motion.div>
+
           </div>
         </div>
       </section>
 
       {/* Loan Partners Section */}
-      <section className="py-16 lg:py-24 bg-surface">
-        <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-12"
-          >
-            <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
-              Our Trusted Lending Partners
-            </h2>
-            <p className="text-lg text-muted-foreground">
-              We partner with leading financial institutions to offer you the best loan options
-            </p>
-          </motion.div>
+      <section className="py-10 lg:py-16 bg-surface">
+      <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-12"
+        >
+          <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
+            Our Trusted Lending Partners
+          </h2>
+          <p className="text-lg text-muted-foreground">
+            We partner with leading financial institutions to offer you the best
+            loan options
+          </p>
+        </motion.div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8">
-            {partners.map((partner, index) => (
-              <motion.div
-                key={partner}
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.4, delay: index * 0.1 }}
-                className="bg-card rounded-lg p-6 shadow-card hover:shadow-elegant transition-all duration-300 flex items-center justify-center"
-              >
-                <span className="font-semibold text-foreground text-center">{partner}</span>
-              </motion.div>
-            ))}
-          </div>
+        {/* Grid */}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+          {visiblePartners.map((partner, index) => (
+            <motion.div
+              key={partner.name}
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.4, delay: index * 0.05 }}
+              className="rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 bg-white flex flex-col"
+            >
+              <Link to={`/partners/${partner.slug}`}>
+                {/* Logo */}
+                <div className="flex-1 flex items-center justify-center p-4">
+                  <img
+                    src={partner.logo}
+                    alt={partner.name}
+                    className="max-h-12 object-cover"
+                  />
+                </div>
+
+                {/* Rate */}
+                <div
+                  className={`${partner.color} text-white py-2 text-sm font-medium text-center`}
+                >
+                  {partner.rate}
+                </div>
+              </Link>
+            </motion.div>
+          ))}
         </div>
-      </section>
 
+        {/* Toggle Button */}
+        <div className="mt-6 flex justify-end">
+          <button
+            onClick={handleToggle}
+            className="text-blue-600 font-medium hover:underline"
+          >
+            {visibleCount >= partners.length ? "View Less" : "View More..."}
+          </button>
+        </div>
+      </div>
+    </section>
+      <VideoSection/>
       {/* Testimonials Section */}
-      <section className="py-16 lg:py-24">
+      <section className="py-10 lg:py-16">
         <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -313,7 +383,7 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 lg:py-24 bg-gradient-primary text-white">
+      <section className="py-10 lg:py-16 bg-gradient-primary text-white">
         <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -333,7 +403,7 @@ export default function Home() {
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
-              <Button asChild size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary h-14 px-8">
+              <Button asChild size="lg"  className="bg-white text-primary hover:bg-white/90 h-14 px-8">
                 <Link to="/tools">Explore Tools</Link>
               </Button>
             </div>

@@ -42,7 +42,7 @@ export function SearchHero() {
         <div className="flex flex-col md:flex-row md:justify-around md:items-center gap-4 mb-6">
           <h2
             onClick={() => setActiveTab("scholarship")}
-            className={`text-xl font-semibold px-8 py-2 rounded-md cursor-pointer border-2 ${
+            className={`text-xl font-semibold px-24 py-2 rounded-md cursor-pointer border-2 ${
               activeTab === "scholarship"
                 ? "border-red-600 text-red-600"
                 : "border-transparent text-gray-600 hover:border-red-400"
@@ -52,7 +52,7 @@ export function SearchHero() {
           </h2>
           <h3
             onClick={() => setActiveTab("loan")}
-            className={`text-lg px-8 py-2 rounded-md cursor-pointer border-2 ${
+            className={`text-lg px-24 py-2 rounded-md cursor-pointer border-2 ${
               activeTab === "loan"
                 ? "border-red-600 text-red-600"
                 : "border-transparent text-gray-600 hover:border-red-400"
