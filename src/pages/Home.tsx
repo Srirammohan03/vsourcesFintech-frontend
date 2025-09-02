@@ -14,6 +14,8 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { SearchHero } from '@/components/ui/search-hero';
+import AboutSection from './AboutSection';
+import Accreditation from './AccreditationSection';
 
 const tools = [
   {
@@ -79,9 +81,9 @@ export default function Home() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative bg-gradient-hero text-white py-20 lg:py-32 overflow-hidden">
+      <section className="relative bg-gradient-hero text-white py-10 lg:py-24 overflow-hidden">
         <div className="absolute inset-0 bg-black/20"></div>
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="relative w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -98,10 +100,10 @@ export default function Home() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" className="bg-highlight text-highlight-foreground hover:bg-highlight/90 h-14 px-8">
-                <GraduationCap className="mr-2 h-5 w-5" />
+                <GraduationCap className="mr-2 h-10 w-10" />
                 Apply for Loan
               </Button>
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary h-14 px-8">
+              <Button size="lg" variant="outline" className="border-white text-red-600 hover:bg-white hover:text-primary h-14 px-8">
                 Find Scholarships
               </Button>
             </div>
@@ -111,16 +113,17 @@ export default function Home() {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="mt-16"
+            className="mt-10"
           >
             <SearchHero />
           </motion.div>
         </div>
       </section>
-
+<AboutSection />
+            <Accreditation />
       {/* Tools Overview Section */}
       <section className="py-16 lg:py-24 bg-surface">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -165,10 +168,10 @@ export default function Home() {
           </div>
         </div>
       </section>
-
+            
       {/* Why Choose Us Section */}
       <section className="py-16 lg:py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
@@ -233,7 +236,7 @@ export default function Home() {
 
       {/* Loan Partners Section */}
       <section className="py-16 lg:py-24 bg-surface">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -266,7 +269,7 @@ export default function Home() {
 
       {/* Testimonials Section */}
       <section className="py-16 lg:py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -311,7 +314,7 @@ export default function Home() {
 
       {/* CTA Section */}
       <section className="py-16 lg:py-24 bg-gradient-primary text-white">
-        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
+        <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
