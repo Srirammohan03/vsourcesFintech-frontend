@@ -116,7 +116,7 @@ export function Navbar() {
           <img
             alt="Vsource Logo"
             className="h-16 md:h-20 w-auto object-contain rounded-xl shadow-md"
-            src="/assets/images/red vs logo.PNG"
+            src="/assets/images/fintech-logo.png"
           />
           <div>
             <img

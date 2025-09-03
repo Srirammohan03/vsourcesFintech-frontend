@@ -139,7 +139,7 @@ export function Footer() {
             }}
             className="text-white hover:underline"
           >
-            Vsource Overseas
+            Vsource FinTech
           </a> All rights reserved.
         </p>
         <div className="flex justify-center md:justify-end space-x-6">

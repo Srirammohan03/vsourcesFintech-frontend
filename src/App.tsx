@@ -17,10 +17,12 @@ import ContactBar from "./components/ContactBar";
 import { Footer } from "./components/ui/footer";
 import GoVirtual from "./services/GoVirtual";
 import { Navbar } from "./components/ui/navbar";
-const isGoVirtualPage = location.pathname === "/meeting";
+import EducationLoan from "./pages/EducationLoan";
 const queryClient = new QueryClient();
 
-const App = () => (
+const App = () => {
+const isGoVirtualPage = location.pathname === "/meeting";
+return(
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <Toaster />
@@ -39,7 +41,7 @@ const App = () => (
                 <Route path="/contact" element={<Contact />} />
 
                 <Route path="/partners/:slug" element={<PartnerDetails />} />
-
+                <Route path="/education-loan" element={<EducationLoan />} /> 
                 <Route path="/meeting" element={<GoVirtual />} />
                 {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                 <Route path="*" element={<NotFound />} />
@@ -53,6 +55,6 @@ const App = () => (
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
-);
+)};
 
 export default App;

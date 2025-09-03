@@ -8,6 +8,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Link } from "react-router-dom";
 
 const courseLevels = ["Masters", "PG", "Doctorate", "Bachelor"];
 const scholarshipTypes = [
@@ -39,28 +40,31 @@ export function SearchHero() {
     <div className="w-full max-w-4xl mx-auto">
       <div className="bg-card rounded-xl shadow-card p-6 border">
         {/* Headings Row (Tabs) */}
+
         <div className="flex flex-col md:flex-row md:justify-around md:items-center gap-4 mb-6">
+          {/* Scholarship Tab (stays in current page) */}
           <h2
             onClick={() => setActiveTab("scholarship")}
-            className={`text-xl font-semibold px-24 py-2 rounded-md cursor-pointer border-2 ${
-              activeTab === "scholarship"
+            className={`text-xl font-semibold md:px-24 py-2 px-10 rounded-md cursor-pointer border-2 ${activeTab === "scholarship"
                 ? "border-red-600 text-red-600"
                 : "border-transparent text-gray-600 hover:border-red-400"
-            }`}
+              }`}
           >
             Search for Scholarship
           </h2>
-          <h3
-            onClick={() => setActiveTab("loan")}
-            className={`text-lg px-24 py-2 rounded-md cursor-pointer border-2 ${
-              activeTab === "loan"
+
+          {/* Education Loan Tab (navigates to route) */}
+          <Link
+            to="/education-loan"
+            className={`text-lg md:px-24 py-2 px-10 rounded-md cursor-pointer border-2 ${location.pathname === "/education-loan"
                 ? "border-red-600 text-red-600"
                 : "border-transparent text-gray-600 hover:border-red-400"
-            }`}
+              }`}
           >
             Get an Education Loan
-          </h3>
+          </Link>
         </div>
+
 
         {/* Dropdowns only for Scholarship tab */}
         {activeTab === "scholarship" && (
