@@ -18,43 +18,63 @@ import { Footer } from "./components/ui/footer";
 import GoVirtual from "./services/GoVirtual";
 import { Navbar } from "./components/ui/navbar";
 import EducationLoan from "./pages/EducationLoan";
+import ScrollToTop from "./ScrollToTop";
+import { useEffect, useState } from "react";
 const queryClient = new QueryClient();
-
+  
 const App = () => {
-const isGoVirtualPage = location.pathname === "/meeting";
-return(
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Layout>
-          <div className="flex flex-col min-h-screen">
-            {!isGoVirtualPage && <Navbar />}
-            <main>
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/tools" element={<Tools />} />
-                <Route path="/tools/loan-calculator" element={<LoanCalculator />} />
-                <Route path="/resources" element={<Resources />} />
-                <Route path="/country" element={<Country />} />
-                <Route path="/contact" element={<Contact />} />
+const [showForm, setShowForm] = useState(false);
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY + window.innerHeight;
+      const docHeight = document.documentElement.scrollHeight;
+      if (
+        scrollTop / docHeight >= 0.2 &&
+        !localStorage.getItem("vsource_form_submitted")
+      ) {
+        setShowForm(true);
+        window.removeEventListener("scroll", handleScroll);
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+  const isGoVirtualPage = location.pathname === "/meeting";
+  return (
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <Layout>
+            <ScrollToTop />
+            <div className="flex flex-col min-h-screen">
+              {!isGoVirtualPage && <Navbar />}
+              <main>
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/tools" element={<Tools />} />
+                  <Route path="/tools/loan-calculator" element={<LoanCalculator />} />
+                  <Route path="/resources" element={<Resources />} />
+                  <Route path="/country" element={<Country />} />
+                  <Route path="/contact" element={<Contact />} />
 
-                <Route path="/partners/:slug" element={<PartnerDetails />} />
-                <Route path="/education-loan" element={<EducationLoan />} /> 
-                <Route path="/meeting" element={<GoVirtual />} />
-                {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </main>
+                  <Route path="/partners/:slug" element={<PartnerDetails />} />
+                  <Route path="/education-loan" element={<EducationLoan />} />
+                  <Route path="/meeting" element={<GoVirtual />} />
+                  {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </main>
 
-            {!isGoVirtualPage && <ContactBar />}
-            {!isGoVirtualPage && <Footer />}
-          </div>
-        </Layout>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
-)};
+              {!isGoVirtualPage && <ContactBar />}
+              {!isGoVirtualPage && <Footer />}
+            </div>
+          </Layout>
+        </BrowserRouter>
+      </TooltipProvider>
+    </QueryClientProvider>
+  )
+};
 
 export default App;

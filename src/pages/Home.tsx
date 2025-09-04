@@ -43,7 +43,38 @@ const tools = [
     image: "/assets/images/Eligibility-Checker.jpg",
   },
 ];
-
+const steps = [
+  {
+    id: "01",
+    title: "Sign up on VSource in minutes — it’s fast, free, and secure.",
+    gradient: "/assets/images/loan-process-bg.png",
+    icon: "/assets/images/sign-up.gif",
+  },
+  {
+    id: "02",
+    title: "Compare real-time loan offers from 15+ top lenders with lowest rates.",
+    gradient: "/assets/images/loan-process-bg.png",
+    icon: "/assets/images/bank.gif",
+  },
+  {
+    id: "03",
+    title: "Shortlist the best lenders with expert guidance from our Fund Advisor.",
+    gradient: "/assets/images/loan-process-bg.png",
+    icon: "/assets/images/shortlist.gif",
+  },
+  {
+    id: "04",
+    title: "Upload your documents securely and complete your profile quickly.",
+    gradient: "/assets/images/loan-process-bg.png",
+    icon: "/assets/images/doc-up.gif",
+  },
+  {
+    id: "05",
+    title: "Get approved and receive your loan amount in as little as 48 hours.",
+    gradient: "/assets/images/loan-process-bg.png",
+    icon: "/assets/images/loan-app.gif",
+  },
+];
 
 const benefits = [
   'Quick loan approval process',
@@ -77,7 +108,7 @@ const testimonials = [
 ];
 
 export default function Home() {
- const [visibleCount, setVisibleCount] = useState(8); // show first 8 (4x2)
+  const [visibleCount, setVisibleCount] = useState(8); // show first 8 (4x2)
 
   const visiblePartners: Partner[] = partners.slice(0, visibleCount);
 
@@ -92,10 +123,11 @@ export default function Home() {
     <div className="min-h-screen">
       {/* Hero Section */}
       <section className="relative bg-gradient-hero text-white py-28 lg:pt-28 overflow-hidden"
-      style={{ backgroundImage: "url('/assets/images/banner with map changed.jpg')",
-           backgroundSize: "cover",
-    backgroundPosition: "center",
-       }}>
+        style={{
+          backgroundImage: "url('/assets/images/banner with map changed.jpg')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}>
         <div className="absolute inset-0 bg-black/60"></div>
         <div className="relative w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -135,6 +167,99 @@ export default function Home() {
       </section>
       <AboutSection />
       <Accreditation />
+
+
+    <section className="w-full py-16 bg-white">
+      <div className="max-w-[1400px] mx-auto px-4 text-center">
+        {/* Heading */}
+        <h2 className="text-2xl md:text-3xl font-semibold mb-12">
+          Your Loan <span className="text-red-600">Journey</span>
+        </h2>
+
+        {/* Desktop layout */}
+        <div className="hidden md:flex justify-between items-start relative">
+          {/* horizontal line THROUGH number circles */}
+          <div className="absolute top-[180px] left-0 w-full h-[5px] bg-gray-200 z-0"></div>
+
+          {steps.map((step, i) => (
+            <motion.div
+              key={step.id}
+              className="relative z-10 flex flex-col items-center text-center w-1/5 px-2"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: i * 0.1 }}
+            >
+              {/* Gradient + Icon stacked */}
+              <div className="relative w-28 h-28 mb-6">
+                <img
+                  src={step.gradient}
+                  alt="gradient"
+                  className="w-full h-full object-contain"
+                />
+                <img
+                  src={step.icon}
+                  alt={step.title}
+                  className="absolute inset-0 w-20 h-20 m-auto"
+                />
+              </div>
+
+              {/* Number Circle */}
+              <div className="mt-6 w-10 h-10 rounded-full border-2 border-red-600 flex items-center justify-center text-sm font-bold text-red-600 bg-white z-10">
+                {step.id}
+              </div>
+
+              {/* Text */}
+              <p className="mt-4 text-sm text-gray-800">{step.title}</p>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Mobile layout */}
+        <div className="md:hidden relative flex flex-col items-start">
+          {/* vertical line THROUGH number circles */}
+          <div className="absolute left-[135px] top-[0px] bottom-0 w-[5px] bg-gray-200"></div>
+
+          {steps.map((step, i) => (
+            <motion.div
+              key={step.id}
+              className="relative flex items-center mb-5 w-full"
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.4, delay: i * 0.1 }}
+            >
+              {/* Left: gradient + icon stacked */}
+              <div className="relative w-24 h-24 mr-6 z-10">
+                <img
+                  src={step.gradient}
+                  alt="gradient"
+                  className="w-full h-full object-contain"
+                />
+                <img
+                  src={step.icon}
+                  alt={step.title}
+                  className="absolute inset-0 w-16 h-16 m-auto"
+                />
+              </div>
+
+              {/* Middle: Number Circle */}
+              <div className="w-8 h-8 rounded-full border-2 border-red-600 flex items-center justify-center text-xs font-bold text-red-600 bg-white z-10 mr-4">
+                {step.id}
+              </div>
+
+              {/* Right: text */}
+              <p className="text-gray-800 text-sm flex-1">{step.title}</p>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* CTA Button */}
+        <div className="mt-10">
+          <button className="px-8 py-3 rounded-full bg-red-600 text-white font-semibold hover:opacity-90 transition">
+            Apply Now
+          </button>
+        </div>
+      </div>
+    </section>
       {/* Tools Overview Section */}
       <section className="py-10 lg:py-16 bg-surface">
         <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
@@ -278,65 +403,65 @@ export default function Home() {
 
       {/* Loan Partners Section */}
       <section className="py-10 lg:py-16 bg-surface">
-      <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-12"
-        >
-          <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
-            Our Trusted Lending Partners
-          </h2>
-          <p className="text-lg text-muted-foreground">
-            We partner with leading financial institutions to offer you the best
-            loan options
-          </p>
-        </motion.div>
-
-        {/* Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-          {visiblePartners.map((partner, index) => (
-            <motion.div
-              key={partner.name}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.4, delay: index * 0.05 }}
-              className="rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 bg-white flex flex-col"
-            >
-              <Link to={`/partners/${partner.slug}`}>
-                {/* Logo */}
-                <div className="flex-1 flex items-center justify-center p-4">
-                  <img
-                    src={partner.logo}
-                    alt={partner.name}
-                    className="max-h-12 object-cover"
-                  />
-                </div>
-
-                {/* Rate */}
-                <div
-                  className={`${partner.color} text-white py-2 text-sm font-medium text-center`}
-                >
-                  {partner.rate}
-                </div>
-              </Link>
-            </motion.div>
-          ))}
-        </div>
-
-        {/* Toggle Button */}
-        <div className="mt-6 flex justify-end">
-          <button
-            onClick={handleToggle}
-            className="text-blue-600 font-medium hover:underline"
+        <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-12"
           >
-            {visibleCount >= partners.length ? "View Less" : "View More..."}
-          </button>
+            <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
+              Our Trusted Lending Partners
+            </h2>
+            <p className="text-lg text-muted-foreground">
+              We partner with leading financial institutions to offer you the best
+              loan options
+            </p>
+          </motion.div>
+
+          {/* Grid */}
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+            {visiblePartners.map((partner, index) => (
+              <motion.div
+                key={partner.name}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.4, delay: index * 0.05 }}
+                className="rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 bg-white flex flex-col"
+              >
+                <Link to={`/partners/${partner.slug}`}>
+                  {/* Logo */}
+                  <div className="flex-1 flex items-center justify-center p-4">
+                    <img
+                      src={partner.logo}
+                      alt={partner.name}
+                      className="max-h-12 object-cover"
+                    />
+                  </div>
+
+                  {/* Rate */}
+                  <div
+                    className={`${partner.color} text-white py-2 text-sm font-medium text-center`}
+                  >
+                    {partner.rate}
+                  </div>
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Toggle Button */}
+          <div className="mt-6 flex justify-end">
+            <button
+              onClick={handleToggle}
+              className="text-blue-600 font-medium hover:underline"
+            >
+              {visibleCount >= partners.length ? "View Less" : "View More..."}
+            </button>
+          </div>
         </div>
-      </div>
-    </section>
-      <VideoSection/>
+      </section>
+      <VideoSection />
       {/* Testimonials Section */}
       <section className="py-10 lg:py-16">
         <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
@@ -403,7 +528,7 @@ export default function Home() {
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
-              <Button asChild size="lg"  className="bg-white text-primary hover:bg-white/90 h-14 px-8">
+              <Button asChild size="lg" className="bg-white text-primary hover:bg-white/90 h-14 px-8">
                 <Link to="/tools">Explore Tools</Link>
               </Button>
             </div>

@@ -147,7 +147,7 @@ export function Navbar() {
                     {/* Dropdown */}
                     <div
                       className={cn(
-                        "absolute left-0 top-full mt-1 min-w-[250px] rounded-lg border bg-white p-2 shadow-lg transition-all duration-200",
+                        "absolute left-0 top-full mt-1 min-w-[250px] rounded-lg border bg-white p-2 shadow-lg transition-all duration-200 z-50",
                         openDropdown === item.name ? "opacity-100 visible" : "opacity-0 invisible"
                       )}
                     >
@@ -181,7 +181,7 @@ export function Navbar() {
         </nav>
         {/* Progress Bar */}
         {scrollProgress > 0 && (
-          <div className="absolute bottom-0 left-0 w-full h-[3px] bg-gray-200">
+          <div className="absolute bottom-0 left-0 w-full h-[3px] bg-gray-200 z-30">
             <div
               className="h-[3px] bg-red-600 transition-all duration-75"
               style={{ width: `${scrollProgress}%` }}
