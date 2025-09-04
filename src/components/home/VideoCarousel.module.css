@@ -1,0 +1,357 @@
+/* Base layout */
+.wrapper {
+  background: #000c1f;
+  color: #fff;
+  text-align: center;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.title {
+  font-size: 30px;
+  color: #e40000;
+  margin-bottom: 20px;
+}
+
+.carouselContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 90vw;
+  margin: 0 auto;
+}
+
+.carousel {
+  display: flex;
+  gap: 15px;
+  overflow-x: scroll;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  scroll-behavior: smooth;
+  width: 100%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  box-sizing: border-box;
+}
+
+.carousel::-webkit-scrollbar {
+  display: none;
+}
+
+/* Card + overlay dim only over video area */
+.videoCard {
+  /* reserve space below video for labels */
+  --meta-h: 90px;
+
+  flex: 0 0 auto;
+  aspect-ratio: 9 / 16;
+  position: relative;
+  opacity: 0.8;
+  transform: scale(0.8);
+  border-radius: 10px;
+  overflow: hidden;
+  border: 3px solid transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  scroll-snap-align: center;
+  cursor: pointer;
+
+  animation: activeantiBounceEffect 0.35s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  will-change: transform, opacity;
+}
+
+.videoCard::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: calc(100% - var(--meta-h));
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.activeCard {
+  opacity: 1;
+  z-index: 2;
+  animation: activeBounceEffect 0.45s cubic-bezier(0.2, 0.8, 0.5, 1) forwards;
+}
+
+.activeCard::after {
+  opacity: 0;
+}
+
+.videoArea {
+  position: relative;
+  width: 100%;
+  height: calc(100% - var(--meta-h));
+}
+
+.video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border: none;
+  border-radius: 7px;
+}
+
+.activeCard .video {
+  border: 5px solid blue;
+  box-sizing: border-box;
+  transition: border-color 0.1s ease-out;
+}
+
+.playButton {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.playButton svg {
+  width: 70px;
+  height: 70px;
+  transition: transform 0.2s ease;
+}
+
+.playButton svg circle {
+  fill: rgba(0, 0, 0, 0.6);
+}
+
+.playButton svg polygon {
+  fill: #fff;
+}
+
+.playButton:hover svg {
+  transform: scale(1.08);
+}
+
+/* Labels shown only when active */
+.nameTag {
+  position: relative;
+  margin-top: 20px;
+  background: red;
+  padding: 8px 20px;
+  color: #fff;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 16px;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.3s ease-out 0.1s, transform 0.3s ease-out 0.1s;
+  white-space: nowrap;
+  pointer-events: none;
+  text-align: center;
+}
+
+.descriptionTag {
+  position: relative;
+  margin-top: 8px;
+  background: none;
+  color: #bbb;
+  font-size: 14px;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.3s ease-out 0.15s, transform 0.3s ease-out 0.15s;
+  width: 90%;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.activeCard .nameTag,
+.activeCard .descriptionTag {
+  opacity: 1;
+  transform: translateY(1);
+  pointer-events: auto;
+}
+
+.videoCardText {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  display: flex;
+  align-items: center;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: bold;
+  z-index: 3;
+}
+
+.studentTestimonials {
+  margin-right: 5px;
+  color: #ff0000;
+}
+
+.testimonialText {
+  color: #fff;
+}
+
+.arrowButtonLeft,
+.arrowButtonRight {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: red;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 20px;
+  color: #fff;
+  cursor: pointer;
+  z-index: 10;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.3s ease;
+}
+
+.arrowButtonLeft {
+  left: -15px;
+}
+
+.arrowButtonRight {
+  right: -15px;
+}
+
+.arrowButtonLeft:disabled,
+.arrowButtonRight:disabled {
+  background-color: #555;
+  cursor: not-allowed;
+}
+
+/* ---- WAVE / BOUNCE ANIMATIONS ---- */
+/* In: small -> overshoot -> rebound -> overshoot -> settle */
+@keyframes activeBounceEffect {
+  0% {
+    opacity: 0.8;
+    transform: scale(0.8) translateY(0);
+  }
+  50% {
+    transform: scale(1, 1.05) translateY(14px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1, 1) translateY(0);
+  }
+}
+
+/* Out: wave-like smooth exit */
+@keyframes activeantiBounceEffect {
+  0% {
+    opacity: 1;
+    transform: scale(1, 1) translateY(0);
+  }
+
+  50% {
+    transform: scale(1, 1.06) translateY(-6px);
+  }
+
+  100% {
+    opacity: 0.8;
+    transform: scale(0.8) translateY(0);
+  }
+}
+
+/* Responsive tweaks */
+@media (max-width: 1024px) {
+  .title {
+    font-size: 28px;
+  }
+
+  .carousel {
+    gap: 10px;
+  }
+
+  .videoCard {
+    --meta-h: 80px;
+  }
+}
+
+@media (max-width: 768px) {
+  .wrapper {
+    padding: 20px 10px;
+    background-color: transparent;
+    background-image: url("public/assets/backgrounds/mobile-bg/video-section.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    min-height: 65dvh;
+  }
+
+  .title {
+    font-size: 24px;
+  }
+
+  .carousel {
+    gap: 8px;
+  }
+
+  .videoCard {
+    --meta-h: 70px;
+  }
+
+  .arrowButtonLeft,
+  .arrowButtonRight {
+    width: 35px;
+    height: 35px;
+    font-size: 18px;
+  }
+
+  .videoCardText {
+    font-size: 12px;
+    padding: 3px 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  .wrapper {
+    padding: 15px 5px;
+    height: auto;
+  }
+
+  .title {
+    font-size: 30px;
+  }
+
+  .carousel {
+    gap: 5px;
+  }
+
+  .nameTag {
+    font-size: 20px;
+    padding: 5px 10px;
+  }
+
+  .videoCardText {
+    font-size: 10px;
+    padding: 2px 4px;
+  }
+}

@@ -502,7 +502,7 @@ const EducationLoan: React.FC = () => {
 
             </section>
             {/* Eligibility */}
-            <section className="py-20">
+            <section className="py-10">
                 <div className="w-full max-w-[1400px] mx-auto px-6">
                     <h2 className="text-3xl font-bold mb-6 text-center text-gray-800">
                         Eligibility for an Education Loan
@@ -605,7 +605,7 @@ const EducationLoan: React.FC = () => {
             </section>
             {/* Documents Required */}
             <section className="py-10 bg-gray-50">
-                <div className="bg-gray-50 flex flex-col items-center min-h-screen">
+                <div className="bg-gray-50 flex flex-col items-center">
                     <div className="w-full max-w-[1400px] mx-auto px-6 bg-white">
                         <h2 className="text-3xl font-bold text-center text-gray-800 mb-2">
                             Documents Required for an Education Loan
@@ -613,97 +613,148 @@ const EducationLoan: React.FC = () => {
                         <p className="text-center text-gray-600 mb-8 max-w-2xl mx-auto">
                             To ensure a smooth loan application process, please prepare the following documents. The list is categorized for both the student and the co-applicant.
                         </p>
-                            </div>
-                    
-                        {/* Desktop Table View */}
-                        <div className="hidden md:block overflow-x-auto">
-                            <table className="w-full text-left rounded-xl overflow-hidden shadow-lg border-separate border-spacing-0">
-                                <thead className="bg-red-600 text-white text-md">
-                                    <tr className="[&>th]:p-4 [&>th]:border-r [&>th]:border-white/20 [&>th:last-child]:border-r-0">
-                                        <th className="rounded-tl-xl">Document Type</th>
-                                        <th>Applicant (Student)</th>
-                                        <th className="rounded-tr-xl">Co-Applicant</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {documentData.map((row, i) => (
-                                        <tr
-                                            key={i}
-                                            className={`border-t border-gray-200 transition-colors duration-200 
-                  ${i % 2 === 0 ? "bg-white" : "bg-red-50"} hover:bg-red-100`}
-                                        >
-                                            <td className="p-4 font-semibold text-gray-800 flex items-center gap-2 border-r border-gray-200">
-                                                {row.icon}
-                                                <span>{row.type}</span>
-                                            </td>
-                                            <td className="p-4 border-r border-gray-200">
-                                                <p className="text-gray-700">{row.applicant}</p>
-                                                <p className="text-xs text-gray-500 mt-1">{row.note}</p>
-                                            </td>
-                                            <td className="p-4">
-                                                <p className="text-gray-700">{row.coApplicant}</p>
-                                                <p className="text-xs text-gray-500 mt-1">{row.note}</p>
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </div>
+                    </div>
 
-                        {/* Mobile Cards View */}
-                        <div className="md:hidden space-y-5 p-4">
-                            {documentData.map((row, i) => (
-                                <div
-                                    key={i}
-                                    className={`border border-red-200 rounded-xl p-5 shadow-md transition-shadow duration-300 hover:shadow-lg ${i % 2 === 0 ? "bg-red-50" : "bg-red-100"
-                                        }`}
-                                >
-                                    <div className="flex items-center gap-2 mb-3">
-                                        {row.icon}
-                                        <h3 className="font-bold text-lg text-red-700">{row.type}</h3>
-                                    </div>
-                                    <div className="space-y-4 text-sm text-gray-700">
-                                        <div className="p-3 bg-white rounded-lg shadow-inner">
-                                            <p className="font-semibold text-gray-900 mb-1">Applicant (Student)</p>
+                    {/* Desktop Table View */}
+                    <div className="hidden md:block overflow-x-auto">
+                        <table className="w-full text-left rounded-xl overflow-hidden shadow-lg border-separate border-spacing-0 border border-gray-300">
+                            <thead className="bg-red-600 text-white text-md">
+                                <tr className="[&>th]:p-4 [&>th]:border-r [&>th]:border-white/20 [&>th:last-child]:border-r-0">
+                                    <th className="rounded-tl-xl border-b border-white/20">Document Type</th>
+                                    <th className="border-b border-white/20">Applicant (Student)</th>
+                                    <th className="rounded-tr-xl border-b border-white/20">Co-Applicant</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {documentData.map((row, i) => (
+                                    <tr
+                                        key={i}
+                                        className={`border-t border-gray-200 transition-colors duration-200
+                      ${i % 2 === 0 ? "bg-white" : "bg-red-50"} hover:bg-red-100`}
+                                    >
+                                        <td className="p-4 font-semibold text-gray-800 flex items-center gap-2 border-r border-gray-200">
+                                            {row.icon}
+                                            <span>{row.type}</span>
+                                        </td>
+                                        <td className="p-4 border-r border-gray-200">
                                             <p className="text-gray-700">{row.applicant}</p>
                                             <p className="text-xs text-gray-500 mt-1">{row.note}</p>
-                                        </div>
-                                        <div className="p-3 bg-white rounded-lg shadow-inner">
-                                            <p className="font-semibold text-gray-900 mb-1">Co-Applicant</p>
+                                        </td>
+                                        <td className="p-4">
                                             <p className="text-gray-700">{row.coApplicant}</p>
                                             <p className="text-xs text-gray-500 mt-1">{row.note}</p>
-                                        </div>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                    {/* Mobile Cards View */}
+                    <div className="md:hidden space-y-5 p-4">
+                        {documentData.map((row, i) => (
+                            <div
+                                key={i}
+                                className={`border border-red-200 rounded-xl p-5 shadow-md transition-shadow duration-300 hover:shadow-lg ${i % 2 === 0 ? "bg-red-50" : "bg-red-100"
+                                    }`}
+                            >
+                                <div className="flex items-center gap-2 mb-3">
+                                    {row.icon}
+                                    <h3 className="font-bold text-lg text-red-700">{row.type}</h3>
+                                </div>
+                                <div className="space-y-4 text-sm text-gray-700">
+                                    <div className="p-3 bg-white rounded-lg shadow-inner">
+                                        <p className="font-semibold text-gray-900 mb-1">Applicant (Student)</p>
+                                        <p className="text-gray-700">{row.applicant}</p>
+                                        <p className="text-xs text-gray-500 mt-1">{row.note}</p>
+                                    </div>
+                                    <div className="p-3 bg-white rounded-lg shadow-inner">
+                                        <p className="font-semibold text-gray-900 mb-1">Co-Applicant</p>
+                                        <p className="text-gray-700">{row.coApplicant}</p>
+                                        <p className="text-xs text-gray-500 mt-1">{row.note}</p>
                                     </div>
                                 </div>
-                            ))}
-                        </div>
+                            </div>
+                        ))}
                     </div>
-            </section>
-
-
-            {/* Repayment Process */}
-            <section className="py-20">
-                <div className="w-full max-w-[1400px] mx-auto px-6">
-                    <h2 className="text-3xl font-bold mb-8 text-center">
-                        Repayment Process for Education Loan
-                    </h2>
-                    <ol className="list-decimal list-inside space-y-4 text-gray-800">
-                        <li>
-                            <strong>Understanding the Moratorium Period:</strong> Repayment begins 6–12
-                            months after course completion.
-                        </li>
-                        <li>
-                            <strong>Loan Repayment Start:</strong> EMI begins after moratorium.
-                        </li>
-                        <li>
-                            <strong>Payment Methods:</strong> ECS, net banking, auto-debit.
-                        </li>
-                        <li>
-                            <strong>Prepayment Options:</strong> Allowed with minimal charges.
-                        </li>
-                    </ol>
                 </div>
             </section>
+
+
+            <section className="py-10 bg-gray-50">
+                <div className="w-full max-w-[1400px] mx-auto px-6">
+                    {/* Heading */}
+                    <h2 className="text-3xl font-bold mb-16 text-center">
+                        Repayment Process for Education Loan
+                    </h2>
+
+                    {/* Stepper Arrows */}
+                    <div className="flex flex-col md:flex-row md:justify-between gap-8">
+                        {[{
+                            icon: "/assets/images/Search.gif",
+                            title: "Understanding the Moratorium Period",
+                            short: "Repayment begins 6–12 months after course completion.",
+                            more: "During this period, you don’t need to pay EMIs. Interest may accrue depending on lender terms."
+                        },
+                        {
+                            icon: "/assets/images/Repayment-Start.gif",
+                            title: "Loan Repayment Start",
+                            short: "EMI begins after moratorium.",
+                            more: "Your repayment schedule is fixed by the bank. The EMI amount depends on tenure and interest rate."
+                        },
+                        {
+                            icon: "/assets/images/Payment-Methods.gif",
+                            title: "Payment Methods",
+                            short: "ECS, net banking, auto-debit.",
+                            more: "ECS mandates and online auto-debit facilities ensure you never miss a payment."
+                        },
+                        {
+                            icon: "/assets/images/Prepayment-Options.gif",
+                            title: "Prepayment Options",
+                            short: "Allowed with minimal charges.",
+                            more: "Prepayment can reduce your overall interest outgo, making your loan cheaper."
+                        }
+                        ].map((step, i) => (
+                            <div
+                                key={i}
+                                className="relative group flex-1 bg-gradient-to-r from-gray-100 to-gray-200 text-gray-800 p-6 rounded-2xl shadow-lg transition-all duration-300 hover:from-red-500 hover:to-red-600 hover:text-white"
+                            >
+                                {/* Arrow Effect (Desktop only) */}
+                                {i !== 3 && (
+                                    <div className="hidden md:block absolute top-1/2 right-[-25px] -translate-y-1/2 
+                            w-0 h-0 border-t-[25px] border-b-[25px] border-l-[25px] border-transparent 
+                            border-l-gray-200 group-hover:border-l-red-600 transition-all duration-300"></div>
+                                )}
+
+                                {/* Icon */}
+                                <div className="flex justify-center m-2  md:mt-[-30%] mt-0">
+                                    <img
+                                        src={step.icon}
+                                        alt={step.title}
+                                        className="w-28 h-28 object-cover transform transition duration-1000 ease-in-out group-hover:rotate-[720deg] border-2 md:bg-white md:border-white rounded-full"
+                                    />
+                                </div>
+                                <h3 className="font-semibold text-lg text-center mb-2">{step.title}</h3>
+
+                                {/* Short Info */}
+                                <p className="text-sm text-center">{step.short}</p>
+
+                                {/* Extra Info (Desktop hover / Mobile always visible) */}
+                                <div className="mt-4 text-sm text-center md:absolute md:left-0 md:top-full md:mt-2 
+                          md:w-full md:bg-white md:text-gray-800 md:shadow-lg md:rounded-lg 
+                          md:p-4 md:opacity-0 md:group-hover:opacity-100 
+                          md:transition-opacity md:duration-300 md:z-10">
+                                    <p>{step.more}</p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+
+
 
             <section className="py-20 bg-gray-50">
                 <div className="w-full max-w-[1000px] mx-auto px-6">

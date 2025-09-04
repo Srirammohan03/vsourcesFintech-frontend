@@ -18,7 +18,7 @@ import AboutSection from './AboutSection';
 import Accreditation from './AccreditationSection';
 import { Partner, partners } from '@/lib/partners';
 import VideoSection from '@/components/VideoSection';
-
+import VideoCarousel from '@/components/home/VideoCarousel';
 
 const tools = [
   {
@@ -462,6 +462,7 @@ export default function Home() {
         </div>
       </section>
       <VideoSection />
+      <VideoCarousel />
       {/* Testimonials Section */}
       <section className="py-10 lg:py-16">
         <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
