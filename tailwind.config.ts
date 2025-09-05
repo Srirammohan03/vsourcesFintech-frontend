@@ -106,7 +106,11 @@ export default {
 				'scale-in': {
 					'0%': { opacity: '0', transform: 'scale(0.95)' },
 					'100%': { opacity: '1', transform: 'scale(1)' }
-				}
+				},
+				scalePulse: {
+					'0%, 100%': { transform: 'scale(1)' },
+					'50%': { transform: 'scale(1.15)' },
+				},
 			},
 			backgroundImage: {
 				'gradient-primary': 'var(--gradient-primary)',
