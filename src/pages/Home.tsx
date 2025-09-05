@@ -19,6 +19,8 @@ import Accreditation from './AccreditationSection';
 import { Partner, partners } from '@/lib/partners';
 import VideoSection from '@/components/VideoSection';
 import VideoCarousel from '@/components/home/VideoCarousel';
+import Banksloans from './Banksloans';
+import TestimonialsSection from '@/components/home/TestimonialsSection';
 
 const tools = [
   {
@@ -402,111 +404,12 @@ export default function Home() {
       </section>
 
       {/* Loan Partners Section */}
-      <section className="py-10 lg:py-16 bg-surface">
-        <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-12"
-          >
-            <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
-              Our Trusted Lending Partners
-            </h2>
-            <p className="text-lg text-muted-foreground">
-              We partner with leading financial institutions to offer you the best
-              loan options
-            </p>
-          </motion.div>
-
-          {/* Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-            {visiblePartners.map((partner, index) => (
-              <motion.div
-                key={partner.name}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.4, delay: index * 0.05 }}
-                className="rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 bg-white flex flex-col"
-              >
-                <Link to={`/partners/${partner.slug}`}>
-                  {/* Logo */}
-                  <div className="flex-1 flex items-center justify-center p-4">
-                    <img
-                      src={partner.logo}
-                      alt={partner.name}
-                      className="max-h-12 object-cover"
-                    />
-                  </div>
-
-                  {/* Rate */}
-                  <div
-                    className={`${partner.color} text-white py-2 text-sm font-medium text-center`}
-                  >
-                    {partner.rate}
-                  </div>
-                </Link>
-              </motion.div>
-            ))}
-          </div>
-
-          {/* Toggle Button */}
-          <div className="mt-6 flex justify-end">
-            <button
-              onClick={handleToggle}
-              className="text-blue-600 font-medium hover:underline"
-            >
-              {visibleCount >= partners.length ? "View Less" : "View More..."}
-            </button>
-          </div>
-        </div>
-      </section>
+    
+      <Banksloans />
       <VideoSection />
       <VideoCarousel />
-      {/* Testimonials Section */}
-      <section className="py-10 lg:py-16">
-        <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-12"
-          >
-            <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
-              What Our Students Say
-            </h2>
-            <p className="text-lg text-muted-foreground">
-              Read success stories from students who achieved their dreams with our help
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {testimonials.map((testimonial, index) => (
-              <motion.div
-                key={testimonial.name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-              >
-                <Card className="h-full">
-                  <CardContent className="p-6">
-                    <div className="flex mb-4">
-                      {[...Array(testimonial.rating)].map((_, i) => (
-                        <Star key={i} className="h-5 w-5 text-highlight fill-current" />
-                      ))}
-                    </div>
-                    <p className="text-muted-foreground mb-4">"{testimonial.text}"</p>
-                    <div>
-                      <h4 className="font-semibold text-foreground">{testimonial.name}</h4>
-                      <p className="text-sm text-muted-foreground">{testimonial.course}</p>
-                    </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+    
+      <TestimonialsSection/>
 
       {/* CTA Section */}
       <section className="py-10 lg:py-16 bg-gradient-primary text-white">

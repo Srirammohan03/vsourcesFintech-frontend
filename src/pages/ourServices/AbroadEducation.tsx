@@ -4,13 +4,15 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { ChevronRight } from "lucide-react";
 import {
-  Activity,        // Multiple Lenders
-  Layers,          // Tailored Loan Options
-  Download,        // Expert Guidance
-  HelpCircle,      // Simplified Process
-  CreditCard,      // Competitive Rates
-  LifeBuoy,        // Post-Loan Support
+    Activity,        // Multiple Lenders
+    Layers,          // Tailored Loan Options
+    Download,        // Expert Guidance
+    HelpCircle,      // Simplified Process
+    CreditCard,      // Competitive Rates
+    LifeBuoy,        // Post-Loan Support
 } from "lucide-react";
+import AbroadForm from "./AbroadForm";
+import Banksloans from "../Banksloans";
 const features = [
     {
         title: "Multiple Lenders",
@@ -329,7 +331,7 @@ const AbroadEducation: React.FC = () => {
                     </div>
                 </div>
             </section>
-             {/* Eligibility */}
+            {/* Eligibility */}
             <section className="py-10">
                 <div className="w-full max-w-[1400px] mx-auto px-6">
                     <h2 className="text-3xl font-bold mb-6 text-center text-gray-800">
@@ -431,6 +433,8 @@ const AbroadEducation: React.FC = () => {
                     </div>
                 </div>
             </section>
+            {/* Loan Partners Section */}
+            <Banksloans />
             {/* Loan Schemes */}
             <section className="py-10 bg-gray-50">
                 <div className="w-full max-w-[1400px] mx-auto px-6">
@@ -510,50 +514,7 @@ const AbroadEducation: React.FC = () => {
                     </div>
                 </div>
             </section>
-
-            {/* Key Features */}
-            <section className="py-10 bg-white">
-                <div className="w-full max-w-[1400px] mx-auto px-6">
-                    <h2 className="text-2xl font-bold mb-12">Key Features</h2>
-                    <div className="grid md:grid-cols-4 gap-8">
-                        {[
-                            {
-                                icon: "/assets/icons/flexible.png",
-                                title: "Flexible Repayment Plans",
-                                text: "Choose repayment terms that fit your budget and future earnings.",
-                            },
-                            {
-                                icon: "/assets/icons/rates.png",
-                                title: "Competitive Interest Rates",
-                                text: "Get affordable loan options with low interest rates.",
-                            },
-                            {
-                                icon: "/assets/icons/moratorium.png",
-                                title: "Moratorium Period",
-                                text: "Repayment begins after course completion.",
-                            },
-                            {
-                                icon: "/assets/icons/secured.png",
-                                title: "Secured Loans",
-                                text: "Higher loan amounts available with collateral security.",
-                            },
-                        ].map((f, i) => (
-                            <div
-                                key={i}
-                                className="p-6 rounded-xl shadow hover:shadow-lg transition"
-                            >
-                                <img
-                                    src={f.icon}
-                                    alt={f.title}
-                                    className="w-14 h-14 mx-auto mb-4"
-                                />
-                                <h3 className="font-bold text-lg mb-2">{f.title}</h3>
-                                <p className="text-sm text-gray-600">{f.text}</p>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </section>
+            <AbroadForm />
             <style>
                 {`
   @keyframes pulse-scale {
