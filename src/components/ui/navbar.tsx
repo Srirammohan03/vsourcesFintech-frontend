@@ -158,7 +158,7 @@ export function Navbar() {
                             key={d.name}
                             to={d.path}
                             className={cn(
-                              "block rounded-md px-3 py-2 text-sm transition-colors",
+                              "block rounded-md px-3 py-2 text-sm ",
                               childActive
                                 ? "text-red-600"
                                 : "text-black hover:bg-gray-100 hover:text-red-600"
@@ -231,7 +231,7 @@ export function Navbar() {
                               key={d.name}
                               to={d.path}
                               className={cn(
-                                "block py-2 text-sm transition-colors",
+                                "block py-2 text-sm ",
                                 isPathActive(d.path)
                                   ? "text-red-600"
                                   : "text-gray-700 hover:text-red-600"
@@ -248,7 +248,7 @@ export function Navbar() {
                     <Link
                       to={item.path}
                       className={cn(
-                        "block py-2 transition-colors",
+                        "block py-2 ",
                         active ? "text-red-600" : "text-black hover:text-red-600"
                       )}
                       onClick={closeMenu}

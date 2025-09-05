@@ -1,14 +1,19 @@
 import React, { useRef, useState, useEffect } from "react";
-import styles from "./VideoCarousel.module.css"; // CSS module
+import styles from "./VideoCarousel.module.css";
 
-const videos = [
+type VideoItem = {
+  name: string;
+  video: string;
+};
+
+const videos: VideoItem[] = [
   { name: "SAMSRUTHI", video: "/assets/images/video/student4.mp4" },
   { name: "AMITH REDDY", video: "/assets/images/video/student8.mp4" },
   { name: "BEDRE VISHWAS", video: "/assets/images/video/student7.mp4" },
   { name: "DEEKSHITHA", video: "/assets/images/video/student1.mp4" },
   { name: "SHAIK MUNEER AHMED", video: "/assets/images/video/student6.mp4" },
   { name: "KHASHIKA", video: "/assets/images/video/student2.mp4" },
-  { name: "SATHVIKA", video: "/assets/images/video/student5.mp4" }, 
+  { name: "SATHVIKA", video: "/assets/images/video/student5.mp4" },
   { name: "LOVLISH REDDY", video: "/assets/images/video/student3.mp4" },
 ];
 
@@ -19,12 +24,12 @@ const displayedVideos = [
   ...videos.slice(0, OFFSET),
 ];
 
-const VideoCarousel = () => {
+const VideoCarousel: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(OFFSET);
-  const [playingIndex, setPlayingIndex] = useState(null); // which displayed index is playing
-  const carouselRef = useRef(null);
-  const sectionRef = useRef(null);
-  const videoRefs = useRef([]); // refs to <video> in displayedVideos order
+  const [playingIndex, setPlayingIndex] = useState<number | null>(null);
+  const carouselRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
   const [cardCalculatedWidth, setCardCalculatedWidth] = useState(300);
   const gapSize = 10;
 
@@ -32,7 +37,7 @@ const VideoCarousel = () => {
     const container = carouselRef.current;
     if (!container || container.children.length === 0) return;
 
-    let newCardWidth;
+    let newCardWidth: number;
     if (window.innerWidth >= 1024) {
       newCardWidth = (container.offsetWidth - 2 * gapSize) / 3;
       newCardWidth = Math.min(300, newCardWidth);
@@ -50,11 +55,11 @@ const VideoCarousel = () => {
     container.style.paddingRight = padding;
   };
 
-  const scrollToIndex = (index, behavior = "smooth") => {
+  const scrollToIndex = (index: number, behavior: ScrollBehavior = "smooth") => {
     const container = carouselRef.current;
     if (!container) return;
 
-    const videoCards = Array.from(container.children);
+    const videoCards = Array.from(container.children) as HTMLElement[];
     const targetElement = videoCards[index];
 
     if (targetElement) {
@@ -62,9 +67,7 @@ const VideoCarousel = () => {
       const elementOffsetLeft = targetElement.offsetLeft;
       const elementWidth = targetElement.offsetWidth;
 
-      const scrollLeft =
-        elementOffsetLeft - containerWidth / 2 + elementWidth / 2;
-
+      const scrollLeft = elementOffsetLeft - containerWidth / 2 + elementWidth / 2;
       container.scrollTo({ left: scrollLeft, behavior });
     }
 
@@ -81,7 +84,6 @@ const VideoCarousel = () => {
     if (nextIndex < videos.length + OFFSET) scrollToIndex(nextIndex);
   };
 
-  // Pause & reset non-active videos when active card changes
   useEffect(() => {
     videoRefs.current.forEach((video, index) => {
       if (!video) return;
@@ -90,10 +92,9 @@ const VideoCarousel = () => {
         video.currentTime = 0;
       }
     });
-    setPlayingIndex(null); // hide controls when active changes
+    setPlayingIndex(null);
   }, [currentIndex]);
 
-  // Initial layout / center on initial active
   useEffect(() => {
     if (!carouselRef.current) return;
     const timer = setTimeout(() => {
@@ -103,19 +104,19 @@ const VideoCarousel = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  // Scroll listener to compute active (closest to center) + infinite looping
   useEffect(() => {
     const container = carouselRef.current;
     if (!container) return;
 
     const handleScroll = () => {
       const containerCenter = container.scrollLeft + container.offsetWidth / 2;
+      const videoCards = Array.from(container.children) as HTMLElement[];
+
       let newActiveIndex = currentIndex;
       let minDistance = Infinity;
 
-      Array.from(container.children).forEach((child, index) => {
-        const el = child;
-        const childCenter = el.offsetLeft + el.offsetWidth / 2;
+      videoCards.forEach((child, index) => {
+        const childCenter = child.offsetLeft + child.offsetWidth / 2;
         const distance = Math.abs(containerCenter - childCenter);
         if (distance < minDistance) {
           minDistance = distance;
@@ -125,34 +126,37 @@ const VideoCarousel = () => {
 
       if (newActiveIndex !== currentIndex) setCurrentIndex(newActiveIndex);
 
-      // Infinite loop logic
-      const videoCards = Array.from(container.children);
+      // Infinite scroll logic
       if (newActiveIndex >= videos.length + OFFSET) {
+        const newIndex = newActiveIndex - videos.length;
+        const replacementCard = videoCards[newIndex];
         container.scrollTo({
           left:
-            videoCards[newActiveIndex - videos.length].offsetLeft -
+            replacementCard.offsetLeft -
             container.offsetWidth / 2 +
-            videoCards[newActiveIndex - videos.length].offsetWidth / 2,
+            replacementCard.offsetWidth / 2,
           behavior: "auto",
         });
-        setCurrentIndex(newActiveIndex - videos.length);
+        setCurrentIndex(newIndex);
       } else if (
         newActiveIndex < OFFSET &&
         newActiveIndex >= 0 &&
         container.scrollLeft < 10
       ) {
+        const newIndex = videos.length + newActiveIndex;
+        const replacementCard = videoCards[newIndex];
         container.scrollTo({
           left:
-            videoCards[videos.length + newActiveIndex].offsetLeft -
+            replacementCard.offsetLeft -
             container.offsetWidth / 2 +
-            videoCards[videos.length + newActiveIndex].offsetWidth / 2,
+            replacementCard.offsetWidth / 2,
           behavior: "auto",
         });
-        setCurrentIndex(videos.length + newActiveIndex);
+        setCurrentIndex(newIndex);
       }
     };
 
-    let scrollTimeout;
+    let scrollTimeout: NodeJS.Timeout;
     const debounced = () => {
       clearTimeout(scrollTimeout);
       scrollTimeout = setTimeout(handleScroll, 100);
@@ -168,14 +172,12 @@ const VideoCarousel = () => {
     };
   }, [currentIndex]);
 
-  const handlePlayClick = (index) => {
+  const handlePlayClick = (index: number) => {
     const v = videoRefs.current[index];
     if (!v) return;
 
-    // If someone clicks play on a duplicated edge item, make sure it is active
     if (index !== currentIndex) {
       scrollToIndex(index);
-      // Allow the scroll to settle, then play
       setTimeout(() => {
         const vNow = videoRefs.current[index];
         if (vNow) {
@@ -190,7 +192,7 @@ const VideoCarousel = () => {
     setPlayingIndex(index);
   };
 
-  const onVideoPause = (index) => {
+  const onVideoPause = (index: number) => {
     if (playingIndex === index) setPlayingIndex(null);
   };
 
@@ -223,9 +225,8 @@ const VideoCarousel = () => {
               <div
                 key={`${vid.name}-${index}`}
                 className={`${styles.videoCard} ${isActive ? styles.activeCard : ""}`}
-                style={{ width: cardCalculatedWidth + "px" }}
+                style={{ width: `${cardCalculatedWidth}px` }}
               >
-                {/* Keep overlays centered relative to the VIDEO area */}
                 <div className={styles.videoArea}>
                   <video
                     ref={(el) => (videoRefs.current[index] = el)}
@@ -239,7 +240,6 @@ const VideoCarousel = () => {
                     onEnded={onVideoEnded}
                   />
 
-                  {/* Centered Play Button: only when active and not playing */}
                   {isActive && !isPlaying && (
                     <button
                       className={styles.playButton}
@@ -254,7 +254,6 @@ const VideoCarousel = () => {
                   )}
                 </div>
 
-                {/* Labels only on active card */}
                 {isActive && (
                   <>
                     <div className={styles.videoCardText}>
