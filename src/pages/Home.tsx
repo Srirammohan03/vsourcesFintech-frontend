@@ -126,11 +126,11 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative bg-gradient-hero text-white py-28 lg:pt-28 overflow-hidden"
         style={{
-          backgroundImage: "url('/assets/images/banner with map changed.jpg')",
+          backgroundImage: "url('/assets/images/bg-01.jpg')",
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}>
-        <div className="absolute inset-0 bg-black/60"></div>
+        <div className="absolute inset-0 bg-black/50"></div>
         <div className="relative w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
