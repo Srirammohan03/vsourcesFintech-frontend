@@ -22,6 +22,9 @@ import ScrollToTop from "./ScrollToTop";
 
 // Service pages
 import AbroadEducation from "./pages/ourServices/AbroadEducation";
+import CurrencyConverter from "./pages/tools/CurrencyConverter";
+import ExpenseCalculator from "./pages/tools/ExpenseCalculator";
+import SavingsCalculator from "./pages/tools/SavingsCalculator";
 // ⚠️ You can later add imports for DomesticEducationLoan, ForexCard, etc.
 
 const queryClient = new QueryClient();
@@ -56,11 +59,19 @@ const AppContent = () => {
         <main>
           <Routes>
             <Route path="/" element={<Home />} />
+            
             <Route path="/tools" element={<Tools />} />
-            <Route path="/tools/loan-calculator" element={<LoanCalculator />} />
+          <Route path="/tools/loan-calculator" element={<LoanCalculator />} />
+          <Route path="/tools/expense-calculator" element={<ExpenseCalculator />} />
+          <Route path="/tools/currency-converter" element={<CurrencyConverter />} />
+          <Route path="/tools/savings-calculator" element={<SavingsCalculator />} />
+
+
+
             <Route path="/resources" element={<Resources />} />
             <Route path="/country" element={<Country />} />
             <Route path="/contact" element={<Contact />} />
+
 
             <Route path="/partners/:slug" element={<PartnerDetails />} />
             <Route path="/education-loan" element={<EducationLoan />} />

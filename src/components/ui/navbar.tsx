@@ -33,8 +33,6 @@ const navItems = [
       { name: "Loan Eligibility Calculator", path: "/tools/loan-eligibility-calculator" },
       { name: "Interest Calculator", path: "/tools/interest-calculator" },
       { name: "Prepayment Calculator", path: "/tools/prepayment-calculator" },
-      { name: "Balance Transfer Calculator", path: "/tools/balance-transfer-calculator" },
-      { name: "Retirement Calculator", path: "/tools/retirement-calculator" },
     ]
     
    },
@@ -54,7 +52,6 @@ const navItems = [
       {name: "ROI Calculator", path: "/loans/ROI-Calculator" },
       {name: "Estimate Future Earnings", path: "/loans/Estimate-Future-Earnings" },
       {name: "Time Zone Converter", path: "/loans/Time-Zone-Converter" },
-      {name: "Weather Abroad", path: "/loans/Weather-Abroad" },
       {name: "Weather Abroad", path: "/loans/Weather-Abroad" },
       {name: "Budget Calculator", path: "/loans/Budget-Calculator" },
       {name: "Currency Converter", path: "/loans/Currency-Converter" },

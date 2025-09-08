@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { Calculator, DollarSign, Percent, Calendar } from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Button } from '@/components/ui/button';
+// components/tools/LoanCalculator.tsx
+import React, { useState, useEffect } from "react";
+import ToolPageTemplate from "@/components/layout/ToolPageLayout";
+import { Calculator, DollarSign, Percent, Calendar } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
 
 export default function LoanCalculator() {
   const [loanAmount, setLoanAmount] = useState<number>(500000);
@@ -29,10 +30,12 @@ export default function LoanCalculator() {
       setTotalPayment(principal);
       setTotalInterest(0);
     } else {
-      const calculatedEmi = 
-        (principal * monthlyRate * Math.pow(1 + monthlyRate, numberOfPayments)) /
+      const calculatedEmi =
+        (principal *
+          monthlyRate *
+          Math.pow(1 + monthlyRate, numberOfPayments)) /
         (Math.pow(1 + monthlyRate, numberOfPayments) - 1);
-      
+
       const calculatedTotalPayment = calculatedEmi * numberOfPayments;
       const calculatedTotalInterest = calculatedTotalPayment - principal;
 
@@ -42,210 +45,183 @@ export default function LoanCalculator() {
     }
   };
 
-  const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('en-IN', {
-      style: 'currency',
-      currency: 'INR',
+  const formatINR = (amount: number) =>
+    new Intl.NumberFormat("en-IN", {
+      style: "currency",
+      currency: "INR",
       maximumFractionDigits: 0,
     }).format(amount);
-  };
 
   return (
-    <div className="min-h-screen">
-      {/* Hero Section */}
-      <section className="bg-gradient-secondary text-white py-16 lg:py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-center space-y-6"
-          >
-            <div className="flex justify-center">
-              <div className="w-16 h-16 bg-white/20 rounded-lg flex items-center justify-center mb-4">
-                <Calculator className="h-8 w-8 text-white" />
-              </div>
+    <ToolPageTemplate
+      title="Education Loan Calculator"
+      description="Plan your education loan repayment by calculating EMI, interest, and total cost. Useful for Indian students applying abroad."
+      heroIcon={<Calculator className="h-12 w-12 text-white" />}
+      heroBg="/assets/images/loan-bg.jpg"
+      calculatorForm={
+        <Card className="shadow-lg rounded-2xl">
+          <CardHeader>
+            <CardTitle className="text-2xl font-semibold">
+              Loan Details
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            {/* Loan Amount */}
+            <div className="space-y-2">
+              <Label>Loan Amount (₹)</Label>
+              <Input
+                type="number"
+                value={loanAmount}
+                onChange={(e) => setLoanAmount(Number(e.target.value))}
+              />
+              <input
+                type="range"
+                min={100000}
+                max={5000000}
+                step={50000}
+                value={loanAmount}
+                onChange={(e) => setLoanAmount(Number(e.target.value))}
+                className="w-full accent-red-600"
+              />
             </div>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold">
-              Education Loan EMI Calculator
-            </h1>
-            <p className="text-xl lg:text-2xl text-white/90 max-w-3xl mx-auto">
-              Calculate your monthly EMI, total interest, and plan your education loan repayment
-            </p>
-          </motion.div>
-        </div>
-      </section>
 
-      {/* Calculator Section */}
-      <section className="py-16 lg:py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            {/* Input Form */}
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6 }}
+            {/* Interest Rate */}
+            <div className="space-y-2">
+              <Label>Interest Rate (% p.a.)</Label>
+              <Input
+                type="number"
+                step="0.1"
+                value={interestRate}
+                onChange={(e) => setInterestRate(Number(e.target.value))}
+              />
+              <input
+                type="range"
+                min={5}
+                max={20}
+                step={0.1}
+                value={interestRate}
+                onChange={(e) => setInterestRate(Number(e.target.value))}
+                className="w-full accent-red-600"
+              />
+            </div>
+
+            {/* Loan Tenure */}
+            <div className="space-y-2">
+              <Label>Loan Tenure (Years)</Label>
+              <Input
+                type="number"
+                value={loanTenure}
+                onChange={(e) => setLoanTenure(Number(e.target.value))}
+              />
+              <input
+                type="range"
+                min={1}
+                max={15}
+                value={loanTenure}
+                onChange={(e) => setLoanTenure(Number(e.target.value))}
+                className="w-full accent-red-600"
+              />
+            </div>
+
+            <Button
+              onClick={calculateEMI}
+              className="w-full bg-red-600 text-white hover:bg-red-700"
             >
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-2xl">Loan Details</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-6">
-                  <div className="space-y-2">
-                    <Label htmlFor="loanAmount">Loan Amount (₹)</Label>
-                    <Input
-                      id="loanAmount"
-                      type="number"
-                      value={loanAmount}
-                      onChange={(e) => setLoanAmount(Number(e.target.value))}
-                      placeholder="Enter loan amount"
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="interestRate">Interest Rate (% per annum)</Label>
-                    <Input
-                      id="interestRate"
-                      type="number"
-                      step="0.1"
-                      value={interestRate}
-                      onChange={(e) => setInterestRate(Number(e.target.value))}
-                      placeholder="Enter interest rate"
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="loanTenure">Loan Tenure (Years)</Label>
-                    <Input
-                      id="loanTenure"
-                      type="number"
-                      value={loanTenure}
-                      onChange={(e) => setLoanTenure(Number(e.target.value))}
-                      placeholder="Enter loan tenure"
-                    />
-                  </div>
-
-                  <Button 
-                    onClick={calculateEMI} 
-                    className="w-full bg-gradient-primary hover:opacity-90"
-                    size="lg"
-                  >
-                    Calculate EMI
-                  </Button>
-                </CardContent>
-              </Card>
-            </motion.div>
-
-            {/* Results */}
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6 }}
-              className="space-y-6"
-            >
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-2xl">EMI Calculation Results</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-6">
-                  <div className="grid grid-cols-1 gap-4">
-                    <div className="bg-gradient-primary text-white p-6 rounded-lg">
-                      <div className="flex items-center space-x-3 mb-2">
-                        <DollarSign className="h-6 w-6" />
-                        <span className="text-lg font-medium">Monthly EMI</span>
-                      </div>
-                      <p className="text-3xl font-bold">{formatCurrency(emi)}</p>
-                    </div>
-
-                    <div className="bg-gradient-secondary text-white p-6 rounded-lg">
-                      <div className="flex items-center space-x-3 mb-2">
-                        <Calendar className="h-6 w-6" />
-                        <span className="text-lg font-medium">Total Amount Payable</span>
-                      </div>
-                      <p className="text-3xl font-bold">{formatCurrency(totalPayment)}</p>
-                    </div>
-
-                    <div className="bg-gradient-to-r from-accent to-highlight text-white p-6 rounded-lg">
-                      <div className="flex items-center space-x-3 mb-2">
-                        <Percent className="h-6 w-6" />
-                        <span className="text-lg font-medium">Total Interest</span>
-                      </div>
-                      <p className="text-3xl font-bold">{formatCurrency(totalInterest)}</p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle>Loan Summary</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-3">
-                    <div className="flex justify-between">
-                      <span className="text-muted-foreground">Principal Amount:</span>
-                      <span className="font-semibold">{formatCurrency(loanAmount)}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-muted-foreground">Interest Rate:</span>
-                      <span className="font-semibold">{interestRate}% per annum</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-muted-foreground">Loan Tenure:</span>
-                      <span className="font-semibold">{loanTenure} years</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-muted-foreground">Number of EMIs:</span>
-                      <span className="font-semibold">{loanTenure * 12}</span>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </motion.div>
+              Calculate
+            </Button>
+          </CardContent>
+        </Card>
+      }
+      calculatorResults={
+        <div className="space-y-6">
+          {/* Summary Cards */}
+          <div className="grid sm:grid-cols-3 gap-6">
+            <div className="bg-red-600 text-white p-6 rounded-2xl shadow-md">
+              <p className="text-sm opacity-80">Monthly EMI</p>
+              <p className="text-2xl font-bold">{formatINR(emi)}</p>
+            </div>
+            <div className="bg-blue-600 text-white p-6 rounded-2xl shadow-md">
+              <p className="text-sm opacity-80">Total Payment</p>
+              <p className="text-2xl font-bold">{formatINR(totalPayment)}</p>
+            </div>
+            <div className="bg-yellow-500 text-white p-6 rounded-2xl shadow-md">
+              <p className="text-sm opacity-80">Total Interest</p>
+              <p className="text-2xl font-bold">{formatINR(totalInterest)}</p>
+            </div>
           </div>
-        </div>
-      </section>
 
-      {/* Tips Section */}
-      <section className="py-16 lg:py-24 bg-surface">
-        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-2xl">Tips for Education Loan EMI Planning</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <ul className="space-y-3 text-muted-foreground">
-                  <li className="flex items-start space-x-2">
-                    <span className="text-primary">•</span>
-                    <span>Consider the moratorium period during your studies when no EMI payments are required</span>
-                  </li>
-                  <li className="flex items-start space-x-2">
-                    <span className="text-primary">•</span>
-                    <span>Factor in potential income growth when choosing loan tenure</span>
-                  </li>
-                  <li className="flex items-start space-x-2">
-                    <span className="text-primary">•</span>
-                    <span>Compare interest rates from multiple lenders before finalizing</span>
-                  </li>
-                  <li className="flex items-start space-x-2">
-                    <span className="text-primary">•</span>
-                    <span>Remember that longer tenure means lower EMI but higher total interest</span>
-                  </li>
-                  <li className="flex items-start space-x-2">
-                    <span className="text-primary">•</span>
-                    <span>Explore partial prepayment options to reduce total interest burden</span>
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
-          </motion.div>
+          {/* Detailed Summary */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Loan Summary</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-3 text-sm">
+              <div className="flex justify-between">
+                <span className="text-gray-600">Principal:</span>
+                <span>{formatINR(loanAmount)}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-600">Interest Rate:</span>
+                <span>{interestRate}%</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-600">Tenure:</span>
+                <span>{loanTenure} years ({loanTenure * 12} months)</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-600">Total Payment:</span>
+                <span>{formatINR(totalPayment)}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-600">Total Interest:</span>
+                <span>{formatINR(totalInterest)}</span>
+              </div>
+            </CardContent>
+          </Card>
         </div>
-      </section>
-    </div>
+      }
+      howItWorks={[
+        {
+          icon: <DollarSign className="h-8 w-8 text-red-600 mx-auto" />,
+          title: "Enter Loan Details",
+          description: "Provide loan amount, interest rate, and tenure.",
+        },
+        {
+          icon: <Calculator className="h-8 w-8 text-blue-600 mx-auto" />,
+          title: "Instant Calculation",
+          description: "Our tool instantly computes EMI and total cost.",
+        },
+        {
+          icon: <Percent className="h-8 w-8 text-yellow-600 mx-auto" />,
+          title: "Plan Smarter",
+          description: "Use results to plan repayment and reduce interest.",
+        },
+      ]}
+      extraSectionTitle="Tips for Loan Planning"
+      extraSectionContent={
+        <ul className="text-left list-disc list-inside space-y-2 text-gray-700">
+          <li>Compare lenders before finalizing an education loan.</li>
+          <li>Consider repayment options after the moratorium period.</li>
+          <li>Prepay when possible to reduce interest burden.</li>
+        </ul>
+      }
+      references={[
+        {
+          title: "EMI Calculator",
+          description: "Calculate your EMIs for different loan scenarios.",
+          link: "/tools/emi-calculator",
+        },
+        {
+          title: "Loan Eligibility",
+          description: "Check your eligibility before applying.",
+          link: "/tools/loan-eligibility-calculator",
+        },
+        {
+          title: "Interest Calculator",
+          description: "Understand how much interest you’ll pay.",
+          link: "/tools/interest-calculator",
+        },
+      ]}
+    />
   );
 }
