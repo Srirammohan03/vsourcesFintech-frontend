@@ -26,40 +26,37 @@ const navItems = [
       { name: "Loan Calculator", path: "/tools/loan-calculator" },
       { name: "Currency Converter", path: "/tools/currency-converter" },
       { name: "Expense Calculator", path: "/tools/expense-calculator" },
-      { name: "Savings Calculator", path: "/tools/savings-calculator" },
       { name: "EMI Calculator", path: "/tools/emi-calculator" },
       { name: "Tax Calculator", path: "/tools/tax-calculator" },
-      { name: "Affordability Calculator", path: "/tools/affordability-calculator" },
       { name: "Loan Eligibility Calculator", path: "/tools/loan-eligibility-calculator" },
       { name: "Interest Calculator", path: "/tools/interest-calculator" },
-      { name: "Prepayment Calculator", path: "/tools/prepayment-calculator" },
     ]
     
    },
-  { name: "Resources", path: "/resources" },
+  { name: "Blog", path: "/Blog" },
   {
-    name: "Loans",
-    path: "/loans",
+    name: "Our Partners",
+    path: "/our-partners",
     dropdown: [
-      { name: "Compare Loan Offers", path: "/loans/Compare-Loan-Offers" },
-      {name: "Interest Calculator", path: "/loans/Interest-Calculator" },
-      {name: "Loan Repayment Calculator", path: "/loans/Loan-Repayment-Calculator" },
-      {name: "Education Loan Eligibility Checker", path: "/loans/Education-Loan-Eligibility-Checker" },
-      {name: "Education Loan EMI Calculator", path: "/loans/Education-Loan-EMI-Calculator" },
-      {name: "Bank Comparison Tool", path: "/loans/Bank-Comparison-Tool" },
-      {name: "Cost of Studying Abroad", path: "/loans/Cost-of-Studying-Abroad" },
-      {name: "Living Calculator", path: "/loans/Living-Calculator" },
-      {name: "ROI Calculator", path: "/loans/ROI-Calculator" },
-      {name: "Estimate Future Earnings", path: "/loans/Estimate-Future-Earnings" },
-      {name: "Time Zone Converter", path: "/loans/Time-Zone-Converter" },
-      {name: "Weather Abroad", path: "/loans/Weather-Abroad" },
-      {name: "Budget Calculator", path: "/loans/Budget-Calculator" },
-      {name: "Currency Converter", path: "/loans/Currency-Converter" },
-      {name: "GPA Calculator", path: "/loans/GPA-Calculator" },
-      {name: "SOP Generator", path: "/loans/SOP-Generator" },
-      {name: "TRAVEL & INSURANCE TOOLS", path: "/loans/TRAVEL-&-INSURANCE-TOOLS" },
-      {name: "Packing List", path: "/loans/Packing-List" },
-      {name: "Health Insurance Comparer", path: "/loans/Health-Insurance-Comparer" },
+      { name: "Compare Loan Offers", path: "/our-partners/Compare-Loan-Offers" },
+      {name: "Interest Calculator", path: "/our-partners/Interest-Calculator" },
+      {name: "Loan Repayment Calculator", path: "/our-partners/Loan-Repayment-Calculator" },
+      {name: "Education Loan Eligibility Checker", path: "/our-partners/Education-Loan-Eligibility-Checker" },
+      {name: "Education Loan EMI Calculator", path: "/our-partners/Education-Loan-EMI-Calculator" },
+      {name: "Bank Comparison Tool", path: "/our-partners/Bank-Comparison-Tool" },
+      {name: "Cost of Studying Abroad", path: "/our-partners/Cost-of-Studying-Abroad" },
+      {name: "Living Calculator", path: "/our-partners/Living-Calculator" },
+      {name: "ROI Calculator", path: "/our-partners/ROI-Calculator" },
+      {name: "Estimate Future Earnings", path: "/our-partners/Estimate-Future-Earnings" },
+      {name: "Time Zone Converter", path: "/our-partners/Time-Zone-Converter" },
+      {name: "Weather Abroad", path: "/our-partners/Weather-Abroad" },
+      {name: "Budget Calculator", path: "/our-partners/Budget-Calculator" },
+      {name: "Currency Converter", path: "/our-partners/Currency-Converter" },
+      {name: "GPA Calculator", path: "/our-partners/GPA-Calculator" },
+      {name: "SOP Generator", path: "/our-partners/SOP-Generator" },
+      {name: "TRAVEL & INSURANCE TOOLS", path: "/our-partners/TRAVEL-&-INSURANCE-TOOLS" },
+      {name: "Packing List", path: "/our-partners/Packing-List" },
+      {name: "Health Insurance Comparer", path: "/our-partners/Health-Insurance-Comparer" },
     ],
 },
   { name: "Country", path: "/country" },
@@ -215,7 +212,7 @@ export function Navbar() {
         )}
         {/* Mobile toggle */}
         <button
-          className="md:hidden"
+          className="md:hidden text-white"
           onClick={() => setIsOpen((v) => !v)}
           aria-label="Toggle menu"
         >

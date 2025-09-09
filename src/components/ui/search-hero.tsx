@@ -10,14 +10,12 @@ import {
 } from "@/components/ui/select";
 import { Link } from "react-router-dom";
 
-const courseLevels = ["Masters", "PG", "Doctorate", "Bachelor"];
-const scholarshipTypes = [
-  "Merit-based",
-  "Need-based",
-  "Government",
-  "University-specific",
+const courseLevels = ["Masters", "Bachelor"];
+const loanTypes = [
+  "Collateral",
+  "Non-Collateral",
 ];
-const countries = ["UK", "USA", "Canada", "Ireland", "France"];
+const countries = ["UK", "USA", "Canada", "Ireland", "France", "Australia", "Germany"];
 
 export function SearchHero() {
   const [activeTab, setActiveTab] = useState<"scholarship" | "loan">(
@@ -26,12 +24,13 @@ export function SearchHero() {
   const [courseLevel, setCourseLevel] = useState("");
   const [scholarshipType, setScholarshipType] = useState("");
   const [country, setCountry] = useState("");
+const [loanType, setLoanType] = useState("");
 
   const handleSearch = () => {
     console.log({
       activeTab,
       courseLevel,
-      scholarshipType,
+      loanType,
       country,
     });
   };
@@ -46,19 +45,19 @@ export function SearchHero() {
           <h2
             onClick={() => setActiveTab("scholarship")}
             className={`text-xl font-semibold md:px-24 py-2 px-10 rounded-md cursor-pointer border-2 ${activeTab === "scholarship"
-                ? "border-red-600 text-red-600"
-                : "border-transparent text-gray-600 hover:border-red-400"
+              ? "bg-red-600 text-white"
+              : "border-transparent text-gray-600 hover:border-red-400"
               }`}
           >
-            Search for Scholarship
+            Search for Loans
           </h2>
 
           {/* Education Loan Tab (navigates to route) */}
           <Link
             to="/education-loan"
             className={`text-lg md:px-24 py-2 px-10 rounded-md cursor-pointer border-2 ${location.pathname === "/education-loan"
-                ? "border-red-600 text-red-600"
-                : "border-transparent text-gray-600 hover:border-red-400"
+              ? "border-red-600 text-red-600"
+              : "border-red-600 text-red-600 hover:bg-red-600 hover:text-white"
               }`}
           >
             Get an Education Loan
@@ -87,15 +86,12 @@ export function SearchHero() {
 
             {/* Scholarship Type Dropdown */}
             <div className="w-full">
-              <Select
-                value={scholarshipType}
-                onValueChange={setScholarshipType}
-              >
+              <Select value={loanType} onValueChange={setLoanType}>
                 <SelectTrigger className="h-12">
-                  <SelectValue placeholder="Scholarship Type" />
+                  <SelectValue placeholder="Loan Type" />
                 </SelectTrigger>
                 <SelectContent>
-                  {scholarshipTypes.map((type) => (
+                  {loanTypes.map((type) => (
                     <SelectItem
                       key={type}
                       value={type.toLowerCase().replace("-", "_")}
@@ -105,6 +101,7 @@ export function SearchHero() {
                   ))}
                 </SelectContent>
               </Select>
+
             </div>
 
             {/* Country Dropdown */}

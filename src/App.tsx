@@ -26,7 +26,8 @@ import CurrencyConverter from "./pages/tools/CurrencyConverter";
 import ExpenseCalculator from "./pages/tools/ExpenseCalculator";
 import SavingsCalculator from "./pages/tools/SavingsCalculator";
 // ⚠️ You can later add imports for DomesticEducationLoan, ForexCard, etc.
-
+import AOS from "aos";
+import "aos/dist/aos.css";
 const queryClient = new QueryClient();
 
 const AppContent = () => {
@@ -98,6 +99,15 @@ const AppContent = () => {
 };
 
 const App = () => {
+    // Init AOS
+  useEffect(() => {
+    AOS.init({ once: false, mirror: true });
+  }, []);
+
+  useEffect(() => {
+    AOS.refresh();
+  }, [location.pathname]);
+
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>

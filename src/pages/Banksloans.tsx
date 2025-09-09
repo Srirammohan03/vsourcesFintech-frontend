@@ -55,25 +55,10 @@ const Banksloans = () => {
                     />
                   </div>
 
-                  {/* Rate */}
-                  <div
-                    className={`${partner.color} text-white py-2 text-sm font-medium text-center`}
-                  >
-                    {partner.rate}
-                  </div>
+                
                 </Link>
               </motion.div>
             ))}
-          </div>
-
-          {/* Toggle Button */}
-          <div className="mt-6 flex justify-end">
-            <button
-              onClick={handleToggle}
-              className="text-blue-600 font-medium hover:underline"
-            >
-              {visibleCount >= partners.length ? "View Less" : "View More..."}
-            </button>
           </div>
         </div>
       </section>
