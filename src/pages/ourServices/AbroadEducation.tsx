@@ -122,7 +122,7 @@ const AbroadEducation: React.FC = () => {
                     </p>
                     <div className="mb-12">
                         <img
-                            src="/assets/images/abroad-ed-loan-steps.webp"
+                            src="/assets/images/abroad-ed-loan-steps.jpg"
                             alt="How it Works Desktop"
                             className="hidden md:block mx-auto w-full max-w-[1000px]"
                         />
