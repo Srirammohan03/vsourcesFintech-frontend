@@ -158,7 +158,7 @@ const EducationLoan: React.FC = () => {
     return (
         <div className="w-full">
             {/* Hero Section */}
-            <section className="relative bg-[#2563eb] text-white pt-28 pb-20 lg:pt-32">
+            <section className="relative bg-[#2563eb] text-white pt-28 pb-5 lg:pb-20 lg:pt-32">
                 <div className="w-full max-w-[1400px] mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
                     {/* Left Side */}
                     <div className="space-y-6">
@@ -206,33 +206,29 @@ const EducationLoan: React.FC = () => {
                     {/* Right Side Image */}
                     <div className="flex justify-center">
                         <img
-                            src="/assets/images/education-loan.webp"
+                            src="/assets/images/education-loans.jpg"
                             alt="Education Loan"
-                            className="w-[250px] sm:w-[300px] md:w-[350px] lg:w-[420px] h-auto object-cover rounded-xl"
+                            className=" lg:w-[420px] h-auto object-cover rounded-xl"
                         />
                     </div>
                 </div>
 
             </section>
 
-            {/* Explore Our Education Loans */}
-            <section className="py-16 bg-gray-50">
+            {/* <section className="py-16 bg-gray-50">
                 <div className="w-full max-w-[1400px] mx-auto px-6 text-center">
                     <h2 className="text-3xl font-bold mb-12">Explore Our Education Loans</h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        {/* Card 1 - Domestic */}
                         <motion.div
                             whileHover={{ scale: 1.03 }}
                             className="relative rounded-2xl shadow-md overflow-hidden"
                         >
-                            {/* Background Image with Overlay */}
                             <div
                                 className="absolute inset-0 bg-cover bg-center"
                                 style={{ backgroundImage: "url('/assets/images/Domestic-Education.png')" }}
                             />
-                            <div className="absolute inset-0 bg-black/70" /> {/* Overlay */}
+                            <div className="absolute inset-0 bg-black/70" /> 
 
-                            {/* Card Content */}
                             <div className="relative p-8 text-left space-y-4 text-white">
                                 <h3 className="text-xl font-semibold">Domestic Education Loans</h3>
                                 <ul className="list-disc list-inside space-y-2">
@@ -246,19 +242,16 @@ const EducationLoan: React.FC = () => {
                             </div>
                         </motion.div>
 
-                        {/* Card 2 - Abroad */}
                         <motion.div
                             whileHover={{ scale: 1.03 }}
                             className="relative rounded-2xl shadow-md overflow-hidden"
                         >
-                            {/* Background Image with Overlay */}
                             <div
                                 className="absolute inset-0 bg-cover bg-center"
                                 style={{ backgroundImage: "url('/assets/images/Abroad-Education.jpg')" }}
                             />
-                            <div className="absolute inset-0 bg-black/70" /> {/* Overlay */}
+                            <div className="absolute inset-0 bg-black/70" /> 
 
-                            {/* Card Content */}
                             <div className="relative p-8 text-left space-y-4 text-white">
                                 <h3 className="text-xl font-semibold">Abroad Education Loans</h3>
                                 <ul className="list-disc list-inside space-y-2">
@@ -274,11 +267,9 @@ const EducationLoan: React.FC = () => {
                     </div>
 
                 </div>
-            </section>
-            {/* Benefits of Education Loans */}
-            <section className="py-10 bg-white">
+            </section> */}
+            {/* <section className="py-10 bg-white">
                 <div className="w-full max-w-[1400px] mx-auto px-6">
-                    {/* Heading */}
                     <h2 className="text-3xl font-bold mb-6 text-center">
                         Benefits of Education Loans
                     </h2>
@@ -287,7 +278,6 @@ const EducationLoan: React.FC = () => {
                         flexibility. Here are the key benefits:
                     </p>
 
-                    {/* Benefits Grid */}
                     <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 justify-items-center">
                         {[
                             "All Expenses Coverage",
@@ -321,7 +311,6 @@ const EducationLoan: React.FC = () => {
                     </div>
                 </div>
             </section>
-            {/* Types of Student Loan */}
             <section className="py-10 bg-gray-50">
                 <div className="w-full max-w-[1400px] mx-auto px-6">
                     <h2 className="text-3xl font-bold mb-8 text-center">
@@ -329,7 +318,6 @@ const EducationLoan: React.FC = () => {
                     </h2>
 
                     <div className="flex flex-col md:flex-row max-w-6xl mx-auto my-3 p-4 gap-8">
-                        {/* Left-side Buttons */}
                         <div className="flex flex-col w-full md:w-1/3 space-y-4">
                             {Object.keys(loanData).map((key) => {
                                 const isActive = activeLoan === key;
@@ -357,8 +345,6 @@ const EducationLoan: React.FC = () => {
                                 );
                             })}
                         </div>
-
-                        {/* Right-side Content */}
                         <div className="w-full md:w-2/3">
                             {Object.keys(loanData).map((key) => {
                                 const isActive = activeLoan === key;
@@ -396,7 +382,6 @@ const EducationLoan: React.FC = () => {
                         </div>
                     </div>
                 </div>
-                {/* Comparison Table */}
                 <div className="bg-gray-100 flex items-center justify-center p-2 min-h-screen">
                     <div className="w-full max-w-[1400px] mx-auto px-6 my-3">
                         <h1 className="text-3xl font-bold text-center text-gray-800 mb-2 pt-3">
@@ -406,7 +391,6 @@ const EducationLoan: React.FC = () => {
                             A clear comparison to help you choose between Secured and Unsecured Loans.
                         </p>
 
-                        {/* Desktop Table View */}
                         <div className="hidden md:block">
                             <table className="w-full text-left rounded-xl overflow-hidden shadow-lg border border-gray-300 border-collapse">
                                 <thead className="bg-red-600 text-white text-lg">
@@ -451,7 +435,6 @@ const EducationLoan: React.FC = () => {
                                 </tbody>
                             </table>
                         </div>
-                        {/* Mobile Cards View */}
                         <div className="md:hidden space-y-4">
                             {loanFeatures.map((row, i) => (
                                 <div
@@ -461,7 +444,6 @@ const EducationLoan: React.FC = () => {
                                 >
                                     <h3 className="font-bold text-lg text-red-700 mb-3">{row.feature}</h3>
                                     <div className="space-y-3">
-                                        {/* Secured Loan */}
                                         <div className="flex justify-between items-center text-gray-700">
                                             <span className="flex items-center font-semibold">
                                                 Secured Loan:
@@ -477,7 +459,6 @@ const EducationLoan: React.FC = () => {
                                                 {row.secured}</span>
                                         </div>
 
-                                        {/* Unsecured Loan */}
                                         <div className="flex justify-between items-center text-gray-700">
                                             <span className="flex items-center font-semibold">
                                                 Unsecured Loan:
@@ -501,7 +482,6 @@ const EducationLoan: React.FC = () => {
                 </div>
 
             </section>
-            {/* Eligibility */}
             <section className="py-10">
                 <div className="w-full max-w-[1400px] mx-auto px-6">
                     <h2 className="text-3xl font-bold mb-6 text-center text-gray-800">
@@ -512,7 +492,6 @@ const EducationLoan: React.FC = () => {
                     </p>
 
                     <div className="w-full">
-                        {/* Desktop Table */}
                         <div className="hidden md:block">
                             <table className="w-full border border-gray-300 border-collapse text-left text-sm rounded-xl overflow-hidden shadow-md">
                                 <thead className="bg-red-600 text-white text-base">
@@ -562,8 +541,6 @@ const EducationLoan: React.FC = () => {
                                 </tbody>
                             </table>
                         </div>
-
-                        {/* Mobile Cards */}
                         <div className="md:hidden space-y-4">
                             {[
                                 [
@@ -603,7 +580,6 @@ const EducationLoan: React.FC = () => {
                     </div>
                 </div>
             </section>
-            {/* Documents Required */}
             <section className="py-10 bg-gray-50">
                 <div className="bg-gray-50 flex flex-col items-center">
                     <div className="w-full max-w-[1400px] mx-auto px-6 bg-white">
@@ -615,7 +591,7 @@ const EducationLoan: React.FC = () => {
                         </p>
                     </div>
 
-                    {/* Desktop Table View */}
+                  
                     <div className="hidden md:block overflow-x-auto">
                         <table className="w-full text-left rounded-xl overflow-hidden shadow-lg border-separate border-spacing-0 border border-gray-300">
                             <thead className="bg-red-600 text-white text-md">
@@ -651,7 +627,6 @@ const EducationLoan: React.FC = () => {
                     </div>
 
 
-                    {/* Mobile Cards View */}
                     <div className="md:hidden space-y-5 p-4">
                         {documentData.map((row, i) => (
                             <div
@@ -680,16 +655,12 @@ const EducationLoan: React.FC = () => {
                     </div>
                 </div>
             </section>
-
-
             <section className="py-10 bg-gray-50">
                 <div className="w-full max-w-[1400px] mx-auto px-6">
-                    {/* Heading */}
                     <h2 className="text-3xl font-bold mb-16 text-center">
                         Repayment Process for Education Loan
                     </h2>
 
-                    {/* Stepper Arrows */}
                     <div className="flex flex-col md:flex-row md:justify-between gap-8">
                         {[{
                             icon: "/assets/images/Search.gif",
@@ -720,14 +691,12 @@ const EducationLoan: React.FC = () => {
                                 key={i}
                                 className="relative group flex-1 bg-gradient-to-r from-gray-100 to-gray-200 text-gray-800 p-6 rounded-2xl shadow-lg transition-all duration-300 hover:from-red-500 hover:to-red-600 hover:text-white"
                             >
-                                {/* Arrow Effect (Desktop only) */}
                                 {i !== 3 && (
                                     <div className="hidden md:block absolute top-1/2 right-[-25px] -translate-y-1/2 
                             w-0 h-0 border-t-[25px] border-b-[25px] border-l-[25px] border-transparent 
                             border-l-gray-200 group-hover:border-l-red-600 transition-all duration-300"></div>
                                 )}
 
-                                {/* Icon */}
                                 <div className="flex justify-center m-2  md:mt-[-30%] mt-0">
                                     <img
                                         src={step.icon}
@@ -737,10 +706,7 @@ const EducationLoan: React.FC = () => {
                                 </div>
                                 <h3 className="font-semibold text-lg text-center mb-2">{step.title}</h3>
 
-                                {/* Short Info */}
                                 <p className="text-sm text-center">{step.short}</p>
-
-                                {/* Extra Info (Desktop hover / Mobile always visible) */}
                                 <div className="mt-4 text-sm text-center md:absolute md:left-0 md:top-full md:mt-2 
                           md:w-full md:bg-white md:text-gray-800 md:shadow-lg md:rounded-lg 
                           md:p-4 md:opacity-0 md:group-hover:opacity-100 
@@ -751,11 +717,12 @@ const EducationLoan: React.FC = () => {
                         ))}
                     </div>
                 </div>
-            </section>
+            </section> */}
 
 
+            {/* FAQ Section */}
 
-
+                        
             <section className="py-20 bg-gray-50">
                 <div className="w-full max-w-[1000px] mx-auto px-6">
                     <h2 className="text-3xl font-bold mb-8 text-center">

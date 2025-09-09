@@ -9,7 +9,7 @@ const AboutSection: React.FC = () => {
       id: 1,
       value: 100000,
       suffix: "+",
-      label: "Students Empowered",
+      label: "Students happyear",
       icon: "https://cdn-icons-gif.flaticon.com/6454/6454106.gif",
     },
     {
@@ -21,10 +21,17 @@ const AboutSection: React.FC = () => {
     },
     {
       id: 3,
-      value: 10,
+      value: 25,
       suffix: "+",
-      label: "Study Destinations",
-      icon: "https://cdn-icons-gif.flaticon.com/15747/15747340.gif",
+      label: "Banking and NBFC ties",
+      icon: "/assets/images/diversity.gif",
+    },
+     {
+      id: 4,
+      value: 500,
+      suffix: "+ cr",
+      label: "Disbursed every year",
+      icon: "/assets/images/money-bag.gif",
     },
   ];
 
@@ -74,18 +81,76 @@ const AboutSection: React.FC = () => {
               About Vsource Fintech
             </h2>
 
-            {/* Paragraph */}
-            <p
-              className="desc pb-3 sm:pb-0"
+            {/* Section 1 */}
+            <div
+              className="flex items-start  pt-3"
               data-aos="fade-right"
               data-aos-anchor-placement="center-bottom"
               data-aos-duration="1000"
               data-aos-delay="200"
             >
-              <strong className="font-bold">
-                South India's Leading Educational Group for Higher Education .
-              </strong>
+              <img
+                src="/assets/images/Graduation-Hat.gif"
+                alt="Graduation Hat"
+                className="w-10 h-10 mt-1 flex-shrink-0"
+              />
+              <span className="font-bold text-lg md:leading-10">
+                Study Abroad Education Loans Made Easy
+              </span>
+            </div>
+            <p
+              className="para pb-1"
+              data-aos="fade-right"
+              data-aos-anchor-placement="center-bottom"
+              data-aos-duration="1000"
+              data-aos-delay="200"
+            >
+              Are you planning to study abroad but worried about finances? We are South India's most trusted name in education loan guidance, helping students secure study abroad loans with ease, speed, and confidence.
             </p>
+            {/* Section 2 */}
+            <div
+              className="flex items-start pt-1"
+              data-aos="fade-right"
+              data-aos-anchor-placement="center-bottom"
+              data-aos-duration="1000"
+              data-aos-delay="200"
+            >
+              <img
+                src="/assets/images/globe.gif"
+                alt="Globe"
+                className="w-8 h-8 mt-1 flex-shrink-0"
+              />
+              <span className="font-bold text-lg  md:leading-10">
+                100% Assistance for Education Loans to Study Abroad
+              </span>
+            </div>
+            <p
+              className="para pb-1"
+              data-aos="fade-right"
+              data-aos-anchor-placement="center-bottom"
+              data-aos-duration="1000"
+              data-aos-delay="200"
+            >
+              We offer end-to-end support for students looking to finance their higher education overseas. From choosing the right loan provider to assisting with documentation, approval, and disbursement — we make the entire education loan process simple and stress-free.
+            </p>
+
+            {/* Section 3 */}
+            <div
+              className="flex items-start pt-1"
+              data-aos="fade-right"
+              data-aos-anchor-placement="center-bottom"
+              data-aos-duration="1000"
+              data-aos-delay="200"
+            >
+              <img
+                src="/assets/images/Briefcase.gif"
+                alt="Briefcase"
+                className="w-10 h-10 mt-1 flex-shrink-0"
+              />
+              <span className="font-bold text-lg  md:leading-10">
+                Trusted Education Loan Experts for Top Global Destinations
+              </span>
+            </div>
             <p
               className="para"
               data-aos="fade-right"
@@ -93,82 +158,25 @@ const AboutSection: React.FC = () => {
               data-aos-duration="1000"
               data-aos-delay="200"
             >
-              Proudly sending the highest number of students every year.
+              We specialize in securing study abroad loans for students heading to: UK, USA, Ireland, France, and Canada.
             </p>
+
+            {/* Final Paragraph */}
             <p
-              className="para pb-3"
+              className="para"
               data-aos="fade-right"
               data-aos-anchor-placement="center-bottom"
               data-aos-duration="1000"
               data-aos-delay="200"
             >
-              <strong className="font-bold">
-                100% Educational Loan Guidance{" "}
-              </strong>
-              provided to support your academic journey..
+              <span className="font-bold">100% Educational Loan Guidance </span>
+              provided to support your academic journey.
             </p>
-
-            <hr />
-            {/* Features List */}
-            <ul className="features space-y-2">
-              <li
-                data-aos="fade-right"
-                data-aos-delay="400"
-                data-aos-duration="800"
-                data-aos-anchor-placement="center-bottom"
-              >
-                <img
-                  src="https://cdn-icons-png.flaticon.com/128/10490/10490249.png"
-                  alt="check"
-                  className="w-6 h-6"
-                />
-                <span>
-                  Guided thousands of students to{" "}
-                  <span className="font-bold">Top - Ranked Universities</span>
-                </span>
-              </li>
-
-              <li
-                data-aos="fade-right"
-                data-aos-delay="600"
-                data-aos-duration="800"
-                data-aos-anchor-placement="center-bottom"
-              >
-                <img
-                  src="https://cdn-icons-png.flaticon.com/128/3176/3176293.png"
-                  alt="globe"
-                  className="w-6 h-6"
-                />
-                <span>
-                  Expertise in destinations like the{" "}
-                  <span className="font-bold">
-                    UK, USA, Canada, Ireland, and more
-                  </span>
-                </span>
-              </li>
-
-              <li
-                data-aos="fade-right"
-                data-aos-delay="800"
-                data-aos-duration="800"
-                data-aos-anchor-placement="center-bottom"
-              >
-                <img
-                  src="https://cdn-icons-png.flaticon.com/128/7339/7339281.png"
-                  alt="university"
-                  className="w-6 h-6"
-                />
-                <span>
-                  Direct partnerships with{" "}
-                  <span className="font-bold">
-                    Globally Accredited Universities
-                  </span>
-                </span>
-              </li>
-            </ul>
           </div>
 
-          <div className="flex flex-col gap-5 sm:hidden ">
+
+
+          <div className="flex flex-col gap-4 sm:hidden ">
             {stats.map((stat, i) => {
               const count = useCounter(stat.value);
               return (
@@ -279,7 +287,7 @@ const AboutSection: React.FC = () => {
           display: grid;
           grid-template-columns: 1fr; /* mobile */
           gap: 20px;
-          width: 80%;
+          // width: 80%;
           margin: clamp(28px, 6vw, 50px) auto 0;
         }
         @media (min-width: 640px) {
@@ -289,7 +297,7 @@ const AboutSection: React.FC = () => {
         }
         @media (min-width: 1024px) {
           .bottom-section {
-            grid-template-columns: repeat(3, 1fr); /* desktop */
+            grid-template-columns: repeat(4, 1fr); /* desktop */
           }
         }
 

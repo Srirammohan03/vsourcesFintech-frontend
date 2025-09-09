@@ -36,13 +36,13 @@ const [loanType, setLoanType] = useState("");
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto">
+    <div className="w-full max-w-3xl mx-auto">
       <div className="bg-card rounded-xl shadow-card p-6 border">
         {/* Headings Row (Tabs) */}
 
         <div className="flex flex-col md:flex-row md:justify-around md:items-center gap-4 mb-6">
           {/* Scholarship Tab (stays in current page) */}
-          <h2
+          {/* <h2
             onClick={() => setActiveTab("scholarship")}
             className={`text-xl font-semibold md:px-24 py-2 px-10 rounded-md cursor-pointer border-2 ${activeTab === "scholarship"
               ? "bg-red-600 text-white"
@@ -50,7 +50,7 @@ const [loanType, setLoanType] = useState("");
               }`}
           >
             Search for Loans
-          </h2>
+          </h2> */}
 
           {/* Education Loan Tab (navigates to route) */}
           <Link

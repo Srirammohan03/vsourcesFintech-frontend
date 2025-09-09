@@ -1,91 +1,153 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X, ChevronDown, CreditCard } from "lucide-react";
 import { cn } from "@/lib/utils";
+import {
+  Calculator,
+  Banknote,
+  BarChart3,
+  PiggyBank,
+  TrendingUp,
+  Coins,
+  Globe,
+  CloudSun,
+  ClipboardList,
+  GraduationCap,
+  FileText,
+  Luggage,
+  ShieldCheck,
+  Building2,
+  Scale,
+} from "lucide-react";
 
+// ------------------ NAV ITEMS ------------------
 const navItems = [
   {
     name: "Our Services",
     path: "/",
     dropdown: [
-      { name: "Abroad Education Loan", path: "/services/abroad-education-loan" },
-      { name: "Domestic Education Loan", path: "/services/domestic-education-loan" },
-      { name: "Forex Card", path: "/services/forex-card" },
-      { name: "Travel Insurance", path: "/services/travel-insurance" },
-      { name: "Sim Card", path: "/services/sim-card" },
-      { name: "Credit Card", path: "/services/credit-card" },
-      { name: "Health Insurance", path: "/services/health-insurance" },
-      { name: "Refinancing", path: "/services/refinancing" },
-      { name: "GIC", path: "/services/gic" },
-      { name: "Block Account", path: "/services/block-account" },
-      { name: "Bank Account", path: "/services/bank-account" },
+      {
+        heading: "BANKING & LOANS",
+        items: [
+          { name: "Abroad Education Loan", path: "/services/abroad-education-loan", icon: Banknote },
+          { name: "Credit Card", path: "/services/credit-card", icon: CreditCard },
+          { name: "Block Account", path: "/services/block-account", icon: Scale },
+          { name: "Bank Account", path: "/services/bank-account", icon: Building2 },
+        ],
+      },
+      {
+        heading: "TRAVEL & INSURANCE",
+        items: [
+          { name: "Forex Card", path: "/services/forex-card", icon: Coins },
+          { name: "Travel Insurance", path: "/services/travel-insurance", icon: ShieldCheck },
+          { name: "Sim Card", path: "/services/sim-card", icon: Globe },
+          { name: "Health Insurance", path: "/services/health-insurance", icon: ShieldCheck },
+          { name: "GIC", path: "/services/gic", icon: PiggyBank },
+        ],
+      },
     ],
   },
-  { name: "Tools", path: "/tools",
-    dropdown:[
-      { name: "Loan Calculator", path: "/tools/loan-calculator" },
-      { name: "Currency Converter", path: "/tools/currency-converter" },
-      { name: "Expense Calculator", path: "/tools/expense-calculator" },
-      { name: "EMI Calculator", path: "/tools/emi-calculator" },
-      { name: "Tax Calculator", path: "/tools/tax-calculator" },
-      { name: "Loan Eligibility Calculator", path: "/tools/loan-eligibility-calculator" },
-      { name: "Interest Calculator", path: "/tools/interest-calculator" },
-    ]
-    
-   },
-  { name: "Blog", path: "/Blog" },
+  {
+    name: "Tools",
+    path: "/tools",
+    dropdown: [
+      {
+        heading: "LOAN TOOLS",
+        items: [
+          { name: "Compare Loan Offers", path: "/tools/compare-loan-offers", icon: Scale },
+          { name: "Interest Calculator", path: "/tools/interest-calculator", icon: Calculator },
+          { name: "Loan Repayment Calculator", path: "/tools/loan-repayment-calculator", icon: PiggyBank },
+          { name: "Education Loan Eligibility Checker", path: "/tools/education-loan-eligibility-checker", icon: ClipboardList },
+          { name: "Education Loan EMI Calculator", path: "/tools/education-loan-emi-calculator", icon: Calculator },
+          { name: "Bank Comparison Tool", path: "/tools/bank-comparison-tool", icon: Building2 },
+        ],
+      },
+      {
+        heading: "FINANCIAL PLANNING TOOLS",
+        items: [
+          { name: "Cost of Studying Abroad", path: "/tools/cost-of-studying-abroad", icon: Coins },
+          { name: "Living Calculator", path: "/tools/living-calculator", icon: PiggyBank },
+          { name: "ROI Calculator", path: "/tools/roi-calculator", icon: BarChart3 },
+          { name: "Estimate Future Earnings", path: "/tools/estimate-future-earnings", icon: TrendingUp },
+        ],
+      },
+      {
+        heading: "UTILITIES TOOLS",
+        items: [
+          { name: "Time Zone Converter", path: "/tools/time-zone-converter", icon: Globe },
+          { name: "Weather Abroad", path: "/tools/weather-abroad", icon: CloudSun },
+          { name: "Budget Calculator", path: "/tools/budget-calculator", icon: Calculator },
+          { name: "Currency Converter", path: "/tools/currency-converter", icon: Coins },
+        ],
+      },
+      {
+        heading: "ACADEMIC TOOLS",
+        items: [
+          { name: "GPA Calculator", path: "/tools/gpa-calculator", icon: GraduationCap },
+          { name: "SOP Generator", path: "/tools/sop-generator", icon: FileText },
+        ],
+      },
+      {
+        heading: "TRAVEL & INSURANCE TOOLS",
+        items: [
+          { name: "Student Packing List", path: "/tools/packing-list", icon: Luggage },
+          { name: "Health Insurance Compare", path: "/tools/health-insurance-compare", icon: ShieldCheck },
+        ],
+      },
+    ],
+  },
   {
     name: "Our Partners",
     path: "/our-partners",
     dropdown: [
-      { name: "Compare Loan Offers", path: "/our-partners/Compare-Loan-Offers" },
-      {name: "Interest Calculator", path: "/our-partners/Interest-Calculator" },
-      {name: "Loan Repayment Calculator", path: "/our-partners/Loan-Repayment-Calculator" },
-      {name: "Education Loan Eligibility Checker", path: "/our-partners/Education-Loan-Eligibility-Checker" },
-      {name: "Education Loan EMI Calculator", path: "/our-partners/Education-Loan-EMI-Calculator" },
-      {name: "Bank Comparison Tool", path: "/our-partners/Bank-Comparison-Tool" },
-      {name: "Cost of Studying Abroad", path: "/our-partners/Cost-of-Studying-Abroad" },
-      {name: "Living Calculator", path: "/our-partners/Living-Calculator" },
-      {name: "ROI Calculator", path: "/our-partners/ROI-Calculator" },
-      {name: "Estimate Future Earnings", path: "/our-partners/Estimate-Future-Earnings" },
-      {name: "Time Zone Converter", path: "/our-partners/Time-Zone-Converter" },
-      {name: "Weather Abroad", path: "/our-partners/Weather-Abroad" },
-      {name: "Budget Calculator", path: "/our-partners/Budget-Calculator" },
-      {name: "Currency Converter", path: "/our-partners/Currency-Converter" },
-      {name: "GPA Calculator", path: "/our-partners/GPA-Calculator" },
-      {name: "SOP Generator", path: "/our-partners/SOP-Generator" },
-      {name: "TRAVEL & INSURANCE TOOLS", path: "/our-partners/TRAVEL-&-INSURANCE-TOOLS" },
-      {name: "Packing List", path: "/our-partners/Packing-List" },
-      {name: "Health Insurance Comparer", path: "/our-partners/Health-Insurance-Comparer" },
+      {
+        heading: "OUR LENDING PARTNERS",
+        items: [
+          { name: "Credila", path: "/our-partners/credila", icon: Banknote },
+          { name: "Auxilo", path: "/our-partners/auxilo", icon: Banknote },
+          { name: "Avanse", path: "/our-partners/avanse", icon: Banknote },
+          { name: "Incred Finance", path: "/our-partners/incred-finance", icon: Banknote },
+          { name: "MPOWER Financing", path: "/our-partners/mpower-financing", icon: Banknote },
+          { name: "Prodigy Finance", path: "/our-partners/prodigy-finance", icon: Banknote },
+          { name: "IDFC FIRST Bank", path: "/our-partners/idfc-first-bank", icon: Banknote },
+          { name: "Axis Bank", path: "/our-partners/axis-bank", icon: Banknote },
+        ],
+      },
+      {
+        heading: "IMPORTANT LOAN TOOLS",
+        items: [
+          { name: "Compare Loan Offers", path: "/our-partners/compare-loan-offers", icon: Scale },
+          { name: "Bank Comparison Tool", path: "/our-partners/bank-comparison-tool", icon: Building2 },
+        ],
+      },
     ],
-},
+  },
+  { name: "Blog", path: "/blog" },
   { name: "Country", path: "/country" },
   { name: "Contact", path: "/contact" },
 ];
 
+// ------------------ NAVBAR COMPONENT ------------------
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [scrollProgress, setScrollProgress] = useState(0); // Add this line
+  const [scrollProgress, setScrollProgress] = useState(0);
   const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10);
-
       const scrollTop = window.scrollY;
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
       const progress = (scrollTop / docHeight) * 100;
       setScrollProgress(progress);
     };
-
     handleScroll();
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Reset menu on route change
   useEffect(() => {
     setIsOpen(false);
     setOpenDropdown(null);
@@ -100,7 +162,6 @@ export function Navbar() {
     setOpenDropdown(null);
   };
 
-  // Path matching
   const isPathActive = (path: string) => {
     if (path === "/") return location.pathname === "/";
     return location.pathname === path || location.pathname.startsWith(path);
@@ -109,12 +170,14 @@ export function Navbar() {
   const isItemActive = (item: typeof navItems[number]) => {
     if (item.dropdown) {
       if (isPathActive(item.path)) return true;
-      return item.dropdown.some((d) => isPathActive(d.path));
+      return item.dropdown.some((section) =>
+        section.items.some((child) => isPathActive(child.path))
+      );
     }
     return isPathActive(item.path);
   };
 
-  // Dynamic link classes
+
   const getLinkClass = (active: boolean) =>
     cn(
       "transition-colors px-1",
@@ -137,7 +200,7 @@ export function Navbar() {
         <Link to="/" className="flex items-center gap-2 relative z-20">
           <img
             alt="Vsource Logo"
-            className="h-16 md:h-20 w-auto object-contain rounded-xl shadow-md"
+            className="h-16 md:h-20 w-auto object-contain rounded-xl "
             src="/assets/images/fintech-logo.png"
           />
           <div>
@@ -169,27 +232,38 @@ export function Navbar() {
                     {/* Dropdown */}
                     <div
                       className={cn(
-                        "absolute left-0 top-full mt-1 min-w-[250px] rounded-lg border bg-white p-2 shadow-lg transition-all duration-200 z-50",
+                        " top-full min-w-[600px] grid grid-cols-2 gap-6 p-6 z-50 absolute left-1/2 -translate-x-1/2 mt-3 w-[720px] max-w-[90vw] rounded-2xl border border-gray-100 bg-white shadow-lg transition-all duration-200 opacity-0 invisible -translate-y-1",
                         openDropdown === item.name ? "opacity-100 visible" : "opacity-0 invisible"
                       )}
                     >
-                      {item.dropdown.map((d) => {
-                        const childActive = isPathActive(d.path);
-                        return (
-                          <Link
-                            key={d.name}
-                            to={d.path}
-                            className={cn(
-                              "block rounded-md px-3 py-2 text-sm ",
-                              childActive
-                                ? "text-red-600"
-                                : "text-black hover:bg-gray-100 hover:text-red-600"
-                            )}
-                          >
-                            {d.name}
-                          </Link>
-                        );
-                      })}
+                      {item.dropdown.map((section) => (
+                        <div key={section.heading}>
+                          <h4 className="mb-2 text-xs font-semibold uppercase text-gray-500">
+                            {section.heading}
+                          </h4>
+                          <div className="space-y-2">
+                            {section.items.map((d) => {
+                              const childActive = isPathActive(d.path);
+                              const Icon = d.icon;
+                              return (
+                                <Link
+                                  key={d.name}
+                                  to={d.path}
+                                  className={cn(
+                                    "flex items-center gap-2 rounded-md px-2 py-1.5 text-sm",
+                                    childActive
+                                      ? "text-red-600"
+                                      : "text-black hover:bg-gray-100 hover:text-red-600"
+                                  )}
+                                >
+                                  <Icon className="h-4 w-4 text-gray-500" />
+                                  {d.name}
+                                </Link>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      ))}
                     </div>
                   </div>
                 ) : (
@@ -201,6 +275,7 @@ export function Navbar() {
             );
           })}
         </nav>
+
         {/* Progress Bar */}
         {scrollProgress > 0 && (
           <div className="absolute bottom-0 left-0 w-full h-[3px] bg-gray-200 z-30">
@@ -210,9 +285,10 @@ export function Navbar() {
             />
           </div>
         )}
+
         {/* Mobile toggle */}
         <button
-          className="md:hidden text-white"
+          className={cn(isScrolled ? "text-black" : "text-white", "md:hidden")}
           onClick={() => setIsOpen((v) => !v)}
           aria-label="Toggle menu"
         >
@@ -247,21 +323,34 @@ export function Navbar() {
                       </button>
 
                       {openDropdown === item.name && (
-                        <div className="pl-4 space-y-1">
-                          {item.dropdown.map((d) => (
-                            <Link
-                              key={d.name}
-                              to={d.path}
-                              className={cn(
-                                "block py-2 text-sm ",
-                                isPathActive(d.path)
-                                  ? "text-red-600"
-                                  : "text-gray-700 hover:text-red-600"
-                              )}
-                              onClick={closeMenu}
-                            >
-                              {d.name}
-                            </Link>
+                        <div className="pl-4 space-y-4">
+                          {item.dropdown.map((section) => (
+                            <div key={section.heading}>
+                              <h4 className="mt-2 mb-1 text-xs font-semibold uppercase text-gray-500">
+                                {section.heading}
+                              </h4>
+                              <div className="space-y-1">
+                                {section.items.map((d) => {
+                                  const Icon = d.icon;
+                                  return (
+                                    <Link
+                                      key={d.name}
+                                      to={d.path}
+                                      className={cn(
+                                        "flex items-center gap-2 py-2 text-sm",
+                                        isPathActive(d.path)
+                                          ? "text-red-600"
+                                          : "text-gray-700 hover:text-red-600"
+                                      )}
+                                      onClick={closeMenu}
+                                    >
+                                      <Icon className="h-4 w-4 text-gray-500" />
+                                      {d.name}
+                                    </Link>
+                                  );
+                                })}
+                              </div>
+                            </div>
                           ))}
                         </div>
                       )}
@@ -270,7 +359,7 @@ export function Navbar() {
                     <Link
                       to={item.path}
                       className={cn(
-                        "block py-2 ",
+                        "block py-2",
                         active ? "text-red-600" : "text-black hover:text-red-600"
                       )}
                       onClick={closeMenu}
