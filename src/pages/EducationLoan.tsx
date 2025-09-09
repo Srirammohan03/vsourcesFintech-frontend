@@ -158,11 +158,9 @@ const EducationLoan: React.FC = () => {
     return (
         <div className="w-full">
             {/* Hero Section */}
-            <section className="relative bg-[#2563eb] text-white pt-28 pb-5 lg:pb-20 lg:pt-32">
-                <div className="w-full max-w-[1400px] mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
-                    {/* Left Side */}
+            <section className="relative lg:text-white pt-28 pb-5 lg:pb-20 lg:pt-36 overflow-hidden">
+                <div className="w-full max-w-[1400px] mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center relative z-10">
                     <div className="space-y-6">
-                        {/* Breadcrumb with Home icon */}
                         <p className="text-sm opacity-90 flex items-center gap-2">
                             <Link to="/" className="flex items-center gap-1 hover:text-red-600">
                                 <House className="h-5 w-5" />
@@ -171,13 +169,16 @@ const EducationLoan: React.FC = () => {
                             <span>/</span>
                             <span>Education Loan</span>
                         </p>
-
-                        {/* Heading */}
+                        <div className="block lg:hidden my-6">
+                            <img
+                                src="/assets/images/education-loans.jpg"
+                                alt="Education Loan"
+                                className="w-full h-auto object-cover rounded-xl"
+                            />
+                        </div>
                         <h1 className="text-3xl md:text-4xl font-bold leading-tight">
                             Student Education Loans
                         </h1>
-
-                        {/* Checklist in 2 rows */}
                         <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                             {[
                                 "No Credit History Required",
@@ -185,33 +186,122 @@ const EducationLoan: React.FC = () => {
                                 "Easy Online Application",
                                 "Exclusive Student Rewards",
                             ].map((item, i) => (
-                                <li key={i} className="flex items-center gap-2 text-white">
+                                <li key={i} className="flex items-center gap-2 lg:text-white">
                                     <CheckCircle className="w-5 h-5 text-yellow-300 flex-shrink-0" />
                                     {item}
                                 </li>
                             ))}
                         </ul>
-
-                        {/* Buttons */}
                         <div className="flex gap-4 flex-wrap">
                             <Button className="text-white bg-red-600 font-semibold">
                                 Check Eligibility
                             </Button>
-                            <Button variant="secondary" className="bg-white text-red-600 hover:bg-red-600 hover:text-white font-semibold ">
+                            <Button variant="secondary" className="bg-white text-red-600 hover:bg-red-600 hover:text-white font-semibold">
                                 Apply Now
                             </Button>
                         </div>
                     </div>
+                </div>
+                <div className="hidden lg:block absolute inset-0">
+                    <img
+                        src="/assets/images/education-loan.png"
+                        alt="Education Loan"
+                        className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-black/30"></div>
+                </div>
+            </section>
 
-                    {/* Right Side Image */}
-                    <div className="flex justify-center">
-                        <img
-                            src="/assets/images/education-loans.jpg"
-                            alt="Education Loan"
-                            className=" lg:w-[420px] h-auto object-cover rounded-xl"
-                        />
+
+
+
+            <section>
+                <div className="w-full max-w-[1400px] mx-auto px-6">
+                    <div className="py-10">
+                        <h2 className="text-2xl font-bold text-gray-800 mb-4 md:text-3xl">
+                            Student Loan
+                        </h2>
+                        <p className="text-gray-600 mb-4 md:text-base text-justify">
+                            A student loan is a form of financial aid that helps students pay for higher education expenses, including tuition, fees, books, and living costs. Unlike grants or scholarships, a loan must be repaid, usually with interest. These loans can be a critical tool for those who cannot afford college outright, but it's essential to understand the terms and conditions.
+                        </p>
+                        <p className="text-gray-600 md:text-base text-justify">
+                            Choosing a student loan is a significant financial decision that can affect your finances for years after graduation. It's crucial to borrow only what you need and to explore all your options, including scholarships, grants, and federal work-study programs, before taking on debt. Once you have a loan, managing it wisely is key.
+                        </p>
                     </div>
                 </div>
+                <div>
+                    <h2 className="text-2xl font-bold text-gray-800 mb-4 md:text-3xl text-center">Top Benefits</h2>
+                    {/* images look like cards slide will go here */}
+                </div>
+            </section>
+            <section>
+                <div className="w-full max-w-[1400px] mx-auto px-6">
+                    <div className="py-2">
+                        <h2 className="text-2xl font-bold text-gray-800 mb-4 md:text-3xl">
+                            Education Loan EMI Calculator
+                        </h2>
+                        <p className="text-gray-600 mb-4 md:text-base text-justify">
+                            Use our Education Loan EMI Calculator to estimate your monthly
+                            installments instantly. Adjust loan amount, interest rate, and tenure
+                            to plan repayments with confidence. This tool helps students and
+                            parents understand repayment obligations clearly and make informed
+                            financial decisions before borrowing.
+                        </p>
+                    </div>
+
+                    <div className="py-2">
+                        <h2 className="text-2xl font-bold text-gray-800 mb-4 md:text-3xl">
+                            Education Loan Eligibility
+                        </h2>
+                        <p className="text-gray-600 mb-4 md:text-base text-justify">
+                            Check the eligibility criteria such as age, academic background, and
+                            co-applicant income requirements. Ensure you meet the lender’s
+                            conditions before applying for a loan. Typically, a confirmed admission
+                            letter, good academic track record, and co-borrower support are
+                            mandatory for approval.
+                        </p>
+                    </div>
+
+                    <div className="py-2">
+                        <h2 className="text-2xl font-bold text-gray-800 mb-4 md:text-3xl">
+                            Education Loan Tax Deduction Under 80E
+                        </h2>
+                        <p className="text-gray-600 mb-4 md:text-base text-justify">
+                            Claim tax benefits on the interest paid towards education loans under
+                            Section 80E of the Income Tax Act. Deductions are available for up to
+                            8 years from the start of repayment. This benefit significantly reduces
+                            the overall cost of borrowing, making higher education more affordable
+                            for students and their families.
+                        </p>
+                    </div>
+
+                    <div className="py-2">
+                        <h2 className="text-2xl font-bold text-gray-800 mb-4 md:text-3xl">
+                            Education Loan Interest Rates and Charges
+                        </h2>
+                        <p className="text-gray-600 mb-4 md:text-base text-justify">
+                            Compare interest rates, processing fees, and other charges across
+                            leading banks and NBFCs. Transparent cost details help you choose the
+                            most affordable loan option. Interest rates may vary depending on
+                            creditworthiness, institution type, and repayment tenure, so careful
+                            evaluation is essential.
+                        </p>
+                    </div>
+
+                    <div className="py-2">
+                        <h2 className="text-2xl font-bold text-gray-800 mb-4 md:text-3xl">
+                            Documents Required for an Education Loan
+                        </h2>
+                        <p className="text-gray-600 mb-4 md:text-base text-justify">
+                            Prepare essential documents including admission proof, ID, address,
+                            academic records, and co-applicant financials. Submitting complete
+                            paperwork speeds up loan approval. Missing or inaccurate documents may
+                            delay disbursal, so double-check requirements before applying to avoid
+                            rejections.
+                        </p>
+                    </div>
+                </div>
+
 
             </section>
 
@@ -722,7 +812,7 @@ const EducationLoan: React.FC = () => {
 
             {/* FAQ Section */}
 
-                        
+
             <section className="py-20 bg-gray-50">
                 <div className="w-full max-w-[1000px] mx-auto px-6">
                     <h2 className="text-3xl font-bold mb-8 text-center">

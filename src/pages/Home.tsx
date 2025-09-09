@@ -222,7 +222,7 @@ export default function Home() {
       <Accreditation />
       <ScholarshipsSection />
       <TrustSection />
-
+      <ServicesSection />
       <section className="w-full py-16 bg-white">
         <div className="max-w-[1400px] mx-auto px-4 text-center">
           {/* Heading */}
@@ -454,7 +454,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <ServicesSection />
       {/* Loan Partners Section */}
 
       <Banksloans />

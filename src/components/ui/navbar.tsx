@@ -19,6 +19,27 @@ import {
   Building2,
   Scale,
 } from "lucide-react";
+import path from "path";
+
+// ------------------ ICON COLORS ------------------
+const iconColors: Record<string, string> = {
+  Banknote: "text-green-600",
+  CreditCard: "text-blue-600",
+  Scale: "text-purple-600",
+  Building2: "text-gray-700",
+  Coins: "text-yellow-600",
+  ShieldCheck: "text-teal-600",
+  Globe: "text-indigo-600",
+  PiggyBank: "text-pink-600",
+  Calculator: "text-orange-600",
+  BarChart3: "text-sky-600",
+  TrendingUp: "text-emerald-600",
+  CloudSun: "text-amber-500",
+  ClipboardList: "text-red-500",
+  GraduationCap: "text-cyan-600",
+  FileText: "text-gray-600",
+  Luggage: "text-fuchsia-600",
+};
 
 // ------------------ NAV ITEMS ------------------
 const navItems = [
@@ -54,7 +75,7 @@ const navItems = [
       {
         heading: "LOAN TOOLS",
         items: [
-          { name: "Compare Loan Offers", path: "/tools/compare-loan-offers", icon: Scale },
+          {name: "Loan Calculator", path: "/tools/loan-calculator", icon: Calculator },
           { name: "Interest Calculator", path: "/tools/interest-calculator", icon: Calculator },
           { name: "Loan Repayment Calculator", path: "/tools/loan-repayment-calculator", icon: PiggyBank },
           { name: "Education Loan Eligibility Checker", path: "/tools/education-loan-eligibility-checker", icon: ClipboardList },
@@ -177,7 +198,6 @@ export function Navbar() {
     return isPathActive(item.path);
   };
 
-
   const getLinkClass = (active: boolean) =>
     cn(
       "transition-colors px-1",
@@ -232,7 +252,7 @@ export function Navbar() {
                     {/* Dropdown */}
                     <div
                       className={cn(
-                        " top-full min-w-[600px] grid grid-cols-2 gap-6 p-6 z-50 absolute left-1/2 -translate-x-1/2 mt-3 w-[720px] max-w-[90vw] rounded-2xl border border-gray-100 bg-white shadow-lg transition-all duration-200 opacity-0 invisible -translate-y-1",
+                        "absolute left-1/2 -translate-x-1/2 top-full mt-3 w-[720px] max-w-[90vw] grid grid-cols-2 gap-6 p-6 rounded-2xl border border-gray-100 bg-white shadow-lg transition-all duration-200 z-50",
                         openDropdown === item.name ? "opacity-100 visible" : "opacity-0 invisible"
                       )}
                     >
@@ -245,6 +265,7 @@ export function Navbar() {
                             {section.items.map((d) => {
                               const childActive = isPathActive(d.path);
                               const Icon = d.icon;
+                              const iconColor = iconColors[Icon.displayName || Icon.name] || "text-gray-500";
                               return (
                                 <Link
                                   key={d.name}
@@ -256,7 +277,7 @@ export function Navbar() {
                                       : "text-black hover:bg-gray-100 hover:text-red-600"
                                   )}
                                 >
-                                  <Icon className="h-4 w-4 text-gray-500" />
+                                  <Icon className={cn("h-4 w-4", iconColor)} />
                                   {d.name}
                                 </Link>
                               );
@@ -332,6 +353,7 @@ export function Navbar() {
                               <div className="space-y-1">
                                 {section.items.map((d) => {
                                   const Icon = d.icon;
+                                  const iconColor = iconColors[Icon.displayName || Icon.name] || "text-gray-500";
                                   return (
                                     <Link
                                       key={d.name}
@@ -344,7 +366,7 @@ export function Navbar() {
                                       )}
                                       onClick={closeMenu}
                                     >
-                                      <Icon className="h-4 w-4 text-gray-500" />
+                                      <Icon className={cn("h-4 w-4", iconColor)} />
                                       {d.name}
                                     </Link>
                                   );

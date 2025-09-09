@@ -26,7 +26,7 @@ const ServicesSection = () => {
     <section className="py-16 md:py-24 bg-white text-black">
       <div className="container mx-auto px-4">
         <SectionTitle
-          title="Our Services"
+          title="Comprehensive Services"
           subtitle="Comprehensive educational solutions to help you achieve your academic and career goals"
         />
 
@@ -37,7 +37,6 @@ const ServicesSection = () => {
                 onClick={() => window.open(service.externalUrl, "_blank")}
                 className="relative overflow-hidden rounded-xl shadow-lg bg-white cursor-pointer transform transition-transform duration-300 hover:scale-105"
               >
-                {/* Adjusted height for mobile to ensure button fits */}
                 <div className="aspect-[16/13] md:aspect-[16/9] overflow-hidden ">
                   <img
                     src={service.imageSrc}
@@ -79,7 +78,6 @@ const ServicesSection = () => {
                     </a>
                     <a
                       href="tel:+919912611119"
-                      // target="_blank"
                       rel="noopener noreferrer"
                       className="text-xs sm:text-sm bg-red-600 text-white font-bold px-4 py-2 sm:px-5 sm:py-2.5 rounded-md hover:bg-red-700 transition text-center flex-1 sm:flex-none"
                       onClick={(e) => e.stopPropagation()}

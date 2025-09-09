@@ -9,7 +9,7 @@ const AboutSection: React.FC = () => {
       id: 1,
       value: 100000,
       suffix: "+",
-      label: "Students happyear",
+      label: "Students Happier",
       icon: "https://cdn-icons-gif.flaticon.com/6454/6454106.gif",
     },
     {
@@ -23,14 +23,14 @@ const AboutSection: React.FC = () => {
       id: 3,
       value: 25,
       suffix: "+",
-      label: "Banking and NBFC ties",
+      label: "Banking & NBFC Ties",
       icon: "/assets/images/diversity.gif",
     },
      {
       id: 4,
       value: 500,
       suffix: "+ cr",
-      label: "Disbursed every year",
+      label: "Disbursed Every Year",
       icon: "/assets/images/money-bag.gif",
     },
   ];
