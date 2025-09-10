@@ -12,7 +12,7 @@ import Country from "./pages/Country";
 import Contact from "./pages/Contact";
 import LoanCalculator from "./pages/tools/LoanCalculator";
 import NotFound from "./pages/NotFound";
-import PartnerDetails from "./components/layout/PartnerDetails";
+// import PartnerDetails from "./components/layout/PartnerDetails";
 import ContactBar from "./components/ContactBar";
 import { Footer } from "./components/ui/footer";
 import GoVirtual from "./services/GoVirtual";
@@ -91,7 +91,7 @@ const AppContent = () => {
             <Route path="/contact" element={<Contact />} />
 
 
-            <Route path="/partners/:slug" element={<PartnerDetails />} />
+            {/* <Route path="/partners/:slug" element={<PartnerDetails />} /> */}
             <Route path="/education-loan" element={<EducationLoan />} />
 
             {/* Services */}

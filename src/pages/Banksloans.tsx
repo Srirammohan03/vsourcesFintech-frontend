@@ -4,20 +4,20 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
 const Banksloans = () => {
-      const [visibleCount, setVisibleCount] = useState(8); // show first 8 (4x2)
-    
-      const visiblePartners: Partner[] = partners.slice(0, visibleCount);
-    
-      const handleToggle = () => {
-        if (visibleCount >= partners.length) {
-          setVisibleCount(8); // reset to first 8
-        } else {
-          setVisibleCount((prev) => prev + 8); // load next 8
-        }
-      };
+  const [visibleCount, setVisibleCount] = useState(8); // show first 8 (4x2)
+
+  const visiblePartners: Partner[] = partners.slice(0, visibleCount);
+
+  const handleToggle = () => {
+    if (visibleCount >= partners.length) {
+      setVisibleCount(8); // reset to first 8
+    } else {
+      setVisibleCount((prev) => prev + 8); // load next 8
+    }
+  };
   return (
     <div>
-            {/* Loan Partners Section */}
+      {/* Loan Partners Section */}
       <section className="py-10 lg:py-16 bg-surface">
         <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -45,8 +45,7 @@ const Banksloans = () => {
                 transition={{ duration: 0.4, delay: index * 0.05 }}
                 className="rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 bg-white flex flex-col"
               >
-                <Link to={`/partners/${partner.slug}`}>
-                  {/* Logo */}
+                <Link to={partner.path}>
                   <div className="flex-1 flex items-center justify-center p-4">
                     <img
                       src={partner.logo}
@@ -54,9 +53,8 @@ const Banksloans = () => {
                       className="max-h-12 object-cover"
                     />
                   </div>
-
-                
                 </Link>
+
               </motion.div>
             ))}
           </div>
