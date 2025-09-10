@@ -36,6 +36,13 @@ import { MpowerFinancePage } from "./pages/ourpartner/MpowerFinancePage";
 import { ProdigyFinancePage } from "./pages/ourpartner/ProdigyFinancePage";
 import { IDFCpage } from "./pages/ourpartner/IDFCpage";
 import AxisPage from "./pages/ourpartner/AxisPage";
+import BankComparisonTool from "./pages/ourpartner/BankComparisonTool";
+import CompareLoanOffers from "./pages/ourpartner/CompareLoanOffers";
+import InterestCalculator from "./pages/tools/InterestCalculator";
+import LoanRepaymentCalculator from "./pages/tools/LoanRepaymentCalculator";
+import EducationLoanEmiCalculator from "./pages/tools/EducationLoanEmiCalculator";
+import TimeZoneConverter from "./pages/tools/TimeZoneConverter";
+import WeatherAbroad from "./pages/tools/WeatherAbroad";
 const queryClient = new QueryClient();
 
 const AppContent = () => {
@@ -69,12 +76,17 @@ const AppContent = () => {
           <Routes>
             <Route path="/" element={<Home />} />
             
-            <Route path="/tools" element={<Tools />} />
+            <Route path="/tools" element={<Tools />} /> 
           <Route path="/tools/loan-calculator" element={<LoanCalculator />} />
-          <Route path="/tools/expense-calculator" element={<ExpenseCalculator />} />
+         <Route path="/tools/expense-calculator" element={<ExpenseCalculator />} />
           <Route path="/tools/currency-converter" element={<CurrencyConverter />} />
           <Route path="/tools/savings-calculator" element={<SavingsCalculator />} />
-
+          <Route path="/tools/interest-calculator" element={<InterestCalculator/>} />
+          <Route path="/tools/loan-repayment-calculator" element={<LoanRepaymentCalculator/>} />
+          <Route path="/tools/education-loan-emi-calculator" element={<EducationLoanEmiCalculator />} />
+          <Route path="/tools/bank-comparison-tool" element={<BankComparisonTool />} />
+          <Route path="/tools/time-zone-converter" element={<TimeZoneConverter />} />
+          <Route path="/tools/weather-abroad" element={<WeatherAbroad />} />
 
 
             {/* <Route path="/our-partners" element={<Resources />} /> */}
@@ -86,6 +98,8 @@ const AppContent = () => {
             <Route path= "/our-partners/prodigy-finance" element={<ProdigyFinancePage/>}/>
             <Route path="/our-partners/idfc-first-bank" element={<IDFCpage/>}/>
             <Route path= "/our-partners/axis-bank" element={<AxisPage/>}/>
+            <Route path=  "/our-partners/compare-loan-offers" element={<CompareLoanOffers/>} />
+            <Route path=  "/our-partners/bank-comparison-tool" element={<BankComparisonTool/>}/>
 
             <Route path="/country" element={<Country />} />
             <Route path="/contact" element={<Contact />} />
