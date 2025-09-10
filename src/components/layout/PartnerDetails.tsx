@@ -23,13 +23,6 @@ export default function PartnerDetails() {
 
         {/* Right Content */}
         <div>
-          {/* Breadcrumb */}
-          <div className="text-sm text-gray-500 mb-4">
-            <span className="text-pink-500">Home</span> &gt;{" "}
-            <span className="text-pink-500">Student Loan</span> &gt;{" "}
-            <span className="text-blue-600 font-medium">{partner.name}</span>
-          </div>
-
           <h1 className="text-3xl md:text-4xl font-bold text-gray-900">
             {partner.name} Education Loan
           </h1>
@@ -43,7 +36,7 @@ export default function PartnerDetails() {
               <span className="text-pink-500 text-xl">%</span>
               <div>
                 <p className="font-semibold">Interest Rates</p>
-                <p className="text-sm text-gray-600">{partner.rate}</p>
+                <p className="text-sm text-gray-600">{}</p>
               </div>
             </div>
             <div className="flex items-center gap-2">

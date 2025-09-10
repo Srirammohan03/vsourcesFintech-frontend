@@ -28,6 +28,7 @@ import SavingsCalculator from "./pages/tools/SavingsCalculator";
 // ⚠️ You can later add imports for DomesticEducationLoan, ForexCard, etc.
 import AOS from "aos";
 import "aos/dist/aos.css";
+import CredilaPage from "./pages/ourpartner/CredilaPage";
 const queryClient = new QueryClient();
 
 const AppContent = () => {
@@ -69,7 +70,8 @@ const AppContent = () => {
 
 
 
-            <Route path="/resources" element={<Resources />} />
+            {/* <Route path="/our-partners" element={<Resources />} /> */}
+            <Route path="/our-partners/credila" element={<CredilaPage/>}></Route>
             <Route path="/country" element={<Country />} />
             <Route path="/contact" element={<Contact />} />
 
@@ -85,8 +87,6 @@ const AppContent = () => {
             {/* Add more services here later */}
 
             <Route path="/meeting" element={<GoVirtual />} />
-
-            {/* Catch-all */}
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
