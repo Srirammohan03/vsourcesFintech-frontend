@@ -12,6 +12,9 @@ interface BankLayoutProps {
     heroBg: string;
     heroTitle: string;
     heroSubtitle?: string;
+    interstRate?: string;
+    serviceCharge?: string;
+    marginRate?: string;
     bankImg: string;
     description: string;
     trustedBy: TrustedByItem[];
@@ -59,6 +62,9 @@ const BankLayout: React.FC<BankLayoutProps> = ({
     heroBg,
     heroTitle,
     heroSubtitle,
+    interstRate,
+    serviceCharge,
+    marginRate,
     bankImg,
     description,
     trustedBy,
@@ -101,21 +107,21 @@ const BankLayout: React.FC<BankLayoutProps> = ({
                                 <span className="text-pink-500 text-xl">%</span>
                                 <div>
                                     <p className="font-semibold">Interest Rates</p>
-                                    <p className="text-sm text-gray-600">{ }</p>
+                                    <p className="text-sm text-gray-600">{interstRate}</p>
                                 </div>
                             </div>
                             <div className="flex items-center gap-2">
                                 <span className="text-blue-500 text-xl">₹</span>
                                 <div>
                                     <p className="font-semibold">Service Charge</p>
-                                    <p className="text-sm text-gray-600">Free of Cost</p>
+                                    <p className="text-sm text-gray-600">{serviceCharge}</p>
                                 </div>
                             </div>
                             <div className="flex items-center gap-2">
                                 <span className="text-purple-500 text-xl">⚖</span>
                                 <div>
                                     <p className="font-semibold">Margin Money</p>
-                                    <p className="text-sm text-gray-600">NIL</p>
+                                    <p className="text-sm text-gray-600">{marginRate}</p>
                                 </div>
                             </div>
                         </div>
@@ -137,7 +143,7 @@ const BankLayout: React.FC<BankLayoutProps> = ({
                     </div>
                     <div className="">
                         <div className=" rounded-2xl">
-                            <img src={bankImg} alt={heroTitle} className="" />
+                            <img src={bankImg} alt={heroTitle} className="rounded-2xl shadow" />
                         </div>
                     </div>
                 </div>
@@ -225,7 +231,7 @@ const BankLayout: React.FC<BankLayoutProps> = ({
             <section className="py-12 bg-gray-50">
                 <div className="w-full max-w-[1400px] mx-auto px-4">
                     <h2 className="text-2xl font-bold mb-6 text-center">
-                        Education Loan Eligibility Criteria
+                        Education Loan Eligibility {heroTitle}
                     </h2>
 
                     {/* Responsive Table */}

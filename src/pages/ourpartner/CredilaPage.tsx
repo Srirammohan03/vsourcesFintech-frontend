@@ -8,6 +8,9 @@ const CredilaPage = () => {
             heroBg="/images/credila-bg.jpg"
             heroTitle="Credila"
             heroSubtitle="Trusted Education Loan Partner"
+            interstRate="Starting at 10.99% p.a."
+            serviceCharge="Free of Cost"
+            marginRate="NIL"
             bankImg="/assets/images/cerdila-img.png"
             description="Credila, part of HDFC, provides customized education loans for students aspiring to study in India and abroad with flexible repayment options."
             trustedBy={[

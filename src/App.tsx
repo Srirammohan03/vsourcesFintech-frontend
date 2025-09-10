@@ -29,6 +29,13 @@ import SavingsCalculator from "./pages/tools/SavingsCalculator";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import CredilaPage from "./pages/ourpartner/CredilaPage";
+import Auxilopage from "./pages/ourpartner/Auxilopage";
+import AvansePage from "./pages/ourpartner/AvansePage";
+import { IncredFinancingPage } from "./pages/ourpartner/IncredFinancingPage";
+import { MpowerFinancePage } from "./pages/ourpartner/MpowerFinancePage";
+import { ProdigyFinancePage } from "./pages/ourpartner/ProdigyFinancePage";
+import { IDFCpage } from "./pages/ourpartner/IDFCpage";
+import AxisPage from "./pages/ourpartner/AxisPage";
 const queryClient = new QueryClient();
 
 const AppContent = () => {
@@ -71,7 +78,15 @@ const AppContent = () => {
 
 
             {/* <Route path="/our-partners" element={<Resources />} /> */}
-            <Route path="/our-partners/credila" element={<CredilaPage/>}></Route>
+            <Route path="/our-partners/credila" element={<CredilaPage/>} />
+            <Route path="/our-partners/auxilo" element={<Auxilopage />} />
+            <Route path="/our-partners/avanse" element={<AvansePage/>} />
+            <Route path="/our-partners/incred-finance" element={<IncredFinancingPage/>}/>
+            <Route  path="/our-partners/mpower-financing" element={<MpowerFinancePage/>}/>
+            <Route path= "/our-partners/prodigy-finance" element={<ProdigyFinancePage/>}/>
+            <Route path="/our-partners/idfc-first-bank" element={<IDFCpage/>}/>
+            <Route path= "/our-partners/axis-bank" element={<AxisPage/>}/>
+
             <Route path="/country" element={<Country />} />
             <Route path="/contact" element={<Contact />} />
 
