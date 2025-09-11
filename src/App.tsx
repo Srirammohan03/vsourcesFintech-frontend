@@ -89,6 +89,7 @@ const AppContent = () => {
           <Route path="/tools/weather-abroad" element={<WeatherAbroad />} />
 
 
+
             {/* <Route path="/our-partners" element={<Resources />} /> */}
             <Route path="/our-partners/credila" element={<CredilaPage/>} />
             <Route path="/our-partners/auxilo" element={<Auxilopage />} />
