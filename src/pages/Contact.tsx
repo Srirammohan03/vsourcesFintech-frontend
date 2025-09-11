@@ -1,253 +1,219 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Clock } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { useToast } from '@/hooks/use-toast';
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import SectionTitle from "@/components/SectionTitle";
+import AnimateOnScroll from "@/components/AnimateOnScroll";
+import { Phone, Mail, MapPin, Clock, MessageSquare } from "lucide-react";
 
-export default function Contact() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    message: ''
-  });
-  const { toast } = useToast();
+const ContactPage = () => {
+  const location = useLocation();
+  const [selectedService, setSelectedService] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Handle form submission
-    toast({
-      title: "Message Sent!",
-      description: "We'll get back to you within 24 hours.",
-    });
-    setFormData({ name: '', email: '', phone: '', message: '' });
-  };
+  // Scroll to top on page load and handle URL query params
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    
+    // Get program from URL query parameter
+    const params = new URLSearchParams(location.search);
+    const program = params.get('program');
+    
+    if (program) {
+      setSelectedService(program);
+    }
+  }, [location]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
+  const branches = [
+    {
+      id: 1,
+      city: "Hyderabad",
+      address: "123 Educational Lane, Knowledge City, Hyderabad 500001",
+      phone: "+91 123 456 7890",
+      email: "hyderabad@vsource.com",
+      hours: "Mon-Sat: 10:00 AM - 7:00 PM"
+    },
+    {
+      id: 2,
+      city: "Delhi",
+      address: "456 Academic Avenue, Study District, Delhi 110001",
+      phone: "+91 234 567 8901",
+      email: "delhi@vsource.com",
+      hours: "Mon-Sat: 10:00 AM - 7:00 PM"
+    },
+    {
+      id: 3,
+      city: "Mumbai",
+      address: "789 Campus Road, Education Quarter, Mumbai 400001",
+      phone: "+91 345 678 9012",
+      email: "mumbai@vsource.com",
+      hours: "Mon-Sat: 10:00 AM - 7:00 PM"
+    }
+  ];
+
+  // List of available services
+  const services = [
+    { value: "", label: "Select a service" },
+    { value: "Study Abroad Counseling", label: "Study Abroad Counseling" },
+    { value: "Visa Assistance", label: "Visa Assistance" },
+    { value: "University Selection", label: "University Selection" },
+    { value: "Scholarship Guidance", label: "Scholarship Guidance" },
+    { value: "Other", label: "Other" }
+  ];
 
   return (
-    <div className="min-h-screen">
+    <>
       {/* Hero Section */}
-      <section className="bg-gradient-secondary text-white py-16 lg:py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-center space-y-6"
-          >
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold">
-              Contact Us
-            </h1>
-            <p className="text-xl lg:text-2xl text-white/90 max-w-3xl mx-auto">
-              Get in touch with our education loan experts. We're here to help you achieve your dreams.
+      <section className="pt-36 pb-20 bg-gradient-to-b from-darkblue to-gray-900 text-white">
+        <div className="container mx-auto px-4">
+          <div className="max-w-3xl mx-auto text-center">
+            <h1 className="text-4xl md:text-5xl font-bold mb-6">Branches</h1>
+            <p className="text-xl text-gray-300">
+            Visit our offices across India for in-person consultations
             </p>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Contact Form and Info */}
-      <section className="py-16 lg:py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            {/* Contact Form */}
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6 }}
-            >
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-2xl">Send us a Message</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <form onSubmit={handleSubmit} className="space-y-6">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <div>
-                        <label htmlFor="name" className="block text-sm font-medium mb-2">
-                          Full Name
-                        </label>
-                        <Input
-                          id="name"
-                          name="name"
-                          value={formData.name}
-                          onChange={handleChange}
-                          required
-                          placeholder="Enter your full name"
-                        />
-                      </div>
-                      <div>
-                        <label htmlFor="phone" className="block text-sm font-medium mb-2">
-                          Phone Number
-                        </label>
-                        <Input
-                          id="phone"
-                          name="phone"
-                          type="tel"
-                          value={formData.phone}
-                          onChange={handleChange}
-                          placeholder="Enter your phone number"
-                        />
-                      </div>
-                    </div>
-                    <div>
-                      <label htmlFor="email" className="block text-sm font-medium mb-2">
-                        Email Address
-                      </label>
-                      <Input
-                        id="email"
-                        name="email"
-                        type="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        required
-                        placeholder="Enter your email address"
-                      />
-                    </div>
-                    <div>
-                      <label htmlFor="message" className="block text-sm font-medium mb-2">
-                        Message
-                      </label>
-                      <Textarea
-                        id="message"
-                        name="message"
-                        value={formData.message}
-                        onChange={handleChange}
-                        required
-                        placeholder="Tell us about your education loan requirements..."
-                        rows={6}
-                      />
-                    </div>
-                    <Button type="submit" className="w-full bg-gradient-primary hover:opacity-90" size="lg">
-                      Send Message
-                    </Button>
-                  </form>
-                </CardContent>
-              </Card>
-            </motion.div>
-
-            {/* Contact Information */}
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6 }}
-              className="space-y-8"
-            >
-              <div>
-                <h2 className="text-3xl font-bold text-foreground mb-6">Get in Touch</h2>
-                <p className="text-lg text-muted-foreground mb-8">
-                  Ready to start your education abroad journey? Our team of experts is here to 
-                  guide you through every step of the process.
-                </p>
-              </div>
-
-              <div className="space-y-6">
-                <Card>
-                  <CardContent className="p-6">
-                    <div className="flex items-start space-x-4">
-                      <div className="w-10 h-10 bg-gradient-primary rounded-lg flex items-center justify-center">
-                        <Phone className="h-5 w-5 text-white" />
-                      </div>
-                      <div>
-                        <h3 className="font-semibold text-foreground mb-1">Phone</h3>
-                        <p className="text-muted-foreground">+1 (555) 123-4567</p>
-                        <p className="text-sm text-muted-foreground">Mon-Fri 9AM-6PM</p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                <Card>
-                  <CardContent className="p-6">
-                    <div className="flex items-start space-x-4">
-                      <div className="w-10 h-10 bg-gradient-primary rounded-lg flex items-center justify-center">
-                        <Mail className="h-5 w-5 text-white" />
-                      </div>
-                      <div>
-                        <h3 className="font-semibold text-foreground mb-1">Email</h3>
-                        <p className="text-muted-foreground">info@eduloan.com</p>
-                        <p className="text-sm text-muted-foreground">24/7 Support</p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                <Card>
-                  <CardContent className="p-6">
-                    <div className="flex items-start space-x-4">
-                      <div className="w-10 h-10 bg-gradient-primary rounded-lg flex items-center justify-center">
-                        <MapPin className="h-5 w-5 text-white" />
-                      </div>
-                      <div>
-                        <h3 className="font-semibold text-foreground mb-1">Office</h3>
-                        <p className="text-muted-foreground">
-                          123 Education Street<br />
-                          Learning City, LC 12345<br />
-                          United States
-                        </p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                <Card>
-                  <CardContent className="p-6">
-                    <div className="flex items-start space-x-4">
-                      <div className="w-10 h-10 bg-gradient-primary rounded-lg flex items-center justify-center">
-                        <Clock className="h-5 w-5 text-white" />
-                      </div>
-                      <div>
-                        <h3 className="font-semibold text-foreground mb-1">Business Hours</h3>
-                        <p className="text-muted-foreground">
-                          Monday - Friday: 9:00 AM - 6:00 PM<br />
-                          Saturday: 10:00 AM - 4:00 PM<br />
-                          Sunday: Closed
-                        </p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-            </motion.div>
           </div>
         </div>
       </section>
 
-      {/* Map Section */}
-      <section className="py-16 lg:py-24 bg-surface">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-12"
-          >
-            <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
-              Visit Our Office
-            </h2>
-            <p className="text-lg text-muted-foreground">
-              Come visit us for a face-to-face consultation
-            </p>
-          </motion.div>
+      {/* Branch Locations */}
+<section className="py-16 md:py-4 bg-gray-50">
+  <div className="container mx-auto px-4">
+ 
 
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6 }}
-            className="bg-muted rounded-lg h-96 flex items-center justify-center"
-          >
-            <p className="text-muted-foreground">Interactive Map Coming Soon</p>
-          </motion.div>
-        </div>
-      </section>
+    <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {[
+        {
+          city: "Dilsukhnagar",
+          address: "Vsource, Near Shashi Hospital, Metro pillar no-1519, Dilsukhnagar, Hyderabad- 500060, Telangana.",
+          phone: "+91 99126 11119",
+          email: "Support@vsourceadmissions.com",
+          hours: "10am to 8pm",
+          locationUrl: "https://www.google.com/maps/place/VSource/@17.3692602,78.519197,17z/data=!3m1!4b1!4m5!3m4!1s0x3bcb98f7d166d455:0x1d4049b98242ba23!8m2!3d17.3692602!4d78.5213857",
+          imageUrl: "https://lh3.googleusercontent.com/p/AF1QipMKzDcJJiP9PWWv6TVLljm-1EWGx9fu1R6Fb0qW=w408-h272-k-no"
+        },
+        {
+          city: "Ameerpet",
+          address: "Vsource Building, Kamma Sangam lane, Ameerpet, Hyderabad- 500073, Telangana.",
+          phone: "+91 99126 11119",
+          email: "Support@vsourceadmissions.com",
+          hours: "10am to 8pm",
+          locationUrl: "https://www.google.com/maps/place/Vsource+Overseas+Consultants+Pvt+Ltd",
+          imageUrl: "https://lh3.googleusercontent.com/p/AF1QipOMh-oDSNTOEZF6eiY4ooUkyUCISycBKjzYiNYP=w426-h240-k-no"
+          
+        },
+        {
+          city: "KPHB - JNTU",
+          address: "Beside JNTU Metro station Near ICICI Bank, Hyderabad, Telangana.",
+          phone: "+91 99126 11119",
+          email: "Support@vsourceadmissions.com",
+          hours: "10am to 8pm",
+          locationUrl: "https://www.google.com/maps/place/Vsource+Overseas+Consultants+Pvt+Ltd",
+          imageUrl: "/assets/images/branches/jntu branch.jpg"
+        },
+        {
+          city: "Vijayawada",
+          address: "1st floor, Mouli Towers, Beside Reliance Trends, Benz Circle, Vijayawada, AP.",
+          phone: "+91 99126 11119",
+          email: "Support@vsourceadmissions.com",
+          hours: "10am to 8pm",
+          locationUrl: "https://www.google.com/maps/place/VSource+Educational+Consultants+Pvt+Ltd",
+          imageUrl: "/assets/images/branches/vijaywada branch.jpeg"
+        },
+        {
+          city: "Visakhapatnam",
+          address: "Annapurna Nilayam 2nd Floor, Opp Hotel Kamat, Lawson's Bay Colony, Visakhapatnam, AP.",
+          phone: "+91 99126 11119",
+          email: "Support@vsourceadmissions.com",
+          hours: "10am to 8pm",
+          locationUrl: "https://www.google.com/maps/place/Annapurna+Nilayam/@17.7260105,83.3154943,15z/data=!4m10!1m2!2m1!1sAnnapurna+Nilayam+2nd+Floor,+Opp+Hotel+Kamat,+Lawson's+Bay+Colony,+Visakhapatnam,+AP.!3m6!1s0x3a3943003fa4956b:0xc818085c92e6c50c!8m2!3d17.7260105!4d83.3345487!15sClVBbm5hcHVybmEgTmlsYXlhbSAybmQgRmxvb3IsIE9wcCBIb3RlbCBLYW1hdCwgTGF3c29uJ3MgQmF5IENvbG9ueSwgVmlzYWtoYXBhdG5hbSwgQVAukgESYXBhcnRtZW50X2J1aWxkaW5nqgHPARABKlQiUGFubmFwdXJuYSBuaWxheWFtIDJuZCBmbG9vciBvcHAgaG90ZWwga2FtYXQgbGF3c29uJ3MgYmF5IGNvbG9ueSB2aXNha2hhcGF0bmFtIGFwKAAyHxABIhvuhInUa5mDOARt2VWc3lqHzM6Cr3G5c1dyBg0yVBACIlBhbm5hcHVybmEgbmlsYXlhbSAybmQgZmxvb3Igb3BwIGhvdGVsIGthbWF0IGxhd3NvbidzIGJheSBjb2xvbnkgdmlzYWtoYXBhdG5hbSBhcOABAA!16s%2Fg%2F11vxmf0vlw?entry=ttu&g_ep=EgoyMDI1MDUyMS4wIKXMDSoASAFQAw%3D%3D",
+          imageUrl: "/assets/images/branches/vizag branch.jpeg"
+        },
+        {
+          city: "Tirupathi",
+          address: "19-3-1/s, 3rd Floor, Renigunta Rd, Near Jawa showroom, Tirupathi - 517501.",
+          phone: "+91 99126 11119",
+          email: "Support@vsourceadmissions.com",
+          hours: "10am to 8pm",
+          locationUrl: "https://www.google.com/maps/place/Vsource+tirupathi",
+          imageUrl: "/assets/images/branches/tirupati branch.jpeg"
+        },
+        {
+          city: "Anantapur",
+          address: "Ground floor, CPV Residency, Beside Chandra Hospital, Anantapur, AP 515001.",
+          phone: "+91 99126 11119",
+          email: "Support@vsourceadmissions.com",
+          hours: "10am to 8pm",
+          locationUrl: "https://www.google.com/maps/place/Vsource+tirupathi",
+          imageUrl: "https://lh3.googleusercontent.com/p/AF1QipOMOt_FP4_B7iqfcNko_xoHWcoo4Lq-WUfl-3ZA=w408-h272-k-no"
+        },
+        {
+          city: "Bengaluru",
+          address: "#88, 9th cross G-Block, Sahakar Nagar, Bengaluru-560092, Karnataka.",
+          phone: "+91 99126 11119",
+          email: "Support@vsourceadmissions.com",
+          hours: "10am to 8pm",
+          locationUrl: "https://www.google.com/maps/place/VSOURCE+BENGALURU",
+          imageUrl: "/assets/images/branches/bangalore branch.jpeg"
+        }
+      ].map((branch, index) => (
+        <AnimateOnScroll key={index} delay={index * 100}>
+          <div className="flex flex-col h-full bg-white rounded-lg shadow-md overflow-hidden">
+            <div className="h-56 bg-gray-200">
+              {branch.imageUrl ? (
+                <img
+                  src={branch.imageUrl}
+                  alt={`${branch.city} Branch`}
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <div className="w-full h-full flex items-center justify-center bg-primary/10">
+                  <MapPin className="h-10 w-10 text-primary/60" />
+                </div>
+              )}
+            </div>
+
+            <div className="flex flex-col justify-between flex-grow p-6">
+              <div>
+                <h3 className="text-xl font-semibold mb-4">{branch.city} Branch</h3>
+                <div className="space-y-3">
+                  <div className="flex">
+                    <MapPin className="h-5 w-5 text-primary mr-3 flex-shrink-0" />
+                    <span className="text-gray-700">{branch.address}</span>
+                  </div>
+                  <div className="flex">
+                    <Phone className="h-5 w-5 text-primary mr-3 flex-shrink-0" />
+                    <span className="text-gray-700">{branch.phone}</span>
+                  </div>
+                  <div className="flex">
+                    <Mail className="h-5 w-5 text-primary mr-3 flex-shrink-0" />
+                    <span className="text-gray-700">{branch.email}</span>
+                  </div>
+                  <div className="flex">
+                    <Clock className="h-5 w-5 text-primary mr-3 flex-shrink-0" />
+                    <span className="text-gray-700">{branch.hours}</span>
+                  </div>
+                </div>
+              </div>
+
+              <a
+                href={branch.locationUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-6 w-full bg-gray-100 hover:bg-gray-200 text-gray-800 py-2 rounded font-medium transition-colors inline-flex items-center justify-center"
+              >
+                <MapPin className="h-4 w-4 mr-2" />
+                Get Directions
+              </a>
+            </div>
+          </div>
+        </AnimateOnScroll>
+      ))}
     </div>
+  </div>
+</section>
+
+
+
+{/*       */}
+    </>
   );
-}
+};
+
+export default ContactPage;

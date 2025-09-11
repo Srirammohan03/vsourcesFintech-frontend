@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import { User, GraduationCap, IndianRupee, MapPin } from "lucide-react";
+import { User, GraduationCap, IndianRupee } from "lucide-react";
 
 interface Service {
   icon: JSX.Element;
@@ -19,16 +19,15 @@ const services: Service[] = [
       "Get personalized assistance from our dedicated education loan bankers to guide you through the entire loan process",
   },
   {
-    backgroundImage:
-      "/assets/images/Easy-Applicationprocess.jpg",
-    icon: <GraduationCap size={40} color="#ffffffff" />,
+    backgroundImage: "/assets/images/Easy-Applicationprocess.jpg",
+    icon: <GraduationCap size={40} color="#ffffff" />,
     title: "Easy Application process",
     description:
       "Our streamlined application process makes it simple and quick to apply for an education loan online",
   },
   {
     backgroundImage: "/assets/images/UnderExpert-Guidance.jpg",
-    icon: <IndianRupee size={40} color="#ffffffff" />,
+    icon: <IndianRupee size={40} color="#ffffff" />,
     title: "Under Expert Guidance",
     description:
       "Receive expert guidance from our team of financial advisors to choose the best loan options tailored to your needs",
@@ -37,10 +36,7 @@ const services: Service[] = [
 
 const OurServices: React.FC = () => {
   useEffect(() => {
-    AOS.init({
-      duration: 800,
-      once: true,
-    });
+    AOS.init({ duration: 800, once: true });
   }, []);
 
   return (
@@ -52,7 +48,13 @@ const OurServices: React.FC = () => {
       >
         Our Services
       </h2>
-      <div className="scroll-container">
+
+      {/* The container is horizontally scrollable on mobile */}
+      <div
+        className="scroll-container"
+        role="region"
+        aria-label="Scrollable list of services"
+      >
         {services.map((service, index) => (
           <div
             key={index}
@@ -60,32 +62,37 @@ const OurServices: React.FC = () => {
             data-aos="fade-up"
             data-aos-delay={index * 100}
             style={{
-              backgroundImage: ` url(${service.backgroundImage})`,
+              backgroundImage: `url(${service.backgroundImage})`,
               backgroundRepeat: "no-repeat",
               backgroundSize: "cover",
-              backgroundPosition: index === services.length - 1 ? "center 15%" : "center",
+              backgroundPosition:
+                index === services.length - 1 ? "center 15%" : "center",
             }}
           >
-            <div className="absolute inset-0 bg-black/70 rounded-[16px]"></div>
-            <div className="relative z-10 flex flex-col items-center text-white">
+            {/* pointer-events:none so the overlay doesn't block horizontal drag */}
+            <div className="card-overlay" />
+
+            <div className="card-content">
               <div
-                className="icon-wrapper mb-4"
+                className="icon-wrapper"
                 data-aos="fade-right"
                 data-aos-delay={index * 200}
                 data-aos-anchor-placement="center-bottom"
               >
                 {service.icon}
               </div>
+
               <h3
-                className="text-2xl font-bold mb-3 text-blue-500"
+                className="card-title"
                 data-aos="fade-right"
                 data-aos-delay={index * 200}
                 data-aos-anchor-placement="center-bottom"
               >
                 {service.title}
               </h3>
+
               <p
-                className="text-lg"
+                className="card-desc"
                 data-aos="fade-right"
                 data-aos-delay={index * 200}
                 data-aos-anchor-placement="center-bottom"
@@ -97,65 +104,92 @@ const OurServices: React.FC = () => {
         ))}
       </div>
 
-      {/* Inline CSS for responsive behavior & animation */}
+      {/* Inline CSS: tuned for reliable horizontal scroll on iOS/Android */}
       <style>{`
-  .scroll-container {
-    display: flex;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    gap: 16px;
-    scroll-snap-type: x mandatory;
-    padding-bottom: 10px;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    justify-content: center; /* ✅ center on small screens */
-  }
+        .scroll-container {
+          display: flex;
+          flex-wrap: nowrap;
+          gap: 16px;
+          overflow-x: auto;
+          overflow-y: hidden;
+          padding: 4px 4px 12px;
+          scroll-snap-type: x mandatory;
+          scroll-behavior: smooth;
+          -webkit-overflow-scrolling: touch;      /* iOS momentum scroll */
+          -ms-overflow-style: none;               /* IE/Edge hides scrollbar */
+          scrollbar-width: none;                  /* Firefox hides scrollbar */
+          touch-action: pan-x;                    /* allow horizontal drag */
+        }
+        .scroll-container::-webkit-scrollbar { display: none; }
 
-  .scroll-container::-webkit-scrollbar {
-    display: none;
-  }
+        .service-card {
+          position: relative;
+          flex: 0 0 auto;                         /* don't shrink */
+          min-width: 82vw;                         /* card width on mobile */
+          max-width: 82vw;
+          height: 320px;
+          border-radius: 16px;
+          scroll-snap-align: center;              /* snap each card */
+          box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+          transition: transform .3s ease;
+          display: flex;
+          align-items: stretch;
+          justify-content: center;
+        }
+        .service-card:active { transform: scale(.99); }
 
-  .service-card {
-    position: relative;
-    flex: 0 0 85%;
-    max-width: 85%;
-    scroll-snap-align: center; /* ✅ center each card while scrolling */
-    border-radius: 16px;
-    padding: 24px;
-    text-align: center;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    transition: transform 0.3s;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    min-height: 300px;
-  }
+        .card-overlay {
+          pointer-events: none;                   /* don't block swipe */
+          position: absolute;
+          inset: 0;
+          background: rgba(0,0,0,.65);
+          border-radius: 16px;
+        }
 
-  .icon-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 16px;
-    height: 60px;
-  }
+        .card-content {
+          position: relative;
+          z-index: 1;
+          color: #fff;
+          padding: 24px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+          width: 100%;
+        }
 
-  @media (min-width: 768px) {
-    .scroll-container {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr); /* ✅ 3 cards in a row */
-      overflow: visible;
-      gap: 24px;
-      justify-content: center;
-    }
+        .icon-wrapper {
+          display: flex; align-items: center; justify-content: center;
+          height: 60px; width: 60px;
+          margin-bottom: 14px;
+        }
+        .card-title {
+          font-size: 24px;
+          font-weight: 800;
+          margin: 6px 0 8px;
+          color: #0A84FF; /* accent title */
+        }
+        .card-desc {
+          font-size: 18px;
+          line-height: 1.5;
+          color: #fff;
+        }
 
-    .service-card {
-      flex: none;
-      max-width: 100%;
-    }
-  }
-`}</style>
-
+        /* Tablet/Desktop: switch to 3-column grid, no horizontal scroll */
+        @media (min-width: 768px) {
+          .scroll-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            overflow: visible;
+            gap: 24px;
+          }
+          .service-card {
+            min-width: 0;
+            max-width: 100%;
+            height: 340px;
+          }
+        }
+      `}</style>
     </section>
   );
 };
@@ -170,17 +204,7 @@ const styles: { [key: string]: React.CSSProperties } = {
     fontSize: "32px",
     fontWeight: 700,
     marginBottom: "30px",
-    color: "#000", // Black heading
-  },
-  cardTitle: {
-    fontSize: "18px",
-    fontWeight: 600,
-    marginBottom: "12px",
-    color: "#ffffffff", // Red title
-  },
-  cardDesc: {
-    fontSize: "14px",
-    color: "#ffffff",
+    color: "#000",
   },
 };
 

@@ -45,6 +45,17 @@ import TimeZoneConverter from "./pages/tools/TimeZoneConverter";
 import WeatherAbroad from "./pages/tools/WeatherAbroad";
 import CreditCardComponent from "./pages/ourServices/CreditCardComponent";
 import BlockedAccount from "./pages/ourServices/BlockedAccount";
+import BankAccount from "./pages/ourServices/BankAccount";
+import GPACalculator from "./pages/tools/GPACalculator";
+import PackingList from "./pages/tools/PackingList";
+import SOPGenerator from "./pages/tools/SOPGenerator";
+import CostOfStudyAbroadPage from "./pages/tools/CostOfStudyAbroadPage";
+import HealthInsuranceComparePage from "./pages/tools/HealthInsuranceComparePage";
+import CompareCostOfLivingPage from "./pages/tools/CompareCostOfLivingPage";
+import ROICalculator from "./pages/tools/ROICalculator";
+import EstimateFutureEarnings from "./pages/tools/EstimateFutureEarnings";
+import AboutPage from "./pages/AboutPage";
+import GalleryPage from "./pages/GalleryPage";
 const queryClient = new QueryClient();
 
 const AppContent = () => {
@@ -77,39 +88,48 @@ const AppContent = () => {
         <main>
           <Routes>
             <Route path="/" element={<Home />} />
-            
+            <Route path="/about-us" element={<AboutPage />} />
+            <Route path="/gallery" element={<GalleryPage />} />
             <Route
               path="/services/abroad-education-loan"
               element={<AbroadEducation />}
             />
-            <Route path="/services/credit-card" element={<CreditCardComponent/>}/>
-            <Route path="/services/block-account" element={<BlockedAccount/>}/>
-            
-            <Route path="/tools" element={<Tools />} /> 
-          <Route path="/tools/loan-calculator" element={<LoanCalculator />} />
-         <Route path="/tools/expense-calculator" element={<ExpenseCalculator />} />
-          <Route path="/tools/currency-converter" element={<CurrencyConverter />} />
-          <Route path="/tools/savings-calculator" element={<SavingsCalculator />} />
-          <Route path="/tools/interest-calculator" element={<InterestCalculator/>} />
-          <Route path="/tools/loan-repayment-calculator" element={<LoanRepaymentCalculator/>} />
-          <Route path="/tools/education-loan-emi-calculator" element={<EducationLoanEmiCalculator />} />
-            {/* <Route path= "/tools/bank-comparison-tool" element={<BankComparisonTool/>}/> */}
-          <Route path="/tools/time-zone-converter" element={<TimeZoneConverter />} />
-          <Route path="/tools/weather-abroad" element={<WeatherAbroad />} />
+            <Route path="/services/credit-card" element={<CreditCardComponent />} />
+            <Route path="/services/block-account" element={<BlockedAccount />} />
+            <Route path="/services/bank-account" element={<BankAccount />} />
 
+            <Route path="/tools" element={<Tools />} />
+            <Route path="/tools/loan-calculator" element={<LoanCalculator />} />
+            <Route path="/tools/expense-calculator" element={<ExpenseCalculator />} />
+            <Route path="/tools/currency-converter" element={<CurrencyConverter />} />
+            <Route path="/tools/savings-calculator" element={<SavingsCalculator />} />
+            <Route path="/tools/interest-calculator" element={<InterestCalculator />} />
+            <Route path="/tools/loan-repayment-calculator" element={<LoanRepaymentCalculator />} />
+            <Route path="/tools/education-loan-emi-calculator" element={<EducationLoanEmiCalculator />} />
+            {/* <Route path= "/tools/bank-comparison-tool" element={<BankComparisonTool/>}/> */}
+            <Route path="/tools/time-zone-converter" element={<TimeZoneConverter />} />
+            <Route path="/tools/weather-abroad" element={<WeatherAbroad />} />
+            <Route path="/tools/gpa-calculator" element={<GPACalculator />} />
+            <Route path="/tools/packing-list" element={<PackingList />} />
+            <Route path="/tools/sop-generator" element={<SOPGenerator />} />
+            <Route path="/tools/cost-of-studying-abroad" element={<CostOfStudyAbroadPage />} />
+            <Route path="/tools/health-insurance-compare" element={<HealthInsuranceComparePage />} />
+            <Route path="/tools/living-calculator" element={<CompareCostOfLivingPage />} />
+            <Route path="/tools/roi-calculator" element={<ROICalculator />} />
+            <Route path="/tools/estimate-future-earnings" element={<EstimateFutureEarnings />} />
 
 
             {/* <Route path="/our-partners" element={<Resources />} /> */}
-            <Route path="/our-partners/credila" element={<CredilaPage/>} />
+            <Route path="/our-partners/credila" element={<CredilaPage />} />
             <Route path="/our-partners/auxilo" element={<Auxilopage />} />
-            <Route path="/our-partners/avanse" element={<AvansePage/>} />
-            <Route path="/our-partners/incred-finance" element={<IncredFinancingPage/>}/>
-            <Route  path="/our-partners/mpower-financing" element={<MpowerFinancePage/>}/>
-            <Route path= "/our-partners/prodigy-finance" element={<ProdigyFinancePage/>}/>
-            <Route path="/our-partners/idfc-first-bank" element={<IDFCpage/>}/>
-            <Route path= "/our-partners/axis-bank" element={<AxisPage/>}/>
-            <Route path=  "/our-partners/compare-loan-offers" element={<CompareLoanOffers/>} />
-            <Route path=  "/our-partners/bank-comparison-tool" element={<BankComparisonTool/>}/>
+            <Route path="/our-partners/avanse" element={<AvansePage />} />
+            <Route path="/our-partners/incred-finance" element={<IncredFinancingPage />} />
+            <Route path="/our-partners/mpower-financing" element={<MpowerFinancePage />} />
+            <Route path="/our-partners/prodigy-finance" element={<ProdigyFinancePage />} />
+            <Route path="/our-partners/idfc-first-bank" element={<IDFCpage />} />
+            <Route path="/our-partners/axis-bank" element={<AxisPage />} />
+            <Route path="/our-partners/compare-loan-offers" element={<CompareLoanOffers />} />
+            <Route path="/our-partners/bank-comparison-tool" element={<BankComparisonTool />} />
 
             <Route path="/country" element={<Country />} />
             <Route path="/contact" element={<Contact />} />
@@ -133,7 +153,7 @@ const AppContent = () => {
 };
 
 const App = () => {
-    // Init AOS
+  // Init AOS
   useEffect(() => {
     AOS.init({ once: false, mirror: true });
   }, []);
