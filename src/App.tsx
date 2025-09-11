@@ -84,7 +84,7 @@ const AppContent = () => {
           <Route path="/tools/interest-calculator" element={<InterestCalculator/>} />
           <Route path="/tools/loan-repayment-calculator" element={<LoanRepaymentCalculator/>} />
           <Route path="/tools/education-loan-emi-calculator" element={<EducationLoanEmiCalculator />} />
-          <Route path="/tools/bank-comparison-tool" element={<BankComparisonTool />} />
+            <Route path= "/tools/bank-comparison-tool" element={<BankComparisonTool/>}/>
           <Route path="/tools/time-zone-converter" element={<TimeZoneConverter />} />
           <Route path="/tools/weather-abroad" element={<WeatherAbroad />} />
 

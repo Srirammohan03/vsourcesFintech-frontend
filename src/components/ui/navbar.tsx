@@ -78,7 +78,7 @@ const navItems = [
           {name: "Loan Calculator", path: "/tools/loan-calculator", icon: Calculator },
           { name: "Interest Calculator", path: "/tools/interest-calculator", icon: Calculator },
           { name: "Loan Repayment Calculator", path: "/tools/loan-repayment-calculator", icon: PiggyBank },
-          { name: "Education Loan Eligibility Checker", path: "/tools/education-loan-eligibility-checker", icon: ClipboardList },
+          // { name: "Education Loan Eligibility Checker", path: "/tools/education-loan-eligibility-checker", icon: ClipboardList },
           { name: "Education Loan EMI Calculator", path: "/tools/education-loan-emi-calculator", icon: Calculator },
           { name: "Bank Comparison Tool", path: "/tools/bank-comparison-tool", icon: Building2 },
         ],
@@ -97,7 +97,7 @@ const navItems = [
         items: [
           { name: "Time Zone Converter", path: "/tools/time-zone-converter", icon: Globe },
           { name: "Weather Abroad", path: "/tools/weather-abroad", icon: CloudSun },
-          { name: "Budget Calculator", path: "/tools/budget-calculator", icon: Calculator },
+          // { name: "Budget Calculator", path: "/tools/budget-calculator", icon: Calculator },
           { name: "Currency Converter", path: "/tools/currency-converter", icon: Coins },
         ],
       },
