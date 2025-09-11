@@ -23,7 +23,7 @@ const faqs = [
                     <li>Required for researchers, au pairs, and job seekers from non-EU countries.</li>
                     <li>Shows you have 12 months’ living expenses secured.</li>
                 </ul>
-                <p className="mt-2 italic text-gray-600 text-sm">
+                <p className="mt-2 mb-2 italic text-gray-600 text-sm">
                     Note: If you have a recognized scholarship or sponsor, you might not need a blocked account.
                 </p>
             </>
@@ -33,7 +33,7 @@ const faqs = [
         title: "Documents Required For Opening a Blocked Account",
         icon: <FileText className="w-8 h-8 md:w-6 md:h-6 text-red-600" />,
         content: (
-            <ul className="list-disc pl-5 space-y-1 text-gray-700">
+            <ul className="list-disc pl-5 mb-2 space-y-1 text-gray-700">
                 <li>Valid Passport or national ID</li>
                 <li>University admission letter</li>
                 <li>Visa application proof (if required)</li>
@@ -44,13 +44,13 @@ const faqs = [
     },
     {
         title: "Required Amount For A Blocked Account",
-        icon: <Star className="w-8 h-8 md:w-6 md:h-6 text-red-600" />,
+        icon: <Star className="w-7 h-7 md:w-6 md:h-6 text-red-600" />,
         content: (
             <>
                 <p className="mb-2 text-gray-700 leading-relaxed">
                     The current minimum amount you need to deposit (2025) is approximately €11,904, which covers about €992 monthly for a year.
                 </p>
-                <ul className="list-disc pl-5 space-y-1 text-gray-700">
+                <ul className="list-disc pl-5 space-y-1 mb-2 text-gray-700">
                     <li>This covers accommodation, food, insurance, and basic living costs.</li>
                     <li>Fees vary by provider; check for setup or monthly charges.</li>
                     <li>The required amount can be updated yearly by German authorities.</li>
@@ -70,7 +70,7 @@ const faqs = [
                     <li>Instant activation options may be available for an extra fee.</li>
                     <li>Delays could occur if your paperwork is incomplete or verification is needed.</li>
                 </ul>
-                <p className="italic text-sm text-gray-600 mt-2">
+                <p className="italic text-sm text-gray-600 mt-2 mb-2">
                     Pro Tip: Prepare your documents in advance to avoid delays.
                 </p>
             </>
@@ -81,19 +81,47 @@ const faqs = [
 const providers = [
     {
         name: "Fintiba",
+        logo: "/assets/images/fintiba-logo.svg",
         description: "Popular with quick processing and excellent support.",
+        fees: {
+            processingFee: "€89 (one-time)",
+            monthlyFee: "€4.90",
+            processingTime: "2-3 business days",
+            bankingModel: "Online-only, fully digital",
+        },
     },
     {
         name: "Expatrio",
+         logo: "/assets/images/expatrio-logo.svg",
         description: "Offers bundled services including health insurance.",
+        fees: {
+            processingFee: "€49 (one-time)",
+            monthlyFee: "€5.90",
+            processingTime: "3-5 business days",
+            bankingModel: "Online platform with partner banks",
+        },
     },
     {
         name: "Deutsche Bank",
+         logo: "/assets/images/Deutsche-Bank.svg",
         description: "Traditional bank providing blocked accounts.",
+        fees: {
+            processingFee: "Varies, starts around €100",
+            monthlyFee: "€10-15",
+            processingTime: "5-7 business days",
+            bankingModel: "Brick-and-mortar with online services",
+        },
     },
     {
         name: "Coracle",
+         logo: "/assets/images/Coracle-logo.svg",
         description: "Specialized gateway for international students.",
+        fees: {
+            processingFee: "€79 (one-time)",
+            monthlyFee: "€0 (no monthly fees)",
+            processingTime: "1-4 business days",
+            bankingModel: "Fully online with partner banks",
+        },
     },
 ];
 
@@ -105,7 +133,6 @@ const applySteps = [
     "Receive confirmation letter for visa application.",
     "Activate account upon arrival in Germany via online or bank visit.",
 ];
-
 const AccordionItem = ({
     faq,
     isExpanded,
@@ -125,11 +152,12 @@ const AccordionItem = ({
     }, [isExpanded]);
 
     return (
-        <div className="border border-red-300 rounded-xl bg-indigo-50 shadow-sm overflow-hidden">
+        <div className="border border-red-300 rounded-xl bg-[#f3f6fd] shadow-sm overflow-hidden transition-all">
             <button
                 type="button"
                 onClick={onClick}
-                className="flex items-start justify-between w-full px-6 py-4 text-left text-indigo-900 font-semibold text-lg hover:bg-indigo-100 focus:outline-none focus:ring-2 focus:ring-red-500 rounded-xl"
+                className={`flex items-start justify-between w-full px-6 py-4 text-left text-black font-bold text-lg tracking-tight hover:bg-[#f9fafc] focus:outline-none focus:ring-2 focus:ring-red-300 rounded-xl transition-colors ${isExpanded ? "border-b-2 border-red-300" : ""
+                    }`}
                 aria-expanded={isExpanded}
             >
                 <div className="flex items-start gap-4">
@@ -142,27 +170,34 @@ const AccordionItem = ({
             </button>
             <div
                 ref={contentRef}
-                style={{ maxHeight: height, transition: "max-height 0.35s ease" }}
-                className="px-6 pb-6 text-gray-700"
+                style={{
+                    maxHeight: isExpanded ? `${contentRef.current?.scrollHeight}px` : "0px",
+                   
+                    transition: " 0.35s ease, padding 0.35s ease",
+                    paddingTop: isExpanded ? "1.5rem" : "0",
+                    paddingBottom: isExpanded ? "1.5rem" : "0",
+                }}
+                className="text-black text-base px-6"
             >
                 {faq.content}
             </div>
+
         </div>
     );
 };
 
 const BlockedAccount: React.FC = () => {
-    const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
+    const [expandedIndex, setExpandedIndex] = useState<number>(0); // First open by default
 
     const toggleIndex = (index: number) => {
-        setExpandedIndex(expandedIndex === index ? null : index);
+        setExpandedIndex((prevIndex) => (prevIndex === index ? -1 : index));
     };
 
     return (
         <div className="">
             {/* Hero Section */}
             <section className="flex flex-col items-center justify-center min-h-[60vh] bg-gradient-to-b from-[#002855] to-[#1a1a1a]">
-                <div className="w-full max-w-[1400px] mx-auto px-6 py-16 flex flex-col items-center justify-center text-white">
+                <div className="w-full max-w-[1400px] mx-auto px-6 pt-32 pb-16 flex flex-col items-center justify-center text-white">
                     <Globe className="w-14 h-14 mb-4 animate-pulse " />
                     <h1 className="text-4xl font-extrabold mb-4 leading-tight">
                         Everything About Blocked Accounts for International Students
@@ -174,8 +209,7 @@ const BlockedAccount: React.FC = () => {
                 </div>
             </section>
 
-            {/* FAQ Accordion */}
-            <section className="space-y-6 w-full max-w-[1400px] mx-auto px-6 py-16">
+            <section className="space-y-6 w-full max-w-[1400px] mx-auto px-6 py-10">
                 {faqs.map((faq, i) => (
                     <AccordionItem
                         key={i}
@@ -186,21 +220,21 @@ const BlockedAccount: React.FC = () => {
                 ))}
             </section>
 
-            {/* How To Open A Blocked Account Steps - Vertical Cards */}
-            <section className="w-full max-w-3xl mx-auto px-6 py-16">
-                <h2 className="text-3xl font-bold mb-12 text-indigo-900 text-center">
+            {/* How To Open A Blocked Account Steps*/}
+            <section className="w-full max-w-[1400px] mx-auto px-6 py-10">
+                <h2 className="text-3xl font-bold mb-12 text-black text-center">
                     How To Open A Blocked Account With Vsource
                 </h2>
-                <div className="space-y-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
                     {applySteps.map((step, i) => (
                         <div
                             key={i}
-                            className="flex items-start gap-6 bg-white p-6 rounded-2xl shadow-lg hover:shadow-2xl transition-shadow cursor-pointer"
+                            className="flex flex-col items-center bg-white rounded-3xl shadow-lg p-5  hover:shadow-2xl transition-shadow cursor-pointer"
                         >
-                            <div className="flex-shrink-0 flex items-center justify-center w-14 h-14 rounded-full bg-gradient-to-tr from-indigo-600 to-purple-600 text-white font-bold text-xl shadow">
+                            <div className="flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-tr from-indigo-600 to-purple-600 text-white font-extrabold text-2xl shadow-md mb-3 select-none">
                                 {i + 1}
                             </div>
-                            <p className="text-indigo-900 font-semibold text-lg leading-relaxed">
+                            <p className="text-black text-center text-lg font-semibold max-w-md">
                                 {step}
                             </p>
                         </div>
@@ -208,56 +242,93 @@ const BlockedAccount: React.FC = () => {
                 </div>
             </section>
 
-
-
-
             {/* Providers Section */}
-            <section className="space-y-6 w-full max-w-[1400px] mx-auto px-6 py-16">
-                <h2 className="text-3xl font-bold text-indigo-900 text-center mb-6">
+            <section className="space-y-10 w-full max-w-[1400px] mx-auto px-6 py-10">
+                <h2 className="text-3xl font-bold text-black text-center mb-10">
                     List of German Blocked Account Providers
                 </h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
-                    {providers.map(({ name, description }, i) => (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 ">
+                    {providers.map(({ name, logo, description, fees }, i) => (
                         <div
                             key={i}
-                            className="bg-white rounded-xl p-6 shadow-lg border border-indigo-200 hover:shadow-2xl transition-shadow cursor-pointer"
+                            className="bg-white rounded-2xl p-8 shadow-lg border border-red-200 hover:shadow-2xl transition-shadow cursor-pointer"
                         >
-                            <h3 className="text-indigo-800 font-bold text-xl mb-2">{name}</h3>
-                            <p className="text-gray-700">{description}</p>
+                            <div className="flex items-center flex-row-reverse justify-between gap-4 mb-4">
+                                <img
+                                    src={logo}
+                                    alt={`${name} logo`}
+                                    className="md:w-44 md:h-20 w-28 h-12 object-contain"
+                                />
+                                <h3 className="text-indigo-800 font-bold text-2xl">{name}</h3>
+                            </div>
+                            <p className="text-gray-700 mb-6">{description}</p>
+                            <div className="grid grid-cols-2 gap-y-2 text-gray-800 font-semibold">
+                                <span>Processing Fee:</span>
+                                <span>{fees.processingFee}</span>
+                                <span>Monthly Fee:</span>
+                                <span>{fees.monthlyFee}</span>
+                                <span>Processing Time:</span>
+                                <span>{fees.processingTime}</span>
+                                <span>Banking Model:</span>
+                                <span>{fees.bankingModel}</span>
+                            </div>
                         </div>
                     ))}
                 </div>
             </section>
 
-            {/* Activation & Essential Tips */}
-            <section className="space-y-10 w-full max-w-[1400px] mx-auto px-6 py-16">
-                <div className="bg-indigo-50 p-6 rounded-xl shadow-md max-w-3xl mx-auto">
-                    <h2 className="text-2xl font-bold mb-4 text-indigo-900 flex items-center gap-2">
-                        <CheckCircle className="w-6 h-6 text-indigo-600" />
+            {/* Activation & Essential Tips*/}
+            <section className="max-w-[1400px] mx-auto px-6 py-10 space-y-20">
+                <div className="bg-indigo-50 p-5 md:p-10 rounded-xl shadow-md max-w-4xl mx-auto text-justify">
+                    <h2 className="text-2xl font-bold mb-6 text-black flex items-start gap-3">
+                        <CheckCircle className="w-12 h-12 md:w-8 md:h-8 text-red-600" />
                         How Do I Activate My Blocked Account In Germany?
                     </h2>
-                    <p className="text-gray-700 leading-relaxed">
-                        After arrival, verify your identity online or at bank branches/partner offices. Once verified, monthly fund access begins.
+                    <p className="text-gray-700 leading-relaxed mb-4 text-lg">
+                        After you arrive in Germany, activating your blocked account is a crucial step. This may be done online via your provider's secure portal by uploading your identity documents for verification.
+                    </p>
+                    <p className="text-gray-700 leading-relaxed mb-4 text-lg">
+                        If online activation is not available, visiting a partner bank or authorized office in person with your passport, visa, and registration certificate will be necessary.
+                    </p>
+                    <p className="text-gray-700 leading-relaxed text-lg">
+                        Following activation, your monthly fund withdrawals will be enabled and managed through your linked German current account.
                     </p>
                 </div>
 
-                <div className="bg-indigo-100 p-6 rounded-xl shadow-inner max-w-3xl mx-auto">
-                    <h2 className="text-2xl font-bold mb-4 text-indigo-900">
-                        Essential Things To Remember About Your Blocked Account
-                    </h2>
-                    <ul className="list-disc list-inside space-y-2 text-indigo-800">
-                        <li>Keep credentials secure and private.</li>
-                        <li>Plan monthly withdrawals to fit your budget.</li>
-                        <li>Inform provider promptly of any stay or status changes.</li>
-                        <li>Stay updated on balance requirements and regulations.</li>
-                        <li>Use official channels only for communications and transfers.</li>
+                {/* Essential Tips Section */}
+                <div className="max-w-full mx-auto grid grid-cols-1 md:grid-cols-2 gap-14 items-start">
+                    <div>
+                        <h2 className="text-2xl font-bold mb-6 text-black">
+                            Essential Tips for Managing Your Blocked Account
+                        </h2>
+                        <p className="text-gray-700 leading-relaxed mb-4 text-lg text-justify">
+                            Managing your blocked account wisely helps ensure you stay financially secure during your stay. Always keep your login details confidential and monitor monthly withdrawals closely.
+                        </p>
+                        <p className="text-gray-700 leading-relaxed text-lg text-justify">
+                            Stay informed about any regulatory changes regarding minimum balance maintenance or withdrawal rules to avoid penalties or account freeze.
+                        </p>
+                    </div>
+                    <ul className="flex flex-col gap-6 text-black font-semibold text-lg ">
+                        {[
+                            "Keep your credentials secure and never share your passwords.",
+                            "Plan withdrawals to align with your monthly budget and expenses.",
+                            "Notify your provider immediately about any change in visa or residence status.",
+                            "Regularly check your account balance and transaction statements.",
+                            "Communicate only through official provider channels to avoid scams."
+                        ].map((tip, idx) => (
+                            <li key={idx} className="flex items-start gap-4">
+                                <CheckCircle className="flex-shrink-0 w-7 h-7 mt-1 text-red-600" />
+                                <span>{tip}</span>
+                            </li>
+                        ))}
                     </ul>
                 </div>
             </section>
 
+
             {/* Post-Study Guidance */}
-            <section className="w-full max-w-[1400px] mx-auto py-16 text-center px-6 ">
-                <h2 className="text-3xl font-bold mb-6 text-indigo-900">
+            <section className="w-full max-w-[1400px] mx-auto py-10 text-center px-6 ">
+                <h2 className="text-3xl font-bold mb-6 text-black">
                     How To Choose A Blocked Account After Finishing My Studies?
                 </h2>
                 <p className="mb-4 text-gray-800">
@@ -268,9 +339,8 @@ const BlockedAccount: React.FC = () => {
                 </p>
             </section>
 
-            {/* Sticky Apply Button for Mobile */}
-            <div className="py-10 bottom-6 left-0 right-0 mx-auto max-w-md px-6">
-                <button className="w-full bg-gradient-to-tr from-indigo-600 to-purple-600 text-white font-bold py-4 rounded-full shadow-lg hover:brightness-110 transition-all">
+            <div className="py-6 bottom-6 left-0 right-0 mx-auto max-w-md px-6">
+                <button className="w-full bg-red-600 text-white font-bold py-4 px-2 rounded-xl shadow-lg hover:brightness-110 transition-all">
                     Start Your Blocked Account Application
                 </button>
             </div>
