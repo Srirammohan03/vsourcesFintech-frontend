@@ -329,7 +329,7 @@ export default function BankComparisonTool() {
             </CardContent>
           </Card>
 
-          {/* Row 2: Table */}
+          {/* Row 2: Comparison */}
           <Card
             className="rounded-3xl"
             style={{
@@ -348,107 +348,207 @@ export default function BankComparisonTool() {
               </CardTitle>
             </CardHeader>
 
-            <CardContent className="overflow-x-auto">
-              <table className="min-w-full text-sm">
-                <thead>
-                  <tr
-                    className="text-left text-white"
-                    style={{
-                      background: `linear-gradient(135deg, ${THEME.blue} 0%, ${THEME.sky} 40%, ${THEME.red} 100%)`,
-                    }}
-                  >
-                    {[
-                      "Bank Name",
-                      "Income",
-                      "Quantum of Finance",
-                      "Funding & Margin",
-                      "Rate of Interest",
-                    ].map((h) => (
-                      <th
-                        key={h}
-                        className="py-3 px-4 whitespace-nowrap"
-                        style={{
-                          borderRight: "1px solid rgba(255,255,255,0.15)",
-                        }}
+            <CardContent className="p-0">
+              {/* Empty state (shared) */}
+              {selectedRows.length === 0 ? (
+                <div className="px-4 py-6 text-center text-gray-500">
+                  Select banks to compare.
+                </div>
+              ) : (
+                <>
+                  {/* DESKTOP/TABLE: unchanged */}
+                  <div className="hidden md:block overflow-x-auto">
+                    <table className="min-w-full text-sm">
+                      <thead>
+                        <tr
+                          className="text-left text-white"
+                          style={{
+                            background: `linear-gradient(135deg, ${THEME.blue} 0%, ${THEME.sky} 40%, ${THEME.red} 100%)`,
+                          }}
+                        >
+                          {[
+                            "Bank Name",
+                            "Income",
+                            "Quantum of Finance",
+                            "Funding & Margin",
+                            "Rate of Interest",
+                          ].map((h) => (
+                            <th
+                              key={h}
+                              className="py-3 px-4 whitespace-nowrap"
+                              style={{
+                                borderRight: "1px solid rgba(255,255,255,0.15)",
+                              }}
+                            >
+                              <span className="font-semibold tracking-wide">
+                                {h}
+                              </span>
+                            </th>
+                          ))}
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {selectedRows.map((row, idx) => {
+                          const stripe = idx % 2 === 0 ? "#fff" : "#FAFBFC";
+                          return (
+                            <tr key={row.key} style={{ background: stripe }}>
+                              <td
+                                className="py-3 px-4 border-t"
+                                style={{ borderColor: THEME.gray }}
+                              >
+                                <div className="flex items-center gap-2">
+                                  <img
+                                    src={LOGOS[row.key]}
+                                    alt={row.name}
+                                    className="h-5 w-auto object-contain"
+                                  />
+                                  {editing ? (
+                                    <Input
+                                      value={row.name}
+                                      onChange={(e) =>
+                                        onCellChange(
+                                          row.key,
+                                          "name",
+                                          e.target.value
+                                        )
+                                      }
+                                    />
+                                  ) : (
+                                    <span className="font-medium">
+                                      {row.name}
+                                    </span>
+                                  )}
+                                </div>
+                              </td>
+                              <td
+                                className="py-3 px-4 border-t"
+                                style={{ borderColor: THEME.gray }}
+                              >
+                                {editing ? (
+                                  <Input
+                                    value={row.income}
+                                    onChange={(e) =>
+                                      onCellChange(
+                                        row.key,
+                                        "income",
+                                        e.target.value
+                                      )
+                                    }
+                                  />
+                                ) : (
+                                  row.income
+                                )}
+                              </td>
+                              <td
+                                className="py-3 px-4 border-t"
+                                style={{ borderColor: THEME.gray }}
+                              >
+                                {editing ? (
+                                  <Input
+                                    value={row.quantum}
+                                    onChange={(e) =>
+                                      onCellChange(
+                                        row.key,
+                                        "quantum",
+                                        e.target.value
+                                      )
+                                    }
+                                  />
+                                ) : (
+                                  row.quantum
+                                )}
+                              </td>
+                              <td
+                                className="py-3 px-4 border-t"
+                                style={{ borderColor: THEME.gray }}
+                              >
+                                {editing ? (
+                                  <Input
+                                    value={row.fundingMargin}
+                                    onChange={(e) =>
+                                      onCellChange(
+                                        row.key,
+                                        "fundingMargin",
+                                        e.target.value
+                                      )
+                                    }
+                                  />
+                                ) : (
+                                  row.fundingMargin
+                                )}
+                              </td>
+                              <td
+                                className="py-3 px-4 border-t"
+                                style={{ borderColor: THEME.gray }}
+                              >
+                                {editing ? (
+                                  <Input
+                                    value={row.roi}
+                                    onChange={(e) =>
+                                      onCellChange(
+                                        row.key,
+                                        "roi",
+                                        e.target.value
+                                      )
+                                    }
+                                  />
+                                ) : (
+                                  row.roi
+                                )}
+                              </td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                  </div>
+
+                  {/* MOBILE/CARDS: new */}
+                  <div className="md:hidden px-4 pb-6 space-y-4">
+                    {selectedRows.map((row) => (
+                      <div
+                        key={row.key}
+                        className="rounded-2xl border p-4 shadow-sm"
+                        style={{ borderColor: THEME.gray, background: "#fff" }}
                       >
-                        <span className="font-semibold tracking-wide">{h}</span>
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {selectedRows.length === 0 ? (
-                    <tr>
-                      <td
-                        className="px-4 py-6 text-center text-gray-500"
-                        colSpan={5}
-                      >
-                        Select banks to compare.
-                      </td>
-                    </tr>
-                  ) : (
-                    selectedRows.map((row, idx) => {
-                      const stripe = idx % 2 === 0 ? "#fff" : "#FAFBFC";
-                      return (
-                        <tr key={row.key} style={{ background: stripe }}>
-                          <td className="py-3 px-4 border-t" style={{ borderColor: THEME.gray }}>
-                            <div className="flex items-center gap-2">
-                              <img
-                                src={LOGOS[row.key]}
-                                alt={row.name}
-                                className="h-5 w-auto object-contain"
-                              />
-                              {editing ? (
-                                <Input
-                                  value={row.name}
-                                  onChange={(e) =>
-                                    onCellChange(row.key, "name", e.target.value)
-                                  }
-                                />
-                              ) : (
-                                <span className="font-medium">{row.name}</span>
-                              )}
-                            </div>
-                          </td>
-                          <td className="py-3 px-4 border-t" style={{ borderColor: THEME.gray }}>
+                        {/* Header */}
+                        <div className="flex items-start justify-between gap-3">
+                          <div className="flex items-center gap-2 min-w-0">
+                            <img
+                              src={LOGOS[row.key]}
+                              alt={row.name}
+                              className="h-5 w-auto object-contain shrink-0"
+                            />
                             {editing ? (
                               <Input
-                                value={row.income}
+                                className="h-8"
+                                value={row.name}
                                 onChange={(e) =>
-                                  onCellChange(row.key, "income", e.target.value)
+                                  onCellChange(row.key, "name", e.target.value)
                                 }
                               />
                             ) : (
-                              row.income
+                              <h3
+                                className="font-semibold truncate"
+                                style={{ color: THEME.text }}
+                              >
+                                {row.name}
+                              </h3>
                             )}
-                          </td>
-                          <td className="py-3 px-4 border-t" style={{ borderColor: THEME.gray }}>
+                          </div>
+
+                          {/* ROI pill */}
+                          <div
+                            className="text-xs font-medium px-2 py-1 rounded-full whitespace-nowrap"
+                            style={{
+                              background: "rgba(37,99,235,0.08)",
+                              color: THEME.blue,
+                              border: "1px solid rgba(37,99,235,0.15)",
+                            }}
+                          >
                             {editing ? (
                               <Input
-                                value={row.quantum}
-                                onChange={(e) =>
-                                  onCellChange(row.key, "quantum", e.target.value)
-                                }
-                              />
-                            ) : (
-                              row.quantum
-                            )}
-                          </td>
-                          <td className="py-3 px-4 border-t" style={{ borderColor: THEME.gray }}>
-                            {editing ? (
-                              <Input
-                                value={row.fundingMargin}
-                                onChange={(e) =>
-                                  onCellChange(row.key, "fundingMargin", e.target.value)
-                                }
-                              />
-                            ) : (
-                              row.fundingMargin
-                            )}
-                          </td>
-                          <td className="py-3 px-4 border-t" style={{ borderColor: THEME.gray }}>
-                            {editing ? (
-                              <Input
+                                className="h-7 w-[140px] text-xs"
                                 value={row.roi}
                                 onChange={(e) =>
                                   onCellChange(row.key, "roi", e.target.value)
@@ -457,13 +557,88 @@ export default function BankComparisonTool() {
                             ) : (
                               row.roi
                             )}
-                          </td>
-                        </tr>
-                      );
-                    })
-                  )}
-                </tbody>
-              </table>
+                          </div>
+                        </div>
+
+                        {/* Body fields */}
+                        <div className="mt-4 grid grid-cols-1 gap-3">
+                          {/* Income */}
+                          <div className="flex items-start justify-between gap-3">
+                            <span className="text-xs text-gray-500">
+                              Income
+                            </span>
+                            <div className="text-sm text-right max-w-[60%]">
+                              {editing ? (
+                                <Input
+                                  value={row.income}
+                                  onChange={(e) =>
+                                    onCellChange(
+                                      row.key,
+                                      "income",
+                                      e.target.value
+                                    )
+                                  }
+                                  className="h-8"
+                                />
+                              ) : (
+                                row.income
+                              )}
+                            </div>
+                          </div>
+
+                          {/* Quantum */}
+                          <div className="flex items-start justify-between gap-3">
+                            <span className="text-xs text-gray-500">
+                              Quantum of Finance
+                            </span>
+                            <div className="text-sm text-right max-w-[60%]">
+                              {editing ? (
+                                <Input
+                                  value={row.quantum}
+                                  onChange={(e) =>
+                                    onCellChange(
+                                      row.key,
+                                      "quantum",
+                                      e.target.value
+                                    )
+                                  }
+                                  className="h-8"
+                                />
+                              ) : (
+                                row.quantum
+                              )}
+                            </div>
+                          </div>
+
+                          {/* Funding & Margin */}
+                          <div className="flex items-start justify-between gap-3">
+                            <span className="text-xs text-gray-500">
+                              Funding &amp; Margin
+                            </span>
+                            <div className="text-sm text-right max-w-[60%]">
+                              {editing ? (
+                                <Input
+                                  value={row.fundingMargin}
+                                  onChange={(e) =>
+                                    onCellChange(
+                                      row.key,
+                                      "fundingMargin",
+                                      e.target.value
+                                    )
+                                  }
+                                  className="h-8"
+                                />
+                              ) : (
+                                row.fundingMargin
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </>
+              )}
             </CardContent>
           </Card>
         </div>

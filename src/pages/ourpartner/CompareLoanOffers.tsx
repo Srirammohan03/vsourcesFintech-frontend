@@ -333,7 +333,7 @@ export default function CompareLoanOffers() {
                                                     </div>
 
                                                     {/* Rate (mobile top-right, desktop inline) */}
-                                                    <div className="absolute top-2 right-2 sm:static sm:ml-auto text-sm text-slate-600">
+                                                    <div className=" sm:hidden block sm:ml-auto text-sm text-slate-600">
                                                         {c.rate.toFixed(2)}%
                                                     </div>
                                                 </div>
