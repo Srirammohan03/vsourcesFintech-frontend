@@ -20,8 +20,6 @@ import {
   Scale,
 } from "lucide-react";
 import path from "path";
-
-// ------------------ ICON COLORS ------------------
 const iconColors: Record<string, string> = {
   Banknote: "text-green-600",
   CreditCard: "text-blue-600",
@@ -40,8 +38,6 @@ const iconColors: Record<string, string> = {
   FileText: "text-gray-600",
   Luggage: "text-fuchsia-600",
 };
-
-// ------------------ NAV ITEMS ------------------
 const navItems = [
   {
     name: "Our Services",
@@ -80,7 +76,7 @@ const navItems = [
           { name: "Loan Repayment Calculator", path: "/tools/loan-repayment-calculator", icon: PiggyBank },
           // { name: "Education Loan Eligibility Checker", path: "/tools/education-loan-eligibility-checker", icon: ClipboardList },
           { name: "Education Loan EMI Calculator", path: "/tools/education-loan-emi-calculator", icon: Calculator },
-          { name: "Bank Comparison Tool", path: "/tools/bank-comparison-tool", icon: Building2 },
+          // { name: "Bank Comparison Tool", path: "/tools/bank-comparison-tool", icon: Building2 },
         ],
       },
       {

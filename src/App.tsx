@@ -43,6 +43,8 @@ import LoanRepaymentCalculator from "./pages/tools/LoanRepaymentCalculator";
 import EducationLoanEmiCalculator from "./pages/tools/EducationLoanEmiCalculator";
 import TimeZoneConverter from "./pages/tools/TimeZoneConverter";
 import WeatherAbroad from "./pages/tools/WeatherAbroad";
+import CreditCardComponent from "./pages/ourServices/CreditCardComponent";
+import BlockedAccount from "./pages/ourServices/BlockedAccount";
 const queryClient = new QueryClient();
 
 const AppContent = () => {
@@ -76,6 +78,13 @@ const AppContent = () => {
           <Routes>
             <Route path="/" element={<Home />} />
             
+            <Route
+              path="/services/abroad-education-loan"
+              element={<AbroadEducation />}
+            />
+            <Route path="/services/credit-card" element={<CreditCardComponent/>}/>
+            <Route path="/services/block-account" element={<BlockedAccount/>}/>
+            
             <Route path="/tools" element={<Tools />} /> 
           <Route path="/tools/loan-calculator" element={<LoanCalculator />} />
          <Route path="/tools/expense-calculator" element={<ExpenseCalculator />} />
@@ -84,7 +93,7 @@ const AppContent = () => {
           <Route path="/tools/interest-calculator" element={<InterestCalculator/>} />
           <Route path="/tools/loan-repayment-calculator" element={<LoanRepaymentCalculator/>} />
           <Route path="/tools/education-loan-emi-calculator" element={<EducationLoanEmiCalculator />} />
-            <Route path= "/tools/bank-comparison-tool" element={<BankComparisonTool/>}/>
+            {/* <Route path= "/tools/bank-comparison-tool" element={<BankComparisonTool/>}/> */}
           <Route path="/tools/time-zone-converter" element={<TimeZoneConverter />} />
           <Route path="/tools/weather-abroad" element={<WeatherAbroad />} />
 
@@ -109,11 +118,6 @@ const AppContent = () => {
             {/* <Route path="/partners/:slug" element={<PartnerDetails />} /> */}
             <Route path="/education-loan" element={<EducationLoan />} />
 
-            {/* Services */}
-            <Route
-              path="/services/abroad-education-loan"
-              element={<AbroadEducation />}
-            />
             {/* Add more services here later */}
 
             <Route path="/meeting" element={<GoVirtual />} />
