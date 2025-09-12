@@ -86,7 +86,7 @@ const AboutSection: React.FC = () => {
               data-aos-delay="200"
               data-aos-anchor-placement="center-bottom"
             >
-              About Vsource Overseas
+              About Vsource Fintech
             </h1>
 
             <p

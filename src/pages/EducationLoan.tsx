@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowRight, CheckCircle, ChevronRight, House, Minus, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -13,6 +13,12 @@ import {
     FileSignature,
     Building,
 } from "lucide-react";
+interface BenefitItem {
+  id: number;
+  image: string;
+  heading: string;
+  paragraph: string;
+}
 const documentData = [
     {
         icon: <IdCard className="w-5 h-5 text-red-600" />,
@@ -149,12 +155,98 @@ const loanData = {
         bgColor: 'bg-purple-600',
     },
 };
+const benefitData: BenefitItem[] = [
+  {
+    id: 1,
+    image: '/assets/images/benfit-1.png',
+    heading: 'Enhanced Productivity',
+    paragraph: 'Streamline your workflow and get more done in less time with our intuitive tools.',
+  },
+  {
+    id: 2,
+    image: '/assets/images/benfit-2.png',
+    heading: 'Improved Collaboration',
+    paragraph: 'Work together seamlessly with your team on shared projects, no matter where you are.',
+  },
+  {
+    id: 3,
+    image: '/assets/images/benfit-3.png',
+    heading: 'Cost Savings',
+    paragraph: 'Reduce overhead and lower operational costs by adopting our efficient platform.',
+  },
+  {
+    id: 4,
+    image: '/assets/images/benfit-4.png',
+    heading: 'Data-Driven Decisions',
+    paragraph: 'Gain valuable insights from your data to make smarter, more informed business choices.',
+  },
+  {
+    id: 5,
+    image: '/assets/images/benfit-5.png',
+    heading: 'Scalable Solutions',
+    paragraph: 'Our solution grows with you, providing the flexibility to handle your expanding needs.',
+  },
+  {
+    id: 6,
+    image: '/assets/images/benfit-6.png',
+    heading: 'Increased Security',
+    paragraph: 'Protect your sensitive information with our robust, industry-leading security features.',
+  },
+  {
+    id: 7,
+    image: '/assets/images/benfit-7.png',
+    heading: 'Customer Satisfaction',
+    paragraph: 'Delight your customers with a seamless experience and exceptional support.',
+  },
+  {
+    id: 8,
+    image: '/assets/images/benfit-8.png',
+    heading: 'Market Expansion',
+    paragraph: 'Enter new markets and reach a wider audience with our global-ready capabilities.',
+  },
+  {
+    id: 9,
+    image: "/assets/images/benfit-9.png",
+    heading: 'Swift Approvals',
+    paragraph: 'The streamlined approval process of an online education loan ensures prompt access to the necessary support',
+ 
+  }
+];
 const EducationLoan: React.FC = () => {
     const [openIndex, setOpenIndex] = useState<number | null>(null);
     const [activeLoan, setActiveLoan] = useState('secured');
     const toggleFAQ = (index: number) => {
         setOpenIndex(openIndex === index ? null : index);
     };
+     const containerRef = useRef<HTMLDivElement>(null);
+  const [isPaused, setIsPaused] = useState(false);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    let animationFrameId: number;
+
+    const scroll = () => {
+      if (!isPaused) {
+        // Increment the scroll position
+        container.scrollLeft += 1;
+        // If we reach the end, jump back to the start for an infinite loop effect
+        if (container.scrollLeft >= container.scrollWidth - container.clientWidth) {
+          container.scrollLeft = 0;
+        }
+      }
+      animationFrameId = requestAnimationFrame(scroll);
+    };
+
+    // Start the scrolling animation
+    animationFrameId = requestAnimationFrame(scroll);
+
+    // Cleanup function to stop the animation when the component unmounts
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, [isPaused]);
     return (
         <div className="w-full">
             {/* Hero Section */}
@@ -229,9 +321,37 @@ const EducationLoan: React.FC = () => {
                         </p>
                     </div>
                 </div>
-                <div>
+                <div className="bg-white py-12 px-4 md:px-8 overflow-hidden">
                     <h2 className="text-2xl font-bold text-gray-800 mb-4 md:text-3xl text-center">Top Benefits</h2>
-                    {/* images look like cards slide will go here */}
+                    <div
+                        ref={containerRef}
+                        className="flex space-x-8 pb-4 overflow-x-scroll scrollbar-hide"
+                        onMouseEnter={() => setIsPaused(true)}
+                        onMouseLeave={() => setIsPaused(false)}
+                        style={{
+                            // Hide scrollbar for Chrome, Safari, and Edge
+                            WebkitOverflowScrolling: 'touch',
+                            msOverflowStyle: 'none',
+                            scrollbarWidth: 'none',
+                        }}
+                    >
+                        {benefitData.map((benefit) => (
+                            <div key={benefit.id} className="relative flex-shrink-0 w-72 h-96 rounded-xl shadow-lg overflow-hidden">
+                                <div className="absolute inset-x-0 top-0 p-4  text-white">
+                                    <h3 className="text-xl font-bold mb-1">{benefit.heading}</h3>
+                                    <p className="text-sm font-medium">{benefit.paragraph}</p>
+                                </div>
+                                {/* Image fills the card */}
+                                <img
+                                    src={benefit.image}
+                                    alt={benefit.heading}
+                                    className="w-72 h-96 object-cover"
+                                />
+                                {/* Text positioned at the bottom of the card, on top of the image */}
+                                
+                            </div>
+                        ))}
+                    </div>
                 </div>
             </section>
             <section>
@@ -858,33 +978,33 @@ const EducationLoan: React.FC = () => {
                 </div>
             </section>
             {/* CTA Section */}
-      <section className="py-10 lg:py-16 bg-gradient-primary text-white">
-        <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <h2 className="text-3xl lg:text-4xl font-bold mb-6">
-              Ready to Start Your Journey?
-            </h2>
-            <p className="text-xl text-white/90 mb-8">
-              Get personalized loan options and scholarship opportunities in minutes
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button asChild size="lg" className="bg-white text-primary hover:bg-white/90 h-14 px-8">
-                <Link to="/contact">
-                  Get Started Now
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Link>
-              </Button>
-              <Button asChild size="lg" className="bg-white text-primary hover:bg-white/90 h-14 px-8">
-                <Link to="/tools">Explore Tools</Link>
-              </Button>
-            </div>
-          </motion.div>
-        </div>
-      </section>
+            <section className="py-10 lg:py-16 bg-gradient-primary text-white">
+                <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6 }}
+                    >
+                        <h2 className="text-3xl lg:text-4xl font-bold mb-6">
+                            Ready to Start Your Journey?
+                        </h2>
+                        <p className="text-xl text-white/90 mb-8">
+                            Get personalized loan options and scholarship opportunities in minutes
+                        </p>
+                        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                            <Button asChild size="lg" className="bg-white text-primary hover:bg-white/90 h-14 px-8">
+                                <Link to="/contact">
+                                    Get Started Now
+                                    <ArrowRight className="ml-2 h-5 w-5" />
+                                </Link>
+                            </Button>
+                            <Button asChild size="lg" className="bg-white text-primary hover:bg-white/90 h-14 px-8">
+                                <Link to="/tools">Explore Tools</Link>
+                            </Button>
+                        </div>
+                    </motion.div>
+                </div>
+            </section>
         </div>
     );
 };

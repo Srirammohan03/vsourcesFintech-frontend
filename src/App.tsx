@@ -46,7 +46,6 @@ import WeatherAbroad from "./pages/tools/WeatherAbroad";
 import CreditCardComponent from "./pages/ourServices/CreditCardComponent";
 import BlockedAccount from "./pages/ourServices/BlockedAccount";
 import BankAccount from "./pages/ourServices/BankAccount";
-import GPACalculator from "./pages/tools/GPACalculator";
 import PackingList from "./pages/tools/PackingList";
 import SOPGenerator from "./pages/tools/SOPGenerator";
 import CostOfStudyAbroadPage from "./pages/tools/CostOfStudyAbroadPage";
@@ -59,6 +58,9 @@ import GalleryPage from "./pages/GalleryPage";
 import HealthInasurance from "./pages/ourServices/HealthInsurance";
 import ForexCard from "./pages/ourServices/ForexCard";
 import TravelInsurance from "./pages/ourServices/TravelInsurance";
+import GpaCalculatorPage from "./pages/tools/GpaCalculatorPage";
+import SimCard from "./pages/ourServices/SimCard";
+import GIC from "./pages/ourServices/GIC";
 const queryClient = new QueryClient();
 
 const AppContent = () => {
@@ -103,6 +105,8 @@ const AppContent = () => {
             <Route path="/services/health-insurance" element={<HealthInasurance/>}/>
             <Route path="/services/forex-card" element={<ForexCard/>}/>
             <Route path="/services/travel-insurance" element={<TravelInsurance/>}/>
+            <Route path="/services/sim-card" element={<SimCard/>}/>
+            <Route path="/services/gic" element={<GIC/>}/>
 
             <Route path="/tools" element={<Tools />} />
             <Route path="/tools/loan-calculator" element={<LoanCalculator />} />
@@ -115,7 +119,7 @@ const AppContent = () => {
             {/* <Route path= "/tools/bank-comparison-tool" element={<BankComparisonTool/>}/> */}
             <Route path="/tools/time-zone-converter" element={<TimeZoneConverter />} />
             <Route path="/tools/weather-abroad" element={<WeatherAbroad />} />
-            <Route path="/tools/gpa-calculator" element={<GPACalculator />} />
+            <Route path="/tools/gpa-calculator" element={<GpaCalculatorPage />} />
             <Route path="/tools/packing-list" element={<PackingList />} />
             <Route path="/tools/sop-generator" element={<SOPGenerator />} />
             <Route path="/tools/cost-of-studying-abroad" element={<CostOfStudyAbroadPage />} />
