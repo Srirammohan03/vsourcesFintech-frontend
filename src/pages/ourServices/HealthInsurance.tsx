@@ -44,10 +44,6 @@ type CountryData = {
   providers: Provider[];
   sections: FeatureSection[];
 };
-
-/* =========================
-   BASIC UTILITIES
-   ========================= */
 const cn = (...xs: (string | false | null | undefined)[]) =>
   xs.filter(Boolean).join(" ");
 
@@ -82,10 +78,6 @@ const SectionCard: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
     {children}
   </div>
 );
-
-/* =========================
-   MONOGRAM LOGO (fallback)
-   ========================= */
 const MonogramLogo: React.FC<{ name: string }> = ({ name }) => {
   const parts = name.split(" ");
   const mono =
@@ -112,7 +104,6 @@ const LogoBadge: React.FC<{ provider: Provider }> = ({ provider }) => {
     <div className="flex flex-col items-center gap-2">
       <Badge className="!p-3">
         {provider.logoUrl ? (
-          // eslint-disable-next-line @next/next/no-img-element
           <img
             src={provider.logoUrl}
             alt={provider.name}
@@ -128,11 +119,6 @@ const LogoBadge: React.FC<{ provider: Provider }> = ({ provider }) => {
     </div>
   );
 };
-
-/* =========================
-   DATA (example content)
-   NOTE: Values are illustrative for demo UX, not quotes.
-   ========================= */
 const DATA: Record<CountryKey, CountryData> = {
   "United States": {
     short: "USA",
@@ -609,7 +595,7 @@ const FeatureGrid: React.FC<{
 /* =========================
    MAIN PAGE
    ========================= */
-export default function HealthInsuranceComparePage() {
+export default function HealthInasurance() {
   const countries = Object.keys(DATA) as CountryKey[];
   const [country, setCountry] = useState<CountryKey>("United States");
 
@@ -635,7 +621,7 @@ export default function HealthInsuranceComparePage() {
           background: "linear-gradient(180deg, #002855 0%, #1a1a1a 100%)",
         }}
       >
-        <div className="w-full max-w-[1400px] mx-auto px-6 sm:px-6 lg:px-8 py-16 md:py-24 text-center ">
+        <div className="w-full max-w-[1400px] mx-auto px-6  sm:px-6 lg:px-8 py-16 md:py-24 text-center ">
           <h1 className="text-2xl md:text-4xl font-bold text-white">
             Health Insurance Compare
           </h1>

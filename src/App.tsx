@@ -56,6 +56,7 @@ import ROICalculator from "./pages/tools/ROICalculator";
 import EstimateFutureEarnings from "./pages/tools/EstimateFutureEarnings";
 import AboutPage from "./pages/AboutPage";
 import GalleryPage from "./pages/GalleryPage";
+import HealthInasurance from "./pages/ourServices/HealthInsurance";
 const queryClient = new QueryClient();
 
 const AppContent = () => {
@@ -97,6 +98,7 @@ const AppContent = () => {
             <Route path="/services/credit-card" element={<CreditCardComponent />} />
             <Route path="/services/block-account" element={<BlockedAccount />} />
             <Route path="/services/bank-account" element={<BankAccount />} />
+            <Route path="/services/health-insurance" element={<HealthInasurance/>}/>
 
             <Route path="/tools" element={<Tools />} />
             <Route path="/tools/loan-calculator" element={<LoanCalculator />} />
