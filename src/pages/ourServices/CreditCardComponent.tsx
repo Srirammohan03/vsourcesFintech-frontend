@@ -9,39 +9,93 @@ import {
   CheckCircle,
   Sparkles,
 } from "lucide-react";
+import { ChevronRight, Check } from "lucide-react";
 
 // Country Options
 const countries = ["USA", "UK", "Canada", "France", "Ireland"];
 
 const creditTypes = [
   {
-    title: "Secured Credit Card",
-    icon: <ShieldCheck className="w-6 h-6 text-blue-600" />,
+    title: "Secured Checking Accounts",
+    icon: <ShieldCheck className="w-10 h-10 text-blue-600 mb-2" />,
+    shortHead: "Safe & Accessible",
+    shortContent:
+      "Open a U.S. checking account fully online using your Passport, SSN, or ITIN. Perfect for international students.",
+    imageSrc: "/assets/images/lock.gif",
+    bgColor: "bg-blue-50",
     points: [
-      "Refundable security deposit required.",
-      "Build your credit score with minimal risk.",
-      "Lower credit limit, easy approval process.",
+      "No minimum balance requirement.",
+      "Free ATM withdrawals at 60,000+ locations nationwide.",
+      "FDIC insured up to $250,000 for your peace of mind.",
+      "24/7 customer support for any account needs.",
     ],
   },
   {
-    title: "Student Credit Card",
-    icon: <GraduationCap className="w-6 h-6 text-green-600" />,
+    title: "Credit Card",
+    icon: <GraduationCap className="w-10 h-10 text-green-600 mb-2" />,
+    shortHead: "Build Credit & Rewards",
+    shortContent:
+      "Ideal credit products tailored for students with no prior US credit history required.",
+    imageSrc: "/assets/images/tap-to-pay.gif",
+    bgColor: "bg-green-50",
     points: [
-      "Designed for international students.",
-      "Attractive interest rates for students.",
-      "Great for early financial discipline.",
+      "No security deposit required for approval.",
+      "Earn up to 1.5% cashback on everyday purchases.",
+      "Flexible repayment options and low introductory rates.",
+      "Helps establish and build your US credit score from day one.",
     ],
   },
   {
-    title: "No Annual Fee Card",
-    icon: <DollarSign className="w-6 h-6 text-yellow-600" />,
+    title: "Money Transfers",
+    icon: <DollarSign className="w-10 h-10 text-yellow-600 mb-2" />,
+    shortHead: "Fast, Affordable Transfers",
+    shortContent:
+      "Send money internationally with competitive exchange rates, low fees, and instant tracking for every transfer.",
+    imageSrc: "/assets/images/online-payment.gif",
+    bgColor: "bg-yellow-50",
     points: [
-      "Zero annual maintenance fees.",
-      "Ideal for students with tight budgets.",
-      "Simple cashback or rewards included.",
+      "Transfers to 100+ countries with trusted partners.",
+      "Lower fees than banks and quick delivery times.",
+      "100% secure and encrypted transactions.",
+      "Real-time status tracking through your mobile app.",
+      "Multi-currency support to save on conversions.",
+    ],
+  },
+  {
+    title: "Insurance",
+    icon: <DollarSign className="w-10 h-10 text-purple-600 mb-2" />,
+    shortHead: "Comprehensive & Affordable",
+    shortContent:
+      "Protect what matters most with insurance plans designed for students abroad.",
+    imageSrc: "/assets/images/privacy-policy.gif",
+    bgColor: "bg-purple-50",
+    points: [
+      "Rental and liability insurance for off-campus housing.",
+      "Health insurance covering emergency care and preventive services.",
+      "Pet insurance for your furry family members.",
+      "Affordable auto and personal property coverage options.",
+      "Simple claims process and 24/7 support.",
+    ],
+  },
+  {
+    title: "Loans",
+    icon: <DollarSign className="w-10 h-10 text-pink-600 mb-2" />,
+    shortHead: "Flexible & Personalized",
+    shortContent:
+      "Easily accessible student loans and personal loans tailored for international students.",
+    imageSrc: "/assets/images/discount-bag.gif",
+    bgColor: "bg-pink-50",
+    points: [
+      "Competitive interest rates customized for students.",
+      "Loan options for tuition, books, and living expenses.",
+      "Auto refinance and personal loans with flexible terms.",
+      "Dedicated advisors to help you select the right product.",
+      "Fast approval process with minimal paperwork.",
     ],
   },
 ];
+
+
 
 // Application Steps
 const applySteps = [
@@ -60,6 +114,7 @@ const tips = [
 
 const CreditCardComponent = () => {
   const [selectedCountry, setSelectedCountry] = useState("USA");
+  const [flipped, setFlipped] = useState<number | null>(null);
 
   return (
     <div className="">
@@ -104,30 +159,102 @@ const CreditCardComponent = () => {
       </section>
 
       {/* Credit Card Types */}
-      <section className="w-full max-w-[1400px] mx-auto px-6 py-10">
+      <section className="w-full max-w-[900px] mx-auto px-4 sm:px-6 py-10 space-y-10">
         <h2 className="text-2xl md:text-3xl font-bold text-center mb-8 flex items-center gap-2 justify-center">
-          <Sparkles className="w-6 h-6 text-purple-500" />
-          Cards for International Students in {selectedCountry}
+          Financial Products for International Students in {selectedCountry}
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {creditTypes.map((type, idx) => (
-            <div key={idx} className="rounded-2xl bg-gradient-to-tr from-white to-indigo-50 shadow-lg p-6 flex flex-col items-start transition hover:-translate-y-2 hover:shadow-2xl group">
-              <div className="mb-3 flex items-center gap-2">
-                <span className="p-2 rounded-full bg-indigo-200">{type.icon}</span>
-                <h3 className="text-lg font-bold text-gray-800">{type.title}</h3>
+
+        {creditTypes.map((type, idx) => {
+          const isFlipped = flipped === idx;
+
+          return (
+            <div
+              key={idx}
+              className="w-full max-w-4xl perspective mx-auto"
+              style={{ perspective: "1200px" }}
+            >
+              <div
+                onClick={() => setFlipped(isFlipped ? null : idx)}
+                className={`relative w-full min-h-[300px] cursor-pointer select-none transition-transform duration-700 ${isFlipped ? "rotate-y-180" : ""}`}
+                style={{ transformStyle: "preserve-3d", touchAction: "manipulation" }}
+              >
+                {/* Front Side */}
+                <div
+                  className={`absolute inset-0 backface-hidden rounded-2xl shadow-md flex flex-col sm:flex-row items-center justify-between p-5 sm:p-8 gap-6  ${type.bgColor}`}
+                >
+                  {/* Left: text + icon */}
+                  <div className="flex flex-col flex-1 justify-center text-center sm:text-left">
+                    <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-black mb-3 flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-2">
+                      {type.icon} <span>{type.title}</span>
+                    </h3>
+
+                    <h4 className="text-base md:text-lg font-semibold text-black mb-2">{type.shortHead}</h4>
+
+                    <p className="text-gray-700 text-sm md:text-base mb-4 max-w-md mx-auto sm:mx-0">
+                      {type.shortContent}
+                    </p>
+
+                    <div className="inline-block px-4 py-2 border border-red-600 bg-white text-red-600 rounded-2xl cursor-pointer mt-auto max-w-max mx-auto sm:mx-0">
+                      Tap to know more
+                    </div>
+                  </div>
+
+                  {/* Right: image */}
+                  <div className="flex-shrink-0 w-full sm:w-[140px] flex items-center justify-center mt-6 sm:mt-0 mx-auto sm:mx-0 md:block hidden">
+                    <img
+                      src={type.imageSrc}
+                      alt={type.title}
+                      className="w-full h-auto object-contain max-w-[140px]"
+                      loading="lazy"
+                      draggable={false}
+                    />
+                  </div>
+                </div>
+
+                {/* Back Side */}
+                <div className="absolute inset-0 backface-hidden rotate-y-180 rounded-2xl bg-white shadow-md border border-indigo-300 p-5 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+                  {/* Left: points */}
+                  <div className="flex-1 max-w-md mx-auto sm:mx-0 text-center sm:text-left">
+                    <h3 className="text-indigo-700 text-lg md:text-xl font-semibold mb-4">Key Features</h3>
+                    <ul className="space-y-2 md:space-y-3 text-gray-700 text-sm md:text-base">
+                      {type.points.map((point, i) => (
+                        <li key={i} className="flex items-start gap-2 md:gap-3">
+                          <Check className="w-4 h-4 md:w-5 md:h-5 text-green-600 flex-shrink-0 mt-0.5" />
+                          {point}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Right: image */}
+                  <div className="flex-shrink-0 w-full sm:w-[140px] flex items-center justify-center mt-6 sm:mt-0 mx-auto sm:mx-0 md:block hidden">
+                    <img
+                      src={type.imageSrc}
+                      alt={`${type.title} details`}
+                      className="w-full h-auto object-contain max-w-[140px]"
+                      loading="lazy"
+                      draggable={false}
+                    />
+                  </div>
+                </div>
               </div>
-              <ul className="mt-2 space-y-3 text-gray-600">
-                {type.points.map((point, i) => (
-                  <li key={i} className="flex items-center gap-2">
-                    <span className="w-2 h-2 bg-purple-400 rounded-full" />
-                    {point}
-                  </li>
-                ))}
-              </ul>
             </div>
-          ))}
-        </div>
+          );
+        })}
+
+        <style>{`
+    .rotate-y-180 {
+      transform: rotateY(180deg);
+    }
+    .backface-hidden {
+      backface-visibility: hidden;
+    }
+    .perspective > div {
+      will-change: transform;
+    }
+  `}</style>
       </section>
+
 
       {/* Eligibility Note */}
       <div className="mb-10 text-center py-4 px-6 rounded-xl bg-indigo-100 text-gray-500 font-semibold shadow">

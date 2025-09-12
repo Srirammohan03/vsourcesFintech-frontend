@@ -57,6 +57,8 @@ import EstimateFutureEarnings from "./pages/tools/EstimateFutureEarnings";
 import AboutPage from "./pages/AboutPage";
 import GalleryPage from "./pages/GalleryPage";
 import HealthInasurance from "./pages/ourServices/HealthInsurance";
+import ForexCard from "./pages/ourServices/ForexCard";
+import TravelInsurance from "./pages/ourServices/TravelInsurance";
 const queryClient = new QueryClient();
 
 const AppContent = () => {
@@ -99,6 +101,8 @@ const AppContent = () => {
             <Route path="/services/block-account" element={<BlockedAccount />} />
             <Route path="/services/bank-account" element={<BankAccount />} />
             <Route path="/services/health-insurance" element={<HealthInasurance/>}/>
+            <Route path="/services/forex-card" element={<ForexCard/>}/>
+            <Route path="/services/travel-insurance" element={<TravelInsurance/>}/>
 
             <Route path="/tools" element={<Tools />} />
             <Route path="/tools/loan-calculator" element={<LoanCalculator />} />
