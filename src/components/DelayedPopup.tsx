@@ -84,7 +84,7 @@ const DelayedPopup: React.FC<DelayedPopupProps> = ({ onMinimize }) => {
     }
 
     alert("Thank you! We'll call you back shortly.");
-    localStorage.setItem("vsource_form_submitted", "true");
+    // localStorage.setItem("vsource_form_submitted", "true");
     animateToIconAndClose();
   };
 
