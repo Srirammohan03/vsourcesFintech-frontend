@@ -1,4 +1,5 @@
 // src/pages/tools/ROICalculator.tsx
+import { ChevronDown } from "lucide-react";
 import React, { useMemo, useRef, useState } from "react";
 import {
   LineChart,
@@ -284,21 +285,21 @@ export default function ROICalculator() {
         className="w-full bg-gradient-to-b from-[#002855] to-[#1a1a1a] text-white"
         style={{ height: "40vh", minHeight: 430 }}
       >
-        <div className="mx-auto max-w-6xl px-4 h-full flex flex-col justify-center text-center">
-          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-center ">
+        <div className="w-full max-w-[1400px] mx-auto px-6 h-full flex flex-col justify-center text-center">
+          <h1 className="text-4xl md:text-4xl font-extrabold tracking-tight text-center ">
             ROI & Salary Estimator
           </h1>
-          <p className="mt-3 text-white/90  text-center">
+          <p className="mt-3 text-white/90 text-lg max-w-3xl mx-auto text-center">
             Plan your overseas education smartly. Estimate post-study salary,
             see projections for 5 years,</p>
-            <p className="mt-3 text-white/90  text-center"> and understand how your loan choice
+          <p className="mt-3 text-white/90 text-lg max-w-3xl mx-auto text-center"> and understand how your loan choice
             impacts recovery.
           </p>
         </div>
       </header>
 
       {/* FORM SECTION */}
-      <main className="mx-auto max-w-6xl px-4 pb-24 -mt-8">
+      <main className="w-full max-w-[1400px] mx-auto px-6 pb-10 -mt-8">
         <div className="rounded-2xl bg-white shadow-xl ring-1 ring-[#EEF2F7] p-5 md:p-8">
           <h2 className="text-2xl md:text-3xl font-bold text-[#0B0B2C]">Inputs</h2>
           <p className="text-sm text-gray-600 mb-6">
@@ -474,8 +475,7 @@ export default function ROICalculator() {
             <div className="md:col-span-2 flex flex-col items-center gap-4 mt-2">
               <button
                 onClick={handleEstimate}
-                className="w-full sm:w-[380px] rounded-2xl px-8 py-4 text-white font-semibold shadow-lg hover:shadow-xl transition"
-                style={{ background: "linear-gradient(135deg, #C400FF 0%, #2563EB 100%)" }}
+                className="w-full sm:w-[380px] rounded-2xl px-8 py-4 text-white font-semibold shadow-lg hover:shadow-xl transition bg-red-600"
               >
                 Get Salary Estimate
               </button>
@@ -484,28 +484,16 @@ export default function ROICalculator() {
                 <button
                   type="button"
                   onClick={() => setShowExtraEdu((s) => !s)}
-                  className="rounded-2xl px-4 py-3 font-semibold bg-white"
-                  style={{
-                    color: "#7C3AED",
-                    borderRadius: 16,
-                    borderWidth: 2,
-                    borderStyle: "solid",
-                    borderImage: "linear-gradient(90deg, #C400FF, #2563EB) 1",
-                  }}
+                  className="rounded-lg px-4 py-3 font-semibold bg-white text-red-600 border-2 border-red-600"
+
                 >
                   + Add Additional Education
                 </button>
                 <button
                   type="button"
                   onClick={() => setShowExtraCert((s) => !s)}
-                  className="rounded-2xl px-4 py-3 font-semibold bg-white"
-                  style={{
-                    color: "#7C3AED",
-                    borderRadius: 16,
-                    borderWidth: 2,
-                    borderStyle: "solid",
-                    borderImage: "linear-gradient(90deg, #C400FF, #2563EB) 1",
-                  }}
+                  className="rounded-lg px-4 py-3 font-semibold bg-white text-red-600 border-2 border-red-600"
+
                 >
                   + Add Additional Certification
                 </button>
@@ -519,9 +507,8 @@ export default function ROICalculator() {
               <div className="flex items-center justify-between">
                 <h3 className="font-semibold text-[#0B0B2C]">Additional Education</h3>
                 <button
-                  className="rounded-lg px-3 py-1 text-white text-sm"
+                  className="rounded-lg px-3 py-1 border-2 border-red-600  text-sm text-red-600 bg-white hover:bg-red-600 hover:text-white"
                   onClick={() => setExtraEducation((arr) => [...arr, { level: "", institute: "", marks: "" }])}
-                  style={{ backgroundColor: THEME.blue }}
                 >
                   + Add Row
                 </button>
@@ -582,9 +569,8 @@ export default function ROICalculator() {
               <div className="flex items-center justify-between">
                 <h3 className="font-semibold text-[#0B0B2C]">Additional Certifications</h3>
                 <button
-                  className="rounded-lg px-3 py-1 text-white text-sm"
+                  className="rounded-lg px-3 py-1  border-2 border-red-600  text-sm text-red-600 bg-white hover:bg-red-600 hover:text-white"
                   onClick={() => setExtraCerts((arr) => [...arr, { name: "", provider: "", year: "" }])}
-                  style={{ backgroundColor: THEME.blue }}
                 >
                   + Add Row
                 </button>
@@ -720,7 +706,7 @@ function FieldShell({
 }) {
   return (
     <div>
-      <div className="flex items-center justify-between rounded-xl border px-4 py-3 text-[#0B0B2C]" style={{ borderColor: THEME.blue }}>
+      <div className="flex items-center justify-between rounded-xl border px-4 py-3 text-[#0B0B2C] border-gray-400" >
         <span className="font-semibold">{label}</span>
         <div className="ml-3">
           <div className="min-w-[110px] text-center rounded-lg bg-gray-100 px-3 py-2 font-bold text-[#334155]">
@@ -771,7 +757,7 @@ function LabeledSlider(props: {
           step={step}
           value={value}
           onChange={(e) => setValue(Number(e.target.value))}
-          className="w-full accent-blue-600"
+          className="w-full accent-red-600"
         />
         <div className="flex justify-between text-xs text-gray-600 mt-1">
           <span>{minLabel ?? formatINR(min)}</span>
@@ -796,20 +782,29 @@ function SelectBox({
 }>) {
   return (
     <div>
-      <label className="block text-sm font-semibold mb-1" style={{ color: THEME.blue }}>
+      <label className="block text-sm font-semibold mb-1 text-black">
         {label}
       </label>
-      <select
-        value={value}
-        onChange={onChange}
-        className={cls(
-          "w-full rounded-xl border bg-white px-4 py-3 outline-none",
-          error ? "border-red-500 ring-2 ring-red-500" : "border-[#E5EBF0] focus:ring-2"
-        )}
-        style={!error ? { ["--tw-ring-color" as any]: THEME.blue } : undefined}
-      >
-        {children}
-      </select>
+      <div className="relative w-full">
+        <select
+          value={value}
+          onChange={onChange}
+          className={cls(
+            "w-full appearance-none rounded-xl border bg-white px-4 py-3 pr-10 text-sm outline-none",
+            error
+              ? "border-red-500 ring-2 ring-red-500"
+              : "border-[#E5EBF0] focus:ring-2"
+          )}
+          style={!error ? { ["--tw-ring-color" as any]: THEME.blue } : undefined}
+        >
+          {children}
+        </select>
+
+        {/* Custom Arrow */}
+        <ChevronDown
+          className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-black"
+        />
+      </div>
       {error && (
         <p className="mt-1 text-xs" style={{ color: THEME.red }}>
           {error}
@@ -832,7 +827,7 @@ function InputBox({
 }) {
   return (
     <div>
-      <label className="block text-sm font-semibold mb-1" style={{ color: THEME.blue }}>
+      <label className="block text-sm font-semibold mb-1 text-black">
         {label}
       </label>
       <input

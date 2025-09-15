@@ -251,7 +251,7 @@ export default function PackingList() {
     >
       {/* HERO / BANNER ONLY has the gradient */}
       <section className="bg-gradient-to-b from-[#002855] to-[#1a1a1a] pb-16 pt-36">
-        <div className="mx-auto max-w-7xl px-4 md:px-6 lg:px-8 py-8 md:py-10  pt-12">
+        <div className="w-full max-w-[1400px] mx-auto px-6 py-10  pt-12">
           <h1 className="text-3xl md:text-4xl font-bold text-white text-center">
             Student Packing List
           </h1>
@@ -262,145 +262,150 @@ export default function PackingList() {
       </section>
 
       {/* MAIN BODY (light surface) */}
-      <div className="mx-auto max-w-7xl px-4 md:px-6 lg:px-8 -mt-4 pb-10">
-        {/* white container that “connects” under the banner */}
-        <div className="bg-white rounded-t-3xl shadow-lg px-4 md:px-6 lg:px-8 pt-6 md:pt-8">
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-            <nav className="flex flex-wrap gap-2 md:gap-3">
-              {(Object.keys(initialData) as CategoryKey[]).map((k) => {
-                const Icon = IconByCategory[k];
-                const active = activeTab === k;
-                return (
-                  <button
-                    key={k}
-                    onClick={() => setActiveTab(k)}
-                    className={
-                      "flex items-center gap-2 rounded-full px-4 py-2 text-sm md:text-base border transition " +
-                      (active
-                        ? "bg-indigo-600 text-white shadow"
-                        : "bg-slate-50 border-slate-200 hover:bg-white")
-                    }
-                  >
-                    <Icon className="h-4 w-4" />
-                    {k}
-                  </button>
-                );
-              })}
-            </nav>
+    <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-6 py-8 sm:py-10">
+  {/* white container that “connects” under the banner */}
+  <div className="bg-white rounded-t-3xl shadow-lg px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8">
+    {/* Top Nav */}
+    <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <nav className="flex flex-wrap gap-2 sm:gap-3">
+        {(Object.keys(initialData) as CategoryKey[]).map((k) => {
+          const Icon = IconByCategory[k];
+          const active = activeTab === k;
+          return (
+            <button
+              key={k}
+              onClick={() => setActiveTab(k)}
+              className={
+                "flex items-center gap-2 rounded-full px-4 py-2 text-sm sm:text-base border transition " +
+                (active
+                  ? "bg-indigo-600 text-white shadow"
+                  : "bg-slate-50 border-slate-200 hover:bg-white")
+              }
+            >
+              <Icon className="h-4 w-4" />
+              {k}
+            </button>
+          );
+        })}
+      </nav>
+    </div>
+
+    {/* Content Section */}
+    <div className="mt-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
+      {/* Left: Packing List */}
+      <section className="lg:col-span-8 xl:col-span-9">
+        <header className="mb-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+          <h2 className="text-lg sm:text-xl md:text-2xl font-semibold">
+            Your Packing List
+          </h2>
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 w-full sm:w-auto">
+            <input
+              value={newItem}
+              onChange={(e) => setNewItem(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && addItem()}
+              placeholder="Add Item"
+              className="flex-1 sm:w-64 rounded-xl border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            />
+            <button
+              onClick={addItem}
+              className="inline-flex justify-center items-center gap-2 rounded-xl bg-indigo-600 px-4 py-2 text-white text-sm font-medium hover:bg-indigo-700 active:scale-[0.99]"
+            >
+              <Plus className="h-4 w-4" /> Add
+            </button>
           </div>
+        </header>
 
-          {/* Content Section */}
-          <div className="mt-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
-            {/* Left: Packing List */}
-            <section className="lg:col-span-8 xl:col-span-9">
-              <header className="mb-3 flex items-center justify-between">
-                <h2 className="text-xl md:text-2xl font-semibold">Your Packing List</h2>
-                <div className="flex items-center gap-2">
-                  <input
-                    value={newItem}
-                    onChange={(e) => setNewItem(e.target.value)}
-                    onKeyDown={(e) => e.key === "Enter" && addItem()}
-                    placeholder="Add Item"
-                    className="w-48 md:w-64 rounded-xl border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                  />
-                  <button
-                    onClick={addItem}
-                    className="inline-flex items-center gap-2 rounded-xl bg-indigo-600 px-4 py-2 text-white text-sm font-medium hover:bg-indigo-700 active:scale-[0.99]"
-                  >
-                    <Plus className="h-4 w-4" /> Add
-                  </button>
-                </div>
-              </header>
-
-              <div className="space-y-3">
-                {currentItems.map((item) => {
-                  const CatIcon = IconByCategory[activeTab];
-                  return (
-                    <div key={item.id} className={cardClass + " p-3 md:p-4"}>
-                      <div className="flex items-center gap-3 md:gap-4">
-                        <div className="shrink-0 rounded-xl bg-slate-100 p-2">
-                          <CatIcon className="h-5 w-5 text-slate-600" />
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <p className="font-medium text-sm md:text-base truncate">
-                            {item.label}
-                          </p>
-                          <div className="mt-2 flex flex-wrap items-center gap-2">
-                            <button
-                              onClick={() => toggleStatus(item.id)}
-                              className={
-                                "rounded-full px-3 py-1 text-xs md:text-sm transition " +
-                                statusPillClass[item.status]
-                              }
-                            >
-                              {statusLabel[item.status]}
-                            </button>
-                            <div className="flex items-center gap-1 md:gap-2 ml-1">
-                              <button
-                                onClick={() => quickSet(item.id, "owned")}
-                                className="inline-flex items-center gap-1 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs md:text-sm text-emerald-700 hover:bg-emerald-100"
-                              >
-                                <CheckCircle2 className="h-4 w-4" /> Owned
-                              </button>
-                              <button
-                                onClick={() => quickSet(item.id, "need_to_buy")}
-                                className="inline-flex items-center gap-1 rounded-full border border-amber-200 bg-amber-50 px-3 py-1 text-xs md:text-sm text-amber-700 hover:bg-amber-100"
-                              >
-                                <ShoppingCart className="h-4 w-4" /> Buy
-                              </button>
-                            </div>
-                          </div>
-                        </div>
+        {/* Items */}
+        <div className="space-y-3">
+          {currentItems.map((item) => {
+            const CatIcon = IconByCategory[activeTab];
+            return (
+              <div key={item.id} className={cardClass + " p-3 sm:p-4"}>
+                <div className="flex items-start sm:items-center gap-3 sm:gap-4">
+                  <div className="shrink-0 rounded-xl bg-slate-100 p-2">
+                    <CatIcon className="h-5 w-5 text-slate-600" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="font-medium text-sm sm:text-base truncate">
+                      {item.label}
+                    </p>
+                    <div className="mt-2 flex flex-wrap items-center gap-2">
+                      <button
+                        onClick={() => toggleStatus(item.id)}
+                        className={
+                          "rounded-full px-3 py-1 text-xs sm:text-sm transition " +
+                          statusPillClass[item.status]
+                        }
+                      >
+                        {statusLabel[item.status]}
+                      </button>
+                      <div className="flex flex-wrap items-center gap-2 ml-1">
+                        <button
+                          onClick={() => quickSet(item.id, "owned")}
+                          className="inline-flex items-center gap-1 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs sm:text-sm text-emerald-700 hover:bg-emerald-100"
+                        >
+                          <CheckCircle2 className="h-4 w-4" /> Owned
+                        </button>
+                        <button
+                          onClick={() => quickSet(item.id, "need_to_buy")}
+                          className="inline-flex items-center gap-1 rounded-full border border-amber-200 bg-amber-50 px-3 py-1 text-xs sm:text-sm text-amber-700 hover:bg-amber-100"
+                        >
+                          <ShoppingCart className="h-4 w-4" /> Buy
+                        </button>
                       </div>
                     </div>
-                  );
-                })}
+                  </div>
+                </div>
               </div>
-            </section>
+            );
+          })}
+        </div>
+      </section>
 
-            {/* Right: Summary */}
-            <aside className="lg:col-span-4 xl:col-span-3">
-              <div className={cardClass + " p-5 sticky top-4"}>
-                <h3 className="text-lg md:text-xl font-semibold mb-4">Summary</h3>
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between rounded-xl border border-slate-200 bg-slate-50 px-3 py-3">
-                    <div className="flex items-center gap-2">
-                      <ShoppingCart className="h-5 w-5" />
-                      <span className="text-sm md:text-base">Need To Buy</span>
-                    </div>
-                    <span className="text-lg font-semibold">{summary.needToBuy}</span>
-                  </div>
-                  <div className="flex items-center justify-between rounded-xl border border-slate-200 bg-slate-50 px-3 py-3">
-                    <div className="flex items-center gap-2">
-                      <CheckCircle2 className="h-5 w-5" />
-                      <span className="text-sm md:text-base">Already Owned</span>
-                    </div>
-                    <span className="text-lg font-semibold">{summary.owned}</span>
-                  </div>
-                  <div className="flex items-center justify-between rounded-xl border border-slate-200 bg-slate-50 px-3 py-3">
-                    <div className="flex items-center gap-2">
-                      <List className="h-5 w-5" />
-                      <span className="text-sm md:text-base">Total Items</span>
-                    </div>
-                    <span className="text-lg font-semibold">{summary.total}</span>
-                  </div>
-                </div>
-                <div className="mt-5 grid grid-cols-1 gap-3">
-                  <button onClick={exportCSV} className={gradientBtn}>
-                    Export list
-                  </button>
-                  <button
-                    onClick={resetTab}
-                    className="w-full rounded-xl border border-slate-200 bg-white px-5 py-3 text-sm font-medium hover:bg-slate-50 active:scale-[0.99]"
-                  >
-                    Reset (This Tab)
-                  </button>
-                </div>
+      {/* Right: Summary */}
+      <aside className="lg:col-span-4 xl:col-span-3">
+        <div className={cardClass + " p-5 sticky top-32"}>
+          <h3 className="text-lg sm:text-xl font-semibold mb-4">Summary</h3>
+          <div className="space-y-3">
+            <div className="flex items-center justify-between rounded-xl border border-slate-200 bg-slate-50 px-3 py-3">
+              <div className="flex items-center gap-2">
+                <ShoppingCart className="h-5 w-5" />
+                <span className="text-sm sm:text-base">Need To Buy</span>
               </div>
-            </aside>
+              <span className="text-base sm:text-lg font-semibold">{summary.needToBuy}</span>
+            </div>
+            <div className="flex items-center justify-between rounded-xl border border-slate-200 bg-slate-50 px-3 py-3">
+              <div className="flex items-center gap-2">
+                <CheckCircle2 className="h-5 w-5" />
+                <span className="text-sm sm:text-base">Already Owned</span>
+              </div>
+              <span className="text-base sm:text-lg font-semibold">{summary.owned}</span>
+            </div>
+            <div className="flex items-center justify-between rounded-xl border border-slate-200 bg-slate-50 px-3 py-3">
+              <div className="flex items-center gap-2">
+                <List className="h-5 w-5" />
+                <span className="text-sm sm:text-base">Total Items</span>
+              </div>
+              <span className="text-base sm:text-lg font-semibold">{summary.total}</span>
+            </div>
+          </div>
+          <div className="mt-5 grid grid-cols-1 gap-3">
+            <button onClick={exportCSV} className={gradientBtn}>
+              Export list
+            </button>
+            <button
+              onClick={resetTab}
+              className="w-full rounded-xl border border-slate-200 bg-white px-5 py-3 text-sm font-medium hover:bg-slate-50 active:scale-[0.99]"
+            >
+              Reset (This Tab)
+            </button>
           </div>
         </div>
-      </div>
+      </aside>
+    </div>
+  </div>
+</div>
+
     </div>
   );
 }

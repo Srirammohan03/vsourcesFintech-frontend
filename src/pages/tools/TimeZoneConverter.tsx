@@ -246,8 +246,8 @@ export default function TimeZoneConverter() {
   return (
     <div className="bg-white min-h-screen">
       {/* HERO banner with gradient only here */}
-      <section className="bg-gradient-to-b from-[#002855] to-[#1a1a1a] py-12 sm:py-16 mb-8" ref={heroRef}>
-        <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 pt-16 pb-6">
+      <section className="bg-gradient-to-b from-[#002855] to-[#1a1a1a] pt-32 pb-16 lg:pt-32 lg:pb-24 " ref={heroRef}>
+        <div className="w-full max-w-[1400px] mx-auto px-6 sm:px-6 lg:px-8">
           <div className="text-center text-white space-y-3">
             <div className="inline-flex items-center justify-center rounded-2xl bg-white/10 p-3">
               <Clock className="h-10 w-10 text-white" />
@@ -255,7 +255,7 @@ export default function TimeZoneConverter() {
             <h1 className="text-3xl sm:text-4xl font-extrabold">
               Time Zone Converter
             </h1>
-            <p className="text-white/80">
+            <p className="text-white/80 text-lg max-w-3xl mx-auto">
               Set an Indian time (IST) and instantly view the local time across cities worldwide.
             </p>
           </div>
@@ -264,7 +264,7 @@ export default function TimeZoneConverter() {
 
       {/* Content: one column, mobile-first; no grids/columns */}
       <section className="pb-16">
-        <div className="mx-auto w-full max-w-5xl px-4 sm:px-6 lg:px-8 space-y-8">
+        <div className="w-full max-w-[1400px] mx-auto px-6 py-10 space-y-8">
           {/* Controls card */}
           <Card
             className="rounded-3xl"

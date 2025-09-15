@@ -47,7 +47,7 @@ export default function ToolPageTemplate({
             className="space-y-6"
           >
             <div className="flex justify-center">{heroIcon}</div>
-            <h1 className="text-4xl lg:text-6xl font-bold">{title}</h1>
+            <h1 className="text-4xl lg:text-4xl font-bold">{title}</h1>
             <p className="text-lg max-w-3xl mx-auto">{description}</p>
           </motion.div>
         </div>
@@ -55,7 +55,7 @@ export default function ToolPageTemplate({
 
       {/* Calculator Section */}
       <section className="py-8 lg:py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-10">
+        <div className="w-full max-w-[1400px] mx-auto px-6 grid lg:grid-cols-2 gap-10">
           {/* Left Form */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
@@ -78,7 +78,7 @@ export default function ToolPageTemplate({
 
       {/* How It Works */}
       <section className="py-8 lg:py-16 bg-gray-50">
-        <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-3 gap-8 text-center">
+        <div className="w-full max-w-[1400px] mx-auto px-6 grid md:grid-cols-3 gap-8 text-center">
           {howItWorks.map((step, i) => (
             <motion.div
               key={i}
@@ -97,7 +97,7 @@ export default function ToolPageTemplate({
 
       {/* Extra Section */}
       <section className="py-8 lg:py-16 bg-white">
-        <div className="max-w-4xl mx-auto px-6 text-center">
+        <div className="w-full max-w-[1400px] mx-auto px-6 text-center">
           <h2 className="text-2xl font-bold mb-6">{extraSectionTitle}</h2>
           {extraSectionContent}
         </div>
@@ -105,7 +105,7 @@ export default function ToolPageTemplate({
 
       {/* More References */}
       <section className="py-8 lg:py-16 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-6">
+        <div className="w-full max-w-[1400px] mx-auto px-6 ">
           <h2 className="text-2xl font-bold mb-10 text-center">
             Explore More Tools
           </h2>

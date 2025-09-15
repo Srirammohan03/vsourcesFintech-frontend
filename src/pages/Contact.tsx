@@ -61,7 +61,7 @@ const ContactPage = () => {
   return (
     <>
       {/* Hero Section */}
-      <section className="pt-36 pb-20 bg-gradient-to-b from-darkblue to-gray-900 text-white">
+      <section className="pt-36 pb-20 bg-gradient-to-b from-[#002855] to-[#1a1a1a] text-white">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-6">Branches</h1>

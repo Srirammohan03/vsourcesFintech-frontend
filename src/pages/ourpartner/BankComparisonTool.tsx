@@ -186,11 +186,11 @@ export default function BankComparisonTool() {
   return (
     <div className="bg-white min-h-screen">
       {/* HERO with gradient banner */}
-      <section className="bg-gradient-to-b from-[#002855] to-[#1a1a1a] pt-28 pb-20">
+      <section className="bg-gradient-to-b from-[#002855] to-[#1a1a1a] pt-36 pb-24">
         <div className="w-full max-w-[1400px] mx-auto px-6">
           <div className="text-center text-white space-y-3">
             <div className="inline-flex items-center justify-center rounded-2xl bg-white/10 p-3">
-              <Calculator className="h-10 w-10 text-white" />
+              <Calculator className="h-10 w-10 text-white animate-pulse" />
             </div>
             <h1 className="text-3xl sm:text-4xl font-extrabold">
               Bank Comparison Tool

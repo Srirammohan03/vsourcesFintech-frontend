@@ -619,9 +619,9 @@ const GalleryPage = () => {
   return (
     <>
       {/* Hero */}
-      <section className="pt-36 pb-20 bg-gradient-to-b from-darkblue to-gray-900 text-white">
+      <section className="pt-36 pb-20 bg-gradient-to-b from-[#002855] to-[#1a1a1a] text-white">
         <div className="container mx-auto px-4 text-center max-w-3xl">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">Our Visual Journey</h1>
+          <h1 className="text-4xl md:text-4xl font-bold mb-6">Our Visual Journey</h1>
           <p className="text-xl text-gray-300">
             Explore our offices, photos, and student success moments through our visual gallery
           </p>

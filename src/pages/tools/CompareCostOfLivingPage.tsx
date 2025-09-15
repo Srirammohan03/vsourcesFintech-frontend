@@ -8,20 +8,6 @@ import {
   Tooltip,
   Legend,
 } from "recharts";
-
-/**
- * Route suggestion (Next.js App Router):
- *   app/tools/compare-cost-of-living/page.tsx
- *
- * TailwindCSS required. Fully client-side, mobile-first.
- *
- * This follows the same UX template as your “Cost of Study Abroad” page:
- * - Hero (gradient banner)
- * - 7-step form (Steps 3, 5, 6 match the screenshots closely)
- * - Result screen with donut pie chart
- */
-
-// ===== Theme (from your brief) =====
 const THEME = {
   red: "#E3000F",
   blue: "#2563EB",
@@ -599,7 +585,7 @@ export default function CompareCostOfLivingPage() {
     <div className="min-h-screen" style={{ background: THEME.surface, color: THEME.text }}>
       {/* HERO */}
       <div className="w-full bg-gradient-to-b from-[#002855] to-[#1a1a1a] pt-16 pb-12">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 text-center">
+        <div className="w-full max-w-[1400px] mx-auto px-6 py-16 md:py-24 text-center">
           <h1 className="text-2xl md:text-4xl font-bold text-white">Compare Cost of Living in Countries for Study Abroad</h1>
           <p className="text-white/90 mt-3 max-w-3xl mx-auto">
             Walk through the 7 steps to estimate your <b>monthly</b> living cost by city and lifestyle.
@@ -609,7 +595,7 @@ export default function CompareCostOfLivingPage() {
       </div>
 
       {/* STEPPER */}
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8">
+      <div className="w-full max-w-[1400px] mx-auto px-6 -mt-8">
         <Card className="overflow-hidden">
           <div className="flex items-center justify-between gap-2 overflow-auto">
             {stepsLabels.map((label, i) => {
@@ -629,7 +615,7 @@ export default function CompareCostOfLivingPage() {
       </div>
 
       {/* CONTENT */}
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-6 mb-20">
+      <div className="w-full max-w-[1400px] mx-auto px-6 py-10">
         {!isResult && (
           <div className="grid grid-cols-1 gap-6">
             {/* STEP 1 */}

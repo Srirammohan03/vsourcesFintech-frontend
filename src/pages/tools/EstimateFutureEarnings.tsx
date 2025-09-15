@@ -1,4 +1,5 @@
 // src/pages/tools/EstimateFutureEarnings.tsx
+import { ChevronDown } from "lucide-react";
 import React, { useMemo, useRef, useState } from "react";
 import {
   LineChart,
@@ -304,11 +305,11 @@ export default function EstimateFutureEarnings() {
         className="w-full bg-gradient-to-b from-[#002855] to-[#1a1a1a] text-white"
         style={{ height: "50vh", minHeight: 430 }}
       >
-        <div className="mx-auto max-w-6xl px-4 h-full flex flex-col justify-center">
-          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-center">
+        <div className="w-full max-w-[1400px] mx-auto px-6 h-full flex flex-col justify-center">
+          <h1 className="text-4xl md:text-4xl font-extrabold tracking-tight text-center">
             Estimate Future Earnings
           </h1>
-          <p className="mt-3 text-white/90 text-center max-w-3xl mx-auto">
+          <p className="mt-3 text-white/90 text-lg text-center max-w-3xl mx-auto">
             Country-wise & industry-based salary projections to help you set realistic goals and plan finances.
           </p>
 
@@ -323,7 +324,7 @@ export default function EstimateFutureEarnings() {
       </header>
 
       {/* FORM SECTION */}
-      <main className="mx-auto max-w-6xl px-4 pb-24 -mt-8">
+      <main className="w-full max-w-[1400px] mx-auto px-6 pb-10 -mt-8">
         <div className="rounded-2xl bg-white shadow-xl ring-1 ring-[#EEF2F7] p-5 md:p-8">
           <h2 className="text-2xl md:text-3xl font-bold text-[#0B0B2C]">Inputs</h2>
           <p className="text-sm text-gray-600 mb-6">
@@ -396,29 +397,17 @@ export default function EstimateFutureEarnings() {
 
             {/* Toggle Buttons */}
             <div
-              className="rounded-2xl px-4 py-3 font-semibold bg-white cursor-pointer"
+              className=" cursor-pointer rounded-lg px-4 py-3 font-semibold bg-white text-red-600 border-2 border-red-600"
               onClick={() => setShowExtraEdu((s) => !s)}
-              style={{
-                color: "#7C3AED",
-                borderRadius: 16,
-                borderWidth: 2,
-                borderStyle: "solid",
-                borderImage: "linear-gradient(90deg, #C400FF, #2563EB) 1",
-              }}
+          
             >
               + Add Additional Education
             </div>
 
             <div
-              className="rounded-2xl px-4 py-3 font-semibold bg-white cursor-pointer"
+              className="rounded-lg px-4 py-3 font-semibold bg-white text-red-600 border-2 border-red-600 cursor-pointer"
               onClick={() => setShowExtraCert((s) => !s)}
-              style={{
-                color: "#7C3AED",
-                borderRadius: 16,
-                borderWidth: 2,
-                borderStyle: "solid",
-                borderImage: "linear-gradient(90deg, #C400FF, #2563EB) 1",
-              }}
+             
             >
               + Add Additional Certification
             </div>
@@ -542,8 +531,7 @@ export default function EstimateFutureEarnings() {
           <div className="mt-8 flex items-center justify-center">
             <button
               onClick={handleEstimate}
-              className="w-full sm:w-[380px] rounded-2xl px-8 py-4 text-white font-semibold shadow-lg hover:shadow-xl transition"
-              style={{ background: "linear-gradient(135deg, #C400FF 0%, #2563EB 100%)" }}
+              className="w-full sm:w-[380px] rounded-2xl px-8 py-4 text-white font-semibold shadow-lg hover:shadow-xl transition bg-red-600"
             >
               Get Salary Estimate
             </button>
@@ -663,20 +651,29 @@ function SelectBox({
 }>) {
   return (
     <div>
-      <label className="block text-sm font-semibold mb-1" style={{ color: THEME.blue }}>
+      <label className="block text-sm font-semibold mb-1 text-black">
         {label}
       </label>
-      <select
-        value={value}
-        onChange={onChange}
-        className={cls(
-          "w-full rounded-xl border bg-white px-4 py-3 outline-none",
-          error ? "border-red-500 ring-2 ring-red-500" : "border-[#E5EBF0] focus:ring-2"
-        )}
-        style={!error ? { ["--tw-ring-color" as any]: THEME.blue } : undefined}
-      >
-        {children}
-      </select>
+      <div className="relative w-full">
+        <select
+          value={value}
+          onChange={onChange}
+          className={cls(
+            "w-full appearance-none rounded-xl border bg-white px-4 py-3 pr-10 outline-none",
+            error
+              ? "border-red-500 ring-2 ring-red-500"
+              : "border-[#E5EBF0] focus:ring-2"
+          )}
+          style={!error ? { ["--tw-ring-color" as any]: THEME.blue } : undefined}
+        >
+          {children}
+        </select>
+
+        {/* Custom Arrow */}
+        <ChevronDown
+          className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-black"
+        />
+      </div>
       {error && <p className="mt-1 text-xs" style={{ color: THEME.red }}>{error}</p>}
     </div>
   );
@@ -695,14 +692,14 @@ function InputBox({
 }) {
   return (
     <div>
-      <label className="block text-sm font-semibold mb-1" style={{ color: THEME.blue }}>
+      <label className="block text-sm font-semibold mb-1 text-black">
         {label}
       </label>
       <input
         value={value}
         onChange={onChange}
         placeholder={placeholder}
-        className="w-full rounded-xl border px-4 py-3 outline-none border-[#E5EBF0] focus:ring-2"
+        className="w-full rounded-xl border px-4 py-3 outline-none border-gray-400 focus:ring-2"
         style={{ ["--tw-ring-color" as any]: THEME.blue }}
       />
     </div>

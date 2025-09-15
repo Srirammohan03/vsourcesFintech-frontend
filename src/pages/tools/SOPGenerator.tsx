@@ -1,4 +1,5 @@
 // src/pages/tools/SOPGenerator.tsx
+import { FormInput } from "lucide-react";
 import React, { useRef, useState } from "react";
 
 /* ===== Theme (yours) ===== */
@@ -136,8 +137,7 @@ const Label: React.FC<{
 }> = ({ children, required, htmlFor }) => (
   <label
     htmlFor={htmlFor}
-    className="block text-sm font-semibold mb-1"
-    style={{ color: THEME.blue }}
+    className="block text-sm font-semibold mb-1 text-black"
   >
     {children} {required && <span style={{ color: THEME.red }}>*</span>}
   </label>
@@ -295,7 +295,7 @@ const MultiSelect: React.FC<{
 
 /* cards & titles */
 const Card: React.FC<React.PropsWithChildren<{ className?: string }>> = ({ className, children }) => (
-  <div className={cls("rounded-2xl shadow-xl bg-white ring-1 ring-[#EEF2F7] p-4 md:p-6", className)}>
+  <div className={cls("rounded-2xl shadow-xl bg-white ring-1 ring-[#EEF2F7] p-6 my-10", className)}>
     {children}
   </div>
 );
@@ -303,7 +303,7 @@ const Card: React.FC<React.PropsWithChildren<{ className?: string }>> = ({ class
 const SectionTitle: React.FC<{ title: string; stepLabel?: string }> = ({ title, stepLabel }) => (
   <div className="flex items-center justify-between mb-6 ">
     <h2 className="text-2xl md:text-3xl font-bold text-[#0B0B2C]">{title}</h2>
-    {stepLabel && <span className="text-sm font-semibold" style={{ color: THEME.sky }}>{stepLabel}</span>}
+    {stepLabel && <span className="text-sm font-semibold text-red-600" >{stepLabel}</span>}
   </div>
 );
 
@@ -312,10 +312,9 @@ const PrimaryButton: React.FC<React.ButtonHTMLAttributes<HTMLButtonElement>> = (
   <button
     {...props}
     className={cls(
-      "rounded-xl px-6 py-3 font-semibold text-white shadow-md hover:shadow-lg transition",
+      "rounded-xl px-6 py-3 font-semibold text-white bg-red-600 shadow-md hover:shadow-lg transition",
       className
     )}
-    style={{ backgroundColor: THEME.blue }}
   >
     {children}
   </button>
@@ -470,20 +469,20 @@ export default function SOPGenerator() {
     <div className="min-h-screen bg-[#F6F8FB]">
       {/* HERO (solid dark like your screenshot) */}
       <header className="w-full bg-[#0A1B2A] pt-12 pb-8">
-        <div className="mx-auto max-w-6xl px-4 py-16 md:py-20 text-center text-white ">
+        <div className="w-full max-w-[1400px] mx-auto px-6 py-16 md:py-20 text-center text-white ">
           <div className="mx-auto mb-6 flex h-14 w-14 items-center justify-center rounded-2xl" style={{ background: "rgba(255,255,255,0.12)" }}>
             {/* simple doc icon */}
-            <span className="text-2xl">📄</span>
+            <FormInput className="h-12 w-12 animate-pulse"/>
           </div>
-          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight">SOP Generator</h1>
+          <h1 className="text-4xl md:text-4xl font-extrabold tracking-tight">SOP Generator</h1>
           <p className="mt-3 text-white/80 text-base md:text-lg">Create a professional Statement of Purpose in 10 quick steps.</p>
         </div>
       </header>
 
       {/* BODY */}
-      <main className="mx-auto max-w-5xl px-4 pb-20 -mt-8">
+      <main className="w-full max-w-[1400px] mx-auto px-6 py-10">
         {/* Stepper (circles connected like your reference) */}
-        <div className="mb-10 mt-24">
+        <div className="">
           <Stepper current={step} />
         </div>
 

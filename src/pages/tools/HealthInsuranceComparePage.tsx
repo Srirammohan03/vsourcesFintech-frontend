@@ -639,7 +639,7 @@ export default function HealthInsuranceComparePage() {
           <h1 className="text-2xl md:text-4xl font-bold text-white">
             Health Insurance Compare
           </h1>
-          <p className="text-white/90 mt-3 max-w-3xl mx-auto">
+          <p className="text-white/90 text-lg max-w-3xl mx-auto">
             Pick a country to see student-friendly providers and benefit
             comparisons. Built for fast scanning and mobile-first browsing.
           </p>
@@ -673,7 +673,7 @@ export default function HealthInsuranceComparePage() {
               Compare and Get the Best Insurance Plans for:{" "}
               <span style={highlight}>{c.short}</span>
             </h2>
-            <p className="text-gray-700 leading-7 max-w-4xl mx-auto">
+            <p className="text-gray-700 leading-7 mx-auto text-justify">
               {c.description}
             </p>
             <p className="text-sm md:text-base font-medium text-gray-800">

@@ -61,11 +61,14 @@ import TravelInsurance from "./pages/ourServices/TravelInsurance";
 import GpaCalculatorPage from "./pages/tools/GpaCalculatorPage";
 import SimCard from "./pages/ourServices/SimCard";
 import GIC from "./pages/ourServices/GIC";
+import ScrollToTopButton from "./components/ScrollToTopButton";
+import DelayedPopup from "./components/DelayedPopup";
 const queryClient = new QueryClient();
 
 const AppContent = () => {
   const [showForm, setShowForm] = useState(false);
-  const location = useLocation(); // ✅ React Router hook
+  const location = useLocation(); // 
+  const [showFormIcon, setShowFormIcon] = useState(false);
   const isGoVirtualPage = location.pathname === "/meeting";
 
   useEffect(() => {
@@ -85,6 +88,30 @@ const AppContent = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    AOS.init({ once: false, mirror: true });
+  }, []);
+
+  useEffect(() => {
+    AOS.refresh();
+  }, [location.pathname]);
+
+  // Show form after scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY + window.innerHeight;
+      const docHeight = document.documentElement.scrollHeight;
+      if (
+        scrollTop / docHeight >= 0.2 &&
+        !localStorage.getItem("vsource_form_submitted")
+      ) {
+        setShowForm(true);
+        window.removeEventListener("scroll", handleScroll);
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
   return (
     <Layout>
       <ScrollToTop />
@@ -116,7 +143,7 @@ const AppContent = () => {
             <Route path="/tools/interest-calculator" element={<InterestCalculator />} />
             <Route path="/tools/loan-repayment-calculator" element={<LoanRepaymentCalculator />} />
             <Route path="/tools/education-loan-emi-calculator" element={<EducationLoanEmiCalculator />} />
-            {/* <Route path= "/tools/bank-comparison-tool" element={<BankComparisonTool/>}/> */}
+            <Route path= "/tools/bank-comparison-tool" element={<BankComparisonTool/>}/>
             <Route path="/tools/time-zone-converter" element={<TimeZoneConverter />} />
             <Route path="/tools/weather-abroad" element={<WeatherAbroad />} />
             <Route path="/tools/gpa-calculator" element={<GpaCalculatorPage />} />
@@ -157,6 +184,23 @@ const AppContent = () => {
 
         {!isGoVirtualPage && <ContactBar />}
         {!isGoVirtualPage && <Footer />}
+     
+      <ScrollToTopButton
+        showFormIcon={showFormIcon}
+        onFormIconClick={() => {
+          setShowForm(true);
+          setShowFormIcon(false);
+        }}
+      />
+
+      {showForm && (
+        <DelayedPopup
+          onMinimize={() => {
+            setShowForm(false);
+            setShowFormIcon(true);
+          }}
+        />
+      )}
       </div>
     </Layout>
   );

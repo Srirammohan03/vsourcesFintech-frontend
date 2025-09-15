@@ -329,11 +329,11 @@ export default function WeatherAbroad() {
   return (
     <div className="bg-white min-h-screen">
       {/* HERO banner with gradient (padding tweakable via heroPad) */}
-      <section className={`bg-gradient-to-b from-[#002855] to-[#1a1a1a] mb-8 ${heroPad}`} ref={heroRef}>
-        <div className="mx-auto w-full max-w-7xl pt-14 pb-6">
+      <section className={`bg-gradient-to-b from-[#002855] to-[#1a1a1a] pt-32 pb-16 lg:pt-32 lg:pb-24 ${heroPad}`} ref={heroRef}>
+        <div className="w-full max-w-[1400px] mx-auto px-6">
           <div className="text-center text-white space-y-3">
             <div className="inline-flex items-center justify-center rounded-2xl bg-white/10 p-3">
-              <Cloud className="h-10 w-10 text-white" />
+              <Cloud className="h-10 w-10 text-white animate-pulse" />
             </div>
             <h1 className="text-3xl sm:text-4xl font-extrabold">
               Weather Check (Abroad)
@@ -347,7 +347,7 @@ export default function WeatherAbroad() {
 
       {/* ONE-COLUMN CONTENT (no grids/columns) */}
       <section className="pb-16">
-        <div className="mx-auto w-full max-w-5xl px-4 sm:px-6 lg:px-8 space-y-8">
+        <div className="w-full max-w-[1400px] mx-auto px-6 py-10 space-y-8">
           {/* Input bar (search + datetime + add) */}
           <div
             className="w-full rounded-[24px] p-5 sm:p-6"

@@ -601,7 +601,7 @@ export default function CostOfStudyAbroadPage() {
     >
       {/* Hero */}
       <div className="w-full bg-gradient-to-b from-[#002855] to-[#1a1a1a] pt-16 pb-12">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 text-center">
+        <div className="w-full max-w-[1400px] mx-auto px-6 py-16 md:py-24 text-center">
           <h1 className="text-2xl md:text-4xl font-bold text-white">
             Cost of Study Abroad
           </h1>
@@ -614,7 +614,7 @@ export default function CostOfStudyAbroadPage() {
       </div>
 
       {/* Stepper */}
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8">
+      <div className="w-full max-w-[1400px] mx-auto px-6 -mt-8">
         <Card className="overflow-hidden">
           <div className="flex items-center justify-between gap-2 overflow-auto">
             {stepsLabels.map((label, i) => {
@@ -642,7 +642,7 @@ export default function CostOfStudyAbroadPage() {
       </div>
 
       {/* Content */}
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-6 mb-20">
+      <div className="w-full max-w-[1400px] mx-auto px-6 py-10">
         {!isResult && (
           <div className="grid grid-cols-1 gap-6">
             {step === 1 && (
