@@ -1,97 +1,198 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 
 interface Message {
   sender: "user" | "bot";
   text: string;
+  options?: string[];
 }
 
-const ChatBot: React.FC = () => {
+interface ChatBotProps {
+  onClose: () => void;
+}
+
+const ChatBot: React.FC<ChatBotProps> = ({ onClose }) => {
   const [messages, setMessages] = useState<Message[]>([
     {
       sender: "bot",
-      text: "👋 Hi! I’m Study Abroad Assistant. How can I help you today?",
+      text: "Hi! I’m Study Abroad Loans Assistant. How can I help you today?",
+      options: [
+        "Tell me about loan eligibility",
+        "What documents are required?",
+        "How much loan amount can I get?",
+        "Tell me about collateral-free loans",
+        "What is a moratorium period?",
+      ],
     },
   ]);
-  const [input, setInput] = useState("");
 
-  const handleSend = async () => {
-    if (!input.trim()) return;
+  const chatRef = useRef<HTMLDivElement>(null);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
 
-    // Add user message
-    const userMessage: Message = { sender: "user", text: input };
-    setMessages((prev) => [...prev, userMessage]);
-    setInput("");
+  useEffect(() => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages]);
 
-    // Call your backend AI API (RAG or OpenAI)
-    try {
-      const res = await fetch("/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ query: input }),
-      });
-      const data = await res.json();
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      // If click is outside chatbot container, close
+      if (
+        chatRef.current &&
+        !chatRef.current.contains(event.target as Node)
+      ) {
+        onClose();
+      }
+    };
 
-      const botMessage: Message = {
-        sender: "bot",
-        text: data.answer || "Sorry, I don’t know that yet.",
-      };
-      setMessages((prev) => [...prev, botMessage]);
-    } catch (err) {
-      setMessages((prev) => [
-        ...prev,
-        { sender: "bot", text: "⚠️ Error connecting to AI service." },
-      ]);
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [onClose]);
+
+  const flow = {
+    "Tell me about loan eligibility": {
+      sender: "bot",
+      text:
+        "Most banks require you to be an Indian citizen, have a confirmed admission letter from a recognized foreign university, and a co-applicant (usually a parent/guardian). Your academic record and the co-applicant's income are also important factors.",
+      options: ["What about collateral?", "Are there age limits?", "Go back to main menu"],
+    },
+    "Are there age limits?": {
+      sender: "bot",
+      text:
+        "Yes, some lenders have age criteria. Typically, you should be between 18 and 35, though some lenders may fund applicants up to 65 for certain post-doctoral courses.",
+      options: ["What documents are required?", "Go back to main menu"],
+    },
+    "What about collateral?": {
+      sender: "bot",
+      text:
+        "Collateral is usually required for loans above ₹7.5 Lakhs, but this can vary by bank. It can be property, fixed deposits, or insurance policies. A secured loan with collateral can also get you a higher loan amount and a lower interest rate.",
+      options: ["Tell me about collateral-free loans", "Go back to main menu"],
+    },
+    "What documents are required?": {
+      sender: "bot",
+      text:
+        "Common documents for the student and co-applicant include: a filled application form, KYC documents (ID & address proof), academic records, admission letter, income proof of the co-applicant (e.g., salary slips, ITR), and collateral documents if applicable.",
+      options: ["What about documents for the co-applicant?", "How much loan can I get?", "Go back to main menu"],
+    },
+    "What about documents for the co-applicant?": {
+      sender: "bot",
+      text:
+        "The co-applicant typically needs to provide proof of identity and address, proof of income (like ITR for the last 2 years, salary slips), and their bank statements. This helps the bank assess their financial stability for repayment.",
+      options: ["What documents are required?", "Go back to main menu"],
+    },
+    "How much loan amount can I get?": {
+      sender: "bot",
+      text:
+        "Loan amounts vary significantly. You can typically get a collateral-free loan of up to ₹20-30 Lakhs, or even up to ₹75 Lakhs from some NBFCs. With collateral, loan amounts can go up to ₹1.5-2 Crore, depending on the value of the collateral and the bank's policies.",
+      options: ["What affects the loan amount?", "Go back to main menu"],
+    },
+    "What affects the loan amount?": {
+      sender: "bot",
+      text:
+        "The final loan amount is influenced by the cost of your course and living expenses, the value of your collateral (if any), your academic profile, and your co-applicant's income and credit score. Some banks also offer higher amounts for admission to premier universities.",
+      options: ["How much loan amount can I get?", "Go back to main menu"],
+    },
+    "Tell me about collateral-free loans": {
+      sender: "bot",
+      text:
+        "Collateral-free loans are unsecured loans that do not require any physical asset as security. The loan is sanctioned based on your academic merit, the university's ranking, and the co-applicant's financial profile. This is a great option if you don't have collateral.",
+      options: ["What is a moratorium period?", "How much loan amount can I get?", "Go back to main menu"],
+    },
+    "What is a moratorium period?": {
+      sender: "bot",
+      text:
+        "A moratorium period is a holiday period during which you do not have to make any loan repayments. This typically covers the duration of your course plus an additional 6 to 12 months. After this period, you must begin paying your EMIs.",
+      options: ["Tell me about loan eligibility", "Go back to main menu"],
+    },
+    "Go back to main menu": {
+      sender: "bot",
+      text: "Main Menu: What would you like to know?",
+      options: [
+        "Tell me about loan eligibility",
+        "What documents are required?",
+        "How much loan amount can I get?",
+        "Tell me about collateral-free loans",
+        "What is a moratorium period?",
+      ],
+    },
+  };
+
+  const handleOptionClick = (option: string) => {
+    setMessages((prev) => [...prev, { sender: "user", text: option }]);
+    const next = flow[option];
+    if (next) {
+      setTimeout(() => {
+        setMessages((prev) => [...prev, next]);
+      }, 600);
     }
   };
 
   return (
-    <div className="fixed bottom-20 right-6 w-80 h-96 bg-white shadow-xl rounded-xl flex flex-col z-50 border border-gray-300">
-      {/* Header */}
-      <div className="bg-blue-600 text-white p-3 rounded-t-xl font-semibold flex justify-between items-center">
+    <div
+      ref={chatRef}
+      id="chatbot-container"
+      className="fixed bottom-6 right-6 w-80 h-[400px] bg-white shadow-2xl rounded-3xl flex flex-col z-50 border border-gray-100 font-sans overflow-hidden transition-all duration-300 transform"
+      onMouseDown={(e) => e.stopPropagation()} // Prevent mousedown inside chatbot from bubbling and closing it early
+    >
+      <div className="bg-red-600 text-white p-4 rounded-t-[22px] font-semibold text-lg flex justify-between items-center shadow-md">
         Study Abroad Assistant
         <button
-          onClick={() => {
-            const chatbot = document.getElementById("chatbot-container");
-            if (chatbot) chatbot.style.display = "none";
-          }}
+          onClick={onClose}
+          aria-label="Close Chatbot"
+          className="text-white text-3xl font-light leading-none opacity-80 hover:opacity-100 transition-all duration-300"
         >
-          ✖
+          &times;
         </button>
       </div>
 
-      {/* Messages */}
-      <div className="flex-1 overflow-y-auto p-3 space-y-2">
+      <div className="flex-1 overflow-y-auto p-4 space-y-4 custom-scrollbar">
         {messages.map((msg, idx) => (
-          <div
-            key={idx}
-            className={`p-2 rounded-lg max-w-[80%] ${
-              msg.sender === "user"
-                ? "ml-auto bg-blue-100 text-blue-900"
-                : "mr-auto bg-gray-200 text-gray-800"
-            }`}
-          >
-            {msg.text}
+          <div key={idx} className="flex flex-col">
+            <div
+              className={`p-3 rounded-xl max-w-[85%] leading-relaxed drop-shadow-sm ${
+                msg.sender === "user"
+                  ? "ml-auto bg-[#1F2B6E] text-white"
+                  : "mr-auto bg-gray-100 text-gray-800"
+              }`}
+            >
+              {msg.text}
+            </div>
+            {msg.sender === "bot" && msg.options && (
+              <div className="mt-3 flex flex-col space-y-2">
+                {msg.options.map((opt, i) => (
+                  <button
+                    key={i}
+                    onClick={() => handleOptionClick(opt)}
+                    className="text-sm font-medium bg-white text-[#1F2B6E] px-4 py-2 rounded-xl border border-[#1F2B6E] drop-shadow-sm hover:bg-[#1F2B6E] hover:text-white transition-colors duration-200 ease-in-out"
+                  >
+                    {opt}
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
         ))}
+        <div ref={messagesEndRef} />
       </div>
 
-      {/* Input */}
-      <div className="p-2 border-t flex">
-        <input
-          type="text"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          className="flex-1 border rounded-lg px-2 text-sm"
-          placeholder="Ask me about studying abroad..."
-          onKeyDown={(e) => e.key === "Enter" && handleSend()}
-        />
-        <button
-          onClick={handleSend}
-          className="ml-2 bg-blue-600 text-white px-3 py-1 rounded-lg hover:bg-blue-700"
-        >
-          Send
-        </button>
-      </div>
+      <style>{`
+        .custom-scrollbar::-webkit-scrollbar {
+          width: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+          background: #f1f1f1;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+          background: #888;
+          border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+          background: #555;
+        }
+      `}</style>
     </div>
   );
 };

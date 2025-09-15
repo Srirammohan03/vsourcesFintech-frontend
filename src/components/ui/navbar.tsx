@@ -149,7 +149,7 @@ const NAV_STRUCTURE: NavNode[] = [
   { type: "dropdown", name: "Our Services", sections: SERVICES_SECTIONS },
   { type: "dropdown", name: "Tools", sections: TOOLS_SECTIONS },
   { type: "dropdown", name: "Our Partners", sections: PARTNERS_SECTIONS },
-  { type: "link", name: "Country", path: "/country" },
+  // { type: "link", name: "Country", path: "/country" },
   { type: "external", name: "360", href: "https://vsourceoverseas.com/360View/" },
   { type: "link", name: "Gallery", path: "/gallery" },
   { type: "link", name: "Branches", path: "/contact" },

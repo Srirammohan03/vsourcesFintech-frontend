@@ -61,7 +61,7 @@ const ScrollToTopButton: React.FC<Props> = ({
           {/* ChatBot Widget */}
           {chatOpen && (
             <div id="chatbot-container">
-              <ChatBot />
+                {chatOpen && <ChatBot onClose={() => setChatOpen(false)} />}
             </div>
           )}
 

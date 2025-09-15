@@ -168,7 +168,7 @@ const AppContent = () => {
             <Route path="/our-partners/compare-loan-offers" element={<CompareLoanOffers />} />
             <Route path="/our-partners/bank-comparison-tool" element={<BankComparisonTool />} />
 
-            <Route path="/country" element={<Country />} />
+            {/* <Route path="/country" element={<Country />} /> */}
             <Route path="/contact" element={<Contact />} />
 
 
