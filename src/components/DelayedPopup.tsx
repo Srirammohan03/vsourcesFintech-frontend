@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from "react";
 import { motion, useAnimation } from "framer-motion";
 
 interface DelayedPopupProps {
-  // Called AFTER the minimize animation completes
   onMinimize: () => void;
 }
 
@@ -18,64 +17,29 @@ const DelayedPopup: React.FC<DelayedPopupProps> = ({ onMinimize }) => {
 
   const options = ["Masters in abroad", "Education Loan Guidance"];
 
-  // Animate form entrance
+  // Animate popup entrance
   useEffect(() => {
     controls.start({
       opacity: 1,
       scale: 1,
-      x: 0,
-      y: 0,
       transition: { duration: 0.35, ease: [0.22, 1, 0.36, 1] },
     });
   }, [controls]);
 
-  // Compute animation target (form -> icon)
-  const animateToIconAndClose = async () => {
-    const card = cardRef.current;
-    const anchor = document.getElementById("form-icon-anchor");
-
-    if (!card || !anchor) {
-      // Fallback: just fade out if anchor missing
-      await controls.start({
-        opacity: 0,
-        scale: 0.8,
-        transition: { duration: 0.25 },
-      });
-      setBackdropVisible(false);
-      onMinimize();
-      return;
-    }
-
-    const cardRect = card.getBoundingClientRect();
-    const anchorRect = anchor.getBoundingClientRect();
-
-    // Centers
-    const cardCx = cardRect.left + cardRect.width / 2;
-    const cardCy = cardRect.top + cardRect.height / 2;
-    const anchorCx = anchorRect.left + anchorRect.width / 2;
-    const anchorCy = anchorRect.top + anchorRect.height / 2;
-
-    const dx = anchorCx - cardCx;
-    const dy = anchorCy - cardCy;
-
-    // Animate the card shrinking & moving into the icon position
+  // Shared close handler
+  const animateAndClose = async () => {
     await controls.start({
-      x: dx,
-      y: dy,
-      scale: 0.1,
-      opacity: 0.9,
-      borderRadius: "999px",
-      transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] },
+      opacity: 0,
+      scale: 0.8,
+      transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] },
     });
-
-    // Fade out backdrop after the card lands in the icon spot
     setBackdropVisible(false);
 
-    // Tiny delay to ensure smoothness
-    setTimeout(onMinimize, 50);
+    // Delay so animation finishes
+    setTimeout(onMinimize, 150);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (phoneNumber.length < 10 || name.trim().length === 0) {
@@ -84,8 +48,14 @@ const DelayedPopup: React.FC<DelayedPopupProps> = ({ onMinimize }) => {
     }
 
     alert("Thank you! We'll call you back shortly.");
-    // localStorage.setItem("vsource_form_submitted", "true");
-    animateToIconAndClose();
+
+    // Reset form
+    setName("");
+    setPhoneNumber("");
+    setSelectedOption("");
+
+    // Close after submit
+    await animateAndClose();
   };
 
   const handleOptionClick = (option: string) => {
@@ -95,18 +65,19 @@ const DelayedPopup: React.FC<DelayedPopupProps> = ({ onMinimize }) => {
 
   return (
     <div className="fixed inset-0 z-50">
-      {/* Backdrop (fades out at the very end) */}
+      {/* Backdrop (click outside closes) */}
       {backdropVisible && (
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 0.5 }}
           exit={{ opacity: 0 }}
+          onClick={animateAndClose}
           className="absolute inset-0 bg-black"
           transition={{ duration: 0.25 }}
         />
       )}
 
-      {/* Centered Card that animates into the icon */}
+      {/* Popup card */}
       <div className="absolute inset-0 flex items-center justify-center p-4 pointer-events-none">
         <motion.div
           ref={cardRef}
@@ -123,7 +94,7 @@ const DelayedPopup: React.FC<DelayedPopupProps> = ({ onMinimize }) => {
                   big on your application fees!
                 </p>
                 <button
-                  onClick={animateToIconAndClose}
+                  onClick={animateAndClose}
                   className="absolute top-3 right-3 text-white hover:text-gray-200 transition-colors"
                   aria-label="Close"
                 >

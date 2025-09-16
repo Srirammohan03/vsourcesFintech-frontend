@@ -110,7 +110,7 @@ const testimonials = [
     course: 'PhD in Engineering, USA'
   }
 ];
-
+const countryCodes = ["us", "gb", "ca", "au", "de"];
 export default function Home() {
   const [visibleCount, setVisibleCount] = useState(8); // show first 8 (4x2)
 
@@ -137,11 +137,10 @@ export default function Home() {
           <div className="absolute inset-0 bg-black/50" />
         </div>
 
-        {/* === Mobile Layout === */}
-        <div className="relative z-10 sm:hidden min-h-screen px-4 pt-28 pb-10">
+        <div className="relative z-10 sm:hidden w-full px-4 pt-32 pb-8 overflow-hidden">
           {/* Mobile background image */}
           <div
-            className="absolute inset-0 h-full w-full bg-no-repeat bg-cover bg-[position:center_35%]"
+            className="absolute inset-0 bg-no-repeat bg-cover bg-[position:center_35%]"
             style={{
               backgroundImage: "url('/assets/images/bg-01-mobile.jpg')",
             }}
@@ -160,13 +159,20 @@ export default function Home() {
                     Studying Abroad
                   </span>
                 </h1>
+                <div className="flex items-center space-x-2 mt-6">
+                  {countryCodes.map((code) => (
+                    <img
+                      key={code}
+                      src={`https://flagcdn.com/${code}.svg`}
+                      alt={code.toUpperCase()}
+                      className="w-5 h-5 object-cover rounded-full"
+                    />
+                  ))}
+                </div>
                 <p className="text-white text-sm">
                   Get instant access to education loans.
                 </p>
-                <Button className="bg-white text-red-600 text-sm px-4 py-2 rounded-md">
-                  <GraduationCap className="mr-2 h-4 w-4" />
-                  Apply for Loan
-                </Button>
+
               </div>
             </div>
 
