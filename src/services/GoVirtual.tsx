@@ -1,76 +1,42 @@
 import React, { useState, useEffect } from "react";
 import {
-  FaRegClock,
-  FaLink,
+  FaUniversity,
+  FaCheckCircle,
   FaChevronLeft,
   FaChevronRight,
 } from "react-icons/fa";
 import { IoPersonCircleOutline } from "react-icons/io5";
-import { PopupModal, useCalendlyEventListener } from "react-calendly";
+import { PopupModal } from "react-calendly";
 
+// Main component
 const GoVirtual = () => {
   const [selectedDate, setSelectedDate] = useState(null);
-  const [selectedTime, setSelectedTime] = useState(null);
   const [currentWeekStart, setCurrentWeekStart] = useState(new Date());
   const [openCalendly, setOpenCalendly] = useState(false);
   const [calendlyPrefill, setCalendlyPrefill] = useState(null);
 
+  // Set today as default date on mount
   useEffect(() => {
-    const today = new Date();
-    setSelectedDate(today);
+    setSelectedDate(new Date());
   }, []);
 
   const getDayDetails = (date) => {
     const dayName = date.toLocaleString("en-us", { weekday: "short" });
     const dayNumber = date.getDate();
-    return { day: dayName, date: dayNumber, fullDate: date };
+    return { day: dayName, date: dayNumber, fullDate: new Date(date) };
   };
 
   const getWeekDays = (start) => {
     const days = [];
     let date = new Date(start);
     for (let i = 0; i < 7; i++) {
-      days.push(getDayDetails(new Date(date)));
+      days.push(getDayDetails(date));
       date.setDate(date.getDate() + 1);
     }
     return days;
   };
 
   const weekDays = getWeekDays(currentWeekStart);
-
-  const getAvailableTimeSlots = () => {
-    if (!selectedDate) return [];
-
-    const slots = [];
-    let startTime = new Date(selectedDate);
-    startTime.setHours(10, 0, 0, 0); // Start at 10:00 AM
-
-    const endTimeLimit = new Date(selectedDate);
-    endTimeLimit.setHours(17, 0, 0, 0); // End at 5:00 PM
-
-    const now = new Date();
-
-    while (
-      startTime.getHours() < endTimeLimit.getHours() ||
-      (startTime.getHours() === endTimeLimit.getHours() &&
-        startTime.getMinutes() <= endTimeLimit.getMinutes())
-    ) {
-      if (startTime > now) {
-        slots.push(
-          startTime.toLocaleString("en-us", {
-            hour: "2-digit",
-            minute: "2-digit",
-            hour12: true,
-          })
-        );
-      }
-      startTime.setMinutes(startTime.getMinutes() + 30);
-    }
-
-    return slots;
-  };
-
-  const timeSlots = getAvailableTimeSlots();
 
   const handleNextWeek = () => {
     const nextWeek = new Date(currentWeekStart);
@@ -85,10 +51,13 @@ const GoVirtual = () => {
   };
 
   const handleDayClick = (day) => {
-    if (day.day === "Sun" || day.fullDate < new Date().setHours(0, 0, 0, 0))
-      return;
+    const isPastDay = day.fullDate < new Date().setHours(0, 0, 0, 0);
+    const isSunday = day.day === "Sun";
+    if (isPastDay || isSunday) return;
+
     setSelectedDate(day.fullDate);
-    setSelectedTime(null);
+    setCalendlyPrefill({ date: day.fullDate });
+    setOpenCalendly(true);
   };
 
   const isPreviousWeekDisabled = () => {
@@ -99,164 +68,93 @@ const GoVirtual = () => {
     return startOfCurrentWeek < today;
   };
 
-  // convert "05:30 PM" + selectedDate -> a Date object with that exact time
-  const combineDateAndTime = (baseDate, timeStr) => {
-    if (!baseDate || !timeStr) return null;
-    const [time, period] = timeStr.split(" "); // ["05:30", "PM"]
-    const [hhStr, mmStr] = time.split(":");
-    let hh = parseInt(hhStr, 10);
-    const mm = parseInt(mmStr, 10);
-    if (period === "PM" && hh !== 12) hh += 12;
-    if (period === "AM" && hh === 12) hh = 0;
-    const d = new Date(baseDate);
-    d.setHours(hh, mm, 0, 0);
-    return d;
-  };
-
-  // When user confirms, prepare Calendly prefill and open popup
-  const handleConfirm = () => {
-    if (!selectedDate || !selectedTime) {
-      alert("Please select both a date and a time to confirm.");
-      return;
-    }
-
-    const prefillDate = combineDateAndTime(selectedDate, selectedTime);
-
-    // Basic prefill — you can add name/email/customAnswers/guests as needed
-    const prefill = {
-      // name: "Invitee Name",
-      // email: "invitee@example.com",
-      date: prefillDate, // react-calendly accepts a Date object
-      // customAnswers: { a1: "value" },
-      // guests: ['other@example.com']
-    };
-
-    setCalendlyPrefill(prefill);
-    setOpenCalendly(true);
-  };
-
-  // Listen to scheduled event so we can close popup / show confirmation
-  useCalendlyEventListener({
-    onEventScheduled: (e) => {
-      // e.data.payload contains event & invitee URIs — you can use them to fetch data
-      console.log("Calendly scheduled:", e.data);
-      setOpenCalendly(false);
-      // show success UI or call backend here if needed
-      alert(
-        "Thanks — your meeting is scheduled! Check your email for confirmation."
-      );
-    },
-  });
-
-  // Replace this with your own event type URL (copy from Calendly dashboard)
-  const calendlyUrl = "https://calendly.com/your-calendly-username/30min";
+  const calendlyUrl = "https://calendly.com/sriram9491/30min";
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100 p-4">
-      <div className="w-full max-w-4xl bg-white rounded-lg shadow-xl overflow-hidden flex flex-col md:flex-row">
-        {/* Left Section */}
-        <div className="flex-1 p-8 border-r border-gray-200">
-          <h2 className="text-sm text-gray-500 font-medium">
-            Vsource Overseas Education
-          </h2>
-          <h1 className="text-3xl font-bold mt-1 mb-6">Meeting</h1>
-          <div className="flex items-center text-gray-600 mb-2">
-            <FaRegClock className="mr-2" />
-            <span>30 mins</span>
-          </div>
-          <div className="flex items-center text-gray-600">
-            <FaLink className="mr-2" />
-            <span>Web conferencing details provided upon confirmation.</span>
-          </div>
+    <div className="flex flex-col min-h-screen bg-gray-50 md:flex-row md:justify-center md:items-center p-2">
+      {/* Left Content */}
+      <div className="flex-1 bg-white rounded-t-3xl md:rounded-l-3xl md:rounded-t-none shadow-md p-6 md:p-10 flex flex-col justify-center max-w-full md:max-w-lg mx-auto md:mx-0 mb-3 md:mb-0">
+        <div className="mb-6 flex items-center gap-2">
+          <FaUniversity className="text-blue-600 text-xl" />
+          <span className="text-xs font-bold tracking-wide text-blue-800 uppercase">Vsource FinTech Loans</span>
         </div>
-
-        {/* Right Section */}
-        <div className="flex-1 p-8">
-          <div className="flex items-center mb-4">
-            <IoPersonCircleOutline className="w-10 h-10 rounded-full mr-3 text-gray-400" />
-            <span className="font-bold text-lg">
-              What day & time works best for you?
-            </span>
-          </div>
-
-          {/* Week Selector */}
-          <h3 className="text-gray-700 font-semibold mb-2">This week</h3>
-          <div className="flex items-center justify-between mb-4">
-            <FaChevronLeft
-              className={`text-gray-400 ${
-                isPreviousWeekDisabled()
-                  ? "cursor-not-allowed opacity-50"
-                  : "cursor-pointer"
-              }`}
-              onClick={handlePreviousWeek}
-            />
-            <div className="flex space-x-2">
-              {weekDays.map((day) => {
-                const isPastDay =
-                  day.fullDate < new Date().setHours(0, 0, 0, 0);
-                const isSunday = day.day === "Sun";
-                const isDisabled = isPastDay || isSunday;
-                return (
-                  <button
-                    key={day.date}
-                    onClick={() => handleDayClick(day)}
-                    disabled={isDisabled}
-                    className={`flex flex-col items-center p-2 rounded-lg transition-colors duration-200 ${
-                      isDisabled
-                        ? "text-gray-400 cursor-not-allowed"
-                        : selectedDate?.getDate() === day.date
-                        ? "bg-blue-600 text-white"
-                        : "bg-white text-gray-700 hover:bg-gray-100"
-                    }`}
-                  >
-                    <span className="text-xs">{day.day}</span>
-                    <span className="font-bold mt-1">{day.date}</span>
-                  </button>
-                );
-              })}
-            </div>
-            <FaChevronRight
-              className="text-gray-400 cursor-pointer"
-              onClick={handleNextWeek}
-            />
-          </div>
-
-          {/* Time Slots */}
-          <h3 className="text-gray-700 font-semibold mb-2">Time Slots</h3>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mb-6">
-            {timeSlots.length > 0 ? (
-              timeSlots.map((time) => (
-                <button
-                  key={time}
-                  onClick={() => setSelectedTime(time)}
-                  className={`py-2 px-4 rounded-lg font-medium transition-colors duration-200 border ${
-                    selectedTime === time
-                      ? "bg-blue-600 text-white border-blue-600"
-                      : "bg-white text-blue-600 border-blue-400 hover:bg-blue-50"
-                  }`}
-                >
-                  {time}
-                </button>
-              ))
-            ) : (
-              <p className="col-span-3 text-center text-gray-500">
-                No slots available for this day.
-              </p>
-            )}
-          </div>
-
-          {/* Confirm Button */}
-          <button
-            onClick={handleConfirm}
-            className="w-full py-3 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 transition-colors duration-200"
-            disabled={!selectedDate || !selectedTime}
-          >
-            Confirm
-          </button>
+        <h1 className="text-2xl md:text-3xl font-extrabold mb-3 text-gray-800">
+          Education Loans Simplified
+        </h1>
+        <p className="text-base md:text-lg text-gray-700 mb-6">
+          Secure your dreams of studying abroad with India's most flexible and transparent education loan partner.
+        </p>
+        <ul className="mb-7 space-y-3">
+          <li className="flex items-start gap-2">
+            <FaCheckCircle className="text-blue-500 mt-px" />
+            <span className="text-sm text-gray-700">No collateral for eligible students</span>
+          </li>
+          <li className="flex items-start gap-2">
+            <FaCheckCircle className="text-blue-500 mt-px" />
+            <span className="text-sm text-gray-700">Lowest ROI & fast digital approvals</span>
+          </li>
+          <li className="flex items-start gap-2">
+            <FaCheckCircle className="text-blue-500 mt-px" />
+            <span className="text-sm text-gray-700">Funding for tuition, GIC, insurance, more</span>
+          </li>
+        </ul>
+        <div className="mt-8">
+          <span className="text-xs text-gray-400">
+            Your privacy is guaranteed. 100% digital process.
+          </span>
         </div>
       </div>
 
-      {/* Calendly PopupModal (react-calendly) */}
+      {/* Right: Day Scheduler */}
+      <div className="flex-1 bg-white max-w-full md:max-w-md w-full rounded-b-3xl md:rounded-r-3xl md:rounded-b-none shadow-md px-4 md:px-8 py-8 flex flex-col">
+        <div className="flex items-center mb-2">
+          <IoPersonCircleOutline className="w-10 h-10 rounded-full mr-3 text-gray-400" />
+          <span className="font-bold text-base md:text-lg">
+            Choose your meeting day
+          </span>
+        </div>
+        {/* Week Selector */}
+        <h3 className="text-gray-700 font-semibold mb-2 mt-2">Pick a Day</h3>
+        <div className="flex items-center justify-between mb-3">
+          <FaChevronLeft
+            className={`text-gray-400 text-lg ${isPreviousWeekDisabled() ? "opacity-50" : "cursor-pointer hover:text-blue-500"}`}
+            onClick={!isPreviousWeekDisabled() ? handlePreviousWeek : undefined}
+          />
+          <div className="flex space-x-1 overflow-x-auto">
+            {weekDays.map((day) => {
+              const isPastDay = day.fullDate < new Date().setHours(0, 0, 0, 0);
+              const isSunday = day.day === "Sun";
+              const isDisabled = isPastDay || isSunday;
+              return (
+                <button
+                  key={day.date}
+                  onClick={() => handleDayClick(day)}
+                  disabled={isDisabled}
+                  className={`flex flex-col items-center p-1.5 rounded-lg min-w-[42px] transition-colors text-sm
+                    ${isDisabled
+                      ? "text-gray-400 bg-gray-100 cursor-not-allowed"
+                      : selectedDate?.getDate() === day.date
+                      ? "bg-blue-600 text-white"
+                      : "bg-white text-gray-700 border hover:bg-blue-50"
+                    }`}
+                >
+                  <span className="text-xs">{day.day}</span>
+                  <span className="font-bold mt-1">{day.date}</span>
+                </button>
+              );
+            })}
+          </div>
+          <FaChevronRight
+            className="text-gray-400 text-lg cursor-pointer hover:text-blue-500"
+            onClick={handleNextWeek}
+          />
+        </div>
+        <p className="text-xs text-gray-500 mt-2">
+          Available slots and meeting link will be shown after selecting the day.
+        </p>
+      </div>
+
+      {/* Calendly Modal */}
       <PopupModal
         url={calendlyUrl}
         open={openCalendly}

@@ -117,18 +117,18 @@ const AbroadEducation: React.FC = () => {
                     <h2 className="text-2xl md:text-4xl font-bold mb-4 text-center">
                         How it <span className="text-red-600">Works?</span>
                     </h2>
-                    <p className=" text-gray-600 text-lg mb-10 leading-relaxed text-justify">
+                    <p className=" text-gray-600 text-lg mb-3 leading-relaxed text-justify">
                         We believe the path to your education should be simple and stress-free. Our process is designed to be as seamless as possible, guiding you from your initial inquiry to the final loan disbursement. We handle the complexities so you can focus on what matters most—your studies. Follow our easy steps below to get started on your journey today.
                     </p>
-                    <div className="mb-12">
+                    <div className="">
                         <img
                             src="/assets/images/abroad-ed-loan-steps.jpg"
                             alt="How it Works Desktop"
-                            className="hidden md:block mx-auto w-full max-w-[1000px]"
+                            className="hidden md:block mx-auto w-full max-w-[1200px]"
                         />
                         {/* Mobile Image */}
                         <img
-                            src="/assets/images/abroad-mobil-steps.webp"
+                            src="/assets/images/abroad-mobil-steps.jpg"
                             alt="How it Works Mobile"
                             className="block md:hidden mx-auto w-full max-w-[400px]"
                         />
