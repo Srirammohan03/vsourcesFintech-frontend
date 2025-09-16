@@ -250,15 +250,23 @@ export default function PackingList() {
       style={{ backgroundColor: THEME.surface, color: THEME.text }}
     >
       {/* HERO / BANNER ONLY has the gradient */}
-      <section className="bg-gradient-to-b from-[#002855] to-[#1a1a1a] pb-16 pt-36">
-        <div className="w-full max-w-[1400px] mx-auto px-6 py-10  pt-12">
+        <section
+        className="relative pt-32 pb-16 lg:pt-32 lg:pb-24 text-white bg-cover bg-[left_center] lg:bg-[top_center]"
+        style={{
+          backgroundImage: `url(/assets/images/tools-bg.jpg)`,
+        }}
+      >
+        {/* Dark overlay under content */}
+        <div className="absolute inset-0 bg-black/50 z-0" />
+
+          <div className="w-full max-w-[1400px] mx-auto px-6 py-10  pt-12 relative z-10">
           <h1 className="text-3xl md:text-4xl font-bold text-white text-center">
             Student Packing List
           </h1>
           <p className="text-white/80 mt-2 text-center">
             Organize your essentials before you travel abroad for education.
           </p>
-        </div>
+        </div>0
       </section>
 
       {/* MAIN BODY (light surface) */}

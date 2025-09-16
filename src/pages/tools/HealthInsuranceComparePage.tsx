@@ -629,13 +629,16 @@ export default function HealthInsuranceComparePage() {
       style={{ background: THEME.surface, color: THEME.text }}
     >
       {/* HERO */}
-      <div
-        className="w-full pt-16 pb-12"
+        <section
+        className="relative pt-32 pb-16 lg:pt-40 lg:pb-36 text-white bg-cover bg-[left_center] lg:bg-[top_center]"
         style={{
-          background: "linear-gradient(180deg, #002855 0%, #1a1a1a 100%)",
+          backgroundImage: `url(/assets/images/tools-bg.jpg)`,
         }}
       >
-        <div className="w-full max-w-[1400px] mx-auto px-6 sm:px-6 lg:px-8 py-16 md:py-24 text-center ">
+        {/* Dark overlay under content */}
+        <div className="absolute inset-0 bg-black/50 z-0" />
+
+         <div className="w-full max-w-[1400px] mx-auto px-6 sm:px-6 lg:px-8 relative z-10 text-center ">
           <h1 className="text-2xl md:text-4xl font-bold text-white">
             Health Insurance Compare
           </h1>
@@ -644,7 +647,7 @@ export default function HealthInsuranceComparePage() {
             comparisons. Built for fast scanning and mobile-first browsing.
           </p>
         </div>
-      </div>
+      </section>
 
       {/* COMPARE SECTION */}
       <div className="w-full max-w-[1400px] mx-auto px-6 py-10 sm:px-6 lg:px-8 ">

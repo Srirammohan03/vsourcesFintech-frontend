@@ -301,11 +301,16 @@ export default function EstimateFutureEarnings() {
   return (
     <div className="min-h-screen bg-[#F6F8FB] text-[15px]">
       {/* HERO */}
-      <header
-        className="w-full bg-gradient-to-b from-[#002855] to-[#1a1a1a] text-white"
-        style={{ height: "50vh", minHeight: 430 }}
+       <section
+        className="relative pt-32 pb-16 lg:pt-40 lg:pb-36 text-white bg-cover bg-[left_center] lg:bg-[top_center]"
+        style={{
+          backgroundImage: `url(/assets/images/tools-bg.jpg)`,
+        }}
       >
-        <div className="w-full max-w-[1400px] mx-auto px-6 h-full flex flex-col justify-center">
+        {/* Dark overlay under content */}
+        <div className="absolute inset-0 bg-black/50 z-0" />
+
+           <div className="w-full max-w-[1400px] mx-auto px-6 h-full flex flex-col justify-center relative z-10">
           <h1 className="text-4xl md:text-4xl font-extrabold tracking-tight text-center">
             Estimate Future Earnings
           </h1>
@@ -313,18 +318,12 @@ export default function EstimateFutureEarnings() {
             Country-wise & industry-based salary projections to help you set realistic goals and plan finances.
           </p>
 
-          {/* Feature checkboxes */}
-          {/* <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 max-w-4xl mx-auto">
-            <CheckRow label="Country-wise salary insights" checked={cbCountry} onChange={setCbCountry} />
-            <CheckRow label="Industry-based projections" checked={cbIndustry} onChange={setCbIndustry} />
-            <CheckRow label="Helps set realistic goals" checked={cbGoals} onChange={setCbGoals} />
-            <CheckRow label="Supports financial planning" checked={cbFinance} onChange={setCbFinance} />
-          </div> */}
+       
         </div>
-      </header>
+      </section>
 
       {/* FORM SECTION */}
-      <main className="w-full max-w-[1400px] mx-auto px-6 pb-10 -mt-8">
+      <main className="w-full max-w-[1400px] mx-auto px-6 py-10">
         <div className="rounded-2xl bg-white shadow-xl ring-1 ring-[#EEF2F7] p-5 md:p-8">
           <h2 className="text-2xl md:text-3xl font-bold text-[#0B0B2C]">Inputs</h2>
           <p className="text-sm text-gray-600 mb-6">

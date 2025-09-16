@@ -117,17 +117,14 @@ export default function CompareLoanOffers() {
     return (
         <div className="w-full">
             {/* HERO */}
-            <section
-                aria-label="Compare loans hero"
-                className="relative h-[320px] sm:h-[380px] lg:h-[420px] flex items-center"
-            >
-                <div
-                    className="absolute inset-0 bg-cover bg-center"
-                    style={{
-                        backgroundImage:
-                            "linear-gradient(120deg, rgba(15,23,42,0.6), rgba(2,6,23,0.35)), url('/images/hero-loans.jpg')",
-                    }}
-                />
+           <section
+        className="relative pt-32 pb-16 lg:pt-32 lg:pb-24 text-white bg-cover bg-[left_center] lg:bg-[top_center]"
+        style={{
+          backgroundImage: `url(/assets/images/tools-bg.jpg)`,
+        }}
+      >
+        <div className="absolute inset-0 bg-black/50" />
+        
 
                 <div className="relative z-10 w-full max-w-[1400px] mx-auto px-6 text-white">
                     <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">

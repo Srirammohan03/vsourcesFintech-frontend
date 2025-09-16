@@ -333,8 +333,8 @@ const StepBadge: React.FC<{
       done
         ? "bg-white border-white text-white"
         : active
-        ? "bg-gradient-to-r from-[#7C3AED] to-[#A78BFA] text-white border-transparent shadow"
-        : "bg-gray-300 text-gray-700 border-transparent"
+          ? "bg-gradient-to-r from-[#7C3AED] to-[#A78BFA] text-white border-transparent shadow"
+          : "bg-gray-300 text-gray-700 border-transparent"
     )}
     style={
       done
@@ -468,10 +468,10 @@ export default function CostOfStudyAbroadPage() {
       (mobileInternet === "Never"
         ? 0
         : mobileInternet === "Rarely"
-        ? 0.7
-        : mobileInternet === "Sometimes"
-        ? 1
-        : 1.2);
+          ? 0.7
+          : mobileInternet === "Sometimes"
+            ? 1
+            : 1.2);
     const fitnessMonthly = baseline.fitnessMembership * FREQ_FACTOR[fitness];
 
     const livingMonthly =
@@ -600,8 +600,17 @@ export default function CostOfStudyAbroadPage() {
       style={{ background: THEME.surface, color: THEME.text }}
     >
       {/* Hero */}
-      <div className="w-full bg-gradient-to-b from-[#002855] to-[#1a1a1a] pt-16 pb-12">
-        <div className="w-full max-w-[1400px] mx-auto px-6 py-16 md:py-24 text-center">
+      <section
+        className="relative pt-32 pb-16 lg:pt-32 lg:pb-24 text-white bg-cover bg-[left_center] lg:bg-[top_center]"
+        style={{
+          backgroundImage: `url(/assets/images/tools-bg.jpg)`,
+        }}
+      >
+        {/* Dark overlay under content */}
+        <div className="absolute inset-0 bg-black/50 z-0" />
+
+        {/* Content above overlay */}
+        <div className="relative z-10 w-full max-w-[1400px] mx-auto px-6 py-10 md:py-10 text-center">
           <h1 className="text-2xl md:text-4xl font-bold text-white">
             Cost of Study Abroad
           </h1>
@@ -611,10 +620,11 @@ export default function CostOfStudyAbroadPage() {
             yearly total.
           </p>
         </div>
-      </div>
+      </section>
+
 
       {/* Stepper */}
-      <div className="w-full max-w-[1400px] mx-auto px-6 -mt-8">
+      <div className="w-full max-w-[1400px] mx-auto px-6 py-10">
         <Card className="overflow-hidden">
           <div className="flex items-center justify-between gap-2 overflow-auto">
             {stepsLabels.map((label, i) => {
@@ -854,7 +864,7 @@ export default function CostOfStudyAbroadPage() {
                     const active = accomType === opt.key;
                     const price =
                       COUNTRY_DATA[country].living.accommodation[
-                        opt.key as "onCampus" | "shared" | "private"
+                      opt.key as "onCampus" | "shared" | "private"
                       ];
                     return (
                       <button
@@ -949,7 +959,7 @@ export default function CostOfStudyAbroadPage() {
                             ~
                             {fmtBoth(
                               COUNTRY_DATA[country].living.foodCostPerMeal[
-                                r.key
+                              r.key
                               ],
                               COUNTRY_DATA[country].code
                             )}{" "}
@@ -1148,7 +1158,7 @@ export default function CostOfStudyAbroadPage() {
                           costs.clothingMonthly +
                           costs.mobileInternetMonthly +
                           costs.fitnessMonthly) *
-                          12,
+                        12,
                         COUNTRY_DATA[country].code
                       )}
                     </div>
@@ -1203,6 +1213,6 @@ export default function CostOfStudyAbroadPage() {
           </div>
         )}
       </div>
-    </div>
+    </div >
   );
 }

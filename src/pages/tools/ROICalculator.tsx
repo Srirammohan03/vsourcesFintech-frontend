@@ -1,4 +1,5 @@
 // src/pages/tools/ROICalculator.tsx
+import DelayedPopup from "@/components/DelayedPopup";
 import { ChevronDown } from "lucide-react";
 import React, { useMemo, useRef, useState } from "react";
 import {
@@ -276,16 +277,25 @@ export default function ROICalculator() {
     };
     img.src = url;
   };
+  const [showPopup, setShowPopup] = useState(false);
 
+  const handlePopupClose = () => {
+    setShowPopup(false);
+  };
   /* ---------- UI ---------- */
   return (
     <div className="min-h-screen bg-[#F6F8FB] text-[15px]">
       {/* HERO */}
-      <header
-        className="w-full bg-gradient-to-b from-[#002855] to-[#1a1a1a] text-white"
-        style={{ height: "40vh", minHeight: 430 }}
+      <section
+        className="relative pt-32 pb-16 lg:pt-40 lg:pb-28 text-white bg-cover bg-[left_center] lg:bg-[top_center]"
+        style={{
+          backgroundImage: `url(/assets/images/tools-bg.jpg)`,
+        }}
       >
-        <div className="w-full max-w-[1400px] mx-auto px-6 h-full flex flex-col justify-center text-center">
+        {/* Dark overlay under content */}
+        <div className="absolute inset-0 bg-black/50 z-0" />
+
+        <div className="w-full z-10 relative max-w-[1400px] mx-auto px-6 h-full flex flex-col justify-center text-center">
           <h1 className="text-4xl md:text-4xl font-extrabold tracking-tight text-center ">
             ROI & Salary Estimator
           </h1>
@@ -296,10 +306,10 @@ export default function ROICalculator() {
             impacts recovery.
           </p>
         </div>
-      </header>
+      </section>
 
       {/* FORM SECTION */}
-      <main className="w-full max-w-[1400px] mx-auto px-6 pb-10 -mt-8">
+      <main className="w-full max-w-[1400px] mx-auto px-6 py-10">
         <div className="rounded-2xl bg-white shadow-xl ring-1 ring-[#EEF2F7] p-5 md:p-8">
           <h2 className="text-2xl md:text-3xl font-bold text-[#0B0B2C]">Inputs</h2>
           <p className="text-sm text-gray-600 mb-6">
@@ -634,17 +644,7 @@ export default function ROICalculator() {
             <div ref={exportRef} className="rounded-2xl ring-1 ring-[#F0E6FF] bg-[#FCEBFF] p-4 md:p-6">
               <div className="flex items-center justify-between mb-2">
                 <div className="text-lg md:text-xl font-bold">{country || targetCountry}</div>
-                {/* Download icon button */}
-                {/* <button
-                  onClick={downloadOutputImage}
-                  title="Download image"
-                  className="p-2 rounded-lg hover:bg-white/40 transition"
-                  aria-label="Download output as image"
-                >
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="text-gray-700">
-                    <path d="M12 3v12m0 0l4-4m-4 4l-4-4M4 21h16" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </button> */}
+        
               </div>
 
               <div className="w-full h-[340px]">
@@ -680,12 +680,15 @@ export default function ROICalculator() {
 
               {/* NEW: Apply for Loan button */}
               <div className="pt-4">
-                <button
-                  className="rounded-xl px-6 py-3 font-semibold text-white shadow-md hover:shadow-lg transition"
-                  style={{ backgroundColor: THEME.red }}
+                <a
+                  href=""
+                  aria-label="Apply now" className="mt-4 mx-auto block px-4 py-3 text-center rounded-xl font-bold bg-red-600 text-white w-full max-w-[360px] shadow-lg hover:brightness-105"
+                  onClick={() => setShowPopup(true)}
                 >
-                  Apply for Loan
-                </button>
+                  Apply Now
+                </a>
+
+                {showPopup && <DelayedPopup onMinimize={handlePopupClose} />}
               </div>
             </div>
           </section>

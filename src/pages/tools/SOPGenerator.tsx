@@ -352,6 +352,17 @@ export default function SOPGenerator() {
   /* ---------- validation ---------- */
   const validateStep = (s: Step): boolean => {
     const e: Record<string, string> = {};
+
+    if (s === 1) {
+      if (!form.fullName) e.fullName = "This field is required";
+      if (!form.email) e.email = "This field is required";
+      else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) e.email = "Enter a valid email";
+      if (!form.phone) e.phone = "This field is required";
+      if (!form.targetCountry) e.targetCountry = "This field is required";
+      if (!form.targetUniversity) e.targetUniversity = "This field is required";
+      if (!form.targetProgram) e.targetProgram = "This field is required";
+    }
+
     if (s === 2) {
       if (!form.highestEdu) e.highestEdu = "This field is required";
       if (!form.fieldOfStudy) e.fieldOfStudy = "This field is required";
@@ -464,12 +475,86 @@ export default function SOPGenerator() {
     setTimeout(() => editorRef.current?.focus(), 10);
   };
 
+  /* ---------- downloader ---------- */
+  const download = async () => {
+    const content = generated || "";
+    const fileBase = (form.fullName ? `${form.fullName}-SOP` : "SOP").replace(/\s+/g, "_");
+
+    if (downloadFormat === "txt") {
+      const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
+      triggerDownload(blob, `${fileBase}.txt`);
+      return;
+    }
+
+    if (downloadFormat === "word") {
+      const safe = escapeHtml(content).replace(/\n/g, "<br/>");
+      const html =
+        `<!DOCTYPE html><html><head><meta charset="utf-8"><title>${fileBase}</title></head>` +
+        `<body style="font-family:${editorFont}, sans-serif; white-space:normal; line-height:1.5; font-size:12pt;">${safe}</body></html>`;
+      const blob = new Blob([html], { type: "application/msword;charset=utf-8" });
+      triggerDownload(blob, `${fileBase}.doc`);
+      return;
+    }
+
+    if (downloadFormat === "pdf") {
+      try {
+        // dynamic import so base bundle stays light
+        const { jsPDF } = await import("jspdf");
+        const doc = new jsPDF({ unit: "pt", format: "a4" });
+
+        // map UI fonts => jsPDF base fonts
+        const fontMap: Record<string, "helvetica" | "times" | "courier"> = {
+          Helvetica: "helvetica",
+          Arial: "helvetica",
+          Inter: "helvetica",
+          Georgia: "times",
+          "Times New Roman": "times",
+        };
+        const jsFont = fontMap[editorFont] || "helvetica";
+        doc.setFont(jsFont, "normal");
+        doc.setFontSize(12);
+
+        const pageWidth = doc.internal.pageSize.getWidth();
+        const margin = 56; // ~0.78in
+        const maxWidth = pageWidth - margin * 2;
+        const lines = doc.splitTextToSize(content, maxWidth);
+
+        let y = margin;
+        const lineHeight = 16;
+
+        lines.forEach((line: string) => {
+          if (y > doc.internal.pageSize.getHeight() - margin) {
+            doc.addPage();
+            y = margin;
+          }
+          doc.text(line, margin, y);
+          y += lineHeight;
+        });
+
+        doc.save(`${fileBase}.pdf`);
+      } catch (err) {
+        console.error("PDF generation failed:", err);
+        const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
+        triggerDownload(blob, `${fileBase}.txt`);
+        alert("PDF generator not available. Downloaded as .txt instead.");
+      }
+    }
+  };
+
   /* ---------- UI ---------- */
   return (
     <div className="min-h-screen bg-[#F6F8FB]">
       {/* HERO (solid dark like your screenshot) */}
-      <header className="w-full bg-[#0A1B2A] pt-12 pb-8">
-        <div className="w-full max-w-[1400px] mx-auto px-6 py-16 md:py-20 text-center text-white ">
+      <section
+        className="relative pt-32 pb-16 lg:pt-32 lg:pb-24 text-white bg-cover bg-[left_center] lg:bg-[top_center]"
+        style={{
+          backgroundImage: `url(/assets/images/tools-bg.jpg)`,
+        }}
+      >
+        {/* Dark overlay under content */}
+        <div className="absolute inset-0 bg-black/50 z-0" />
+
+        <div className="w-full max-w-[1400px] mx-auto px-6 relative z-10 text-center text-white ">
           <div className="mx-auto mb-6 flex h-14 w-14 items-center justify-center rounded-2xl" style={{ background: "rgba(255,255,255,0.12)" }}>
             {/* simple doc icon */}
             <FormInput className="h-12 w-12 animate-pulse"/>
@@ -477,7 +562,7 @@ export default function SOPGenerator() {
           <h1 className="text-4xl md:text-4xl font-extrabold tracking-tight">SOP Generator</h1>
           <p className="mt-3 text-white/80 text-base md:text-lg">Create a professional Statement of Purpose in 10 quick steps.</p>
         </div>
-      </header>
+      </section>
 
       {/* BODY */}
       <main className="w-full max-w-[1400px] mx-auto px-6 py-10">
@@ -492,28 +577,59 @@ export default function SOPGenerator() {
             <SectionTitle title="Personal & Program Information" stepLabel="Step 1 of 10" />
             <div className="grid md:grid-cols-2 gap-4">
               <div>
-                <Label>Your Full Name</Label>
-                <Input placeholder="Eg. Alex Johnson" value={form.fullName} onChange={(e) => update("fullName", e.target.value)} />
+                <Label required>Your Full Name</Label>
+                <Input
+                  placeholder="Eg. Alex Johnson"
+                  value={form.fullName}
+                  onChange={(e) => update("fullName", e.target.value)}
+                  error={errors.fullName}
+                />
               </div>
               <div>
-                <Label>Your Email</Label>
-                <Input type="email" placeholder="name@email.com" value={form.email} onChange={(e) => update("email", e.target.value)} />
+                <Label required>Your Email</Label>
+                <Input
+                  type="email"
+                  placeholder="name@email.com"
+                  value={form.email}
+                  onChange={(e) => update("email", e.target.value)}
+                  error={errors.email}
+                />
               </div>
               <div>
-                <Label>Your Phone Number</Label>
-                <Input placeholder="Eg. 9876543210" value={form.phone} onChange={(e) => update("phone", e.target.value)} />
+                <Label required>Your Phone Number</Label>
+                <Input
+                  placeholder="Eg. 9876543210"
+                  value={form.phone}
+                  onChange={(e) => update("phone", e.target.value)}
+                  error={errors.phone}
+                />
               </div>
               <div>
-                <Label>Target Country</Label>
-                <Input placeholder="Eg. Canada" value={form.targetCountry} onChange={(e) => update("targetCountry", e.target.value)} />
+                <Label required>Target Country</Label>
+                <Input
+                  placeholder="Eg. Canada"
+                  value={form.targetCountry}
+                  onChange={(e) => update("targetCountry", e.target.value)}
+                  error={errors.targetCountry}
+                />
               </div>
               <div>
-                <Label>Target University/College Name</Label>
-                <Input placeholder="Eg. University of Toronto" value={form.targetUniversity} onChange={(e) => update("targetUniversity", e.target.value)} />
+                <Label required>Target University/College Name</Label>
+                <Input
+                  placeholder="Eg. University of Toronto"
+                  value={form.targetUniversity}
+                  onChange={(e) => update("targetUniversity", e.target.value)}
+                  error={errors.targetUniversity}
+                />
               </div>
               <div>
-                <Label>Target Program Name</Label>
-                <Input placeholder="Eg. MS in Computer Science" value={form.targetProgram} onChange={(e) => update("targetProgram", e.target.value)} />
+                <Label required>Target Program Name</Label>
+                <Input
+                  placeholder="Eg. MS in Computer Science"
+                  value={form.targetProgram}
+                  onChange={(e) => update("targetProgram", e.target.value)}
+                  error={errors.targetProgram}
+                />
               </div>
             </div>
             <NavButtons onBack={() => setStep((Math.max(1, step - 1) as Step))} onNext={handleNext} />

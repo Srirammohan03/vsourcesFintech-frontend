@@ -22,6 +22,8 @@ interface BankLayoutProps {
     eligibility: EligibilityItem[];
 }
 import { useEffect, useState } from "react";
+import DelayedPopup from "../DelayedPopup";
+
 
 // Counter Hook
 function useCounter(to: number, duration: number = 200) {
@@ -71,19 +73,23 @@ const BankLayout: React.FC<BankLayoutProps> = ({
     documents,
     eligibility,
 }) => {
+    const [showPopup, setShowPopup] = useState(false);
+
+    const handlePopupClose = () => {
+        setShowPopup(false);
+    };
+    heroBg = "/assets/images/our-partners.png"
     return (
         <div className="w-full">
             {/* Hero Section */}
             <section
-                className="relative h-[400px] flex items-center justify-center text-center text-white"
+                className="relative pt-32 pb-16 lg:pt-40 lg:pb-40 text-white bg-cover bg-[left_center] lg:bg-[top_center]"
                 style={{
-                    backgroundImage: `url(${heroBg})`,
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
+                    backgroundImage: heroBg ? `url(${heroBg})` : "none",
                 }}
             >
-                <div className="bg-black/50 absolute inset-0" />
-                <div className="relative z-10 max-w-2xl px-6">
+                <div className="absolute inset-0 bg-black/50" />
+                <div className="relative z-10 w-full max-w-[1400px] mx-auto px-4 text-center">
                     <h1 className="text-3xl md:text-5xl font-bold">{heroTitle}</h1>
                     {heroSubtitle && (
                         <p className="mt-4 text-lg md:text-xl">{heroSubtitle}</p>
@@ -128,17 +134,12 @@ const BankLayout: React.FC<BankLayoutProps> = ({
 
                         <div className="mt-8 flex gap-4">
                             <a
-                                href="#"
+                                href="/tools/gpa-calculator"
                                 className="px-6 py-3 border-2 border-red-600 text-red-600 font-medium rounded-lg hover:bg-pink-50 transition"
                             >
                                 Check Eligibility
                             </a>
-                            <a
-                                href="#"
-                                className="px-6 py-3 bg-red-600 text-white font-medium rounded-lg hover:opacity-90 transition"
-                            >
-                                Apply Now
-                            </a>
+
                         </div>
                     </div>
                     <div className="">
@@ -183,9 +184,12 @@ const BankLayout: React.FC<BankLayoutProps> = ({
                             <a
                                 href="#"
                                 className="px-6 py-3 bg-red-600 text-white font-medium rounded-lg hover:opacity-90 transition"
+                                onClick={() => setShowPopup(true)}
                             >
                                 Apply Now
                             </a>
+
+                            {showPopup && <DelayedPopup onMinimize={handlePopupClose} />}
                         </div>
 
                     </div>

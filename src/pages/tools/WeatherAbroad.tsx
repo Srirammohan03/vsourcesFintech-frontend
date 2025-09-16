@@ -329,8 +329,18 @@ export default function WeatherAbroad() {
   return (
     <div className="bg-white min-h-screen">
       {/* HERO banner with gradient (padding tweakable via heroPad) */}
-      <section className={`bg-gradient-to-b from-[#002855] to-[#1a1a1a] pt-32 pb-16 lg:pt-32 lg:pb-24 ${heroPad}`} ref={heroRef}>
-        <div className="w-full max-w-[1400px] mx-auto px-6">
+     
+          <section
+        className="relative pt-32 pb-16 lg:pt-40 lg:pb-24 text-white bg-cover bg-[left_center] lg:bg-[top_center]"
+        style={{
+          backgroundImage: `url(/assets/images/tools-bg.jpg)`,
+        }}ref={heroRef}
+      >
+        {/* Dark overlay under content */}
+        <div className="absolute inset-0 bg-black/50 z-0" />
+
+        
+        <div className="w-full max-w-[1400px] mx-auto px-6 relative z-10">
           <div className="text-center text-white space-y-3">
             <div className="inline-flex items-center justify-center rounded-2xl bg-white/10 p-3">
               <Cloud className="h-10 w-10 text-white animate-pulse" />

@@ -1,4 +1,5 @@
 "use client";
+import DelayedPopup from "@/components/DelayedPopup";
 import React, { useMemo, useState } from "react";
 import {
   PieChart,
@@ -371,8 +372,8 @@ const StepBadge: React.FC<{ active?: boolean; done?: boolean; index: number }> =
       done
         ? "bg-white border-white text-white"
         : active
-        ? "bg-gradient-to-r from-[#7C3AED] to-[#A78BFA] text-white border-transparent shadow"
-        : "bg-gray-300 text-gray-700 border-transparent"
+          ? "bg-gradient-to-r from-[#7C3AED] to-[#A78BFA] text-white border-transparent shadow"
+          : "bg-gray-300 text-gray-700 border-transparent"
     )}
     style={done ? { background: THEME.gray, color: THEME.text, borderColor: THEME.gray } : undefined}
   >
@@ -440,6 +441,11 @@ export default function CompareCostOfLivingPage() {
   const cfg = DATA[country];
   const fmt = currencyFormatters[cfg.code];
 
+  const [showPopup, setShowPopup] = useState(false);
+
+  const handlePopupClose = () => {
+    setShowPopup(false);
+  };
   // Keep city & university lists in sync when country changes
   React.useEffect(() => {
     const firstCity = cfg.cities[0];
@@ -584,18 +590,32 @@ export default function CompareCostOfLivingPage() {
   return (
     <div className="min-h-screen" style={{ background: THEME.surface, color: THEME.text }}>
       {/* HERO */}
-      <div className="w-full bg-gradient-to-b from-[#002855] to-[#1a1a1a] pt-16 pb-12">
-        <div className="w-full max-w-[1400px] mx-auto px-6 py-16 md:py-24 text-center">
-          <h1 className="text-2xl md:text-4xl font-bold text-white">Compare Cost of Living in Countries for Study Abroad</h1>
+      {/* HERO */}
+      <section
+        className="relative w-full pt-16 pb-12 bg-cover bg-[left_center] lg:bg-[top_center]"
+        style={{
+          backgroundImage: `url(/assets/images/tools-bg.jpg)`, // <-- replace with your image
+        }}
+      >
+        {/* Dark overlay */}
+        <div className="absolute inset-0 bg-black/60 z-0" />
+
+        {/* Content above overlay */}
+        <div className="relative z-10 w-full max-w-[1400px] mx-auto px-6 py-16 md:py-24 text-center">
+          <h1 className="text-2xl md:text-4xl font-bold text-white">
+            Compare Cost of Living in Countries for Study Abroad
+          </h1>
           <p className="text-white/90 mt-3 max-w-3xl mx-auto">
-            Walk through the 7 steps to estimate your <b>monthly</b> living cost by city and lifestyle.
-            We break down accommodation, utilities, food, transport and more — then visualize it in a clean pie chart.
+            Walk through the 7 steps to estimate your <b>monthly</b> living cost by
+            city and lifestyle. We break down accommodation, utilities, food,
+            transport and more — then visualize it in a clean pie chart.
           </p>
         </div>
-      </div>
+      </section>
+
 
       {/* STEPPER */}
-      <div className="w-full max-w-[1400px] mx-auto px-6 -mt-8">
+      <div className="w-full max-w-[1400px] mx-auto px-6 py-10">
         <Card className="overflow-hidden">
           <div className="flex items-center justify-between gap-2 overflow-auto">
             {stepsLabels.map((label, i) => {
@@ -885,8 +905,8 @@ export default function CompareCostOfLivingPage() {
                           {v === "included"
                             ? "Included in rent"
                             : v === "share"
-                            ? `Shared (${fmt(cfg.living.homeElectricity * 0.6)}/mo)`
-                            : `Pay full (${fmt(cfg.living.homeElectricity)}/mo)`}
+                              ? `Shared (${fmt(cfg.living.homeElectricity * 0.6)}/mo)`
+                              : `Pay full (${fmt(cfg.living.homeElectricity)}/mo)`}
                         </label>
                       ))}
                     </div>
@@ -900,8 +920,8 @@ export default function CompareCostOfLivingPage() {
                           {v === "included"
                             ? "Included in rent"
                             : v === "share"
-                            ? `Shared (${fmt(cfg.living.homeWater * 0.6)}/mo)`
-                            : `Pay full (${fmt(cfg.living.homeWater)}/mo)`}
+                              ? `Shared (${fmt(cfg.living.homeWater * 0.6)}/mo)`
+                              : `Pay full (${fmt(cfg.living.homeWater)}/mo)`}
                         </label>
                       ))}
                     </div>
@@ -1167,7 +1187,7 @@ export default function CompareCostOfLivingPage() {
               </div>
             </Card>
 
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between gap-4">
               <button
                 type="button"
                 onClick={() => setStep(1)}
@@ -1175,14 +1195,19 @@ export default function CompareCostOfLivingPage() {
               >
                 Start Over
               </button>
+
               <a
-                href="#apply"
-                className="px-6 py-3 rounded-xl font-semibold text-white"
-                style={{ background: THEME.red }}
+                href=""
+                aria-label="Apply now"
+                onClick={() => setShowPopup(true)}
+                className="px-4 py-3 rounded-xl font-bold bg-red-600 text-white shadow-lg hover:brightness-105"
               >
-                Apply for Loan
+                Apply Now
               </a>
+
+              {showPopup && <DelayedPopup onMinimize={handlePopupClose} />}
             </div>
+
           </div>
         )}
       </div>

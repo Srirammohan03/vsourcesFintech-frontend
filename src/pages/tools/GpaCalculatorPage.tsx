@@ -1,5 +1,6 @@
 // src/pages/GpaCalculatorPage.tsx
-import React, { useMemo, useState } from "react";
+import DelayedPopup from "@/components/DelayedPopup";
+import React, { useMemo, useState,  useEffect } from "react";
 import { createPortal } from "react-dom";
 import { Link, Route, Routes, BrowserRouter } from "react-router-dom";
 
@@ -275,7 +276,11 @@ const GpaCalculatorPage: React.FC = () => {
       </div>
     );
   };
+    const [showPopup, setShowPopup] = useState(false);
 
+  const handlePopupClose = () => {
+    setShowPopup(false);
+  };
   // Needle component (identical math)
   const GaugeNeedle: React.FC<{ value: number }> = ({ value }) => {
     const v = Math.max(0, Math.min(1, value));
@@ -296,14 +301,22 @@ const GpaCalculatorPage: React.FC = () => {
       <style>{extraStyles}</style>
 
       {/* Banner */}
-      <header className="bg-gradient-to-b from-[#002855] to-[#1a1a1a] text-white grid place-items-center text-center" style={{ paddingBlock: "4.5rem", boxShadow: "0 6px 20px rgba(0,0,0,0.15) inset" }}>
-        <div className="w-full max-w-[1400px] mx-auto px-6 pt-32 pb-24">
+       <section
+        className="relative pt-32 pb-16 lg:pt-40 lg:pb-36 text-white bg-cover bg-[left_center] lg:bg-[top_center]"
+        style={{
+          backgroundImage: `url(/assets/images/tools-bg.jpg)`,
+        }}
+      >
+        {/* Dark overlay under content */}
+        <div className="absolute inset-0 bg-black/50 z-0" />
+
+          <div className="w-full max-w-[1400px] mx-auto px-6 relative z-10 text-center">
           <h1 className="m-0 font-extrabold tracking-wide" style={{ marginBottom: ".35rem", fontSize: "clamp(1.8rem, 2.4vw + 1rem, 2.6rem)", letterSpacing: "0.5px" }}>
             GPA Calculator
           </h1>
           <p className="m-0 opacity-95">Compute your GPA on a 4-point scale or convert CGPA/Percentage.</p>
         </div>
-      </header>
+      </section>
 
       {/* Main */}
       <main className="w-full max-w-[1400px] mx-auto px-6 py-10">
@@ -452,10 +465,10 @@ const GpaCalculatorPage: React.FC = () => {
 
             {/* Actions */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <button onClick={calculate} aria-label="Calculate GPA" className="px-4 py-3 rounded-xl font-bold bg-red-600 text-white md:text-2xl ">
+              <button onClick={calculate} aria-label="Calculate GPA" className="px-1 py-1 h-12 rounded-xl font-bold bg-red-600 text-white  ">
                 Calculate GPA
               </button>
-              <button onClick={clearAll} aria-label="Clear all grades" className="px-4 py-3 rounded-xl font-bold bg-white text-red-600 border border-red-600 md:text-2xl">
+              <button onClick={clearAll} aria-label="Clear all grades" className="px-1 py-1 h-12 rounded-xl font-bold bg-white text-red-600 border border-red-600 ">
                 Clear Grades
               </button>
             </div>
@@ -623,9 +636,20 @@ const GpaCalculatorPage: React.FC = () => {
               <p className="mt-2 text-sm text-gray-500">Results are indicative based on the 4.0 scale.</p>
             </div>
 
-            <button onClick={() => window.open("#", "_blank")} aria-label="Apply now" className="mt-4 mx-auto block px-4 py-3 rounded-xl font-bold bg-red-600 text-white w-full max-w-[360px] shadow-lg hover:brightness-105">
+            {/* <button onClick={() => window.open("#", "_parent")} aria-label="Apply now" className="mt-4 mx-auto block px-4 py-3 rounded-xl font-bold bg-red-600 text-white w-full max-w-[360px] shadow-lg hover:brightness-105"
+
+            >
               Apply Now
-            </button>
+            </button> */}
+            <a
+              href="#"
+              aria-label="Apply now" className="mt-4 mx-auto block px-4 py-3 rounded-xl font-bold bg-red-600 text-white w-full max-w-[360px] shadow-lg hover:brightness-105"
+onClick={() => setShowPopup(true)}
+            >
+              Apply Now
+            </a>
+            
+      {showPopup && <DelayedPopup onMinimize={handlePopupClose} />}
           </div>
         </Modal>
       )}

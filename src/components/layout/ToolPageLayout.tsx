@@ -14,7 +14,7 @@ type ToolPageTemplateProps = {
   extraSectionContent: React.ReactNode;
   references: { title: string; description: string; link: string }[];
 };
-
+const heroBg = true;
 export default function ToolPageTemplate({
   title,
   description,
@@ -27,15 +27,14 @@ export default function ToolPageTemplate({
   extraSectionContent,
   references,
 }: ToolPageTemplateProps) {
+  heroBg = "/assets/images/tools-bg.jpg"
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
       <section
-        className="relative pt-32 pb-16 lg:pt-32 lg:pb-24 text-white"
+        className="relative pt-32 pb-16 lg:pt-32 lg:pb-24 text-white bg-cover bg-[left_center] lg:bg-[top_center]"
         style={{
           backgroundImage: heroBg ? `url(${heroBg})` : "none",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
         }}
       >
         <div className="absolute inset-0 bg-black/50" />
