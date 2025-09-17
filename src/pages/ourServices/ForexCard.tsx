@@ -67,10 +67,10 @@ const BENEFITS = [
 
 const categories = ["All", "Security", "Convenience", "Support", "Perks"];
 export default function ForexCard() {
-      const [showPopup, setShowPopup] = useState(false);
-  
+    const [showPopup, setShowPopup] = useState(false);
+
     const handlePopupClose = () => {
-      setShowPopup(false);
+        setShowPopup(false);
     };
     return (
         <div className="">
@@ -151,6 +151,30 @@ export default function ForexCard() {
                 </div>
             </section>
 
+            <div className="relative bg-blue-600 py-12 px-6  shadow-md">
+                <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-10">
+                    {/* Left Content */}
+                    <div className="text-center md:text-left">
+                        <h2 className="text-3xl font-extrabold text-white mb-3">
+                            Our <span className="text-yellow-300">Partner</span>
+                        </h2>
+                        <p className="text-lg text-white max-w-md mx-auto md:mx-0">
+                            Proudly collaborating with{" "}
+                            <span className="text-yellow-300 font-semibold">EbixCash</span> to deliver
+                            seamless, secure, and innovative global travel & financial solutions for students.
+                        </p>
+                    </div>
+
+                    {/* Right Logo */}
+                    <div className="flex-shrink-0">
+                        <img
+                            src="/assets/images/exbicash.png"
+                            alt="EbixCash"
+                            className="h-20 md:h-24 object-contain drop-shadow-md hover:scale-105 transition-transform duration-300"
+                        />
+                    </div>
+                </div>
+            </div>
 
             {/* Benefits Cards grid */}
             <section>
@@ -213,10 +237,11 @@ export default function ForexCard() {
             <section className="bg-gray-50 py-10">
                 <div className="max-w-[1400px] mx-auto px-6 space-y-10">
 
+
                     {/* 1. Benefits to Customers */}
                     <div>
                         <h2 className="text-center text-3xl font-bold text-gray-900 mb-10">
-                           <span className="text-red-600">EbixCash</span> Globetrotter Travel – Benefits to Customers
+                            <span className="text-red-600">EbixCash</span> Globetrotter Travel – Benefits to Customers
                         </h2>
                         <div className="grid gap-8 md:grid-cols-3">
                             {[
@@ -270,7 +295,7 @@ export default function ForexCard() {
                     {/* 2. Easy Card Management */}
                     <div>
                         <h2 className="text-center text-3xl font-bold text-gray-900 mb-10">
-                           <span className="text-red-600">EbixCash</span> Globetrotter Travel – Easy Card Management
+                            <span className="text-red-600">EbixCash</span> Globetrotter Travel – Easy Card Management
                         </h2>
                         <div className="grid gap-8 md:grid-cols-3">
                             {[
@@ -325,7 +350,7 @@ export default function ForexCard() {
                     {/* 3. Additional Features */}
                     <div>
                         <h2 className="text-center text-3xl font-bold text-gray-900 mb-10">
-                          <span className="text-red-600">EbixCash</span>  Globetrotter Travel – Additional Features
+                            <span className="text-red-600">EbixCash</span>  Globetrotter Travel – Additional Features
                         </h2>
                         <div className="grid gap-8 md:grid-cols-2">
                             {[
@@ -381,7 +406,7 @@ export default function ForexCard() {
 
             {/* Apply Button */}
             <div id="apply" className="w-full max-w-sm mx-auto mt-4 mb-4">
-                <button className="w-full py-4 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl text-lg shadow-lg transition"  onClick={() => setShowPopup(true)}>
+                <button className="w-full py-4 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl text-lg shadow-lg transition" onClick={() => setShowPopup(true)}>
                     Apply for Forex Card
                 </button>
                 {showPopup && <DelayedPopup onMinimize={handlePopupClose} />}

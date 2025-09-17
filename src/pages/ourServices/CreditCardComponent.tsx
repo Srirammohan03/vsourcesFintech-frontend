@@ -181,6 +181,42 @@ const CreditCardComponent = () => {
           ))}
         </select>
       </section>
+   <section className="relative py-20 bg-gradient-to-br from-gray-50 via-white to-gray-100 overflow-hidden">
+  <div className="max-w-7xl mx-auto px-6">
+    <div className="bg-white rounded-3xl shadow-xl border border-gray-100 p-10 md:p-16 flex flex-col md:flex-row items-center justify-between gap-12 hover:shadow-2xl transition duration-500 relative z-10">
+      
+      {/* Left Content */}
+      <div className="flex-1 text-center md:text-left space-y-6">
+        <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900">
+          Our Trusted Partner
+        </h2>
+        <p className="text-gray-700 text-lg leading-relaxed max-w-xl mx-auto md:mx-0">
+          We’re proud to partner with 
+          <span className="text-red-600 font-semibold"> Zolve </span> 
+          to provide innovative credit card and financial solutions 
+          that empower students and professionals to build a seamless 
+          global financial journey.
+        </p>
+      </div>
+
+      {/* Right Content (Logo) */}
+      <div className="flex-shrink-0">
+        <div className="p-6 bg-gradient-to-r from-white to-gray-50 rounded-2xl shadow-lg border border-gray-100 hover:scale-105 transition-transform duration-500">
+          <img 
+            src="https://www.zolveimages.zolve.com/website/images/zolve_logo.svg" 
+            alt="Zolve Logo" 
+            className="h-16 md:h-20 object-contain"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {/* Background Accent Shapes */}
+  <div className="absolute top-10 left-10 w-72 h-72 bg-red-100 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse"></div>
+  <div className="absolute bottom-10 right-10 w-72 h-72 bg-blue-100 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse"></div>
+</section>
+
 
       {/* Credit Card Types */}
       <section className="w-full max-w-[900px] mx-auto px-4 sm:px-6 py-10 space-y-10">
@@ -224,7 +260,7 @@ const CreditCardComponent = () => {
                   </div>
 
                   {/* Right: image */}
-                  <div className="flex-shrink-0 w-full sm:w-[140px] flex items-center justify-center mt-6 sm:mt-0 mx-auto sm:mx-0 md:block hidden">
+                  <div className="flex-shrink-0 w-full sm:w-[140px] md:flex items-center justify-center mt-6 sm:mt-0 mx-auto sm:mx-0 hidden">
                     <img
                       src={type.imageSrc}
                       alt={type.title}
@@ -251,7 +287,7 @@ const CreditCardComponent = () => {
                   </div>
 
                   {/* Right: image */}
-                  <div className="flex-shrink-0 w-full sm:w-[140px] flex items-center justify-center mt-6 sm:mt-0 mx-auto sm:mx-0 md:block hidden">
+                  <div className="flex-shrink-0 w-full sm:w-[140px] md:flex items-center justify-center mt-6 sm:mt-0 mx-auto sm:mx-0  hidden">
                     <img
                       src={type.imageSrc}
                       alt={`${type.title} details`}
