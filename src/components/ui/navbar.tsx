@@ -119,6 +119,7 @@ const PARTNERS_SECTIONS: Section[] = [
     heading: "OUR LENDING PARTNERS",
     items: [
       { name: "Credila", path: "/our-partners/credila", icon: Banknote },
+      { name: "NBFC", path:"/our-partners/nbfc", icon: Banknote},
       { name: "Auxilo", path: "/our-partners/auxilo", icon: Banknote },
       { name: "Avanse", path: "/our-partners/avanse", icon: Banknote },
       { name: "Incred Finance", path: "/our-partners/incred-finance", icon: Banknote },
@@ -370,7 +371,7 @@ export function Navbar() {
                 <img
                   src="/assets/images/fintech-logo.png"
                   alt="Vsource"
-                  className="h-12 w-auto rounded-md object-contain"
+                  className="h-16 md:h-20 w-auto object-contain rounded-xl shadow-md"
                 />
                 <img
                   src="/assets/images/20 years logo-01.png"

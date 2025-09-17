@@ -63,6 +63,7 @@ import SimCard from "./pages/ourServices/SimCard";
 import GIC from "./pages/ourServices/GIC";
 import ScrollToTopButton from "./components/ScrollToTopButton";
 import DelayedPopup from "./components/DelayedPopup";
+import NbfcPage from "./pages/ourpartner/NbfcPage";
 const queryClient = new QueryClient();
 
 const AppContent = () => {
@@ -157,6 +158,7 @@ const AppContent = () => {
 
             {/* <Route path="/our-partners" element={<Resources />} /> */}
             <Route path="/our-partners/credila" element={<CredilaPage />} />
+            <Route path="/our-partners/nbfc" element={<NbfcPage/>}/>
             <Route path="/our-partners/auxilo" element={<Auxilopage />} />
             <Route path="/our-partners/avanse" element={<AvansePage />} />
             <Route path="/our-partners/incred-finance" element={<IncredFinancingPage />} />

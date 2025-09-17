@@ -12,6 +12,12 @@ export const partners: Partner[] = [
     path: "/our-partners/credila",
   },
   {
+    name: "NBFC",
+    logo: "/assets/images/nbfc.png",
+    slug: "nbfc",
+    path: "/our-partners/nbfc",
+  },
+  {
     name: "Auxilo",
     logo: "/assets/images/auxilo.png",
     slug: "auxilo",
