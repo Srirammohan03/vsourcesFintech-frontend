@@ -92,7 +92,7 @@ const providers = [
     },
     {
         name: "Expatrio",
-         logo: "/assets/images/expatrio-logo.svg",
+        logo: "/assets/images/expatrio-logo.svg",
         description: "Offers bundled services including health insurance.",
         fees: {
             processingFee: "€49 (one-time)",
@@ -103,7 +103,7 @@ const providers = [
     },
     {
         name: "Deutsche Bank",
-         logo: "/assets/images/Deutsche-Bank.svg",
+        logo: "/assets/images/Deutsche-Bank.svg",
         description: "Traditional bank providing blocked accounts.",
         fees: {
             processingFee: "Varies, starts around €100",
@@ -114,7 +114,7 @@ const providers = [
     },
     {
         name: "Coracle",
-         logo: "/assets/images/Coracle-logo.svg",
+        logo: "/assets/images/Coracle-logo.svg",
         description: "Specialized gateway for international students.",
         fees: {
             processingFee: "€79 (one-time)",
@@ -172,7 +172,7 @@ const AccordionItem = ({
                 ref={contentRef}
                 style={{
                     maxHeight: isExpanded ? `${contentRef.current?.scrollHeight}px` : "0px",
-                   
+
                     transition: " 0.35s ease, padding 0.35s ease",
                     paddingTop: isExpanded ? "1.5rem" : "0",
                     paddingBottom: isExpanded ? "1.5rem" : "0",
@@ -196,18 +196,28 @@ const BlockedAccount: React.FC = () => {
     return (
         <div className="">
             {/* Hero Section */}
-            <section className="flex flex-col items-center justify-center min-h-[60vh] bg-gradient-to-b from-[#002855] to-[#1a1a1a]">
-                <div className="w-full max-w-[1400px] mx-auto px-6 pt-32 pb-16 flex flex-col items-center justify-center text-white">
-                    <Globe className="w-14 h-14 mb-4 animate-pulse " />
-                    <h1 className="text-4xl font-extrabold mb-4 leading-tight">
+            <section className="relative text-white pt-32 pb-10 lg:pt-40 lg:pb-36">
+                <div
+                    className="absolute inset-0 bg-cover bg-right bg-no-repeat"
+                    style={{
+                        backgroundImage: "url('/assets/images/ourservices-img.jpg')",
+                    }}
+                >
+                    <div className="absolute inset-0 bg-black/70 md:bg-black/50" />
+                </div>
+                <div className="relative w-full max-w-[1400px] mx-auto px-6 flex flex-col items-center md:items-start justify-center text-left">
+                    <Globe className="w-14 h-14 mb-4 animate-pulse" />
+                    <h1 className="text-4xl font-extrabold mb-4 leading-tight max-w-3xl">
                         Everything About Blocked Accounts for International Students
                     </h1>
-                    <p className="">
+                    <p className="max-w-2xl">
                         Secure your stay in Germany with a Blocked Account. Learn who needs it,
                         how to open it, and essentials to manage your blocked funds easily.
                     </p>
                 </div>
             </section>
+
+
 
             <section className="space-y-6 w-full max-w-[1400px] mx-auto px-6 py-10">
                 {faqs.map((faq, i) => (

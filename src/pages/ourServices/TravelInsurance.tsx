@@ -84,18 +84,35 @@ export default function TravelInsurance() {
 
     return (
         <div className="bg-white text-gray-800 font-sans">
-            {/* Hero Section */}
-            <section className="flex flex-col items-center justify-center min-h-[60vh] bg-gradient-to-b from-[#002855] to-[#1a1a1a]">
-                <div className="w-full max-w-[1400px] mx-auto px-6 pt-28 pb-10 flex flex-col items-center justify-center">
-                    <PlaneTakeoff className="w-10 h-10 text-white mb-4 animate-pulse" />
-                    <h1 className="text-4xl font-bold text-white mb-3 text-center">
-                        TRAVEL INSURANCE
-                    </h1>
-                    <p className="text-white mb-6 text-center max-w-3xl">
-                        Travel Insurance for students planning to study abroad is a protection plan which covers costs if you fall sick, lose your bags, or if your flight gets delayed or cancelled. VSource helps Indian students offers customised insurance plans from multiple insurance providers for students who are going to study abroad. We make it easy to get travel insurance with affordable plans and customised support.
-                    </p>
-                </div>
-            </section>
+           {/* Hero Section */}
+<section className="relative text-white pt-32 pb-10 lg:pt-40 lg:pb-32">
+  {/* Background Image with Overlay */}
+  <div
+    className="absolute inset-0 bg-cover bg-right bg-no-repeat"
+    style={{
+      backgroundImage: "url('/assets/images/ourservices-img.jpg')",
+    }}
+  >
+    <div className="absolute inset-0 bg-black/70 md:bg-black/50" />
+  </div>
+
+  {/* Content */}
+  <div className="relative z-10 w-full max-w-[1400px] mx-auto px-6 flex flex-col items-center md:items-start justify-center text-left">
+    <PlaneTakeoff className="w-10 h-10 text-white mb-4 animate-pulse" />
+    <h1 className="text-4xl font-bold text-white mb-3 text-center max-w-3xl">
+      TRAVEL INSURANCE
+    </h1>
+    <p className="text-white max-w-2xl">
+      Travel Insurance for students planning to study abroad is a protection plan
+      which covers costs if you fall sick, lose your bags, or if your flight
+      gets delayed or cancelled. VSource helps Indian students offers customised
+      insurance plans from multiple insurance providers for students who are
+      going to study abroad. We make it easy to get travel insurance with
+      affordable plans and customised support.
+    </p>
+  </div>
+</section>
+
 
             <section className="text-gray-800 bg-gradient-to-br from-indigo-50 via-white to-indigo-50 px-4 md:px-16 py-10">
                 <div className="w-full max-w-[1400px] mx-auto flex flex-col-reverse md:flex-row items-center gap-10">

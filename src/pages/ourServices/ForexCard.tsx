@@ -69,13 +69,30 @@ export default function ForexCard() {
     return (
         <div className="">
             {/* Hero Section */}
-            <section className="flex flex-col items-center justify-center min-h-[60vh] bg-gradient-to-b from-[#002855] to-[#1a1a1a]">
-                <div className="w-full max-w-[1400px] mx-auto px-6 pt-32 pb-16 flex flex-col items-center justify-center text-white">
-                    <h1 className="text-3xl sm:text-4xl font-extrabold mb-2">Best Forex Card for Students Abroad</h1>
-                    <p className="text-lg mb-6 max-w-3xl">Your smart, safe, and low-cost prepaid card for all overseas student payments—manage money, avoid extra fees, and access exclusive benefits globally.</p>
+            <section className="relative text-white pt-32 pb-10 lg:pt-40 lg:pb-36">
+                {/* Background Image with Overlay */}
+                <div
+                    className="absolute inset-0 bg-cover bg-right bg-no-repeat"
+                    style={{
+                        backgroundImage: "url('/assets/images/ourservices-img.jpg')",
+                    }}
+                >
+                    <div className="absolute inset-0 bg-black/70 md:bg-black/50" />
+                </div>
 
+                {/* Content */}
+                <div className="relative w-full max-w-[1400px] mx-auto px-6 flex flex-col items-center md:items-start justify-center text-left">
+                    <h1 className="text-3xl sm:text-4xl font-extrabold mb-3 leading-tight">
+                        Best Forex Card for Students Abroad
+                    </h1>
+                    <p className="text-lg mb-6 max-w-3xl">
+                        Your smart, safe, and low-cost prepaid card for all overseas student
+                        payments — manage money, avoid extra fees, and access exclusive benefits
+                        globally.
+                    </p>
                 </div>
             </section>
+
 
             {/* Intro Sections */}
             <section className=" ">

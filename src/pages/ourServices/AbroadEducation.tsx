@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import AbroadForm from "./AbroadForm";
 import Banksloans from "../Banksloans";
+import DelayedPopup from "@/components/DelayedPopup";
 const features = [
     {
         title: "Multiple Lenders",
@@ -53,11 +54,27 @@ const features = [
 ];
 const AbroadEducation: React.FC = () => {
     const [activeIndex, setActiveIndex] = useState(0);
+      const [showPopup, setShowPopup] = useState(false);
+      
+        const handlePopupClose = () => {
+          setShowPopup(false);
+        };
     return (
         <div className="w-full font-sans">
             {/* Hero Section */}
-            <section className="relative bg-[#2563eb] text-white pt-28 pb-20 lg:pt-32">
-                <div className="w-full max-w-[1400px] mx-auto px-6  grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+            <section className="relative bg-[#2563eb] text-white pt-32 pb-10 lg:pt-40 lg:pb-36">
+                {/* Background Image with Overlay */}
+                <div
+                    className="absolute inset-0 bg-cover bg-right "
+                    style={{
+                        backgroundImage: "url('/assets/images/ourservices-img.jpg')",
+                    }}
+                >
+                    <div className="absolute inset-0 bg-black/70 md:bg-black/50" /> {/* overlay */}
+                </div>
+
+                {/* Content */}
+                <div className="relative w-full max-w-[1400px] mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
                     {/* Left Side */}
                     <div className="space-y-6">
                         {/* Breadcrumb with Home icon */}
@@ -66,7 +83,9 @@ const AbroadEducation: React.FC = () => {
                                 <House className="h-5 w-5" />
                                 Home
                             </Link>
-                            <span><ChevronRight className="h-5 w-5" /></span>
+                            <span>
+                                <ChevronRight className="h-5 w-5" />
+                            </span>
                             <span>Abroad Education Loan</span>
                         </p>
 
@@ -74,6 +93,8 @@ const AbroadEducation: React.FC = () => {
                         <h1 className="text-3xl md:text-4xl font-bold leading-tight">
                             Abroad Education Loan
                         </h1>
+
+                        {/* Highlights */}
                         <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                             {[
                                 "Fund Up to 100% of Your Education",
@@ -90,26 +111,25 @@ const AbroadEducation: React.FC = () => {
 
                         {/* Buttons */}
                         <div className="flex gap-4 flex-wrap">
-                            <Button className="text-white bg-red-600 font-semibold">
+                             <a
+                                href="/tools/gpa-calculator"
+                                className="px-3 py-2 text-white bg-red-600 font-semibold rounded-lg"
+                            >
                                 Check Eligibility
-                            </Button>
-                            <Button variant="secondary" className="bg-white text-red-600 hover:bg-red-600 hover:text-white font-semibold ">
+                            </a>
+                         
+                            <Button
+                                variant="secondary"
+                                className="bg-white text-red-600 hover:bg-red-600 hover:text-white font-semibold"
+                            onClick={() => setShowPopup(true)}>
                                 Apply Now
                             </Button>
+                             {showPopup && <DelayedPopup onMinimize={handlePopupClose} />}
                         </div>
                     </div>
-
-                    {/* Right Side Image */}
-                    <div className="flex justify-center">
-                        <img
-                            src="/assets/images/abroad-education-loan.webp"
-                            alt="Education Loan"
-                            className="w-[250px] sm:w-[300px] md:w-[350px] lg:w-[420px] h-auto object-cover rounded-xl"
-                        />
-                    </div>
                 </div>
-
             </section>
+
 
             {/* How it Works */}
             <section className="py-10 bg-white">

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { FaIdCard, FaRegFileAlt, FaUserGraduate } from "react-icons/fa";
 
@@ -20,6 +20,7 @@ import {
     FaMoneyBillWave,
     FaCoins,
 } from "react-icons/fa";
+import DelayedPopup from "@/components/DelayedPopup";
 
 const countries = [
     "UK",
@@ -200,23 +201,29 @@ const stepsToOpenAccount = [
 ];
 
 const BankAccount: React.FC = () => {
+      const [showPopup, setShowPopup] = useState(false);
+  
+    const handlePopupClose = () => {
+      setShowPopup(false);
+    };
     return (
         <div className="">
             {/* Hero Section */}
-            <motion.section className="flex flex-col items-center justify-center min-h-[60vh] bg-gradient-to-b from-[#002855] to-[#1a1a1a]">
-                <div className="w-full max-w-[1400px] mx-auto px-6 pt-32 pb-16 flex flex-col items-center justify-center">
-                    {/* 
-                    <img
-                        src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1470&q=80"
-                        alt="Students and Banking"
-                        className="w-full h-64 md:h-96 object-cover brightness-75"
-                        loading="lazy"
-                    /> */}
-                    <div className="flex flex-col justify-center items-center text-center text-white px-4">
-                        <h1 className="text-4xl md:text-5xl font-extrabold drop-shadow-lg">
+            <motion.section className="relative text-white pt-32 pb-10 lg:pt-40 lg:pb-36">
+                <div
+                    className="absolute inset-0 bg-cover bg-right bg-no-repeat"
+                    style={{
+                        backgroundImage: "url('/assets/images/ourservices-img.jpg')",
+                    }}
+                >
+                    <div className="absolute inset-0 bg-black/70 md:bg-black/50" />
+                </div><div className="w-full max-w-[1400px] mx-auto px-6 flex flex-col items-start justify-start">
+               
+                    <div className="flex flex-col items-center md:items-start justify-center text-left text-white px-4">
+                        <h1 className="text-4xl md:text-5xl font-extrabold drop-shadow-lg  max-w-3xl">
                             Simplify Your Study Abroad Journey with a Local Bank Account
                         </h1>
-                        <p className="mt-4  text-lg md:text-xl drop-shadow-md">
+                        <p className="mt-4  text-lg md:text-xl drop-shadow-md  max-w-2xl">
                             Whether you’re studying in the UK, USA, Canada, Ireland, France, Australia, or Germany,
                             getting a student bank account makes managing money easier and smarter.
                         </p>
@@ -430,9 +437,10 @@ const BankAccount: React.FC = () => {
 
             {/* Call To Action */}
             <div className="flex flex-col items-center pb-7">
-                <button className="px-8 py-4 rounded-2xl bg-red-600  text-white font-bold text-lg shadow hover:shadow-xl transition">
+                <button className="px-8 py-4 rounded-2xl bg-red-600  text-white font-bold text-lg shadow hover:shadow-xl transition" onClick={() => setShowPopup(true)}>
                     Start Your Application
                 </button>
+                 {showPopup && <DelayedPopup onMinimize={handlePopupClose} />}
                 <span className="mt-2 text-sm text-gray-500">Support available for every step!</span>
             </div>
         </div>

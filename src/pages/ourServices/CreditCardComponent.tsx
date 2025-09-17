@@ -10,6 +10,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import { ChevronRight, Check } from "lucide-react";
+import DelayedPopup from "@/components/DelayedPopup";
 
 // Country Options
 const countries = ["USA", "UK", "Canada", "France", "Ireland"];
@@ -115,28 +116,51 @@ const tips = [
 const CreditCardComponent = () => {
   const [selectedCountry, setSelectedCountry] = useState("USA");
   const [flipped, setFlipped] = useState<number | null>(null);
-
+  const [showPopup, setShowPopup] = useState(false);
+  
+    const handlePopupClose = () => {
+      setShowPopup(false);
+    };
   return (
     <div className="">
       {/* Hero Section */}
-      <section className="flex flex-col items-center justify-center min-h-[60vh] bg-gradient-to-b from-[#002855] to-[#1a1a1a]">
-        <div className="w-full max-w-[1400px] mx-auto px-6 py-16 flex flex-col items-center justify-center">
-          <Sparkles className="w-10 h-10 text-white mb-4" />
-          <h1 className="text-4xl font-bold text-white mb-3 text-center">
+      <section className="relative text-white pt-32 pb-10 lg:pt-40 lg:pb-32">
+        {/* Background Image with Overlay */}
+        <div
+          className="absolute inset-0 bg-cover bg-right bg-no-repeat"
+          style={{
+            backgroundImage: "url('/assets/images/ourservices-img.jpg')",
+          }}
+        >
+          <div className="absolute inset-0 bg-black/70 md:bg-black/50" />
+        </div>
+
+        {/* Content */}
+         <div className="relative w-full max-w-[1400px] mx-auto px-6 flex flex-col items-center md:items-start justify-center text-left">
+                 <Sparkles className="w-10 h-10 text-white mb-4 animate-pulse" />
+          <h1 className="text-4xl font-bold mb-3 text-center max-w-3xl">
             Credit Cards for International Students
           </h1>
-          <p className="text-white mb-6 text-center max-w-xl">
-            Empower your financial journey. Manage money smartly and build credit while studying abroad, with exclusive student benefits and intuitive application steps.
+          <p className="mb-6 max-w-2xl">
+            Empower your financial journey. Manage money smartly and build credit
+            while studying abroad, with exclusive student benefits and intuitive
+            application steps.
           </p>
-          <div className="flex justify-center md:flex-row flex-col gap-3 mt-2 w-full items-center">
+
+          {/* Tips */}
+          <div className="flex justify-start max-w-2xl flex-col gap-3 mt-2 w-full items-start">
             {tips.map((tip, i) => (
-              <span key={i} className="bg-white/20 px-4 py-2 rounded-xl text-sm font-medium text-white shadow w-fit">
+              <span
+                key={i}
+                className="bg-white/20 px-4 py-2 rounded-xl text-sm font-medium text-white shadow w-fit"
+              >
                 {tip}
               </span>
             ))}
           </div>
         </div>
       </section>
+
 
 
       {/* Country Selector */}
@@ -312,9 +336,10 @@ const CreditCardComponent = () => {
 
       {/* Call To Action */}
       <div className="flex flex-col items-center pb-16">
-        <button className="px-8 py-4 rounded-2xl bg-red-600  text-white font-bold text-lg shadow hover:shadow-xl transition">
+        <button className="px-8 py-4 rounded-2xl bg-red-600  text-white font-bold text-lg shadow hover:shadow-xl transition"  onClick={() => setShowPopup(true)} >
           Start Your Application
         </button>
+        {showPopup && <DelayedPopup onMinimize={handlePopupClose} />}
         <span className="mt-2 text-sm text-gray-500">Support available for every step!</span>
       </div>
     </div>

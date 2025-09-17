@@ -85,49 +85,63 @@ const AboutSection: React.FC = () => {
               data-aos-duration="1000"
               data-aos-delay="200"
               data-aos-anchor-placement="center-bottom"
+              className="text-3xl md:text-4xl font-bold mb-4"
             >
               About Vsource Fintech
             </h1>
 
             <p
-              className="subheading"
+              className="subheading text-lg md:text-xl font-semibold text-red-600 mb-4"
               data-aos="fade-right"
               data-aos-duration="1000"
               data-aos-delay="400"
               data-aos-anchor-placement="center-bottom"
             >
-              <strong>Your Gateway to Global Academic Excellence</strong>
+              <span className="font-semibold">Empowering Dreams with Tailored Student Loans</span>
             </p>
 
             <p
-              className="paragraph"
+              className="paragraph text-gray-700 mb-4 leading-relaxed"
               data-aos="fade-right"
               data-aos-anchor-placement="center-bottom"
               data-aos-duration="1000"
               data-aos-delay="600"
             >
-              At VSource Overseas, we specialize in transforming academic
-              ambition into international achievement. With a legacy of over 20
-              years, we are proud to be South India’s premier consultancy for
-              Master’s admissions abroad, guiding thousands of students to
-              top-ranked universities across the{" "}
-              <strong>USA, UK, Canada, Ireland, France</strong>
-              and other leading destinations.
+              At <span className="font-semibold">VSource Fintech</span>, we believe that financial
+              barriers should never stand in the way of education. With over{" "}
+              <span className="font-semibold">20 years of expertise</span> in financial services,
+              we specialize in <span className="font-semibold">student loans</span> that make higher
+              education accessible and affordable for ambitious learners in India and abroad.
             </p>
 
             <p
-              className="paragraph"
+              className="paragraph text-gray-700 mb-4 leading-relaxed"
               data-aos="fade-right"
               data-aos-anchor-placement="center-bottom"
               data-aos-duration="1000"
               data-aos-delay="800"
             >
-              We partner with globally accredited universities known for{" "}
-              <strong>academic excellence, innovation, </strong>
-              and <strong>industry relevance,</strong> ensuring our students
-              receive not only a quality education but also a launchpad for
-              global careers.
+              Partnering with <span className="font-semibold">leading banks and NBFCs</span>, we offer
+              loans that cover <span className="font-semibold">tuition fees, living expenses, travel,
+                and insurance</span>, ensuring you can focus entirely on your studies. Our solutions
+              are designed with <span className="font-semibold">flexible repayment options,
+                competitive interest rates,</span> and <span className="font-semibold">transparent
+                  guidance</span> to ease your financial journey.
             </p>
+
+            <p
+              className="paragraph text-gray-700 leading-relaxed"
+              data-aos="fade-right"
+              data-aos-anchor-placement="center-bottom"
+              data-aos-duration="1000"
+              data-aos-delay="1000"
+            >
+              Thousands of students have trusted us to turn their{" "}
+              <span className="font-semibold">study abroad dreams into reality</span>. At
+              VSource Fintech, we don’t just provide loans — we provide a{" "}
+              <span className="font-semibold">foundation for your global success story</span>.
+            </p>
+
 
             <p
               className="paragraph"

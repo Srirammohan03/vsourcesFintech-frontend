@@ -7,13 +7,21 @@ export default function SimCard() {
   return (
     <div>
       {/* Hero Section */}
-       <section className="flex flex-col items-center justify-center min-h-[60vh] bg-gradient-to-b from-[#002855] to-[#1a1a1a]">
-                <div className="w-full max-w-[1400px] mx-auto px-6 pt-32 pb-16 flex flex-col items-center justify-center text-white">
-                 <Globe className="mx-auto mb-4 w-14 h-14" />
-        <h1 className="text-xl md:text-3xl font-extrabold mb-4">
+        <section className="relative text-white pt-32 pb-10 lg:pt-40 lg:pb-36">
+                <div
+                    className="absolute inset-0 bg-cover bg-right bg-no-repeat"
+                    style={{
+                        backgroundImage: "url('/assets/images/ourservices-img.jpg')",
+                    }}
+                >
+                    <div className="absolute inset-0 bg-black/70 md:bg-black/50" />
+                </div>
+                <div className="relative w-full max-w-[1400px] mx-auto px-6 flex flex-col items-center md:items-start justify-center text-left">
+                         <Globe className=" mb-4 w-14 h-14 animate-pulse" />
+        <h1 className="text-xl md:text-3xl font-extrabold mb-4 max-w-3xl">
           Stay Connected Abroad with Student SIM Cards
         </h1>
-        <p className="max-w-3xl mx-auto text-lg md:text-xl leading-relaxed">
+        <p className="max-w-2xl text-lg md:text-xl leading-relaxed">
           Explore the best SIM card options for students studying abroad in USA, UK, Canada, Ireland, France, Germany, and Australia. Enjoy affordable local data, calls, and seamless connectivity tailored for international students.
         </p>
       </div>

@@ -24,6 +24,7 @@ import TestimonialsSection from '@/components/home/TestimonialsSection';
 import ScholarshipsSection from '@/components/home/ScholarshipsSection';
 import TrustSection from '@/components/home/TrustSection';
 import ServicesSection from '@/components/home/ServicesSection';
+import DelayedPopup from '@/components/DelayedPopup';
 const tools = [
   {
     title: "Loan Calculator",
@@ -123,6 +124,11 @@ export default function Home() {
       setVisibleCount((prev) => prev + 8); // load next 8
     }
   };
+  const [showPopup, setShowPopup] = useState(false);
+  
+    const handlePopupClose = () => {
+      setShowPopup(false);
+    };
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
@@ -314,10 +320,12 @@ export default function Home() {
 
           {/* CTA Button */}
           <div className="mt-10">
-            <button className="px-8 py-3 rounded-full bg-red-600 text-white font-semibold hover:opacity-90 transition">
+            <button className="px-8 py-3 rounded-full bg-red-600 text-white font-semibold hover:opacity-90 transition"
+            onClick={() => setShowPopup(true)}>
               Apply Now
             </button>
           </div>
+          {showPopup && <DelayedPopup onMinimize={handlePopupClose} />}
         </div>
       </section>
       {/* Tools Overview Section */}

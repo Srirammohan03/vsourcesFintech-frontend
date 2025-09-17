@@ -615,22 +615,25 @@ export default function HealthInasurance() {
       style={{ background: THEME.surface, color: THEME.text }}
     >
       {/* HERO */}
-      <div
-        className="w-full pt-16 pb-12"
-        style={{
-          background: "linear-gradient(180deg, #002855 0%, #1a1a1a 100%)",
-        }}
-      >
-        <div className="w-full max-w-[1400px] mx-auto px-6  sm:px-6 lg:px-8 py-16 md:py-24 text-center ">
-          <h1 className="text-2xl md:text-4xl font-bold text-white">
+       <section className="relative text-white pt-32 pb-10 lg:pt-40 lg:pb-36">
+                <div
+                    className="absolute inset-0 bg-cover bg-right bg-no-repeat"
+                    style={{
+                        backgroundImage: "url('/assets/images/ourservices-img.jpg')",
+                    }}
+                >
+                    <div className="absolute inset-0 bg-black/70 md:bg-black/50" />
+                </div>
+                <div className="relative w-full max-w-[1400px] mx-auto px-6 flex flex-col items-center md:items-start justify-center text-left">
+                 <h1 className="text-2xl md:text-4xl font-bold text-white max-w-3xl">
             Health Insurance Compare
           </h1>
-          <p className="text-white/90 mt-3 max-w-3xl mx-auto">
+          <p className="text-white/90 mt-3 max-w-2xl">
             Pick a country to see student-friendly providers and benefit
             comparisons. Built for fast scanning and mobile-first browsing.
           </p>
         </div>
-      </div>
+      </section>
 
       {/* COMPARE SECTION */}
       <div className="w-full max-w-[1400px] mx-auto px-6 py-10 sm:px-6 lg:px-8 ">
