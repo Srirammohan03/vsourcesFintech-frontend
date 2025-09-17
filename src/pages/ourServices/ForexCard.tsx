@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
     ShieldCheck,
     CreditCard,
@@ -11,6 +11,7 @@ import {
     Nfc
 } from "lucide-react";
 import * as Tabs from "@radix-ui/react-tabs";
+import DelayedPopup from "@/components/DelayedPopup";
 
 
 const BENEFITS = [
@@ -66,6 +67,11 @@ const BENEFITS = [
 
 const categories = ["All", "Security", "Convenience", "Support", "Perks"];
 export default function ForexCard() {
+      const [showPopup, setShowPopup] = useState(false);
+  
+    const handlePopupClose = () => {
+      setShowPopup(false);
+    };
     return (
         <div className="">
             {/* Hero Section */}
@@ -210,7 +216,7 @@ export default function ForexCard() {
                     {/* 1. Benefits to Customers */}
                     <div>
                         <h2 className="text-center text-3xl font-bold text-gray-900 mb-10">
-                            Globetrotter Travel – Benefits to Customers
+                           <span className="text-red-600">EbixCash</span> Globetrotter Travel – Benefits to Customers
                         </h2>
                         <div className="grid gap-8 md:grid-cols-3">
                             {[
@@ -264,7 +270,7 @@ export default function ForexCard() {
                     {/* 2. Easy Card Management */}
                     <div>
                         <h2 className="text-center text-3xl font-bold text-gray-900 mb-10">
-                            Globetrotter Travel – Easy Card Management
+                           <span className="text-red-600">EbixCash</span> Globetrotter Travel – Easy Card Management
                         </h2>
                         <div className="grid gap-8 md:grid-cols-3">
                             {[
@@ -319,7 +325,7 @@ export default function ForexCard() {
                     {/* 3. Additional Features */}
                     <div>
                         <h2 className="text-center text-3xl font-bold text-gray-900 mb-10">
-                            Globetrotter Travel – Additional Features
+                          <span className="text-red-600">EbixCash</span>  Globetrotter Travel – Additional Features
                         </h2>
                         <div className="grid gap-8 md:grid-cols-2">
                             {[
@@ -375,9 +381,10 @@ export default function ForexCard() {
 
             {/* Apply Button */}
             <div id="apply" className="w-full max-w-sm mx-auto mt-4 mb-4">
-                <button className="w-full py-4 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl text-lg shadow-lg transition">
+                <button className="w-full py-4 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl text-lg shadow-lg transition"  onClick={() => setShowPopup(true)}>
                     Apply for Forex Card
                 </button>
+                {showPopup && <DelayedPopup onMinimize={handlePopupClose} />}
             </div>
         </div>
     );

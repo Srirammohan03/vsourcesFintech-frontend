@@ -144,13 +144,13 @@ const AboutSection: React.FC = () => {
 
 
             <p
-              className="paragraph"
+              className="paragraph font-semibold text-2xl"
               data-aos="fade-right"
               data-aos-anchor-placement="center-bottom"
               data-aos-duration="1000"
               data-aos-delay="1000"
             >
-              <strong>Our Legacy in Numbers</strong>
+              Our Legacy in Numbers
             </p>
 
             {/* STATS SECTION */}

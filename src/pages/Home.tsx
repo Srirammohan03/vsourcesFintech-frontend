@@ -209,15 +209,6 @@ export default function Home() {
               to make your international education dreams a reality.
             </p>
 
-            {/* <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button
-              size="lg"
-              className="bg-red-600 text-white hover:bg-highlight/90 h-14 px-8"
-            >
-              <GraduationCap className="mr-2 h-6 w-6 sm:h-8 sm:w-8" />
-              Apply for Loan
-            </Button>
-          </div> */}
           </motion.div>
 
           <motion.div
@@ -403,7 +394,7 @@ export default function Home() {
               transition={{ duration: 0.6 }}
             >
               <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-6">
-                Why Choose EduLoan?
+                Why Choose Education Loan ?
               </h2>
               <p className="text-lg text-muted-foreground mb-8">
                 We've helped thousands of students achieve their dreams of studying abroad
