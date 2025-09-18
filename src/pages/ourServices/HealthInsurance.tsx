@@ -124,7 +124,7 @@ const DATA: Record<CountryKey, CountryData> = {
     short: "USA",
     currency: "$",
     description:
-      "Health insurance in the U.S. is essential due to the high cost of medical services. International students mandatorily require either private insurance or university-sponsored plans. Coverage must meet the criteria of university and visa requirements. At EpiCred, we understand that studying abroad is not an easy journey. Having the right insurance can help you provide the safety and protection without thinking about finances. Our insurance team helps students find the most affordable and customised plans that suit the needs of individual student. We compare different options from reliable and trusted companies, so that every student can get the best deal without searching multiple options themselves and can focus on their studies.",
+      "Health insurance in the U.S. is essential due to the high cost of medical services. International students mandatorily require either private insurance or university-sponsored plans. Coverage must meet the criteria of university and visa requirements. At vsource, we understand that studying abroad is not an easy journey. Having the right insurance can help you provide the safety and protection without thinking about finances. Our insurance team helps students find the most affordable and customised plans that suit the needs of individual student. We compare different options from reliable and trusted companies, so that every student can get the best deal without searching multiple options themselves and can focus on their studies.",
     providersLine:
       "Insurance Providers – Tata AIG, Bajaj Allianz, Niva Bupa, HDFC ERGO, Royal Sundaram, Star Health",
     providers: [
