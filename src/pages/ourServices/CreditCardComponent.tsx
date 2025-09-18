@@ -8,13 +8,67 @@ import {
   FileText,
   CheckCircle,
   Sparkles,
+  UserPlus,
+  CheckCircle2,
+  Globe2,
+  RefreshCcw,
+  TrendingUp,
+  AirplayIcon,
+  Laptop,
+  Package,
+  Landmark,
+  UserCheck
 } from "lucide-react";
 import { ChevronRight, Check } from "lucide-react";
 import DelayedPopup from "@/components/DelayedPopup";
 
 // Country Options
 const countries = ["USA", "UK", "Canada", "France", "Ireland"];
+ const howItWorksSteps = [
+    {
+      icon: <Laptop className="w-8 h-8" />,
+      title: 'Apply Online in Minutes',
+      description: 'Complete a seamless digital application from your home country, requiring no SSN or U.S. credit history.',
+    },
+    {
+      icon: <CreditCard className="w-8 h-8" />,
+      title: 'Get Your Virtual Card Instantly',
+      description: 'Receive your virtual credit card upon approval and start making online purchases immediately.',
+    },
+    {
+      icon: <Package className="w-8 h-8" />,
+      title: 'Physical Card Delivered on Arrival',
+      description: 'Your physical credit card is shipped to your new U.S. address once you arrive, ensuring a smooth transition.',
+    },
+    {
+      icon: <Landmark className="w-8 h-8" />,
+      title: 'Build Your U.S. Credit Score',
+      description: 'Zolve reports your payments to all three major credit bureaus, helping you establish a strong financial future from day one.',
+    },
+  ];
 
+  const whyZolveFeatures = [
+    {
+      icon: <UserCheck className="w-8 h-8" />,
+      title: 'No SSN or Credit History Required',
+      description: 'Overcome a major hurdle for newcomers and get approved with just your passport and visa.',
+    },
+    {
+      icon: <ShieldCheck className="w-8 h-8" />,
+      title: 'FDIC-Insured & Secure',
+      description: 'Your deposits are protected, providing peace of mind as you manage your finances abroad.',
+    },
+    {
+      icon: <CreditCard className="w-8 h-8" />,
+      title: 'High-Limit Credit Cards',
+      description: 'Access a high-limit credit card to manage initial expenses and build a strong financial foundation.',
+    },
+    {
+      icon: <Globe className="w-8 h-8" />,
+      title: 'Seamless Global Banking',
+      description: 'Manage international money transfers and simplify your finances with a single, borderless platform.',
+    },
+  ];
 const creditTypes = [
   {
     title: "Secured Checking Accounts",
@@ -117,10 +171,10 @@ const CreditCardComponent = () => {
   const [selectedCountry, setSelectedCountry] = useState("USA");
   const [flipped, setFlipped] = useState<number | null>(null);
   const [showPopup, setShowPopup] = useState(false);
-  
-    const handlePopupClose = () => {
-      setShowPopup(false);
-    };
+
+  const handlePopupClose = () => {
+    setShowPopup(false);
+  };
   return (
     <div className="">
       {/* Hero Section */}
@@ -136,8 +190,8 @@ const CreditCardComponent = () => {
         </div>
 
         {/* Content */}
-         <div className="relative w-full max-w-[1400px] mx-auto px-6 flex flex-col items-center md:items-start justify-center text-left">
-                 <Sparkles className="w-10 h-10 text-white mb-4 animate-pulse" />
+        <div className="relative w-full max-w-[1400px] mx-auto px-6 flex flex-col items-center md:items-start justify-center text-left">
+          <Sparkles className="w-10 h-10 text-white mb-4 animate-pulse" />
           <h1 className="text-4xl font-bold mb-3 text-center max-w-3xl">
             Credit Cards for International Students
           </h1>
@@ -164,7 +218,7 @@ const CreditCardComponent = () => {
 
 
       {/* Country Selector */}
-      <section className="w-full max-w-[1400px] mx-auto px-6 py-5 flex flex-col items-center">
+      <section className="w-full max-w-[1400px] mx-auto px-6 py-10 flex flex-col items-center">
         <label className="block text-lg font-semibold mb-2 text-gray-700">
           Select Your Country
         </label>
@@ -181,42 +235,61 @@ const CreditCardComponent = () => {
           ))}
         </select>
       </section>
-   <section className="relative py-20 bg-gradient-to-br from-gray-50 via-white to-gray-100 overflow-hidden">
-  <div className="max-w-7xl mx-auto px-6">
-    <div className="bg-white rounded-3xl shadow-xl border border-gray-100 p-10 md:p-16 flex flex-col md:flex-row items-center justify-between gap-12 hover:shadow-2xl transition duration-500 relative z-10">
-      
-      {/* Left Content */}
-      <div className="flex-1 text-center md:text-left space-y-6">
-        <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900">
-          Our Trusted Partner
-        </h2>
-        <p className="text-gray-700 text-lg leading-relaxed max-w-xl mx-auto md:mx-0">
-          We’re proud to partner with 
-          <span className="text-red-600 font-semibold"> Zolve </span> 
-          to provide innovative credit card and financial solutions 
-          that empower students and professionals to build a seamless 
-          global financial journey.
-        </p>
-      </div>
 
-      {/* Right Content (Logo) */}
-      <div className="flex-shrink-0">
-        <div className="p-6 bg-gradient-to-r from-white to-gray-50 rounded-2xl shadow-lg border border-gray-100 hover:scale-105 transition-transform duration-500">
-          <img 
-            src="https://www.zolveimages.zolve.com/website/images/zolve_logo.svg" 
-            alt="Zolve Logo" 
-            className="h-16 md:h-20 object-contain"
-          />
+      {/* Hero Section */}
+      <section className="bg-gradient-to-br from-white via-red-100 to-white py-10 px-4 sm:px-6 lg:px-8 overflow-hidden shadow-xl">
+        <div className="w-full max-w-[1400px] mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+          {/* Left Content Section */}
+          <div className="flex flex-col justify-center text-center md:text-left order-2 md:order-1">
+            <h2 className="text-3xl sm:text-4xl  font-extrabold text-black mb-4 leading-tight">
+              Partnering with <span className="text-red-600 ">Zolve</span>
+              <br />
+              to Empower Your Global Journey
+            </h2>
+            <p className="text-black text-lg sm:text-xl mx-auto md:mx-0 mb-6 text-justify">
+              We’ve teamed up with Zolve to give international students and professionals
+              seamless access to essential financial tools and U.S. credit cards,
+              making your transition abroad much easier.
+            </p>
+          </div>
+
+          {/* Right Image Section */}
+          <div className="relative order-1 md:order-2 flex justify-center items-center h-64 sm:h-80 md:h-96">
+            <div className="w-52 h-52 sm:w-64 sm:h-64 lg:w-72 lg:h-72 p-4 flex items-center justify-center bg-white rounded-3xl shadow-2xl transition transform hover:scale-105">
+              <img
+                src="https://www.zolveimages.zolve.com/website/images/zolve_logo.svg"
+                alt="Zolve Logo"
+                className="w-full h-full object-contain"
+              />
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-  </div>
+      </section>
 
-  {/* Background Accent Shapes */}
-  <div className="absolute top-10 left-10 w-72 h-72 bg-red-100 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse"></div>
-  <div className="absolute bottom-10 right-10 w-72 h-72 bg-blue-100 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse"></div>
-</section>
-
+       {/* How It Works */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8">
+        <div className="w-full max-w-[1400px] mx-auto px-6">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-extrabold text-black mb-4  md:text-4xl">
+              How Zolve Works
+            </h2>
+            <p className="text-lg text-gray-600 sm:text-xl max-w-2xl mx-auto">
+              Zolve simplifies your financial journey to the U.S. in a few easy steps.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+            {howItWorksSteps.map((step, index) => (
+              <div key={index} className="flex flex-col items-center text-center p-6 bg-gradient-to-br from-white via-red-100 to-white rounded-2xl shadow-lg transition-transform hover:scale-105 duration-300">
+                <div className="w-16 h-16 flex items-center justify-center rounded-full bg-red-200 text-red-700 mb-4">
+                  {step.icon}
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-2">{step.title}</h3>
+                <p className="text-gray-600">{step.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* Credit Card Types */}
       <section className="w-full max-w-[900px] mx-auto px-4 sm:px-6 py-10 space-y-10">
@@ -315,7 +388,6 @@ const CreditCardComponent = () => {
   `}</style>
       </section>
 
-
       {/* Eligibility Note */}
       <div className="mb-10 text-center py-4 px-6 rounded-xl bg-indigo-100 text-gray-500 font-semibold shadow">
         Eligibility: Valid passport, student visa, and university admission required for international student card applications.
@@ -368,11 +440,9 @@ const CreditCardComponent = () => {
         </div>
       </section>
 
-
-
       {/* Call To Action */}
       <div className="flex flex-col items-center pb-16">
-        <button className="px-8 py-4 rounded-2xl bg-red-600  text-white font-bold text-lg shadow hover:shadow-xl transition"  onClick={() => setShowPopup(true)} >
+        <button className="px-8 py-4 rounded-2xl bg-red-600  text-white font-bold text-lg shadow hover:shadow-xl transition" onClick={() => setShowPopup(true)} >
           Start Your Application
         </button>
         {showPopup && <DelayedPopup onMinimize={handlePopupClose} />}

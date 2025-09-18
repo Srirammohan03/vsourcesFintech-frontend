@@ -8,7 +8,10 @@ import {
     Globe,
     ArrowDownCircle,
     BriefcaseMedical, Wallet, RefreshCw, Bell, Mail, UserCog, Layers, Headphones,
-    Nfc
+    Nfc,
+    Headset,
+    CheckCheck,
+    FileText
 } from "lucide-react";
 import * as Tabs from "@radix-ui/react-tabs";
 import DelayedPopup from "@/components/DelayedPopup";
@@ -64,6 +67,28 @@ const BENEFITS = [
         category: "Security",
     },
 ];
+  const workflowSteps = [
+        {
+            icon: <FileText size={24} className="text-blue-600" />,
+            title: "Consultation & Assessment",
+            description: "Our experts work with you to understand your specific financial and travel needs, ensuring a tailored approach."
+        },
+        {
+            icon: <CheckCheck size={24} className="text-green-600" />,
+            title: "Secure Document Verification",
+            description: "EbixCash's secure platform handles all document and identity verification, streamlining the process securely and efficiently."
+        },
+        {
+            icon: <CreditCard size={24} className="text-purple-600" />,
+            title: "Seamless Transactions",
+            description: "Easily manage global financial transactions, from tuition fees to travel expenses, directly through the integrated platform."
+        },
+        {
+            icon: <Headset size={24} className="text-yellow-600" />,
+            title: "Dedicated Support",
+            description: "Benefit from 24/7 customer support to assist with any queries, ensuring a smooth and worry-free experience."
+        }
+    ];
 
 const categories = ["All", "Security", "Convenience", "Support", "Perks"];
 export default function ForexCard() {
@@ -151,7 +176,7 @@ export default function ForexCard() {
                 </div>
             </section>
 
-            <div className="relative bg-blue-600 py-12 px-6  shadow-md">
+            <section className="relative bg-blue-600 py-12 px-6  shadow-md">
                 <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-10">
                     {/* Left Content */}
                     <div className="text-center md:text-left">
@@ -174,8 +199,31 @@ export default function ForexCard() {
                         />
                     </div>
                 </div>
-            </div>
+            </section>
+                
+                  {/* New "How It Works" Card Layout Section */}
+            <section className="bg-white py-16 w-full max-w-[1400px] mx-auto px-6  ">
+                <div className="text-center mb-12">
+                    <h2 className="text-3xl sm:text-4xl font-extrabold text-black mb-4">
+                        How  <span className="text-red-600">EbixCash</span> Works
+                    </h2>
+                    <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                        Our streamlined collaboration with EbixCash simplifies your financial and travel journey with a straightforward, secure process designed for students.
+                    </p>
+                </div>
 
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    {workflowSteps.map((step, index) => (
+                        <div key={index} className="flex flex-col items-center text-center p-6 bg-white rounded-xl shadow-lg border border-gray-200 hover:shadow-xl hover:scale-[1.02] transition-transform duration-300">
+                            <div className="bg-blue-100 p-4 rounded-full shadow-md mb-4 flex-shrink-0">
+                                {step.icon}
+                            </div>
+                            <h3 className="text-xl font-bold text-black mb-2">{step.title}</h3>
+                            <p className="text-gray-600 text-sm">{step.description}</p>
+                        </div>
+                    ))}
+                </div>
+            </section>
             {/* Benefits Cards grid */}
             <section>
                 <div className="w-full max-w-[1400px] mx-auto px-6 py-10">

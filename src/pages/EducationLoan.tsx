@@ -13,6 +13,7 @@ import {
     FileSignature,
     Building,
 } from "lucide-react";
+import DelayedPopup from "@/components/DelayedPopup";
 interface BenefitItem {
   id: number;
   image: string;
@@ -238,7 +239,7 @@ const EducationLoan: React.FC = () => {
       }
       animationFrameId = requestAnimationFrame(scroll);
     };
-
+    
     // Start the scrolling animation
     animationFrameId = requestAnimationFrame(scroll);
 
@@ -246,7 +247,15 @@ const EducationLoan: React.FC = () => {
     return () => {
       cancelAnimationFrame(animationFrameId);
     };
+    
   }, [isPaused]);
+  
+      const [activeIndex, setActiveIndex] = useState(0);
+   const [showPopup, setShowPopup] = useState(false);
+        
+          const handlePopupClose = () => {
+            setShowPopup(false);
+          };
     return (
         <div className="w-full">
             {/* Hero Section */}
@@ -284,13 +293,21 @@ const EducationLoan: React.FC = () => {
                                 </li>
                             ))}
                         </ul>
-                        <div className="flex gap-4 flex-wrap">
-                            <Button className="text-white bg-red-600 font-semibold">
+                      <div className="flex gap-4 flex-wrap">
+                             <a
+                                href="/tools/gpa-calculator"
+                                className="px-3 py-2 text-white bg-red-600 font-semibold rounded-lg"
+                            >
                                 Check Eligibility
-                            </Button>
-                            <Button variant="secondary" className="bg-white text-red-600 hover:bg-red-600 hover:text-white font-semibold">
+                            </a>
+                         
+                            <Button
+                                variant="secondary"
+                                className="bg-white text-red-600 hover:bg-red-600 hover:text-white font-semibold"
+                            onClick={() => setShowPopup(true)}>
                                 Apply Now
                             </Button>
+                             {showPopup && <DelayedPopup onMinimize={handlePopupClose} />}
                         </div>
                     </div>
                 </div>
