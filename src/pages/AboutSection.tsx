@@ -1,6 +1,7 @@
+import { AboutUsBlock } from "@/lib/types/LandingPage";
 import React, { useState, useEffect, useRef } from "react";
-
-const AboutSection: React.FC = () => {
+type Prop = { about: AboutUsBlock,  isLoading: boolean  }
+const AboutSection: React.FC<Prop> = ({ about }) => {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
 
@@ -26,12 +27,35 @@ const AboutSection: React.FC = () => {
       label: "Banking & NBFC Ties",
       icon: "/assets/images/diversity.gif",
     },
-     {
+    {
       id: 4,
       value: 500,
       suffix: "+ cr",
       label: "Disbursed Every Year",
       icon: "/assets/images/money-bag.gif",
+    },
+  ];
+  const defaultContent = [
+    {
+      id: "static-1",
+      gif: { url: "/assets/images/Graduation-Hat.gif", name: "Graduation Hat" },
+      title: "Study Abroad Education Loans Made Easy",
+      sub_title:
+        "Are you planning to study abroad but worried about finances? We are South India's most trusted name in education loan guidance, helping students secure study abroad loans with ease, speed, and confidence.",
+    },
+    {
+      id: "static-2",
+      gif: { url: "/assets/images/globe.gif", name: "Globe" },
+      title: "100% Assistance for Education Loans to Study Abroad",
+      sub_title:
+        "We offer end-to-end support for students looking to finance their higher education overseas. From choosing the right loan provider to assisting with documentation, approval, and disbursement — we make the entire education loan process simple and stress-free.",
+    },
+    {
+      id: "static-3",
+      gif: { url: "/assets/images/Briefcase.gif", name: "Briefcase" },
+      title: "Trusted Education Loan Experts for Top Global Destinations",
+      sub_title:
+        "We specialize in securing study abroad loans for students heading to: UK, USA, Ireland, France, and Canada.",
     },
   ];
 
@@ -64,7 +88,9 @@ const AboutSection: React.FC = () => {
     }, [end, start, duration, isVisible]);
     return count;
   };
-
+  const contentData = about?.content && about.content.length > 0
+    ? about.content
+    : defaultContent;
   return (
     <section className="about-section" ref={sectionRef}>
       <div className="w-full max-w-[1400px] mx-auto px-4">
@@ -78,88 +104,40 @@ const AboutSection: React.FC = () => {
               data-aos-delay="0"
               className="text-[#1e73be]"
             >
-              About Vsource Fintech
+              {about?.heading || "About Vsource Fintech"}
             </h2>
 
             {/* Section 1 */}
-            <div
-              className="flex items-start  pt-3"
-              data-aos="fade-right"
-              data-aos-anchor-placement="center-bottom"
-              data-aos-duration="1000"
-              data-aos-delay="200"
-            >
-              <img
-                src="/assets/images/Graduation-Hat.gif"
-                alt="Graduation Hat"
-                className="w-10 h-10 mt-1 flex-shrink-0"
-              />
-              <span className="font-bold text-lg md:leading-10">
-                Study Abroad Education Loans Made Easy
-              </span>
-            </div>
-            <p
-              className="para pb-1"
-              data-aos="fade-right"
-              data-aos-anchor-placement="center-bottom"
-              data-aos-duration="1000"
-              data-aos-delay="200"
-            >
-              Are you planning to study abroad but worried about finances? We are South India's most trusted name in education loan guidance, helping students secure study abroad loans with ease, speed, and confidence.
-            </p>
-            {/* Section 2 */}
-            <div
-              className="flex items-start pt-1"
-              data-aos="fade-right"
-              data-aos-anchor-placement="center-bottom"
-              data-aos-duration="1000"
-              data-aos-delay="200"
-            >
-              <img
-                src="/assets/images/globe.gif"
-                alt="Globe"
-                className="w-8 h-8 mt-1 flex-shrink-0"
-              />
-              <span className="font-bold text-lg  md:leading-10">
-                100% Assistance for Education Loans to Study Abroad
-              </span>
-            </div>
-            <p
-              className="para pb-1"
-              data-aos="fade-right"
-              data-aos-anchor-placement="center-bottom"
-              data-aos-duration="1000"
-              data-aos-delay="200"
-            >
-              We offer end-to-end support for students looking to finance their higher education overseas. From choosing the right loan provider to assisting with documentation, approval, and disbursement — we make the entire education loan process simple and stress-free.
-            </p>
+            {contentData?.map((con, idx) => {
+              return <div key={con?.id || idx}>  <div
+                className="flex items-start  pt-3"
+                data-aos="fade-right"
+                data-aos-anchor-placement="center-bottom"
+                data-aos-duration="1000"
+                data-aos-delay="200"
+              >
+                <img
+                  src={con?.gif?.url || ""}
 
-            {/* Section 3 */}
-            <div
-              className="flex items-start pt-1"
-              data-aos="fade-right"
-              data-aos-anchor-placement="center-bottom"
-              data-aos-duration="1000"
-              data-aos-delay="200"
-            >
-              <img
-                src="/assets/images/Briefcase.gif"
-                alt="Briefcase"
-                className="w-10 h-10 mt-1 flex-shrink-0"
-              />
-              <span className="font-bold text-lg  md:leading-10">
-                Trusted Education Loan Experts for Top Global Destinations
-              </span>
-            </div>
-            <p
-              className="para"
-              data-aos="fade-right"
-              data-aos-anchor-placement="center-bottom"
-              data-aos-duration="1000"
-              data-aos-delay="200"
-            >
-              We specialize in securing study abroad loans for students heading to: UK, USA, Ireland, France, and Canada.
-            </p>
+                  alt="Graduation Hat"
+                  className="w-10 h-10 mt-1 flex-shrink-0"
+                />
+                <span className="font-bold text-lg md:leading-10">
+                  {con?.title || ""}
+                </span>
+              </div>
+                <p
+                  className="para pb-1"
+                  data-aos="fade-right"
+                  data-aos-anchor-placement="center-bottom"
+                  data-aos-duration="1000"
+                  data-aos-delay="200"
+                >
+                  {con?.sub_title || ""} </p></div>
+            })}
+
+
+
 
             {/* Final Paragraph */}
             <p
@@ -209,7 +187,8 @@ const AboutSection: React.FC = () => {
             data-aos-anchor-placement="center-bottom"
           >
             <img
-              src="https://vsourcevarsity.com/assets/images/founder.webp"
+              src={about?.chairman.url || "https://vsourcevarsity.com/assets/images/founder.webp"}
+
               alt="Founder"
               className="founder-img"
             />
@@ -218,31 +197,43 @@ const AboutSection: React.FC = () => {
             </p>
           </div>
         </div>
+        {about?.about_number?.length ? (
+          <div className="bottom-section">
+            {about.about_number.map((stat, i) => {
+              // convert string count → number for animation
+              const count = useCounter(Number(stat.count));
 
-        <div className="bottom-section">
-          {stats.map((stat, i) => {
-            const count = useCounter(stat.value);
-            return (
-              <div
-                key={stat.id}
-                className="stat-box"
-                data-aos="fade-up"
-                data-aos-delay={i * 200}
-                data-aos-duration="1000"
-                data-aos-anchor-placement="center-bottom"
-              >
-                <div className="left-box">
-                  <img src={stat.icon} alt="" className="icon" />
-                  <div className="count text-[#1e73be]">
-                    {count.toLocaleString("en-US")}
-                    {stat.suffix}
+              return (
+                <div
+                  key={stat.id}
+                  className="stat-box"
+                  data-aos="fade-up"
+                  data-aos-delay={i * 200}
+                  data-aos-duration="1000"
+                  data-aos-anchor-placement="center-bottom"
+                >
+                  <div className="left-box">
+                    <img
+                      src={stat.image?.url || ""}
+                      alt={stat.image?.name || "Stat Icon"}
+                      className="icon"
+                    />
+                    <div className="count text-[#1e73be]">
+                      {count.toLocaleString("en-US")}
+                    </div>
                   </div>
+                  <div className="label">{stat.text}</div>
                 </div>
-                <div className="label">{stat.label}</div>
-              </div>
-            );
-          })}
-        </div>
+              );
+            })}
+          </div>
+        ) : (
+          // fallback if no data
+          <div className="bottom-section">
+            <p>No stats available</p>
+          </div>
+        )}
+
       </div>
 
       <style>{`

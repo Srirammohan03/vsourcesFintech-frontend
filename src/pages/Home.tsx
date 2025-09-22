@@ -25,6 +25,15 @@ import ScholarshipsSection from '@/components/home/ScholarshipsSection';
 import TrustSection from '@/components/home/TrustSection';
 import ServicesSection from '@/components/home/ServicesSection';
 import DelayedPopup from '@/components/DelayedPopup';
+import axios from "axios";
+import { useQuery } from '@tanstack/react-query';
+import { AboutUsBlock, BanksBlock, CompanyBlock, ComprehensiveBlock, LandingPage, LoanDisbursementBlock, ServicesBlock } from '@/lib/types/LandingPage';
+import { toast } from 'sonner';
+import HeroSkeleton from '@/Loaders/LandingPages/HeroSkeleton';
+import qs from "qs"
+import { HighlightedText } from '@/utils/HighlightedText';
+import { HighlightedTextWhite } from '@/utils/HighlightestextWhite';
+
 const tools = [
   {
     title: "Loan Calculator",
@@ -112,9 +121,120 @@ const testimonials = [
   }
 ];
 const countryCodes = ["us", "gb", "ca", "au", "de"];
+const query = qs.stringify(
+  {
+    populate: {
+      background_image: { fields: ["url", "name", "documentId"] },
+      mobile_bg_img: { fields: ["url", "name", "documentId"] },
+      blocks: {
+        on: {
+          "fintech.about-us": {
+            populate: {
+              content: {
+                populate: {
+                  gif: { fields: ["url", "name", "documentId"] }
+                }
+              },
+              about_number: {
+                populate: {
+                  image: { fields: ["url", "name", "documentId"] }
+                }
+              },
+              chairman: { fields: ["url", "name", "documentId"] }
+            }
+          },
+          "fintech.loan-disbursement": {
+            populate: {
+              scholarship: {
+                populate: {
+                  image: { fields: ["url", "name", "documentId"] }
+                }
+              }
+            }
+          },
+          "fintech.why-loan": {
+            populate: {
+              image_background: { fields: ["url", "name", "documentId"] }
+            }
+          },
+          "fintech.banks": {
+            populate: {
+              bank: {
+                populate: {
+                  logo: { fields: ["url", "name", "documentId"] }
+                }
+              }
+            }
+          },
+          "blocks.services": {
+            populate: {
+              services_list: {
+                populate: {
+                  image: { fields: ["url", "name", "documentId"] }
+                }
+              }
+            }
+          },
+          "blocks.comprehensive": {
+            populate: {
+              cards: {
+                populate: {
+                  image: { fields: ["url", "name", "documentId"] },
+                  logo: { fields: ["url", "name", "documentId"] }
+                }
+              }
+            }
+          },
+          "blocks.company": {
+            populate: {
+              thumbnail: { fields: ["url", "name", "documentId"] },
+              video: { fields: ["url", "name", "documentId"] }
+            }
+          },
+          "blocks.success-stories": {
+            populate: {
+              background_image: { fields: ["url", "name", "documentId"] },
+              testimonials: {
+                populate: {
+                  image: { fields: ["url", "name", "documentId"] }
+                }
+              }
+            }
+          },
+        }
+      }
+    }
+  }
+)
+const fetchHome = async () => {
+  const { data } = await axios.get(
+    `${import.meta.env.VITE_CMS_GLOBALURL
+    }/api/fintech-landing-page?${query}`
+  );
+  console.log(data)
+  return data.data;
+};
 export default function Home() {
-  const [visibleCount, setVisibleCount] = useState(8); // show first 8 (4x2)
+  const [visibleCount, setVisibleCount] = useState(8);
+  const [showPopup, setShowPopup] = useState(false);
+  const {
+    data: heroData,
+    isLoading,
+    isError,
+    error,
+  } = useQuery<LandingPage>({
+    queryKey: ["bannerAbout"],
+    queryFn: fetchHome,
+  });
+  if (isError) {
+    toast.error("failed to load");
+    console.log("failed to load", error);
+    return null;
+  }
 
+  if (isLoading || !heroData) {
+    return <><HeroSkeleton /></>;
+  }
   const visiblePartners: Partner[] = partners.slice(0, visibleCount);
 
   const handleToggle = () => {
@@ -124,11 +244,29 @@ export default function Home() {
       setVisibleCount((prev) => prev + 8); // load next 8
     }
   };
-  const [showPopup, setShowPopup] = useState(false);
-  
-    const handlePopupClose = () => {
-      setShowPopup(false);
-    };
+
+
+  const handlePopupClose = () => {
+    setShowPopup(false);
+  };
+  const aboutBlock = heroData?.blocks?.find(
+    (block): block is AboutUsBlock => block.__component === "fintech.about-us"
+  );
+  const loan = heroData?.blocks?.find(
+    (block): block is LoanDisbursementBlock => block.__component === "fintech.loan-disbursement"
+  );
+  const trust = heroData?.blocks?.find(
+    (block): block is ServicesBlock => block.__component === "blocks.services"
+  )
+    const compre = heroData?.blocks?.find(
+    (block): block is ComprehensiveBlock => block.__component === "blocks.services"
+  )
+    const bankBlock = heroData?.blocks?.find(
+    (block): block is BanksBlock => block.__component === "fintech.banks"
+  )
+   const video = heroData?.blocks?.find(
+    (block): block is CompanyBlock => block.__component === "blocks.company"
+  )
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
@@ -137,7 +275,7 @@ export default function Home() {
         <div
           className="hidden sm:block absolute inset-0 bg-no-repeat bg-cover bg-center"
           style={{
-            backgroundImage: "url('/assets/images/bg-01.jpg')",
+            backgroundImage: `url(${heroData?.background_image?.url || "/assets/images/bg-01.jpg"})`,
           }}
         >
           <div className="absolute inset-0 bg-black/50" />
@@ -148,23 +286,28 @@ export default function Home() {
           <div
             className="absolute inset-0 bg-no-repeat bg-cover bg-[position:center_35%]"
             style={{
-              backgroundImage: "url('/assets/images/bg-01-mobile.jpg')",
+              backgroundImage: `url(${heroData?.mobile_bg_img?.url || "/assets/images/bg-01-mobile.jpg"})`,
             }}
           >
             <div className="absolute inset-0 bg-black/50" />
           </div>
+
 
           {/* Content */}
           <div className="relative z-10 flex flex-col justify-between min-h-full">
             {/* Top: H1 + Button */}
             <div className="flex">
               <div className="w-[50%] bg-white/10 backdrop-blur-sm rounded-2xl p-2 flex flex-col justify-center space-y-4 mb-5">
-                <h1 className="text-2xl font-bold leading-snug">
+                {heroData?.title ? <HighlightedTextWhite
+                  text={heroData?.title}
+                  mobileSize={"24px"}
+                  color={"red"}
+                /> : <h1 className="text-2xl font-bold leading-snug">
                   Fund Your Dreams of
                   <span className="block text-red-600 text-xl">
                     Studying Abroad
                   </span>
-                </h1>
+                </h1>}
                 <div className="flex items-center space-x-2 mt-6">
                   {countryCodes.map((code) => (
                     <img
@@ -176,7 +319,7 @@ export default function Home() {
                   ))}
                 </div>
                 <p className="text-white text-sm">
-                  Get instant access to education loans.
+                  {heroData?.mobile_sub_title || " Get instant access to education loans."}
                 </p>
 
               </div>
@@ -197,16 +340,21 @@ export default function Home() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-center space-y-6 sm:space-y-8"
+            className="text-center space-y-6 flex flex-col  items-center sm:space-y-8"
           >
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight">
+            {heroData?.title ? <HighlightedTextWhite
+              text={heroData?.title}
+              mobileSize={"42px"}
+              color={"red"}
+            /> : <h1 className="text-2xl font-bold leading-snug">
               Fund Your Dreams of
-              <span className="block text-red-600">Studying Abroad</span>
-            </h1>
+              <span className="block text-red-600 text-xl">
+                Studying Abroad
+              </span>
+            </h1>}
 
             <p className="text-lg sm:text-xl lg:text-2xl text-white/90 max-w-2xl mx-auto">
-              Get instant access to education loans, scholarships, and expert guidance
-              to make your international education dreams a reality.
+              {heroData?.sub_title || "Get instant access to education loans, scholarships, and expert guidance to make your international education dreams a reality."}
             </p>
 
           </motion.div>
@@ -221,12 +369,12 @@ export default function Home() {
           </motion.div>
         </div>
       </section>
-      <AboutSection />
+      {aboutBlock && <AboutSection isLoading={isLoading} about={aboutBlock || null} />}
       <Accreditation />
-      <ScholarshipsSection />
-      <TrustSection />
-      <ServicesSection />
-      <section className="w-full py-16 bg-white">
+      {loan && <ScholarshipsSection isLoading={isLoading} loan={loan} />}
+      {trust && <TrustSection isLoading={isLoading} trust={trust} />}
+      {compre && <ServicesSection isLoading={isLoading} compre={compre}/>}
+      <section className="w-full py-10 bg-white">
         <div className="max-w-[1400px] mx-auto px-4 text-center">
           {/* Heading */}
           <h2 className="text-2xl md:text-3xl font-semibold mb-12">
@@ -312,7 +460,7 @@ export default function Home() {
           {/* CTA Button */}
           <div className="mt-10">
             <button className="px-8 py-3 rounded-full bg-red-600 text-white font-semibold hover:opacity-90 transition"
-            onClick={() => setShowPopup(true)}>
+              onClick={() => setShowPopup(true)}>
               Apply Now
             </button>
           </div>
@@ -320,7 +468,7 @@ export default function Home() {
         </div>
       </section>
       {/* Tools Overview Section */}
-      <section className="py-10 lg:py-16 bg-surface">
+      <section className="py-10  bg-surface">
         <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -383,7 +531,6 @@ export default function Home() {
 
         </div>
       </section>
-
       {/* Why Choose Us Section */}
       <section className="py-10 lg:py-16">
         <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
@@ -393,6 +540,7 @@ export default function Home() {
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6 }}
             >
+        
               <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-6">
                 Why Choose Education Loan ?
               </h2>
@@ -460,9 +608,8 @@ export default function Home() {
         </div>
       </section>
       {/* Loan Partners Section */}
-
-      <Banksloans />
-      <VideoSection />
+     {bankBlock && <Banksloans isLoading={isLoading} bankBlock={bankBlock}/>}
+     {video && <VideoSection isLoading={isLoading} video={video}/>}
       <VideoCarousel />
 
       <TestimonialsSection />
