@@ -1,16 +1,21 @@
 // src/types/LandingPage.ts
 
+// ---------- Media ----------
 export interface Media {
   id: number;
   documentId: string;
   url: string;
   name: string;
+  alternativeText?: string | null;
 }
+
+// ---------- Basic ----------
 export interface Basic {
   id: number;
   title: string;
   description: string;
 }
+
 // ---------- About Us ----------
 export interface AboutUsContent {
   id: number;
@@ -53,12 +58,25 @@ export interface LoanDisbursementBlock {
 }
 
 // ---------- Why Loan ----------
+export interface WhyLoanList {
+  id: number;
+  lists: string;
+}
+
+export interface WhyLoanSuccess {
+  id: number;
+  title: string;
+  description: string;
+}
+
 export interface WhyLoanBlock {
   __component: "fintech.why-loan";
   id: number;
   heading: string;
   sub_title: string;
   image_background: Media | null;
+  list_text: WhyLoanList[];
+  success_number: WhyLoanSuccess[];
 }
 
 // ---------- Banks ----------
@@ -120,7 +138,8 @@ export interface CompanyBlock {
   thumbnail: Media;
   video: Media | null;
 }
-//! Testimonials
+
+// ---------- Testimonials ----------
 export interface Image {
   id: number;
   documentId: string;
@@ -129,17 +148,18 @@ export interface Image {
   name?: string;
 }
 
-export interface Testimonials {
-  basic: Basic;
-  testimonials: Testimonial[];
-}
-
 export interface Testimonial {
   id: number;
   name: string;
   feedback: string;
   image: Image;
 }
+
+export interface Testimonials {
+  basic: Basic;
+  testimonials: Testimonial[];
+}
+
 // ---------- Union of Blocks ----------
 export type Block =
   | AboutUsBlock
@@ -150,6 +170,7 @@ export type Block =
   | ComprehensiveBlock
   | CompanyBlock;
 
+// ---------- Landing Page ----------
 export interface LandingPage {
   id: number;
   documentId: string;

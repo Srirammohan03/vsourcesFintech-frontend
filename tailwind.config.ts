@@ -49,6 +49,10 @@ export default {
 					DEFAULT: 'hsl(var(--accent))',
 					foreground: 'hsl(var(--accent-foreground))'
 				},
+				   darkblue: {
+          DEFAULT: "#0a0b1a", // Dark blue background
+          foreground: "#ffffff",
+        },
 				highlight: {
 					DEFAULT: 'hsl(var(--highlight))',
 					foreground: 'hsl(var(--highlight-foreground))'

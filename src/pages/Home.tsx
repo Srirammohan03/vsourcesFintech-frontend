@@ -27,7 +27,7 @@ import ServicesSection from '@/components/home/ServicesSection';
 import DelayedPopup from '@/components/DelayedPopup';
 import axios from "axios";
 import { useQuery } from '@tanstack/react-query';
-import { AboutUsBlock, BanksBlock, CompanyBlock, ComprehensiveBlock, LandingPage, LoanDisbursementBlock, ServicesBlock } from '@/lib/types/LandingPage';
+import { AboutUsBlock, BanksBlock, CompanyBlock, ComprehensiveBlock, LandingPage, LoanDisbursementBlock, ServicesBlock, WhyLoanBlock } from '@/lib/types/LandingPage';
 import { toast } from 'sonner';
 import HeroSkeleton from '@/Loaders/LandingPages/HeroSkeleton';
 import qs from "qs"
@@ -154,7 +154,8 @@ const query = qs.stringify(
           },
           "fintech.why-loan": {
             populate: {
-              image_background: { fields: ["url", "name", "documentId"] }
+              image_background: { fields: ["url", "name", "documentId"] },
+              success_number: true
             }
           },
           "fintech.banks": {
@@ -267,6 +268,9 @@ export default function Home() {
    const video = heroData?.blocks?.find(
     (block): block is CompanyBlock => block.__component === "blocks.company"
   )
+  const whyLoan = heroData?.blocks?.find(
+  (block): block is WhyLoanBlock => block.__component === "fintech.why-loan"
+);
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
@@ -532,81 +536,79 @@ export default function Home() {
         </div>
       </section>
       {/* Why Choose Us Section */}
-      <section className="py-10 lg:py-16">
-        <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6 }}
-            >
-        
-              <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-6">
-                Why Choose Education Loan ?
-              </h2>
-              <p className="text-lg text-muted-foreground mb-8">
-                We've helped thousands of students achieve their dreams of studying abroad
-                with our comprehensive loan and scholarship services.
-              </p>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {benefits.map((benefit, index) => (
-                  <motion.div
-                    key={benefit}
-                    initial={{ opacity: 0, y: 10 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.4, delay: index * 0.1 }}
-                    className="flex items-center space-x-3"
-                  >
-                    <CheckCircle className="h-5 w-5 text-primary flex-shrink-0" />
-                    <span className="text-foreground">{benefit}</span>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6 }}
-              className="relative rounded-2xl overflow-hidden"
-            >
-              {/* Background Image */}
-              <div
-                className="absolute inset-0 bg-cover bg-center"
-                style={{ backgroundImage: "url('/assets/images/Choose-EduLoan.jpg')" }}
-              />
 
-              {/* Overlay */}
-              <div className="absolute inset-0 bg-black/60" />
+{/* Why Choose Us Section */}
+{whyLoan && (
+  <section className="py-10 lg:py-16">
+    <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        {/* Left Content */}
+        <motion.div
+          initial={{ opacity: 0, x: -20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-6">
+            {whyLoan.heading}
+          </h2>
+          <p className="text-lg text-muted-foreground mb-8">
+            {whyLoan.sub_title}
+          </p>
 
-              {/* Content */}
-              <div className="relative z-10 p-8 text-white">
-                <div className="flex items-center mb-6">
-                  <Users className="h-8 w-8 mr-3 text-red-600" />
-                  <div>
-                    <h3 className="text-2xl font-bold">50,000 <span className='text-red-600'>+</span></h3>
-                    <p className="text-white/90">Students Helped</p>
-                  </div>
-                </div>
-                <div className="flex items-center mb-6">
-                  <Shield className="h-8 w-8 mr-3 text-red-600" />
-                  <div>
-                    <h3 className="text-2xl font-bold">₹1000 Cr <span className='text-red-600'>+</span></h3>
-                    <p className="text-white/90">Loans Disbursed</p>
-                  </div>
-                </div>
-                <div className="flex items-center">
-                  <GraduationCap className="h-8 w-8 mr-3 text-red-600" />
-                  <div>
-                    <h3 className="text-2xl font-bold">50 <span className='text-red-600'>+</span></h3>
-                    <p className="text-white/90">Countries Covered</p>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {whyLoan.list_text?.map((item, index) => (
+              <motion.div
+                key={item.id}
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: index * 0.1 }}
+                className="flex items-center space-x-3"
+              >
+                <CheckCircle className="h-5 w-5 text-primary flex-shrink-0" />
+                <span className="text-foreground">{item.lists}</span>
+              </motion.div>
+            ))}
           </div>
-        </div>
-      </section>
+        </motion.div>
+
+        {/* Right Content */}
+        <motion.div
+          initial={{ opacity: 0, x: 20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6 }}
+          className="relative rounded-2xl overflow-hidden"
+        >
+          {whyLoan.image_background && (
+            <div
+              className="absolute inset-0 bg-cover bg-center"
+              style={{ backgroundImage: `url(${whyLoan.image_background.url})` }}
+            />
+          )}
+          <div className="absolute inset-0 bg-black/60" />
+
+          <div className="relative z-10 p-8 text-white">
+            {whyLoan.success_number?.map((item, i) => (
+              <div key={item.id} className="flex items-center mb-6 last:mb-0">
+                {i === 0 && <Users className="h-8 w-8 mr-3 text-red-600" />}
+                {i === 1 && <Shield className="h-8 w-8 mr-3 text-red-600" />}
+                {i === 2 && <GraduationCap className="h-8 w-8 mr-3 text-red-600" />}
+                <div>
+                  <h3 className="text-2xl font-bold">
+                    {item.title} <span className="text-red-600">+</span>
+                  </h3>
+                  <p className="text-white/90">{item.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+      </div>
+    </div>
+  </section>
+)}
+
+
+
       {/* Loan Partners Section */}
      {bankBlock && <Banksloans isLoading={isLoading} bankBlock={bankBlock}/>}
      {video && <VideoSection isLoading={isLoading} video={video}/>}

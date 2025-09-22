@@ -219,7 +219,7 @@ const AboutSection: React.FC<Prop> = ({ about }) => {
                       className="icon"
                     />
                     <div className="count text-[#1e73be]">
-                      {count.toLocaleString("en-US")}
+                      {count.toLocaleString("en-US")}+
                     </div>
                   </div>
                   <div className="label">{stat.text}</div>
