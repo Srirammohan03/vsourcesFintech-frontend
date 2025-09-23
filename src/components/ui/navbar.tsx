@@ -22,8 +22,10 @@ import {
   Scale,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useQuery } from "@tanstack/react-query";
+import { BankLayoutProps } from "@/components/layout/BankLayout";
+import axios from "axios";
 
-/* -------------------------------- ICON COLORS -------------------------------- */
 const iconColors: Record<string, string> = {
   Banknote: "text-green-600",
   CreditCard: "text-blue-600",
@@ -43,7 +45,6 @@ const iconColors: Record<string, string> = {
   Luggage: "text-fuchsia-600",
 };
 
-/* ---------------------------- DROPDOWN CONTENT ---------------------------- */
 type IconType = React.ComponentType<React.SVGProps<SVGSVGElement>>;
 type SectionItem = { name: string; path: string; icon: IconType };
 type Section = { heading: string; items: SectionItem[] };
@@ -52,7 +53,11 @@ const SERVICES_SECTIONS: Section[] = [
   {
     heading: "BANKING & LOANS",
     items: [
-      { name: "Abroad Education Loan", path: "/services/abroad-education-loan", icon: Banknote },
+      {
+        name: "Abroad Education Loan",
+        path: "/services/abroad-education-loan",
+        icon: Banknote,
+      },
       { name: "Credit Card", path: "/services/credit-card", icon: CreditCard },
       { name: "Block Account", path: "/services/block-account", icon: Scale },
       { name: "Bank Account", path: "/services/bank-account", icon: Building2 },
@@ -62,9 +67,17 @@ const SERVICES_SECTIONS: Section[] = [
     heading: "TRAVEL & INSURANCE",
     items: [
       { name: "Forex Card", path: "/services/forex-card", icon: Coins },
-      { name: "Travel Insurance", path: "/services/travel-insurance", icon: ShieldCheck },
+      {
+        name: "Travel Insurance",
+        path: "/services/travel-insurance",
+        icon: ShieldCheck,
+      },
       { name: "Sim Card", path: "/services/sim-card", icon: Globe },
-      { name: "Health Insurance", path: "/services/health-insurance", icon: ShieldCheck },
+      {
+        name: "Health Insurance",
+        path: "/services/health-insurance",
+        icon: ShieldCheck,
+      },
       { name: "GIC", path: "/services/gic", icon: PiggyBank },
     ],
   },
@@ -74,100 +87,175 @@ const TOOLS_SECTIONS: Section[] = [
   {
     heading: "LOAN TOOLS",
     items: [
-      { name: "Loan Calculator", path: "/tools/loan-calculator", icon: Calculator },
-      { name: "Interest Calculator", path: "/tools/interest-calculator", icon: Calculator },
-      { name: "Loan Repayment Calculator", path: "/tools/loan-repayment-calculator", icon: PiggyBank },
-      { name: "Education Loan EMI Calculator", path: "/tools/education-loan-emi-calculator", icon: Calculator },
-      { name: "Bank Comparison Tool", path: "/tools/bank-comparison-tool", icon: Building2 },
+      {
+        name: "Loan Calculator",
+        path: "/tools/loan-calculator",
+        icon: Calculator,
+      },
+      {
+        name: "Interest Calculator",
+        path: "/tools/interest-calculator",
+        icon: Calculator,
+      },
+      {
+        name: "Loan Repayment Calculator",
+        path: "/tools/loan-repayment-calculator",
+        icon: PiggyBank,
+      },
+      {
+        name: "Education Loan EMI Calculator",
+        path: "/tools/education-loan-emi-calculator",
+        icon: Calculator,
+      },
+      {
+        name: "Bank Comparison Tool",
+        path: "/tools/bank-comparison-tool",
+        icon: Building2,
+      },
     ],
   },
   {
     heading: "FINANCIAL PLANNING TOOLS",
     items: [
-      { name: "Cost of Studying Abroad", path: "/tools/cost-of-studying-abroad", icon: Coins },
-      { name: "Living Calculator", path: "/tools/living-calculator", icon: PiggyBank },
-      { name: "ROI Calculator", path: "/tools/roi-calculator", icon: BarChart3 },
-      { name: "Estimate Future Earnings", path: "/tools/estimate-future-earnings", icon: TrendingUp },
+      {
+        name: "Cost of Studying Abroad",
+        path: "/tools/cost-of-studying-abroad",
+        icon: Coins,
+      },
+      {
+        name: "Living Calculator",
+        path: "/tools/living-calculator",
+        icon: PiggyBank,
+      },
+      {
+        name: "ROI Calculator",
+        path: "/tools/roi-calculator",
+        icon: BarChart3,
+      },
+      {
+        name: "Estimate Future Earnings",
+        path: "/tools/estimate-future-earnings",
+        icon: TrendingUp,
+      },
     ],
   },
   {
     heading: "UTILITIES TOOLS",
     items: [
-      { name: "Time Zone Converter", path: "/tools/time-zone-converter", icon: Globe },
+      {
+        name: "Time Zone Converter",
+        path: "/tools/time-zone-converter",
+        icon: Globe,
+      },
       { name: "Weather Abroad", path: "/tools/weather-abroad", icon: CloudSun },
-      { name: "Currency Converter", path: "/tools/currency-converter", icon: Coins },
+      {
+        name: "Currency Converter",
+        path: "/tools/currency-converter",
+        icon: Coins,
+      },
     ],
   },
   {
     heading: "ACADEMIC TOOLS",
     items: [
-      { name: "GPA Calculator", path: "/tools/gpa-calculator", icon: GraduationCap },
+      {
+        name: "GPA Calculator",
+        path: "/tools/gpa-calculator",
+        icon: GraduationCap,
+      },
       { name: "SOP Generator", path: "/tools/sop-generator", icon: FileText },
     ],
   },
   {
     heading: "TRAVEL & INSURANCE TOOLS",
     items: [
-      { name: "Student Packing List", path: "/tools/packing-list", icon: Luggage },
-      { name: "Health Insurance Compare", path: "/tools/health-insurance-compare", icon: ShieldCheck },
+      {
+        name: "Student Packing List",
+        path: "/tools/packing-list",
+        icon: Luggage,
+      },
+      {
+        name: "Health Insurance Compare",
+        path: "/tools/health-insurance-compare",
+        icon: ShieldCheck,
+      },
     ],
   },
 ];
 
-const PARTNERS_SECTIONS: Section[] = [
-  {
-    heading: "OUR LENDING PARTNERS",
-    items: [
-      { name: "Credila", path: "/our-partners/credila", icon: Banknote },
-      { name: "NBFC", path:"/our-partners/nbfc", icon: Banknote},
-      { name: "Auxilo", path: "/our-partners/auxilo", icon: Banknote },
-      { name: "Avanse", path: "/our-partners/avanse", icon: Banknote },
-      { name: "Incred Finance", path: "/our-partners/incred-finance", icon: Banknote },
-      { name: "MPOWER Financing", path: "/our-partners/mpower-financing", icon: Banknote },
-      { name: "Prodigy Finance", path: "/our-partners/prodigy-finance", icon: Banknote },
-      { name: "IDFC FIRST Bank", path: "/our-partners/idfc-first-bank", icon: Banknote },
-      { name: "Axis Bank", path: "/our-partners/axis-bank", icon: Banknote },
-    ],
-  },
-  {
-    heading: "IMPORTANT LOAN TOOLS",
-    items: [
-      { name: "Compare Loan Offers", path: "/our-partners/compare-loan-offers", icon: Scale },
-      { name: "Bank Comparison Tool", path: "/our-partners/bank-comparison-tool", icon: Building2 },
-    ],
-  },
-];
-
-/* ---------------------- NAV STRUCTURE (ORDER YOU ASKED) ---------------------- */
 type NavNode =
   | { type: "link"; name: string; path: string }
   | { type: "external"; name: string; href: string }
   | { type: "dropdown"; name: string; sections: Section[] };
 
-const NAV_STRUCTURE: NavNode[] = [
+const NAV_STRUCTURE = (banks: BankLayoutProps[]): NavNode[] => [
   { type: "link", name: "Home", path: "/" },
   { type: "link", name: "About", path: "/about-us" },
   { type: "dropdown", name: "Our Services", sections: SERVICES_SECTIONS },
   { type: "dropdown", name: "Tools", sections: TOOLS_SECTIONS },
-  { type: "dropdown", name: "Our Partners", sections: PARTNERS_SECTIONS },
-  // { type: "link", name: "Country", path: "/country" },
-  { type: "external", name: "360", href: "https://vsourceoverseas.com/360View/" },
+  {
+    type: "dropdown",
+    name: "Our Partners",
+    sections: [
+      {
+        heading: "OUR LENDING PARTNERS",
+        items: banks.map((bank) => ({
+          name: bank.title,
+          path: `/our-partners/${bank?.slug}`,
+          icon: Banknote,
+        })),
+      },
+      {
+        heading: "IMPORTANT LOAN TOOLS",
+        items: [
+          {
+            name: "Compare Loan Offers",
+            path: "/our-partners/compare-loan-offers",
+            icon: Scale,
+          },
+          {
+            name: "Bank Comparison Tool",
+            path: "/our-partners/bank-comparison-tool",
+            icon: Building2,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    type: "external",
+    name: "360",
+    href: "https://vsourceoverseas.com/360View/",
+  },
   { type: "link", name: "Gallery", path: "/gallery" },
   { type: "link", name: "Branches", path: "/contact" },
 ];
 
-/* --------------------------------- NAVBAR --------------------------------- */
+export const fetchBanks = async (): Promise<BankLayoutProps[]> => {
+  const { data } = await axios.get(
+    `${
+      import.meta.env.VITE_CMS_GLOBALURL
+    }/api/our-patners?populate[background_image][fields][0]=url&populate[bankImage][fields][0]=url&populate[trustedBy]=true&populate[documents]=true&populate[eligibility]=true`
+  );
+  return data.data;
+};
+
 export function Navbar() {
   const location = useLocation();
-
   const [isOpen, setIsOpen] = useState(false);
-  const [openDropdown, setOpenDropdown] = useState<string | null>(null); // desktop
-  const [openMobileDropdown, setOpenMobileDropdown] = useState<string | null>(null); // mobile accordion
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [openMobileDropdown, setOpenMobileDropdown] = useState<string | null>(
+    null
+  );
   const [isScrolled, setIsScrolled] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
   const ddRef = useRef<HTMLDivElement | null>(null);
 
-  // Scroll effects
+  const { data: banks = [], isLoading } = useQuery<BankLayoutProps[]>({
+    queryKey: ["bank"],
+    queryFn: fetchBanks,
+  });
+
   useEffect(() => {
     const onScroll = () => {
       setIsScrolled(window.scrollY > 10);
@@ -180,14 +268,12 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Close menus on route change
   useEffect(() => {
     setIsOpen(false);
     setOpenDropdown(null);
     setOpenMobileDropdown(null);
   }, [location.pathname]);
 
-  // Click-away for desktop dropdowns
   useEffect(() => {
     const onDocClick = (e: MouseEvent) => {
       if (ddRef.current && !ddRef.current.contains(e.target as Node)) {
@@ -198,7 +284,6 @@ export function Navbar() {
     return () => document.removeEventListener("mousedown", onDocClick);
   }, []);
 
-  // Lock body scroll when mobile menu open (fixes iOS background scroll)
   useEffect(() => {
     const body = document.body;
     if (isOpen) {
@@ -210,7 +295,6 @@ export function Navbar() {
     }
   }, [isOpen]);
 
-  // Close on Escape
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") setIsOpen(false);
@@ -219,7 +303,6 @@ export function Navbar() {
     return () => window.removeEventListener("keydown", onKey);
   }, []);
 
-  // Helpers
   const isPathActive = (path: string) => {
     if (path === "/") return location.pathname === "/";
     return location.pathname === path || location.pathname.startsWith(path);
@@ -245,29 +328,29 @@ export function Navbar() {
         isScrolled ? "bg-white shadow-md" : "bg-transparent"
       )}
     >
-      {/* container */}
       <div className="w-full max-w-[1400px] mx-auto px-4 flex justify-between items-center h-20">
-        {/* Logo */}
         <Link to="/" className="flex items-center gap-2 relative z-20">
           <img
             alt="Vsource Logo"
             className="h-16 md:h-20 w-auto object-contain rounded-xl"
             src="/assets/images/fintech-logo.png"
           />
-            <img
+          <img
             alt="Vsource Logo"
             className="h-16 md:h-20 w-auto object-contain rounded-xl"
             src="/assets/images/20 years logo-01.png"
           />
-
         </Link>
 
-        {/* Desktop nav */}
         <nav className="hidden md:flex items-center space-x-4 lg:space-x-6">
-          {NAV_STRUCTURE.map((node) => {
+          {NAV_STRUCTURE(banks).map((node) => {
             if (node.type === "link") {
               return (
-                <Link key={node.name} to={node.path} className={getLinkClass(isPathActive(node.path))}>
+                <Link
+                  key={node.name}
+                  to={node.path}
+                  className={getLinkClass(isPathActive(node.path))}
+                >
                   {node.name}
                 </Link>
               );
@@ -285,7 +368,6 @@ export function Navbar() {
                 </a>
               );
             }
-            // Dropdown
             const active = isDropdownActive(node.sections);
             return (
               <div
@@ -296,48 +378,62 @@ export function Navbar() {
                 onMouseLeave={() => setOpenDropdown(null)}
               >
                 <button
-                  className={cn("flex items-center space-x-1", getLinkClass(active))}
-                  onClick={() => setOpenDropdown((v) => (v === node.name ? null : node.name))}
+                  className={cn(
+                    "flex items-center space-x-1",
+                    getLinkClass(active)
+                  )}
+                  onClick={() =>
+                    setOpenDropdown((v) => (v === node.name ? null : node.name))
+                  }
                   type="button"
                 >
                   <span>{node.name}</span>
                   <ChevronDown className="h-4 w-4" />
                 </button>
-
                 <div
                   className={cn(
                     "absolute left-1/2 -translate-x-1/2 top-full mt-3 w-[720px] max-w-[90vw] grid grid-cols-2 gap-6 p-6 rounded-2xl border border-gray-100 bg-white shadow-lg transition-all duration-200 z-50",
-                    openDropdown === node.name ? "opacity-100 visible" : "opacity-0 invisible"
+                    openDropdown === node.name
+                      ? "opacity-100 visible"
+                      : "opacity-0 invisible"
                   )}
                 >
-                  {node.sections.map((section) => (
-                    <div key={section.heading}>
-                      <h4 className="mb-2 text-xs font-semibold uppercase text-gray-500">
-                        {section.heading}
-                      </h4>
-                      <div className="space-y-2">
-                        {section.items.map((d) => {
-                          const Icon = d.icon;
-                          const iconColor = iconColors[Icon.displayName || Icon.name] || "text-gray-500";
-                          return (
-                            <Link
-                              key={d.name}
-                              to={d.path}
-                              className={cn(
-                                "flex items-center gap-2 rounded-md px-2 py-1.5 text-sm",
-                                isPathActive(d.path)
-                                  ? "text-red-600"
-                                  : "text-black hover:bg-gray-100 hover:text-red-600"
-                              )}
-                            >
-                              <Icon className={cn("h-4 w-4", iconColor)} />
-                              {d.name}
-                            </Link>
-                          );
-                        })}
-                      </div>
+                  {isLoading ? (
+                    <div className="col-span-2 text-center text-gray-500">
+                      Loading partners...
                     </div>
-                  ))}
+                  ) : (
+                    node.sections.map((section) => (
+                      <div key={section.heading}>
+                        <h4 className="mb-2 text-xs font-semibold uppercase text-gray-500">
+                          {section.heading}
+                        </h4>
+                        <div className="space-y-2">
+                          {section.items.map((d) => {
+                            const Icon = d.icon;
+                            const iconColor =
+                              iconColors[Icon.displayName || Icon.name] ||
+                              "text-gray-500";
+                            return (
+                              <Link
+                                key={d.name}
+                                to={d.path}
+                                className={cn(
+                                  "flex items-center gap-2 rounded-md px-2 py-1.5 text-sm",
+                                  isPathActive(d.path)
+                                    ? "text-red-600"
+                                    : "text-black hover:bg-gray-100 hover:text-red-600"
+                                )}
+                              >
+                                <Icon className={cn("h-4 w-4", iconColor)} />
+                                {d.name}
+                              </Link>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    ))
+                  )}
                 </div>
               </div>
             );
@@ -345,11 +441,13 @@ export function Navbar() {
         </nav>
         {scrollProgress > 0 && (
           <div className="absolute bottom-0 left-0 w-full h-[3px] bg-gray-200 z-30">
-            <div className="h-[3px] bg-red-600 transition-all duration-75" style={{ width:` ${scrollProgress}%` }} />
+            <div
+              className="h-[3px] bg-red-600 transition-all duration-75"
+              style={{ width: `${scrollProgress}%` }}
+            />
           </div>
         )}
 
-        {/* Mobile toggle */}
         <button
           className={cn(isScrolled ? "text-black" : "text-white", "md:hidden")}
           onClick={() => setIsOpen((v) => !v)}
@@ -367,7 +465,11 @@ export function Navbar() {
         >
           <div className="w-full border-b">
             <div className="w-full max-w-[1400px] mx-auto px-4 h-20 flex items-center justify-between">
-              <Link to="/" onClick={() => setIsOpen(false)} className="flex items-center gap-3">
+              <Link
+                to="/"
+                onClick={() => setIsOpen(false)}
+                className="flex items-center gap-3"
+              >
                 <img
                   src="/assets/images/fintech-logo.png"
                   alt="Vsource"
@@ -389,10 +491,9 @@ export function Navbar() {
             </div>
           </div>
 
-          {/* scrollable nav body */}
           <div className="flex-1 overflow-y-auto overscroll-contain">
             <div className="w-full max-w-[1400px] mx-auto px-4 py-4 space-y-3">
-              {NAV_STRUCTURE.map((node) => {
+              {NAV_STRUCTURE(banks).map((node) => {
                 if (node.type === "link") {
                   return (
                     <Link
@@ -400,7 +501,9 @@ export function Navbar() {
                       to={node.path}
                       className={cn(
                         "block py-2 text-lg font-medium",
-                        isPathActive(node.path) ? "text-red-600" : "text-gray-800 hover:text-red-600"
+                        isPathActive(node.path)
+                          ? "text-red-600"
+                          : "text-gray-800 hover:text-red-600"
                       )}
                       onClick={() => setIsOpen(false)}
                     >
@@ -422,19 +525,27 @@ export function Navbar() {
                     </a>
                   );
                 }
-                // Accordion for dropdowns
                 const open = openMobileDropdown === node.name;
                 return (
-                  <div key={node.name} className="rounded-2xl border border-gray-200">
+                  <div
+                    key={node.name}
+                    className="rounded-2xl border border-gray-200"
+                  >
                     <button
                       type="button"
                       className="w-full flex items-center justify-between px-4 py-3 font-semibold text-gray-900"
-                      onClick={() => setOpenMobileDropdown(open ? null : node.name)}
+                      onClick={() =>
+                        setOpenMobileDropdown(open ? null : node.name)
+                      }
                     >
                       {node.name}
-                      <ChevronDown className={cn("h-4 w-4 transition-transform", open && "rotate-180")} />
+                      <ChevronDown
+                        className={cn(
+                          "h-4 w-4 transition-transform",
+                          open && "rotate-180"
+                        )}
+                      />
                     </button>
-
                     <div
                       className={cn(
                         "grid transition-[grid-template-rows] duration-300 ease-in-out",
@@ -443,43 +554,55 @@ export function Navbar() {
                     >
                       <div className="overflow-hidden">
                         <div className="px-4 pb-4 space-y-4">
-                          {node.sections.map((section) => (
-                            <div key={section.heading}>
-                              <h4 className="mt-2 mb-1 text-xs font-semibold uppercase text-gray-500">
-                                {section.heading}
-                              </h4>
-                              <div className="space-y-1">
-                                {section.items.map((d) => {
-                                  const Icon = d.icon;
-                                  const iconColor = iconColors[Icon.displayName || Icon.name] || "text-gray-500";
-                                  return (
-                                    <Link
-                                      key={d.name}
-                                      to={d.path}
-                                      className={cn(
-                                        "flex items-center gap-2 py-2 text-sm",
-                                        isPathActive(d.path) ? "text-red-600" : "text-gray-800 hover:text-red-600"
-                                      )}
-                                      onClick={() => {
-                                        setIsOpen(false);
-                                        setOpenMobileDropdown(null);
-                                      }}
-                                    >
-                                      <Icon className={cn("h-4 w-4", iconColor)} />
-                                      {d.name}
-                                    </Link>
-                                  );
-                                })}
-                              </div>
+                          {isLoading ? (
+                            <div className="text-center text-gray-500">
+                              Loading partners...
                             </div>
-                          ))}
+                          ) : (
+                            node.sections.map((section) => (
+                              <div key={section.heading}>
+                                <h4 className="mt-2 mb-1 text-xs font-semibold uppercase text-gray-500">
+                                  {section.heading}
+                                </h4>
+                                <div className="space-y-1">
+                                  {section.items.map((d) => {
+                                    const Icon = d.icon;
+                                    const iconColor =
+                                      iconColors[
+                                        Icon.displayName || Icon.name
+                                      ] || "text-gray-500";
+                                    return (
+                                      <Link
+                                        key={d.name}
+                                        to={d.path}
+                                        className={cn(
+                                          "flex items-center gap-2 py-2 text-sm",
+                                          isPathActive(d.path)
+                                            ? "text-red-600"
+                                            : "text-gray-800 hover:text-red-600"
+                                        )}
+                                        onClick={() => {
+                                          setIsOpen(false);
+                                          setOpenMobileDropdown(null);
+                                        }}
+                                      >
+                                        <Icon
+                                          className={cn("h-4 w-4", iconColor)}
+                                        />
+                                        {d.name}
+                                      </Link>
+                                    );
+                                  })}
+                                </div>
+                              </div>
+                            ))
+                          )}
                         </div>
                       </div>
                     </div>
                   </div>
                 );
               })}
-              {/* bottom safe space so last item isn't under the home bar on iOS */}
               <div className="h-10" />
             </div>
           </div>

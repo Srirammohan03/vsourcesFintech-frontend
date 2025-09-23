@@ -64,11 +64,12 @@ import GIC from "./pages/ourServices/GIC";
 import ScrollToTopButton from "./components/ScrollToTopButton";
 import DelayedPopup from "./components/DelayedPopup";
 import NbfcPage from "./pages/ourpartner/NbfcPage";
+import BankPage from "./pages/ourpartner/BankPage";
 const queryClient = new QueryClient();
 
 const AppContent = () => {
   const [showForm, setShowForm] = useState(false);
-  const location = useLocation(); // 
+  const location = useLocation(); //
   const [showFormIcon, setShowFormIcon] = useState(false);
   const isGoVirtualPage = location.pathname === "/meeting";
 
@@ -76,9 +77,7 @@ const AppContent = () => {
     const handleScroll = () => {
       const scrollTop = window.scrollY + window.innerHeight;
       const docHeight = document.documentElement.scrollHeight;
-      if (
-        scrollTop / docHeight >= 0.2
-      ) {
+      if (scrollTop / docHeight >= 0.2) {
         setShowForm(true);
         window.removeEventListener("scroll", handleScroll);
       }
@@ -126,52 +125,120 @@ const AppContent = () => {
               path="/services/abroad-education-loan"
               element={<AbroadEducation />}
             />
-            <Route path="/services/credit-card" element={<CreditCardComponent />} />
-            <Route path="/services/block-account" element={<BlockedAccount />} />
+            <Route
+              path="/services/credit-card"
+              element={<CreditCardComponent />}
+            />
+            <Route
+              path="/services/block-account"
+              element={<BlockedAccount />}
+            />
             <Route path="/services/bank-account" element={<BankAccount />} />
-            <Route path="/services/health-insurance" element={<HealthInasurance/>}/>
-            <Route path="/services/forex-card" element={<ForexCard/>}/>
-            <Route path="/services/travel-insurance" element={<TravelInsurance/>}/>
-            <Route path="/services/sim-card" element={<SimCard/>}/>
-            <Route path="/services/gic" element={<GIC/>}/>
+            <Route
+              path="/services/health-insurance"
+              element={<HealthInasurance />}
+            />
+            <Route path="/services/forex-card" element={<ForexCard />} />
+            <Route
+              path="/services/travel-insurance"
+              element={<TravelInsurance />}
+            />
+            <Route path="/services/sim-card" element={<SimCard />} />
+            <Route path="/services/gic" element={<GIC />} />
 
             <Route path="/tools" element={<Tools />} />
             <Route path="/tools/loan-calculator" element={<LoanCalculator />} />
-            <Route path="/tools/expense-calculator" element={<ExpenseCalculator />} />
-            <Route path="/tools/currency-converter" element={<CurrencyConverter />} />
-            <Route path="/tools/savings-calculator" element={<SavingsCalculator />} />
-            <Route path="/tools/interest-calculator" element={<InterestCalculator />} />
-            <Route path="/tools/loan-repayment-calculator" element={<LoanRepaymentCalculator />} />
-            <Route path="/tools/education-loan-emi-calculator" element={<EducationLoanEmiCalculator />} />
-            <Route path= "/tools/bank-comparison-tool" element={<BankComparisonTool/>}/>
-            <Route path="/tools/time-zone-converter" element={<TimeZoneConverter />} />
+            <Route
+              path="/tools/expense-calculator"
+              element={<ExpenseCalculator />}
+            />
+            <Route
+              path="/tools/currency-converter"
+              element={<CurrencyConverter />}
+            />
+            <Route
+              path="/tools/savings-calculator"
+              element={<SavingsCalculator />}
+            />
+            <Route
+              path="/tools/interest-calculator"
+              element={<InterestCalculator />}
+            />
+            <Route
+              path="/tools/loan-repayment-calculator"
+              element={<LoanRepaymentCalculator />}
+            />
+            <Route
+              path="/tools/education-loan-emi-calculator"
+              element={<EducationLoanEmiCalculator />}
+            />
+            <Route
+              path="/tools/bank-comparison-tool"
+              element={<BankComparisonTool />}
+            />
+            <Route
+              path="/tools/time-zone-converter"
+              element={<TimeZoneConverter />}
+            />
             <Route path="/tools/weather-abroad" element={<WeatherAbroad />} />
-            <Route path="/tools/gpa-calculator" element={<GpaCalculatorPage />} />
+            <Route
+              path="/tools/gpa-calculator"
+              element={<GpaCalculatorPage />}
+            />
             <Route path="/tools/packing-list" element={<PackingList />} />
             <Route path="/tools/sop-generator" element={<SOPGenerator />} />
-            <Route path="/tools/cost-of-studying-abroad" element={<CostOfStudyAbroadPage />} />
-            <Route path="/tools/health-insurance-compare" element={<HealthInsuranceComparePage />} />
-            <Route path="/tools/living-calculator" element={<CompareCostOfLivingPage />} />
+            <Route
+              path="/tools/cost-of-studying-abroad"
+              element={<CostOfStudyAbroadPage />}
+            />
+            <Route
+              path="/tools/health-insurance-compare"
+              element={<HealthInsuranceComparePage />}
+            />
+            <Route
+              path="/tools/living-calculator"
+              element={<CompareCostOfLivingPage />}
+            />
             <Route path="/tools/roi-calculator" element={<ROICalculator />} />
-            <Route path="/tools/estimate-future-earnings" element={<EstimateFutureEarnings />} />
-
+            <Route
+              path="/tools/estimate-future-earnings"
+              element={<EstimateFutureEarnings />}
+            />
 
             {/* <Route path="/our-partners" element={<Resources />} /> */}
-            <Route path="/our-partners/credila" element={<CredilaPage />} />
-            <Route path="/our-partners/nbfc" element={<NbfcPage/>}/>
+            <Route path="/our-partners/:slug" element={<BankPage />} />
+            {/* <Route path="/our-partners/credila" element={<CredilaPage />} />
+            <Route path="/our-partners/nbfc" element={<NbfcPage />} />
             <Route path="/our-partners/auxilo" element={<Auxilopage />} />
             <Route path="/our-partners/avanse" element={<AvansePage />} />
-            <Route path="/our-partners/incred-finance" element={<IncredFinancingPage />} />
-            <Route path="/our-partners/mpower-financing" element={<MpowerFinancePage />} />
-            <Route path="/our-partners/prodigy-finance" element={<ProdigyFinancePage />} />
-            <Route path="/our-partners/idfc-first-bank" element={<IDFCpage />} />
-            <Route path="/our-partners/axis-bank" element={<AxisPage />} />
-            <Route path="/our-partners/compare-loan-offers" element={<CompareLoanOffers />} />
-            <Route path="/our-partners/bank-comparison-tool" element={<BankComparisonTool />} />
+            <Route
+              path="/our-partners/incred-finance"
+              element={<IncredFinancingPage />}
+            />
+            <Route
+              path="/our-partners/mpower-financing"
+              element={<MpowerFinancePage />}
+            />
+            <Route
+              path="/our-partners/prodigy-finance"
+              element={<ProdigyFinancePage />}
+            />
+            <Route
+              path="/our-partners/idfc-first-bank"
+              element={<IDFCpage />}
+            />
+            <Route path="/our-partners/axis-bank" element={<AxisPage />} /> */}
+            <Route
+              path="/our-partners/compare-loan-offers"
+              element={<CompareLoanOffers />}
+            />
+            <Route
+              path="/our-partners/bank-comparison-tool"
+              element={<BankComparisonTool />}
+            />
 
             {/* <Route path="/country" element={<Country />} /> */}
             <Route path="/contact" element={<Contact />} />
-
 
             {/* <Route path="/partners/:slug" element={<PartnerDetails />} /> */}
             <Route path="/education-loan" element={<EducationLoan />} />
@@ -185,23 +252,23 @@ const AppContent = () => {
 
         {!isGoVirtualPage && <ContactBar />}
         {!isGoVirtualPage && <Footer />}
-     
-      <ScrollToTopButton
-        showFormIcon={showFormIcon}
-        onFormIconClick={() => {
-          setShowForm(true);
-          setShowFormIcon(false);
-        }}
-      />
 
-      {showForm && (
-        <DelayedPopup
-          onMinimize={() => {
-            setShowForm(false);
-            setShowFormIcon(true);
+        <ScrollToTopButton
+          showFormIcon={showFormIcon}
+          onFormIconClick={() => {
+            setShowForm(true);
+            setShowFormIcon(false);
           }}
         />
-      )}
+
+        {showForm && (
+          <DelayedPopup
+            onMinimize={() => {
+              setShowForm(false);
+              setShowFormIcon(true);
+            }}
+          />
+        )}
       </div>
     </Layout>
   );

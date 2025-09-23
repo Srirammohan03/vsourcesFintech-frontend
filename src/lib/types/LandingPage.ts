@@ -185,3 +185,53 @@ export interface LandingPage {
   updatedAt: string;
   publishedAt: string;
 }
+
+//! About Us
+
+export interface Description {
+  id: number;
+  description: string;
+}
+
+export interface AboutUsCounts {
+  id: number;
+  count: string;
+  image: Image;
+  text: string;
+}
+
+export interface AboutUsBanner {
+  id: number;
+  title: string;
+  description: string;
+  banner: Image;
+}
+
+export interface InnerAboutUs {
+  id: number;
+  title: string;
+  description: string;
+  subheadings: Description[];
+  about_cards: AboutUsCounts[];
+  chairman: Image;
+}
+
+export interface AboutSectionProps {
+  aboutData: InnerAboutUs;
+  isLoading: boolean;
+  isError: boolean;
+  error: any;
+}
+
+export interface Members {
+  basic: Basic;
+  members: Member[];
+}
+
+export interface Member {
+  id: number;
+  name: string;
+  position: string;
+  bio: string;
+  image: Image;
+}

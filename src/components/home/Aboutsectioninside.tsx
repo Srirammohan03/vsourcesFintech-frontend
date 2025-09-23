@@ -1,32 +1,17 @@
+import { AboutSectionSkeleton } from "@/Loaders/LandingPages/AboutSectionSkeleton";
+import { AboutSectionProps } from "@/lib/types/LandingPage";
+import { BoldText } from "@/utils/BoldText";
 import React, { useState, useEffect, useRef } from "react";
+import { toast } from "sonner";
 
-const AboutSection: React.FC = () => {
+const AboutSection: React.FC<AboutSectionProps> = ({
+  aboutData,
+  isLoading,
+  isError,
+  error,
+}) => {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
-
-  const stats = [
-    {
-      id: 1,
-      value: 100000,
-      suffix: "+",
-      label: "Students Empowered",
-      icon: "https://cdn-icons-gif.flaticon.com/6454/6454106.gif",
-    },
-    {
-      id: 2,
-      value: 20,
-      suffix: "+",
-      label: "Years of Experience",
-      icon: "https://cdn-icons-gif.flaticon.com/15370/15370761.gif",
-    },
-    {
-      id: 3,
-      value: 10,
-      suffix: "+",
-      label: "Study Destinations",
-      icon: "https://cdn-icons-gif.flaticon.com/15747/15747340.gif",
-    },
-  ];
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -48,27 +33,14 @@ const AboutSection: React.FC = () => {
     };
   }, []);
 
-  const useCounter = (end: number, start = 0, duration = 2000) => {
-    const [count, setCount] = useState(start);
+  if (isError) {
+    toast.error("failed to load");
+    console.log("failed to load", error);
+  }
 
-    useEffect(() => {
-      if (!isVisible) return;
-
-      let startTime: number | null = null;
-      const step = (timestamp: number) => {
-        if (!startTime) startTime = timestamp;
-        const progress = Math.min((timestamp - startTime) / duration, 1);
-        setCount(Math.floor(progress * (end - start) + start));
-        if (progress < 1) {
-          window.requestAnimationFrame(step);
-        }
-      };
-
-      window.requestAnimationFrame(step);
-    }, [end, start, duration, isVisible]);
-
-    return count;
-  };
+  if (isLoading || !aboutData) {
+    return <AboutSectionSkeleton />;
+  }
 
   return (
     <section className="about-section" ref={sectionRef}>
@@ -85,73 +57,28 @@ const AboutSection: React.FC = () => {
               data-aos-duration="1000"
               data-aos-delay="200"
               data-aos-anchor-placement="center-bottom"
-              className="text-3xl md:text-4xl font-bold mb-4"
             >
-              About Vsource Fintech
+              {aboutData?.title || "About Vsource Fintech"}
             </h1>
 
             <p
-              className="subheading text-lg md:text-xl font-semibold text-red-600 mb-4"
+              className="subheading"
               data-aos="fade-right"
               data-aos-duration="1000"
               data-aos-delay="400"
               data-aos-anchor-placement="center-bottom"
             >
-              <span className="font-semibold">Empowering Dreams with Tailored Student Loans</span>
+              <strong>
+                {aboutData?.description ||
+                  "Empowering Dreams with Tailored Student Loans"}
+              </strong>
             </p>
 
-            <p
-              className="paragraph text-gray-700 mb-4 leading-relaxed"
-              data-aos="fade-right"
-              data-aos-anchor-placement="center-bottom"
-              data-aos-duration="1000"
-              data-aos-delay="600"
-            >
-              At <span className="font-semibold">VSource Fintech</span>, we believe that financial
-              barriers should never stand in the way of education. With over{" "}
-              <span className="font-semibold">20 years of expertise</span> in financial services,
-              we specialize in <span className="font-semibold">student loans</span> that make higher
-              education accessible and affordable for ambitious learners in India and abroad.
-            </p>
-
-            <p
-              className="paragraph text-gray-700 mb-4 leading-relaxed"
-              data-aos="fade-right"
-              data-aos-anchor-placement="center-bottom"
-              data-aos-duration="1000"
-              data-aos-delay="800"
-            >
-              Partnering with <span className="font-semibold">leading banks and NBFCs</span>, we offer
-              loans that cover <span className="font-semibold">tuition fees, living expenses, travel,
-                and insurance</span>, ensuring you can focus entirely on your studies. Our solutions
-              are designed with <span className="font-semibold">flexible repayment options,
-                competitive interest rates,</span> and <span className="font-semibold">transparent
-                  guidance</span> to ease your financial journey.
-            </p>
-
-            <p
-              className="paragraph text-gray-700 leading-relaxed"
-              data-aos="fade-right"
-              data-aos-anchor-placement="center-bottom"
-              data-aos-duration="1000"
-              data-aos-delay="1000"
-            >
-              Thousands of students have trusted us to turn their{" "}
-              <span className="font-semibold">study abroad dreams into reality</span>. At
-              VSource Fintech, we don’t just provide loans — we provide a{" "}
-              <span className="font-semibold">foundation for your global success story</span>.
-            </p>
-
-
-            <p
-              className="paragraph font-semibold text-2xl"
-              data-aos="fade-right"
-              data-aos-anchor-placement="center-bottom"
-              data-aos-duration="1000"
-              data-aos-delay="1000"
-            >
-              Our Legacy in Numbers
-            </p>
+            {aboutData &&
+              aboutData?.subheadings &&
+              aboutData?.subheadings?.map((text, i) => (
+                <BoldText key={text?.id || i} text={text?.description} />
+              ))}
 
             {/* STATS SECTION */}
             <div
@@ -160,28 +87,32 @@ const AboutSection: React.FC = () => {
               data-aos-duration="1000"
               data-aos-delay="700"
             >
-              {stats.map((stat, index) => {
-                const count = useCounter(stat.value);
-                return (
-                  <div
-                    key={stat.id}
-                    className="stat-block"
-                    data-aos="fade-up"
-                    data-aos-anchor-placement="center-bottom"
-                    data-aos-duration="1000"
-                    data-aos-delay={800 + index * 200}
-                  >
-                    <img src={stat.icon} alt={stat.label} className="icon" />
-                    <div className="stat-info">
-                      <div className="count">
-                        {count}
-                        {stat.suffix}
+              {aboutData &&
+                aboutData?.about_cards &&
+                aboutData?.about_cards?.map((stat, index) => {
+                  return (
+                    <div
+                      key={stat.id}
+                      className="stat-block"
+                      data-aos="fade-up"
+                      data-aos-anchor-placement="center-bottom"
+                      data-aos-duration="1000"
+                      data-aos-delay={800 + index * 200}
+                    >
+                      <img
+                        src={stat?.image?.url}
+                        alt={stat?.image?.alternativeText || "Icon"}
+                        className="icon"
+                      />
+                      <div className="stat-info">
+                        <div className="count">
+                          {Number(stat.count).toLocaleString("en-US")}+
+                        </div>
                       </div>
+                      <div className="label">{stat?.text}</div>
                     </div>
-                    <div className="label">{stat.label}</div>
-                  </div>
-                );
-              })}
+                  );
+                })}
             </div>
           </div>
 
@@ -194,7 +125,10 @@ const AboutSection: React.FC = () => {
             data-aos-delay="400"
           >
             <img
-              src="https://vsourcevarsity.com/assets/images/founder.webp"
+              src={
+                aboutData?.chairman?.url ||
+                "https://vsourcevarsity.com/assets/images/founder.webp"
+              }
               alt="Founder"
               data-aos="fade-right"
               data-aos-anchor-placement="center-bottom"
@@ -305,6 +239,21 @@ const AboutSection: React.FC = () => {
       text-align:right;
       flex-basis: 50%;
     }
+    @media (max-width: 1060px) {
+          .content {
+        flex-direction: column;
+        align-items: center;
+      }
+         .text-section {
+     
+    flex-basis: 90%;
+    max-width: 90%;
+    }
+      .image-section {
+    max-width: 90%;
+    flex-basis: 90%;
+    }
+    }
 
     @media (max-width: 485px) {
     
@@ -363,10 +312,6 @@ const AboutSection: React.FC = () => {
     }
 
     @media (max-width: 768px) {
-      .content {
-        flex-direction: column;
-        align-items: center;
-      }
 
       .stat-info {
         flex-direction: row !important;
