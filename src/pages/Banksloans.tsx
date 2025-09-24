@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { BanksBlock } from '@/lib/types/LandingPage';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import { BanksBlock } from "@/lib/types/LandingPage";
 
 type Prop = {
   bankBlock?: BanksBlock | null;
-  isLoading: boolean;
+  isLoading?: boolean;
 };
 
 // credila /our-partners/credila nbfc  /our-partners/nbfc auxilo  /our-partners/auxilo
@@ -40,7 +40,8 @@ const Banksloans: React.FC<Prop> = ({ bankBlock, isLoading }) => {
             {bankBlock.heading || "Our Trusted Lending Partners"}
           </h2>
           <p className="text-lg text-muted-foreground">
-            {bankBlock.description || "We partner with leading financial institutions to offer you the best loan options"}
+            {bankBlock.description ||
+              "We partner with leading financial institutions to offer you the best loan options"}
           </p>
         </motion.div>
 
@@ -54,7 +55,7 @@ const Banksloans: React.FC<Prop> = ({ bankBlock, isLoading }) => {
               transition={{ duration: 0.4 }}
               className="rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 bg-white flex flex-col"
             >
-              <Link to={bank.path || '#'}>
+              <Link to={bank.path || "#"}>
                 <div className="flex-1 flex items-center justify-center p-4">
                   <img
                     src={bank.logo?.url || "/assets/images/placeholder.png"}
@@ -74,7 +75,9 @@ const Banksloans: React.FC<Prop> = ({ bankBlock, isLoading }) => {
               onClick={handleToggle}
               className="px-6 py-2 rounded-full bg-red-600 text-white font-semibold hover:bg-red-700 transition"
             >
-              {visibleCount >= bankBlock.bank.length ? "Show Less" : "Load More"}
+              {visibleCount >= bankBlock.bank.length
+                ? "Show Less"
+                : "Load More"}
             </button>
           </div>
         )}

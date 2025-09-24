@@ -14,6 +14,14 @@ import {
 import AbroadForm from "./AbroadForm";
 import Banksloans from "../Banksloans";
 import DelayedPopup from "@/components/DelayedPopup";
+import qs from "qs";
+import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
+import { toast } from "sonner";
+import HeroSkeleton from "@/Loaders/LandingPages/HeroSkeleton";
+import { Services } from "@/lib/types/OurService";
+import { HighlightedText } from "@/utils/HighlightedText";
+import RichText from "@/utils/RichText";
 const features = [
   {
     title: "Multiple Lenders",
@@ -58,9 +66,63 @@ const features = [
     image: "/assets/images/Post-Loan-Support.jpg",
   },
 ];
+
+const query = qs.stringify({
+  populate: {
+    our_services: {
+      on: {
+        "fintech.aborad-education": {
+          populate: {
+            background_image: { fields: ["url", "name", "documentId"] },
+            list: true,
+
+            desktop_img: { fields: ["url", "name", "documentId"] },
+            mobile_img: { fields: ["url", "name", "documentId"] },
+            eligible: true,
+            bank: {
+              populate: {
+                bank: {
+                  populate: {
+                    logo: { fields: ["url", "name", "documentId"] },
+                  },
+                },
+              },
+            },
+            schemes_lenders: true,
+          },
+        },
+      },
+    },
+  },
+});
+const fetchAbroadEducation = async () => {
+  const { data } = await axios.get(
+    `${import.meta.env.VITE_CMS_GLOBALURL}/api/our-service?${query}`
+  );
+  return data?.data?.our_services[0] || {};
+};
+
 const AbroadEducation: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [showPopup, setShowPopup] = useState(false);
+
+  const { data, isLoading, isError, error } = useQuery<Services>({
+    queryKey: ["abroadEdu"],
+    queryFn: fetchAbroadEducation,
+  });
+  if (isError) {
+    toast.error("failed to load");
+    console.log("failed to load", error);
+    return null;
+  }
+
+  if (isLoading || !data) {
+    return (
+      <>
+        <HeroSkeleton />
+      </>
+    );
+  }
 
   const handlePopupClose = () => {
     setShowPopup(false);
@@ -73,7 +135,10 @@ const AbroadEducation: React.FC = () => {
         <div
           className="absolute inset-0 bg-cover bg-right "
           style={{
-            backgroundImage: "url('/assets/images/ourservices-img.jpg')",
+            backgroundImage: `url(${
+              data?.background_image?.url ||
+              "/assets/images/ourservices-img.jpg"
+            })`,
           }}
         >
           <div className="absolute inset-0 bg-black/70 md:bg-black/50" />{" "}
@@ -101,22 +166,22 @@ const AbroadEducation: React.FC = () => {
 
             {/* Heading */}
             <h1 className="text-3xl md:text-4xl font-bold leading-tight">
-              Abroad Education Loan
+              {data?.heading || "Abroad Education Loan"}
             </h1>
 
             {/* Highlights */}
             <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {[
-                "Fund Up to 100% of Your Education",
-                "Don't Let Finances Stop You",
-                "Competitive Interest Rates",
-                "Flexible Repayment Options",
-              ].map((item, i) => (
-                <li key={i} className="flex items-center gap-2 text-white">
-                  <SquareCheckBig className="w-5 h-5 text-yellow-300 flex-shrink-0" />
-                  {item}
-                </li>
-              ))}
+              {data &&
+                data?.list &&
+                data?.list.map((item, i) => (
+                  <li
+                    key={item?.id || i}
+                    className="flex items-center gap-2 text-white"
+                  >
+                    <SquareCheckBig className="w-5 h-5 text-yellow-300 flex-shrink-0" />
+                    {item?.list}
+                  </li>
+                ))}
             </ul>
 
             {/* Buttons */}
@@ -144,28 +209,47 @@ const AbroadEducation: React.FC = () => {
       {/* How it Works */}
       <section className="py-10 bg-white">
         <div className="w-full max-w-[1400px] mx-auto px-6 ">
-          <h2 className="text-2xl md:text-4xl font-bold mb-4 text-center">
-            How it <span className="text-red-600">Works?</span>
-          </h2>
-          
-          <p className=" text-gray-600 text-lg mb-3 leading-relaxed text-justify">
-            We believe the path to your education should be simple and
-            stress-free. Our process is designed to be as seamless as possible,
-            guiding you from your initial inquiry to the final loan
-            disbursement. We handle the complexities so you can focus on what
-            matters most—your studies. Follow our easy steps below to get
-            started on your journey today.
-          </p>
+          {data?.heading1 ? (
+            <h1 className="text-center mb-4 text-2xl md:text-4xl">
+              <HighlightedText
+                text={data?.heading1}
+                color={"red"}
+                mobileSize={"20px"}
+              />
+            </h1>
+          ) : (
+            <h2 className="text-2xl md:text-4xl font-bold mb-4 text-center">
+              How it <span className="text-red-600">Works?</span>
+            </h2>
+          )}
+
+          {data?.description ? (
+            <RichText content={data?.description} />
+          ) : (
+            <p className=" text-gray-600 text-lg mb-3 leading-relaxed text-justify">
+              We believe the path to your education should be simple and
+              stress-free. Our process is designed to be as seamless as
+              possible, guiding you from your initial inquiry to the final loan
+              disbursement. We handle the complexities so you can focus on what
+              matters most—your studies. Follow our easy steps below to get
+              started on your journey today.
+            </p>
+          )}
           <div className="">
             <img
-              src="/assets/images/abroad-ed-loan-steps.jpg"
-              alt="How it Works Desktop"
+              src={
+                data?.desktop_img?.url ||
+                "/assets/images/abroad-ed-loan-steps.jpg"
+              }
+              alt={data?.desktop_img?.name || "How it Works Desktop"}
               className="hidden md:block mx-auto w-full max-w-[1200px]"
             />
             {/* Mobile Image */}
             <img
-              src="/assets/images/abroad-mobil-steps.jpg"
-              alt="How it Works Mobile"
+              src={
+                data?.mobile_img?.url || "/assets/images/abroad-mobil-steps.jpg"
+              }
+              alt={data?.mobile_img?.name || "How it Works Mobile"}
               className="block md:hidden mx-auto w-full max-w-[400px]"
             />
           </div>
@@ -459,10 +543,11 @@ const AbroadEducation: React.FC = () => {
       <section className="py-10">
         <div className="w-full max-w-[1400px] mx-auto px-6">
           <h2 className="text-3xl font-bold mb-6 text-center text-gray-800">
-            Eligibility for an Education Loan
+            {data?.heading2 || "Eligibility for an Education Loan"}
           </h2>
           <p className="mb-10 text-gray-700 text-center">
-            Applicants must meet the following criteria to qualify:
+            {data?.eligible_description ||
+              "Applicants must meet the following criteria to qualify:"}
           </p>
 
           <div className="w-full">
@@ -478,92 +563,49 @@ const AbroadEducation: React.FC = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {[
-                    [
-                      "Income Proof",
-                      "Parent/co-borrower must show repayment ability (salary slips, bank statements, or ITR).",
-                    ],
-                    [
-                      "Nationality",
-                      "Must be an Indian citizen. NRIs/foreign students applying in India need RBI approvals.",
-                    ],
-                    [
-                      "Age",
-                      "Typically 18–35 years at application. Some banks may extend based on program.",
-                    ],
-                    [
-                      "Admission Status",
-                      "Confirmed admission to a recognized university/institution is mandatory.",
-                    ],
-                    [
-                      "Co-borrower Requirement",
-                      "Most lenders require a parent, guardian, or spouse as co-borrower/guarantor.",
-                    ],
-                    [
-                      "Academic Performance",
-                      "Good academic track record required. Minimum score cut-off applies for unsecured loans.",
-                    ],
-                  ].map((row, i) => (
-                    <tr
-                      key={i}
-                      className={`hover:bg-gray-50 transition-colors ${
-                        i % 2 === 0 ? "bg-white" : "bg-red-50"
-                      }`}
-                    >
-                      <td className="p-4 font-medium text-gray-800 border-r border-gray-300">
-                        {row[0]}
-                      </td>
-                      <td className="p-4 text-gray-700">{row[1]}</td>
-                    </tr>
-                  ))}
+                  {data &&
+                    data?.eligible &&
+                    data?.eligible?.map((row, i) => (
+                      <tr
+                        key={row?.id || i}
+                        className={`hover:bg-gray-50 transition-colors ${
+                          i % 2 === 0 ? "bg-white" : "bg-red-50"
+                        }`}
+                      >
+                        <td className="p-4 font-medium text-gray-800 border-r border-gray-300">
+                          {row?.criteria}
+                        </td>
+                        <td className="p-4 text-gray-700">{row?.details}</td>
+                      </tr>
+                    ))}
                 </tbody>
               </table>
             </div>
 
             {/* Mobile Cards */}
             <div className="md:hidden space-y-4">
-              {[
-                [
-                  "Income Proof",
-                  "Parent/co-borrower must show repayment ability with salary slips, bank statements, or ITR.",
-                ],
-                [
-                  "Nationality",
-                  "Indian citizen. NRIs/foreign students need RBI approval when applying in India.",
-                ],
-                [
-                  "Age",
-                  "Must be between 18–35 years (flexible for some programs).",
-                ],
-                [
-                  "Admission Status",
-                  "Admission to a recognized university is mandatory (provisional may be accepted).",
-                ],
-                [
-                  "Co-borrower Requirement",
-                  "Parent, guardian, or spouse usually required as co-borrower.",
-                ],
-                [
-                  "Academic Performance",
-                  "Strong academic record needed. Cut-off scores apply for unsecured loans.",
-                ],
-              ].map((row, i) => (
-                <div
-                  key={i}
-                  className="border border-gray-200 rounded-lg p-4 shadow-sm bg-white"
-                >
-                  <p className="font-semibold text-red-600 mb-2">{row[0]}</p>
-                  <p className="text-sm text-gray-700 leading-relaxed">
-                    {row[1]}
-                  </p>
-                </div>
-              ))}
+              {data &&
+                data?.eligible &&
+                data?.eligible?.map((row, i) => (
+                  <div
+                    key={row?.id || i}
+                    className="border border-gray-200 rounded-lg p-4 shadow-sm bg-white"
+                  >
+                    <p className="font-semibold text-red-600 mb-2">
+                      {" "}
+                      {row?.criteria}
+                    </p>
+                    <p className="text-sm text-gray-700 leading-relaxed">
+                      {row?.details}
+                    </p>
+                  </div>
+                ))}
             </div>
           </div>
         </div>
       </section>
       {/* Loan Partners Section */}
-      <Banksloans />
+      <Banksloans isLoading={isLoading} bankBlock={data?.bank || null} />
       {/* Loan Schemes */}
       <section className="py-10 bg-gray-50">
         <div className="w-full max-w-[1400px] mx-auto px-6">
@@ -586,55 +628,64 @@ const AbroadEducation: React.FC = () => {
                 </tr>
               </thead>
               <tbody>
-                {[
-                  {
-                    bank: "State Bank of India",
-                    scheme: "SBI Global Ed-Vantage Scheme",
-                    tenure: "Up to 15 years",
-                  },
-                  {
-                    bank: "Punjab National Bank",
-                    scheme: "PNB Udaan",
-                    tenure: "Up to 15 years",
-                  },
-                  {
-                    bank: "Bank of Baroda",
-                    scheme: "Baroda Scholar",
-                    tenure: "Up to 10 years",
-                  },
-                  {
-                    bank: "HDFC Bank",
-                    scheme: "HDFC Credila Education Loan",
-                    tenure: "Up to 12 years",
-                  },
-                  {
-                    bank: "Axis Bank",
-                    scheme: "Axis Bank Education Loan",
-                    tenure: "Up to 15 years",
-                  },
-                  {
-                    bank: "Indian Bank",
-                    scheme: "Indian Bank Overseas Education Loan",
-                    tenure: "Up to 15 years",
-                  },
-                  {
-                    bank: "Indian Overseas Bank",
-                    scheme: "Vidya Jyoti",
-                    tenure: "Repayment period + 1 year",
-                  },
-                ].map((row, i) => (
+                {(
+                  (data && data?.schemes_lenders && data?.schemes_lenders) || [
+                    {
+                      id: 1,
+                      bank: "State Bank of India",
+                      scheme: "SBI Global Ed-Vantage Scheme",
+                      tenure: "Up to 15 years",
+                    },
+                    {
+                      id: 2,
+                      bank: "Punjab National Bank",
+                      scheme: "PNB Udaan",
+                      tenure: "Up to 15 years",
+                    },
+                    {
+                      id: 3,
+                      bank: "Bank of Baroda",
+                      scheme: "Baroda Scholar",
+                      tenure: "Up to 10 years",
+                    },
+                    {
+                      id: 4,
+                      bank: "HDFC Bank",
+                      scheme: "HDFC Credila Education Loan",
+                      tenure: "Up to 12 years",
+                    },
+                    {
+                      id: 5,
+                      bank: "Axis Bank",
+                      scheme: "Axis Bank Education Loan",
+                      tenure: "Up to 15 years",
+                    },
+                    {
+                      id: 6,
+                      bank: "Indian Bank",
+                      scheme: "Indian Bank Overseas Education Loan",
+                      tenure: "Up to 15 years",
+                    },
+                    {
+                      id: 7,
+                      bank: "Indian Overseas Bank",
+                      scheme: "Vidya Jyoti",
+                      tenure: "Repayment period + 1 year",
+                    },
+                  ]
+                )?.map((row, i) => (
                   <tr
-                    key={i}
+                    key={row?.id || i}
                     className="odd:bg-white even:bg-gray-100 hover:bg-purple-50"
                   >
                     <td className="border border-gray-200 px-4 py-3">
-                      {row.bank}
+                      {row?.bank}
                     </td>
                     <td className="border border-gray-200 px-4 py-3">
-                      {row.scheme}
+                      {row?.scheme}
                     </td>
                     <td className="border border-gray-200 px-4 py-3">
-                      {row.tenure}
+                      {row?.tenure}
                     </td>
                   </tr>
                 ))}
