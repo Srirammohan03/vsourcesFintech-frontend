@@ -17,6 +17,47 @@ export interface Services {
   schemes_lenders: SchemesLenders[];
 }
 
+export interface CreditCardService {
+  id: number;
+  heading: string;
+  description: string;
+  partner_heading: string;
+  partner_description: string;
+  works_heading: string;
+  work_description: string;
+  financial_heading: string;
+  background_image: Image;
+  list: List[];
+  partner_image: Image;
+  works_card: WorksCard[];
+  financial_card: FinancialCard[];
+}
+
+export interface List {
+  id: number;
+  list: string;
+}
+
+export interface WorksCard {
+  id: number;
+  heading: string;
+  description: string;
+}
+
+export interface FinancialCard {
+  id: number;
+  title: string;
+  shortHead: string;
+  shortContent: string;
+  image: Image;
+  points: Point[];
+}
+
+export interface Point {
+  id: number;
+  list: string;
+}
+
 export interface List {
   id: number;
   list: string;

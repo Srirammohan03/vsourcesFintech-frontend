@@ -17,58 +17,113 @@ import {
   Laptop,
   Package,
   Landmark,
-  UserCheck
+  UserCheck,
+  HelpCircle,
 } from "lucide-react";
 import { ChevronRight, Check } from "lucide-react";
 import DelayedPopup from "@/components/DelayedPopup";
+import qs from "qs";
+import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
+import { CreditCardService } from "@/lib/types/OurService";
+import { toast } from "sonner";
+import HeroSkeleton from "@/Loaders/LandingPages/HeroSkeleton";
+import { HighlightedText } from "@/utils/HighlightedText";
+import CreditCardSkeleton from "@/Loaders/our-services/CreditCardSkeleton";
+
+const query = qs.stringify({
+  populate: {
+    our_services: {
+      on: {
+        "fintech.credit-card": {
+          populate: {
+            background_image: { fields: ["url", "name", "documentId"] },
+            list: true,
+            partner_image: { fields: ["url", "name", "documentId"] },
+            works_card: true,
+            financial_card: {
+              populate: {
+                image: { fields: ["url", "name", "documentId"] },
+                points: true,
+              },
+            },
+          },
+        },
+      },
+    },
+  },
+});
+
+const fetchAbroadEducation = async () => {
+  const { data } = await axios.get(
+    `${import.meta.env.VITE_CMS_GLOBALURL}/api/our-service?${query}`
+  );
+  return data?.data?.our_services[0] || {};
+};
 
 // Country Options
-const countries = ["USA", "UK", "Canada", "France", "Ireland", "Germany", "Australia"];
- const howItWorksSteps = [
-    {
-      icon: <Laptop className="w-8 h-8" />,
-      title: 'Apply Online in Minutes',
-      description: 'Complete a seamless digital application from your home country, requiring no SSN or U.S. credit history.',
-    },
-    {
-      icon: <CreditCard className="w-8 h-8" />,
-      title: 'Get Your Virtual Card Instantly',
-      description: 'Receive your virtual credit card upon approval and start making online purchases immediately.',
-    },
-    {
-      icon: <Package className="w-8 h-8" />,
-      title: 'Physical Card Delivered on Arrival',
-      description: 'Your physical credit card is shipped to your new U.S. address once you arrive, ensuring a smooth transition.',
-    },
-    {
-      icon: <Landmark className="w-8 h-8" />,
-      title: 'Build Your U.S. Credit Score',
-      description: 'Zolve reports your payments to all three major credit bureaus, helping you establish a strong financial future from day one.',
-    },
-  ];
+const countries = [
+  "USA",
+  "UK",
+  "Canada",
+  "France",
+  "Ireland",
+  "Germany",
+  "Australia",
+];
+const howItWorksSteps = [
+  {
+    icon: <Laptop className="w-8 h-8" />,
+    title: "Apply Online in Minutes",
+    description:
+      "Complete a seamless digital application from your home country, requiring no SSN or U.S. credit history.",
+  },
+  {
+    icon: <CreditCard className="w-8 h-8" />,
+    title: "Get Your Virtual Card Instantly",
+    description:
+      "Receive your virtual credit card upon approval and start making online purchases immediately.",
+  },
+  {
+    icon: <Package className="w-8 h-8" />,
+    title: "Physical Card Delivered on Arrival",
+    description:
+      "Your physical credit card is shipped to your new U.S. address once you arrive, ensuring a smooth transition.",
+  },
+  {
+    icon: <Landmark className="w-8 h-8" />,
+    title: "Build Your U.S. Credit Score",
+    description:
+      "Zolve reports your payments to all three major credit bureaus, helping you establish a strong financial future from day one.",
+  },
+];
 
-  const whyZolveFeatures = [
-    {
-      icon: <UserCheck className="w-8 h-8" />,
-      title: 'No SSN or Credit History Required',
-      description: 'Overcome a major hurdle for newcomers and get approved with just your passport and visa.',
-    },
-    {
-      icon: <ShieldCheck className="w-8 h-8" />,
-      title: 'FDIC-Insured & Secure',
-      description: 'Your deposits are protected, providing peace of mind as you manage your finances abroad.',
-    },
-    {
-      icon: <CreditCard className="w-8 h-8" />,
-      title: 'High-Limit Credit Cards',
-      description: 'Access a high-limit credit card to manage initial expenses and build a strong financial foundation.',
-    },
-    {
-      icon: <Globe className="w-8 h-8" />,
-      title: 'Seamless Global Banking',
-      description: 'Manage international money transfers and simplify your finances with a single, borderless platform.',
-    },
-  ];
+const whyZolveFeatures = [
+  {
+    icon: <UserCheck className="w-8 h-8" />,
+    title: "No SSN or Credit History Required",
+    description:
+      "Overcome a major hurdle for newcomers and get approved with just your passport and visa.",
+  },
+  {
+    icon: <ShieldCheck className="w-8 h-8" />,
+    title: "FDIC-Insured & Secure",
+    description:
+      "Your deposits are protected, providing peace of mind as you manage your finances abroad.",
+  },
+  {
+    icon: <CreditCard className="w-8 h-8" />,
+    title: "High-Limit Credit Cards",
+    description:
+      "Access a high-limit credit card to manage initial expenses and build a strong financial foundation.",
+  },
+  {
+    icon: <Globe className="w-8 h-8" />,
+    title: "Seamless Global Banking",
+    description:
+      "Manage international money transfers and simplify your finances with a single, borderless platform.",
+  },
+];
 const creditTypes = [
   {
     title: "Secured Checking Accounts",
@@ -150,6 +205,32 @@ const creditTypes = [
   },
 ];
 
+const staticCardProps = [
+  {
+    icon: <ShieldCheck className="w-10 h-10 text-blue-600 mb-2" />,
+    bgColor: "bg-blue-50",
+  },
+  {
+    icon: <GraduationCap className="w-10 h-10 text-green-600 mb-2" />,
+    bgColor: "bg-green-50",
+  },
+  {
+    icon: <DollarSign className="w-10 h-10 text-yellow-600 mb-2" />,
+    bgColor: "bg-yellow-50",
+  },
+  {
+    icon: <DollarSign className="w-10 h-10 text-purple-600 mb-2" />,
+    bgColor: "bg-purple-50",
+  },
+  {
+    icon: <DollarSign className="w-10 h-10 text-pink-600 mb-2" />,
+    bgColor: "bg-pink-50",
+  },
+];
+
+const defaultIcon = <HelpCircle className="w-10 h-10 text-gray-600 mb-2" />;
+const defaultBg = "bg-gray-50";
+
 // Application Steps
 const applySteps = [
   { step: "Contact Us or Vsources", icon: <Globe className="w-5 h-5" /> },
@@ -170,6 +251,20 @@ const CreditCardComponent = () => {
   const [flipped, setFlipped] = useState<number | null>(null);
   const [showPopup, setShowPopup] = useState(false);
 
+  const { data, isLoading, isError, error } = useQuery<CreditCardService>({
+    queryKey: ["creditcard"],
+    queryFn: fetchAbroadEducation,
+  });
+  if (isError) {
+    toast.error("failed to load");
+    console.log("failed to load", error);
+    return null;
+  }
+
+  if (isLoading || !data) {
+    return <CreditCardSkeleton />;
+  }
+
   const handlePopupClose = () => {
     setShowPopup(false);
   };
@@ -181,7 +276,10 @@ const CreditCardComponent = () => {
         <div
           className="absolute inset-0 bg-cover bg-right bg-no-repeat"
           style={{
-            backgroundImage: "url('/assets/images/ourservices-img.jpg')",
+            backgroundImage: `url(${
+              data?.background_image?.url ||
+              "/assets/images/ourservices-img.jpg"
+            })`,
           }}
         >
           <div className="absolute inset-0 bg-black/70 md:bg-black/50" />
@@ -191,24 +289,25 @@ const CreditCardComponent = () => {
         <div className="relative w-full max-w-[1400px] mx-auto px-6 flex flex-col items-center md:items-start justify-center text-left">
           <Sparkles className="w-10 h-10 text-white mb-4 animate-pulse" />
           <h1 className="text-4xl font-bold mb-3 text-center max-w-3xl">
-            Credit Cards for International Students
+            {data?.heading || "Credit Cards for International Students"}
           </h1>
           <p className="mb-6 max-w-2xl">
-            Empower your financial journey. Manage money smartly and build credit
-            while studying abroad, with exclusive student benefits and intuitive
-            application steps.
+            {data?.description ||
+              "Empower your financial journey. Manage money smartly and build credit while studying abroad, with exclusive student benefits and intuitive application steps."}
           </p>
 
           {/* Tips */}
           <div className="flex justify-start max-w-2xl flex-col gap-3 mt-2 w-full items-start">
-            {tips.map((tip, i) => (
-              <span
-                key={i}
-                className="bg-white/20 px-4 py-2 rounded-xl text-sm font-medium text-white shadow w-fit"
-              >
-                {tip}
-              </span>
-            ))}
+            {data &&
+              data?.list &&
+              data?.list?.map((tip, i) => (
+                <span
+                  key={tip?.id || i}
+                  className="bg-white/20 px-4 py-2 rounded-xl text-sm font-medium text-white shadow w-fit"
+                >
+                  {tip?.list}
+                </span>
+              ))}
           </div>
         </div>
       </section>
@@ -236,15 +335,24 @@ const CreditCardComponent = () => {
         <div className="w-full max-w-[1400px] mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           {/* Left Content Section */}
           <div className="flex flex-col justify-center text-center md:text-left order-2 md:order-1">
-            <h2 className="text-3xl sm:text-4xl  font-extrabold text-black mb-4 leading-tight">
-              Partnering with <span className="text-red-600 ">Zolve</span>
-              <br />
-              to Empower Your Global Journey
-            </h2>
+            {data?.partner_heading ? (
+              <h2 className="text-3xl sm:text-4xl  font-extrabold text-black mb-4 leading-tight">
+                <HighlightedText
+                  text={data?.partner_heading}
+                  color={"red"}
+                  mobileSize={"30px"}
+                />
+              </h2>
+            ) : (
+              <h2 className="text-3xl sm:text-4xl  font-extrabold text-black mb-4 leading-tight">
+                Partnering with <span className="text-red-600 ">Zolve</span>
+                <br />
+                to Empower Your Global Journey
+              </h2>
+            )}
             <p className="text-black text-lg sm:text-xl mx-auto md:mx-0 mb-6 text-justify">
-              We’ve teamed up with Zolve to give international students and professionals
-              seamless access to essential financial tools and U.S. credit cards,
-              making your transition abroad much easier.
+              {data?.partner_description ||
+                "We’ve teamed up with Zolve to give international students and professionals seamless access to essential financial tools and U.S. credit cards, making your transition abroad much easier."}
             </p>
           </div>
 
@@ -252,8 +360,11 @@ const CreditCardComponent = () => {
           <div className="relative order-1 md:order-2 flex justify-center items-center h-64 sm:h-80 md:h-96">
             <div className="w-52 h-52 sm:w-64 sm:h-64 lg:w-72 lg:h-72 p-4 flex items-center justify-center bg-white rounded-3xl shadow-2xl transition transform hover:scale-105">
               <img
-                src="https://www.zolveimages.zolve.com/website/images/zolve_logo.svg"
-                alt="Zolve Logo"
+                src={
+                  data?.partner_image?.url ||
+                  "https://www.zolveimages.zolve.com/website/images/zolve_logo.svg"
+                }
+                alt={data?.partner_image?.name || "Zolve Logo"}
                 className="w-full h-full object-contain"
               />
             </div>
@@ -261,27 +372,38 @@ const CreditCardComponent = () => {
         </div>
       </section>
 
-       {/* How It Works */}
+      {/* How It Works */}
       <section className="py-16 px-4 sm:px-6 lg:px-8">
         <div className="w-full max-w-[1400px] mx-auto px-6">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-extrabold text-black mb-4  md:text-4xl">
-              How Zolve Works
+              {data?.works_heading || "How Zolve Works"}
             </h2>
             <p className="text-lg text-gray-600 sm:text-xl max-w-2xl mx-auto">
-              Zolve simplifies your financial journey to the U.S. in a few easy steps.
+              {data?.work_description ||
+                " Zolve simplifies your financial journey to the U.S. in a few easy steps."}
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
-            {howItWorksSteps.map((step, index) => (
-              <div key={index} className="flex flex-col items-center text-center p-6 bg-gradient-to-br from-white via-red-100 to-white rounded-2xl shadow-lg transition-transform hover:scale-105 duration-300">
-                <div className="w-16 h-16 flex items-center justify-center rounded-full bg-red-200 text-red-700 mb-4">
-                  {step.icon}
-                </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-2">{step.title}</h3>
-                <p className="text-gray-600">{step.description}</p>
-              </div>
-            ))}
+            {data &&
+              data?.works_card &&
+              data?.works_card?.map((step, index) => {
+                const icon = howItWorksSteps[index].icon;
+                return (
+                  <div
+                    key={step?.id || index}
+                    className="flex flex-col items-center text-center p-6 bg-gradient-to-br from-white via-red-100 to-white rounded-2xl shadow-lg transition-transform hover:scale-105 duration-300"
+                  >
+                    <div className="w-16 h-16 flex items-center justify-center rounded-full bg-red-200 text-red-700 mb-4">
+                      {icon}
+                    </div>
+                    <h3 className="text-xl font-bold text-gray-900 mb-2">
+                      {step?.heading}
+                    </h3>
+                    <p className="text-gray-600">{step?.description}</p>
+                  </div>
+                );
+              })}
           </div>
         </div>
       </section>
@@ -289,86 +411,104 @@ const CreditCardComponent = () => {
       {/* Credit Card Types */}
       <section className="w-full max-w-[900px] mx-auto px-4 sm:px-6 py-10 space-y-10">
         <h2 className="text-2xl md:text-3xl font-bold text-center mb-8 flex items-center gap-2 justify-center">
-          Financial Products for International Students in {selectedCountry}
+          {data?.financial_heading || (
+            <>
+              Financial Products for International Students in {selectedCountry}
+            </>
+          )}
         </h2>
 
-        {creditTypes.map((type, idx) => {
-          const isFlipped = flipped === idx;
+        {data &&
+          data?.financial_card &&
+          data?.financial_card?.map((type, idx) => {
+            const isFlipped = flipped === idx;
+            const { icon, bgColor } = staticCardProps[idx] || {
+              icon: defaultIcon,
+              bgColor: defaultBg,
+            };
 
-          return (
-            <div
-              key={idx}
-              className="w-full max-w-4xl perspective mx-auto"
-              style={{ perspective: "1200px" }}
-            >
+            return (
               <div
-                onClick={() => setFlipped(isFlipped ? null : idx)}
-                className={`relative w-full min-h-[300px] cursor-pointer select-none transition-transform duration-700 ${isFlipped ? "rotate-y-180" : ""}`}
-                style={{ transformStyle: "preserve-3d", touchAction: "manipulation" }}
+                key={type?.id || idx}
+                className="w-full max-w-4xl perspective mx-auto"
+                style={{ perspective: "1200px" }}
               >
-                {/* Front Side */}
                 <div
-                  className={`absolute inset-0 backface-hidden rounded-2xl shadow-md flex flex-col sm:flex-row items-center justify-between p-5 sm:p-8 gap-6  ${type.bgColor}`}
+                  onClick={() => setFlipped(isFlipped ? null : idx)}
+                  className={`relative w-full min-h-[300px] cursor-pointer select-none transition-transform duration-700 ${
+                    isFlipped ? "rotate-y-180" : ""
+                  }`}
+                  style={{
+                    transformStyle: "preserve-3d",
+                    touchAction: "manipulation",
+                  }}
                 >
-                  {/* Left: text + icon */}
-                  <div className="flex flex-col flex-1 justify-center text-center sm:text-left">
-                    <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-black mb-3 flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-2">
-                      {type.icon} <span>{type.title}</span>
-                    </h3>
+                  {/* Front Side */}
+                  <div
+                    className={`absolute inset-0 backface-hidden rounded-2xl shadow-md flex flex-col sm:flex-row items-center justify-between p-5 sm:p-8 gap-6 ${bgColor}`}
+                  >
+                    <div className="flex flex-col flex-1 justify-center text-center sm:text-left">
+                      <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-black mb-3 flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-2">
+                        {icon} <span>{type.title}</span>
+                      </h3>
 
-                    <h4 className="text-base md:text-lg font-semibold text-black mb-2">{type.shortHead}</h4>
+                      <h4 className="text-base md:text-lg font-semibold text-black mb-2">
+                        {type.shortHead}
+                      </h4>
 
-                    <p className="text-gray-700 text-sm md:text-base mb-4 max-w-md mx-auto sm:mx-0">
-                      {type.shortContent}
-                    </p>
+                      <p className="text-gray-700 text-sm md:text-base mb-4 max-w-md mx-auto sm:mx-0">
+                        {type.shortContent}
+                      </p>
 
-                    <div className="inline-block px-4 py-2 border border-red-600 bg-white text-red-600 rounded-2xl cursor-pointer mt-auto max-w-max mx-auto sm:mx-0">
-                      Tap to know more
+                      <div className="inline-block px-4 py-2 border border-red-600 bg-white text-red-600 rounded-2xl cursor-pointer mt-auto max-w-max mx-auto sm:mx-0">
+                        Tap to know more
+                      </div>
+                    </div>
+
+                    <div className="flex-shrink-0 w-full sm:w-[140px] md:flex items-center justify-center mt-6 sm:mt-0 mx-auto sm:mx-0 hidden">
+                      <img
+                        src={type.image?.url}
+                        alt={type.title}
+                        className="w-full h-auto object-contain max-w-[140px]"
+                        loading="lazy"
+                        draggable={false}
+                      />
                     </div>
                   </div>
 
-                  {/* Right: image */}
-                  <div className="flex-shrink-0 w-full sm:w-[140px] md:flex items-center justify-center mt-6 sm:mt-0 mx-auto sm:mx-0 hidden">
-                    <img
-                      src={type.imageSrc}
-                      alt={type.title}
-                      className="w-full h-auto object-contain max-w-[140px]"
-                      loading="lazy"
-                      draggable={false}
-                    />
-                  </div>
-                </div>
+                  {/* Back Side */}
+                  <div className="absolute inset-0 backface-hidden rotate-y-180 rounded-2xl bg-white shadow-md border border-indigo-300 p-5 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+                    <div className="flex-1 max-w-md mx-auto sm:mx-0 text-center sm:text-left">
+                      <h3 className="text-indigo-700 text-lg md:text-xl font-semibold mb-4">
+                        Key Features
+                      </h3>
+                      <ul className="space-y-2 md:space-y-3 text-gray-700 text-sm md:text-base">
+                        {type.points?.map((point, i) => (
+                          <li
+                            key={point?.id || i}
+                            className="flex items-start gap-2 md:gap-3"
+                          >
+                            <Check className="w-4 h-4 md:w-5 md:h-5 text-green-600 flex-shrink-0 mt-0.5" />
+                            {point.list}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
 
-                {/* Back Side */}
-                <div className="absolute inset-0 backface-hidden rotate-y-180 rounded-2xl bg-white shadow-md border border-indigo-300 p-5 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6">
-                  {/* Left: points */}
-                  <div className="flex-1 max-w-md mx-auto sm:mx-0 text-center sm:text-left">
-                    <h3 className="text-indigo-700 text-lg md:text-xl font-semibold mb-4">Key Features</h3>
-                    <ul className="space-y-2 md:space-y-3 text-gray-700 text-sm md:text-base">
-                      {type.points.map((point, i) => (
-                        <li key={i} className="flex items-start gap-2 md:gap-3">
-                          <Check className="w-4 h-4 md:w-5 md:h-5 text-green-600 flex-shrink-0 mt-0.5" />
-                          {point}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  {/* Right: image */}
-                  <div className="flex-shrink-0 w-full sm:w-[140px] md:flex items-center justify-center mt-6 sm:mt-0 mx-auto sm:mx-0  hidden">
-                    <img
-                      src={type.imageSrc}
-                      alt={`${type.title} details`}
-                      className="w-full h-auto object-contain max-w-[140px]"
-                      loading="lazy"
-                      draggable={false}
-                    />
+                    <div className="flex-shrink-0 w-full sm:w-[140px] md:flex items-center justify-center mt-6 sm:mt-0 mx-auto sm:mx-0 hidden">
+                      <img
+                        src={type.image?.url}
+                        alt={`${type.title} details`}
+                        className="w-full h-auto object-contain max-w-[140px]"
+                        loading="lazy"
+                        draggable={false}
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
 
         <style>{`
     .rotate-y-180 {
@@ -385,7 +525,8 @@ const CreditCardComponent = () => {
 
       {/* Eligibility Note */}
       <div className="mb-10 text-center py-4 px-6 rounded-xl bg-indigo-100 text-gray-500 font-semibold shadow">
-        Eligibility: Valid passport, student visa, and university admission required for international student card applications.
+        Eligibility: Valid passport, student visa, and university admission
+        required for international student card applications.
       </div>
       {/* How To Apply Section */}
       <section className="w-full max-w-[1400px] mx-auto px-4 py-14">
@@ -401,33 +542,47 @@ const CreditCardComponent = () => {
               className="flex flex-col items-center rounded-xl bg-gradient-to-tr from-white via-indigo-50 to-purple-50 p-7 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 group"
             >
               <div className="mb-5">
-                <div className="w-14 h-14 flex items-center justify-center rounded-full bg-gradient-to-br 
-          from-indigo-500 via-purple-500 to-pink-500 text-white shadow-lg group-hover:scale-110 transition-transform">
+                <div
+                  className="w-14 h-14 flex items-center justify-center rounded-full bg-gradient-to-br 
+          from-indigo-500 via-purple-500 to-pink-500 text-white shadow-lg group-hover:scale-110 transition-transform"
+                >
                   {item.icon}
                 </div>
               </div>
-              <span className="text-lg font-semibold text-indigo-700 mb-2">Step {i + 1}</span>
-              <h3 className="text-md font-bold text-gray-900 mb-2">{item.step}</h3>
+              <span className="text-lg font-semibold text-indigo-700 mb-2">
+                Step {i + 1}
+              </span>
+              <h3 className="text-md font-bold text-gray-900 mb-2">
+                {item.step}
+              </h3>
               {/* Add additional step details or tips here */}
               <p className="text-sm text-gray-600 mb-2">
-                {
-                  i === 0 ? "Contact our support team or Vsources to begin your application process quickly and get immediate assistance." :
-                    i === 1 ? "Prepare and upload necessary documents, such as passport, proof of admission, and visa for smooth processing." :
-                      i === 2 ? "Compare different credit card options, understanding benefits, fees, and required eligibility for students." :
-                        i === 3 ? "Show recent income or scholarship documents to help us recommend the best card and limit for you." :
-                          i === 4 ? "Review all card terms carefully so you are aware of charges, repayments, and rewards before confirming."
-                            : ""
-                }
+                {i === 0
+                  ? "Contact our support team or Vsources to begin your application process quickly and get immediate assistance."
+                  : i === 1
+                  ? "Prepare and upload necessary documents, such as passport, proof of admission, and visa for smooth processing."
+                  : i === 2
+                  ? "Compare different credit card options, understanding benefits, fees, and required eligibility for students."
+                  : i === 3
+                  ? "Show recent income or scholarship documents to help us recommend the best card and limit for you."
+                  : i === 4
+                  ? "Review all card terms carefully so you are aware of charges, repayments, and rewards before confirming."
+                  : ""}
               </p>
               <div className="mt-auto pt-2">
                 {/* Optional: Tag or more info for each step */}
                 <span className="inline-block px-3 py-1 bg-indigo-100 text-[11px] rounded-xl text-indigo-700 font-medium">
-                  {i === 0 ? "Assistance Available" :
-                    i === 1 ? "Required Documents" :
-                      i === 2 ? "Compare Options" :
-                        i === 3 ? "Proof Needed" :
-                          i === 4 ? "Read Carefully" : ""
-                  }
+                  {i === 0
+                    ? "Assistance Available"
+                    : i === 1
+                    ? "Required Documents"
+                    : i === 2
+                    ? "Compare Options"
+                    : i === 3
+                    ? "Proof Needed"
+                    : i === 4
+                    ? "Read Carefully"
+                    : ""}
                 </span>
               </div>
             </div>
@@ -437,11 +592,16 @@ const CreditCardComponent = () => {
 
       {/* Call To Action */}
       <div className="flex flex-col items-center pb-16">
-        <button className="px-8 py-4 rounded-2xl bg-red-600  text-white font-bold text-lg shadow hover:shadow-xl transition" onClick={() => setShowPopup(true)} >
+        <button
+          className="px-8 py-4 rounded-2xl bg-red-600  text-white font-bold text-lg shadow hover:shadow-xl transition"
+          onClick={() => setShowPopup(true)}
+        >
           Start Your Application
         </button>
         {showPopup && <DelayedPopup onMinimize={handlePopupClose} />}
-        <span className="mt-2 text-sm text-gray-500">Support available for every step!</span>
+        <span className="mt-2 text-sm text-gray-500">
+          Support available for every step!
+        </span>
       </div>
     </div>
   );

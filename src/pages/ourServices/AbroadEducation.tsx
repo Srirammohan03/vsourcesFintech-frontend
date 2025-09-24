@@ -22,6 +22,7 @@ import HeroSkeleton from "@/Loaders/LandingPages/HeroSkeleton";
 import { Services } from "@/lib/types/OurService";
 import { HighlightedText } from "@/utils/HighlightedText";
 import RichText from "@/utils/RichText";
+import CreditCardSkeleton from "@/Loaders/our-services/CreditCardSkeleton";
 const features = [
   {
     title: "Multiple Lenders",
@@ -117,11 +118,7 @@ const AbroadEducation: React.FC = () => {
   }
 
   if (isLoading || !data) {
-    return (
-      <>
-        <HeroSkeleton />
-      </>
-    );
+    return <CreditCardSkeleton />;
   }
 
   const handlePopupClose = () => {
