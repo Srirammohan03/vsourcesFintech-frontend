@@ -156,62 +156,23 @@ const loanData = {
         bgColor: 'bg-purple-600',
     },
 };
+interface BenefitItem {
+  id: number;
+  image: string;
+  heading: string;
+  paragraph: string;
+}
+
 const benefitData: BenefitItem[] = [
-  {
-    id: 1,
-    image: '/assets/images/benfit-1.png',
-    heading: 'Enhanced Productivity',
-    paragraph: 'Streamline your workflow and get more done in less time with our intuitive tools.',
-  },
-  {
-    id: 2,
-    image: '/assets/images/benfit-2.png',
-    heading: 'Improved Collaboration',
-    paragraph: 'Work together seamlessly with your team on shared projects, no matter where you are.',
-  },
-  {
-    id: 3,
-    image: '/assets/images/benfit-3.png',
-    heading: 'Cost Savings',
-    paragraph: 'Reduce overhead and lower operational costs by adopting our efficient platform.',
-  },
-  {
-    id: 4,
-    image: '/assets/images/benfit-4.png',
-    heading: 'Data-Driven Decisions',
-    paragraph: 'Gain valuable insights from your data to make smarter, more informed business choices.',
-  },
-  {
-    id: 5,
-    image: '/assets/images/benfit-5.png',
-    heading: 'Scalable Solutions',
-    paragraph: 'Our solution grows with you, providing the flexibility to handle your expanding needs.',
-  },
-  {
-    id: 6,
-    image: '/assets/images/benfit-6.png',
-    heading: 'Increased Security',
-    paragraph: 'Protect your sensitive information with our robust, industry-leading security features.',
-  },
-  {
-    id: 7,
-    image: '/assets/images/benfit-7.png',
-    heading: 'Customer Satisfaction',
-    paragraph: 'Delight your customers with a seamless experience and exceptional support.',
-  },
-  {
-    id: 8,
-    image: '/assets/images/benfit-8.png',
-    heading: 'Market Expansion',
-    paragraph: 'Enter new markets and reach a wider audience with our global-ready capabilities.',
-  },
-  {
-    id: 9,
-    image: "/assets/images/benfit-9.png",
-    heading: 'Swift Approvals',
-    paragraph: 'The streamlined approval process of an online education loan ensures prompt access to the necessary support',
- 
-  }
+  { id: 1, image: "/assets/images/benfit-1.png", heading: "Enhanced Productivity", paragraph: "Streamline your workflow and get more done in less time with our intuitive tools." },
+  { id: 2, image: "/assets/images/benfit-2.png", heading: "Improved Collaboration", paragraph: "Work together seamlessly with your team on shared projects, no matter where you are." },
+  { id: 3, image: "/assets/images/benfit-3.png", heading: "Cost Savings", paragraph: "Reduce overhead and lower operational costs by adopting our efficient platform." },
+  { id: 4, image: "/assets/images/benfit-4.png", heading: "Data-Driven Decisions", paragraph: "Gain valuable insights from your data to make smarter, more informed business choices." },
+  { id: 5, image: "/assets/images/benfit-5.png", heading: "Scalable Solutions", paragraph: "Our solution grows with you, providing the flexibility to handle your expanding needs." },
+  { id: 6, image: "/assets/images/benfit-6.png", heading: "Increased Security", paragraph: "Protect your sensitive information with our robust, industry-leading security features." },
+  { id: 7, image: "/assets/images/benfit-7.png", heading: "Customer Satisfaction", paragraph: "Delight your customers with a seamless experience and exceptional support." },
+  { id: 8, image: "/assets/images/benfit-8.png", heading: "Market Expansion", paragraph: "Enter new markets and reach a wider audience with our global-ready capabilities." },
+  { id: 9, image: "/assets/images/benfit-9.png", heading: "Swift Approvals", paragraph: "The streamlined approval process of an online education loan ensures prompt access to the necessary support" }
 ];
 const EducationLoan: React.FC = () => {
     const [openIndex, setOpenIndex] = useState<number | null>(null);
@@ -219,7 +180,7 @@ const EducationLoan: React.FC = () => {
     const toggleFAQ = (index: number) => {
         setOpenIndex(openIndex === index ? null : index);
     };
-     const containerRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const [isPaused, setIsPaused] = useState(false);
 
   useEffect(() => {
@@ -230,24 +191,19 @@ const EducationLoan: React.FC = () => {
 
     const scroll = () => {
       if (!isPaused) {
-        // Increment the scroll position
         container.scrollLeft += 1;
-        // If we reach the end, jump back to the start for an infinite loop effect
-        if (container.scrollLeft >= container.scrollWidth - container.clientWidth) {
+
+        // when we reach halfway (first dataset fully scrolled), reset smoothly
+        if (container.scrollLeft >= container.scrollWidth / 2) {
           container.scrollLeft = 0;
         }
       }
       animationFrameId = requestAnimationFrame(scroll);
     };
-    
-    // Start the scrolling animation
+
     animationFrameId = requestAnimationFrame(scroll);
 
-    // Cleanup function to stop the animation when the component unmounts
-    return () => {
-      cancelAnimationFrame(animationFrameId);
-    };
-    
+    return () => cancelAnimationFrame(animationFrameId);
   }, [isPaused]);
   
       const [activeIndex, setActiveIndex] = useState(0);
@@ -339,37 +295,38 @@ const EducationLoan: React.FC = () => {
                     </div>
                 </div>
                 <div className="bg-white py-12 px-4 md:px-8 overflow-hidden">
-                    <h2 className="text-2xl font-bold text-gray-800 mb-4 md:text-3xl text-center">Top Benefits</h2>
-                    <div
-                        ref={containerRef}
-                        className="flex space-x-8 pb-4 overflow-x-scroll scrollbar-hide"
-                        onMouseEnter={() => setIsPaused(true)}
-                        onMouseLeave={() => setIsPaused(false)}
-                        style={{
-                            // Hide scrollbar for Chrome, Safari, and Edge
-                            WebkitOverflowScrolling: 'touch',
-                            msOverflowStyle: 'none',
-                            scrollbarWidth: 'none',
-                        }}
-                    >
-                        {benefitData.map((benefit) => (
-                            <div key={benefit.id} className="relative flex-shrink-0 w-72 h-96 rounded-xl shadow-lg overflow-hidden">
-                                <div className="absolute inset-x-0 top-0 p-4  text-white">
-                                    <h3 className="text-xl font-bold mb-1">{benefit.heading}</h3>
-                                    <p className="text-sm font-medium">{benefit.paragraph}</p>
-                                </div>
-                                {/* Image fills the card */}
-                                <img
-                                    src={benefit.image}
-                                    alt={benefit.heading}
-                                    className="w-72 h-96 object-cover"
-                                />
-                                {/* Text positioned at the bottom of the card, on top of the image */}
-                                
-                            </div>
-                        ))}
-                    </div>
-                </div>
+      <h2 className="text-2xl font-bold text-gray-800 mb-4 md:text-3xl text-center">
+        Top Benefits
+      </h2>
+      <div
+        ref={containerRef}
+        className="flex space-x-8 pb-4 overflow-x-scroll scrollbar-hide"
+        onMouseEnter={() => setIsPaused(true)}
+        onMouseLeave={() => setIsPaused(false)}
+        style={{
+          WebkitOverflowScrolling: "touch",
+          msOverflowStyle: "none",
+          scrollbarWidth: "none",
+        }}
+      >
+        {[...benefitData, ...benefitData].map((benefit, idx) => (
+          <div
+            key={idx} // use index here since data is duplicated
+            className="relative flex-shrink-0 w-72 h-96 rounded-xl shadow-lg overflow-hidden"
+          >
+            <div className="absolute inset-x-0 top-0 p-4 text-white bg-gradient-to-b from-black/60 to-transparent">
+              <h3 className="text-xl font-bold mb-1">{benefit.heading}</h3>
+              <p className="text-sm font-medium">{benefit.paragraph}</p>
+            </div>
+            <img
+              src={benefit.image}
+              alt={benefit.heading}
+              className="w-72 h-96 object-cover"
+            />
+          </div>
+        ))}
+      </div>
+    </div>
             </section>
             <section>
                 <div className="w-full max-w-[1400px] mx-auto px-6">
@@ -441,8 +398,8 @@ const EducationLoan: React.FC = () => {
 
 
             </section>
-
-            {/* <section className="py-16 bg-gray-50">
+{/* 
+            <section className="py-16 bg-gray-50">
                 <div className="w-full max-w-[1400px] mx-auto px-6 text-center">
                     <h2 className="text-3xl font-bold mb-12">Explore Our Education Loans</h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -494,8 +451,8 @@ const EducationLoan: React.FC = () => {
                     </div>
 
                 </div>
-            </section> */}
-            {/* <section className="py-10 bg-white">
+            </section>
+            <section className="py-10 bg-white">
                 <div className="w-full max-w-[1400px] mx-auto px-6">
                     <h2 className="text-3xl font-bold mb-6 text-center">
                         Benefits of Education Loans

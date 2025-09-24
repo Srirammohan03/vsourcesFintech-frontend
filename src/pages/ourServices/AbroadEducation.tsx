@@ -147,6 +147,7 @@ const AbroadEducation: React.FC = () => {
           <h2 className="text-2xl md:text-4xl font-bold mb-4 text-center">
             How it <span className="text-red-600">Works?</span>
           </h2>
+          
           <p className=" text-gray-600 text-lg mb-3 leading-relaxed text-justify">
             We believe the path to your education should be simple and
             stress-free. Our process is designed to be as seamless as possible,

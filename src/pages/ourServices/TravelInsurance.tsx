@@ -151,7 +151,7 @@ export default function TravelInsurance() {
             </section>
 
             {/* Country Selector */}
-            <section className="w-full max-w-[1400px] mx-auto px-6 py-5 flex flex-col items-center">
+            {/* <section className="w-full max-w-[1400px] mx-auto px-6 py-5 flex flex-col items-center">
                 <label htmlFor="country" className="block text-lg font-semibold mb-2 text-gray-700">
                     Select Your Country
                 </label>
@@ -167,7 +167,7 @@ export default function TravelInsurance() {
                         </option>
                     ))}
                 </select>
-            </section>
+            </section> */}
 
 
             {/* Why you need Travel Insurance Section */}

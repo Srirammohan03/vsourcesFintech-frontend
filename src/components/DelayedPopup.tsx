@@ -103,7 +103,7 @@ const DelayedPopup: React.FC<DelayedPopupProps> = ({ onMinimize }) => {
     setLoading(true);
     const payload = {
       data: {
-        student_name: name,
+        studentName: name,
         number: phoneNumber,
         service_required: selectedOption,
       },

@@ -8,6 +8,7 @@ type Prop = {
   isLoading: boolean;
 };
 
+// credila /our-partners/credila nbfc  /our-partners/nbfc auxilo  /our-partners/auxilo
 const Banksloans: React.FC<Prop> = ({ bankBlock, isLoading }) => {
   const [visibleCount, setVisibleCount] = useState(8); // show first 8 banks
 

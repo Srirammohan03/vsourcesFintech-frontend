@@ -23,7 +23,7 @@ import { ChevronRight, Check } from "lucide-react";
 import DelayedPopup from "@/components/DelayedPopup";
 
 // Country Options
-const countries = ["USA", "UK", "Canada", "France", "Ireland"];
+const countries = ["USA", "UK", "Canada", "France", "Ireland", "Germany", "Australia"];
  const howItWorksSteps = [
     {
       icon: <Laptop className="w-8 h-8" />,
@@ -150,8 +150,6 @@ const creditTypes = [
   },
 ];
 
-
-
 // Application Steps
 const applySteps = [
   { step: "Contact Us or Vsources", icon: <Globe className="w-5 h-5" /> },
@@ -214,9 +212,6 @@ const CreditCardComponent = () => {
           </div>
         </div>
       </section>
-
-
-
       {/* Country Selector */}
       <section className="w-full max-w-[1400px] mx-auto px-6 py-10 flex flex-col items-center">
         <label className="block text-lg font-semibold mb-2 text-gray-700">
