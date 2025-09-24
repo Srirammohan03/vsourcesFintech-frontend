@@ -4,7 +4,7 @@ export function HighlightedText({ text, mobileSize, color }) {
   const parts = text.split(/(\*\*.*?\*\*)/g);
   return (
     <motion.h1
-      className="leading-tight font-bold text-black max-w-2xl"
+      className="leading-tight font-bold text-black "
       initial={{ opacity: 0, x: -80 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.7 }}

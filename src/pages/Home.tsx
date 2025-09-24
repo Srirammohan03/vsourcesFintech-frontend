@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 import {
   Calculator,
   GraduationCap,
@@ -9,30 +9,39 @@ import {
   Users,
   CheckCircle,
   Star,
-  ArrowRight
-} from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { SearchHero } from '@/components/ui/search-hero';
-import AboutSection from './AboutSection';
-import Accreditation from './AccreditationSection';
-import { Partner, partners } from '@/lib/partners';
-import VideoSection from '@/components/VideoSection';
-import VideoCarousel from '@/components/home/VideoCarousel';
-import Banksloans from './Banksloans';
-import TestimonialsSection from '@/components/home/TestimonialsSection';
-import ScholarshipsSection from '@/components/home/ScholarshipsSection';
-import TrustSection from '@/components/home/TrustSection';
-import ServicesSection from '@/components/home/ServicesSection';
-import DelayedPopup from '@/components/DelayedPopup';
+  ArrowRight,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { SearchHero } from "@/components/ui/search-hero";
+import AboutSection from "./AboutSection";
+import Accreditation from "./AccreditationSection";
+import { Partner, partners } from "@/lib/partners";
+import VideoSection from "@/components/VideoSection";
+import VideoCarousel from "@/components/home/VideoCarousel";
+import Banksloans from "./Banksloans";
+import TestimonialsSection from "@/components/home/TestimonialsSection";
+import ScholarshipsSection from "@/components/home/ScholarshipsSection";
+import TrustSection from "@/components/home/TrustSection";
+import ServicesSection from "@/components/home/ServicesSection";
+import DelayedPopup from "@/components/DelayedPopup";
 import axios from "axios";
-import { useQuery } from '@tanstack/react-query';
-import { AboutUsBlock, BanksBlock, CompanyBlock, ComprehensiveBlock, LandingPage, LoanDisbursementBlock, ServicesBlock, WhyLoanBlock } from '@/lib/types/LandingPage';
-import { toast } from 'sonner';
-import HeroSkeleton from '@/Loaders/LandingPages/HeroSkeleton';
-import qs from "qs"
-import { HighlightedText } from '@/utils/HighlightedText';
-import { HighlightedTextWhite } from '@/utils/HighlightestextWhite';
+import { useQuery } from "@tanstack/react-query";
+import {
+  AboutUsBlock,
+  BanksBlock,
+  CompanyBlock,
+  ComprehensiveBlock,
+  LandingPage,
+  LoanDisbursementBlock,
+  ServicesBlock,
+  WhyLoanBlock,
+} from "@/lib/types/LandingPage";
+import { toast } from "sonner";
+import HeroSkeleton from "@/Loaders/LandingPages/HeroSkeleton";
+import qs from "qs";
+import { HighlightedText } from "@/utils/HighlightedText";
+import { HighlightedTextWhite } from "@/utils/HighlightestextWhite";
 
 const tools = [
   {
@@ -66,13 +75,15 @@ const steps = [
   },
   {
     id: "02",
-    title: "Compare real-time loan offers from 15+ top lenders with lowest rates.",
+    title:
+      "Compare real-time loan offers from 15+ top lenders with lowest rates.",
     gradient: "/assets/images/loan-process-bg.png",
     icon: "/assets/images/bank.gif",
   },
   {
     id: "03",
-    title: "Shortlist the best lenders with expert guidance from our Fund Advisor.",
+    title:
+      "Shortlist the best lenders with expert guidance from our Fund Advisor.",
     gradient: "/assets/images/loan-process-bg.png",
     icon: "/assets/images/shortlist.gif",
   },
@@ -84,136 +95,133 @@ const steps = [
   },
   {
     id: "05",
-    title: "Get approved and receive your loan amount in as little as 48 hours.",
+    title:
+      "Get approved and receive your loan amount in as little as 48 hours.",
     gradient: "/assets/images/loan-process-bg.png",
     icon: "/assets/images/loan-app.gif",
   },
 ];
 
 const benefits = [
-  'Quick loan approval process',
-  'Competitive interest rates',
-  'No collateral required for many loans',
-  'Expert guidance throughout',
-  'Multiple loan partner options',
-  'Hassle-free documentation'
+  "Quick loan approval process",
+  "Competitive interest rates",
+  "No collateral required for many loans",
+  "Expert guidance throughout",
+  "Multiple loan partner options",
+  "Hassle-free documentation",
 ];
-
 
 const testimonials = [
   {
-    name: 'Sarah Johnson',
-    text: 'EduLoan helped me secure funding for my Masters in the UK. The process was smooth and the team was incredibly supportive.',
+    name: "Sarah Johnson",
+    text: "EduLoan helped me secure funding for my Masters in the UK. The process was smooth and the team was incredibly supportive.",
     rating: 5,
-    course: 'Masters in Computer Science, UK'
+    course: "Masters in Computer Science, UK",
   },
   {
-    name: 'Raj Patel',
-    text: 'I got my education loan approved in just 2 weeks! The interest rates were competitive and the documentation was minimal.',
+    name: "Raj Patel",
+    text: "I got my education loan approved in just 2 weeks! The interest rates were competitive and the documentation was minimal.",
     rating: 5,
-    course: 'MBA in Canada'
+    course: "MBA in Canada",
   },
   {
-    name: 'Emily Chen',
-    text: 'Excellent service and guidance. They helped me find the perfect loan option for my PhD studies in the US.',
+    name: "Emily Chen",
+    text: "Excellent service and guidance. They helped me find the perfect loan option for my PhD studies in the US.",
     rating: 5,
-    course: 'PhD in Engineering, USA'
-  }
+    course: "PhD in Engineering, USA",
+  },
 ];
 const countryCodes = ["us", "gb", "ca", "au", "de"];
-const query = qs.stringify(
-  {
-    populate: {
-      background_image: { fields: ["url", "name", "documentId"] },
-      mobile_bg_img: { fields: ["url", "name", "documentId"] },
-      blocks: {
-        on: {
-          "fintech.about-us": {
-            populate: {
-              content: {
-                populate: {
-                  gif: { fields: ["url", "name", "documentId"] }
-                }
+const query = qs.stringify({
+  populate: {
+    background_image: { fields: ["url", "name", "documentId"] },
+    mobile_bg_img: { fields: ["url", "name", "documentId"] },
+    blocks: {
+      on: {
+        "fintech.about-us": {
+          populate: {
+            content: {
+              populate: {
+                gif: { fields: ["url", "name", "documentId"] },
               },
-              about_number: {
-                populate: {
-                  image: { fields: ["url", "name", "documentId"] }
-                }
+            },
+            about_number: {
+              populate: {
+                image: { fields: ["url", "name", "documentId"] },
               },
-              chairman: { fields: ["url", "name", "documentId"] }
-            }
+            },
+            chairman: { fields: ["url", "name", "documentId"] },
           },
-          "fintech.loan-disbursement": {
-            populate: {
-              scholarship: {
-                populate: {
-                  image: { fields: ["url", "name", "documentId"] }
-                }
-              }
-            }
+        },
+        "fintech.loan-disbursement": {
+          populate: {
+            scholarship: {
+              populate: {
+                image: { fields: ["url", "name", "documentId"] },
+              },
+            },
           },
-          "fintech.why-loan": {
-            populate: {
-              list_text: true,
-              image_background: { fields: ["url", "name", "documentId"] },
-              success_number: true
-            }
+        },
+        "fintech.why-loan": {
+          populate: {
+            list_text: true,
+            image_background: { fields: ["url", "name", "documentId"] },
+            success_number: true,
           },
-          "fintech.banks": {
-            populate: {
-              bank: {
-                populate: {
-                  logo: { fields: ["url", "name", "documentId"] }
-                }
-              }
-            }
+        },
+        "fintech.banks": {
+          populate: {
+            bank: {
+              populate: {
+                logo: { fields: ["url", "name", "documentId"] },
+              },
+            },
           },
-          "blocks.services": {
-            populate: {
-              services_list: {
-                populate: {
-                  image: { fields: ["url", "name", "documentId"] }
-                }
-              }
-            }
+        },
+        "blocks.services": {
+          populate: {
+            services_list: {
+              populate: {
+                image: { fields: ["url", "name", "documentId"] },
+              },
+            },
           },
-          "blocks.comprehensive": {
-            populate: {
-              cards: {
-                populate: {
-                  image: { fields: ["url", "name", "documentId"] },
-                  logo: { fields: ["url", "name", "documentId"] }
-                }
-              }
-            }
+        },
+        "blocks.comprehensive": {
+          populate: {
+            cards: {
+              populate: {
+                image: { fields: ["url", "name", "documentId"] },
+                logo: { fields: ["url", "name", "documentId"] },
+              },
+            },
           },
-          "blocks.company": {
-            populate: {
-              thumbnail: { fields: ["url", "name", "documentId"] },
-              video: { fields: ["url", "name", "documentId"] }
-            }
+        },
+        "blocks.company": {
+          populate: {
+            thumbnail: { fields: ["url", "name", "documentId"] },
+            video: { fields: ["url", "name", "documentId"] },
           },
-          "blocks.success-stories": {
-            populate: {
-              background_image: { fields: ["url", "name", "documentId"] },
-              testimonials: {
-                populate: {
-                  image: { fields: ["url", "name", "documentId"] }
-                }
-              }
-            }
+        },
+        "blocks.success-stories": {
+          populate: {
+            background_image: { fields: ["url", "name", "documentId"] },
+            testimonials: {
+              populate: {
+                image: { fields: ["url", "name", "documentId"] },
+              },
+            },
           },
-        }
-      }
-    }
-  }
-)
+        },
+      },
+    },
+  },
+});
+
 const fetchHome = async () => {
   const { data } = await axios.get(
-    `${import.meta.env.VITE_CMS_GLOBALURL
-    }/api/fintech-landing-page?${query}`
+    `${import.meta.env.VITE_CMS_GLOBALURL}/api/fintech-landing-page?${query}`
   );
-  console.log(data)
   return data.data;
 };
 export default function Home() {
@@ -235,7 +243,11 @@ export default function Home() {
   }
 
   if (isLoading || !heroData) {
-    return <><HeroSkeleton /></>;
+    return (
+      <>
+        <HeroSkeleton />
+      </>
+    );
   }
   const visiblePartners: Partner[] = partners.slice(0, visibleCount);
 
@@ -247,7 +259,6 @@ export default function Home() {
     }
   };
 
-
   const handlePopupClose = () => {
     setShowPopup(false);
   };
@@ -255,20 +266,22 @@ export default function Home() {
     (block): block is AboutUsBlock => block.__component === "fintech.about-us"
   );
   const loan = heroData?.blocks?.find(
-    (block): block is LoanDisbursementBlock => block.__component === "fintech.loan-disbursement"
+    (block): block is LoanDisbursementBlock =>
+      block.__component === "fintech.loan-disbursement"
   );
   const trust = heroData?.blocks?.find(
     (block): block is ServicesBlock => block.__component === "blocks.services"
-  )
+  );
   const compre = heroData?.blocks?.find(
-    (block): block is ComprehensiveBlock => block.__component === "blocks.services"
-  )
+    (block): block is ComprehensiveBlock =>
+      block.__component === "blocks.services"
+  );
   const bankBlock = heroData?.blocks?.find(
     (block): block is BanksBlock => block.__component === "fintech.banks"
-  )
+  );
   const video = heroData?.blocks?.find(
     (block): block is CompanyBlock => block.__component === "blocks.company"
-  )
+  );
   const whyLoan = heroData?.blocks?.find(
     (block): block is WhyLoanBlock => block.__component === "fintech.why-loan"
   );
@@ -280,7 +293,9 @@ export default function Home() {
         <div
           className="hidden sm:block absolute inset-0 bg-no-repeat bg-cover bg-center"
           style={{
-            backgroundImage: `url(${heroData?.background_image?.url || "/assets/images/bg-01.jpg"})`,
+            backgroundImage: `url(${
+              heroData?.background_image?.url || "/assets/images/bg-01.jpg"
+            })`,
           }}
         >
           <div className="absolute inset-0 bg-black/50" />
@@ -291,28 +306,34 @@ export default function Home() {
           <div
             className="absolute inset-0 bg-no-repeat bg-cover bg-[position:center_35%]"
             style={{
-              backgroundImage: `url(${heroData?.mobile_bg_img?.url || "/assets/images/bg-01-mobile.jpg"})`,
+              backgroundImage: `url(${
+                heroData?.mobile_bg_img?.url ||
+                "/assets/images/bg-01-mobile.jpg"
+              })`,
             }}
           >
             <div className="absolute inset-0 bg-black/50" />
           </div>
-
 
           {/* Content */}
           <div className="relative z-10 flex flex-col justify-between min-h-full">
             {/* Top: H1 + Button */}
             <div className="flex">
               <div className="w-[50%] bg-white/10 backdrop-blur-sm rounded-2xl p-2 flex flex-col justify-center space-y-4 mb-5">
-                {heroData?.title ? <HighlightedTextWhite
-                  text={heroData?.title}
-                  mobileSize={"24px"}
-                  color={"red"}
-                /> : <h1 className="text-2xl font-bold leading-snug">
-                  Fund Your Dreams of
-                  <span className="block text-red-600 text-xl">
-                    Studying Abroad
-                  </span>
-                </h1>}
+                {heroData?.title ? (
+                  <HighlightedTextWhite
+                    text={heroData?.title}
+                    mobileSize={"24px"}
+                    color={"red"}
+                  />
+                ) : (
+                  <h1 className="text-2xl font-bold leading-snug">
+                    Fund Your Dreams of
+                    <span className="block text-red-600 text-xl">
+                      Studying Abroad
+                    </span>
+                  </h1>
+                )}
                 <div className="flex items-center space-x-2 mt-6">
                   {countryCodes.map((code) => (
                     <img
@@ -324,9 +345,9 @@ export default function Home() {
                   ))}
                 </div>
                 <p className="text-white text-sm">
-                  {heroData?.mobile_sub_title || " Get instant access to education loans."}
+                  {heroData?.mobile_sub_title ||
+                    " Get instant access to education loans."}
                 </p>
-
               </div>
             </div>
 
@@ -337,8 +358,6 @@ export default function Home() {
           </div>
         </div>
 
-
-
         {/* === Desktop Layout === */}
         <div className="hidden sm:block relative z-10 w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-20">
           <motion.div
@@ -347,21 +366,25 @@ export default function Home() {
             transition={{ duration: 0.8 }}
             className="text-center space-y-6 flex flex-col  items-center sm:space-y-8"
           >
-            {heroData?.title ? <HighlightedTextWhite
-              text={heroData?.title}
-              mobileSize={"42px"}
-              color={"red"}
-            /> : <h1 className="text-2xl font-bold leading-snug">
-              Fund Your Dreams of
-              <span className="block text-red-600 text-xl">
-                Studying Abroad
-              </span>
-            </h1>}
+            {heroData?.title ? (
+              <HighlightedTextWhite
+                text={heroData?.title}
+                mobileSize={"42px"}
+                color={"red"}
+              />
+            ) : (
+              <h1 className="text-2xl font-bold leading-snug">
+                Fund Your Dreams of
+                <span className="block text-red-600 text-xl">
+                  Studying Abroad
+                </span>
+              </h1>
+            )}
 
             <p className="text-lg sm:text-xl lg:text-2xl text-white/90 max-w-2xl mx-auto">
-              {heroData?.sub_title || "Get instant access to education loans, scholarships, and expert guidance to make your international education dreams a reality."}
+              {heroData?.sub_title ||
+                "Get instant access to education loans, scholarships, and expert guidance to make your international education dreams a reality."}
             </p>
-
           </motion.div>
 
           <motion.div
@@ -374,7 +397,9 @@ export default function Home() {
           </motion.div>
         </div>
       </section>
-      {aboutBlock && <AboutSection isLoading={isLoading} about={aboutBlock || null} />}
+      {aboutBlock && (
+        <AboutSection isLoading={isLoading} about={aboutBlock || null} />
+      )}
       <Accreditation />
       {loan && <ScholarshipsSection isLoading={isLoading} loan={loan} />}
       {trust && <TrustSection isLoading={isLoading} trust={trust} />}
@@ -464,8 +489,10 @@ export default function Home() {
 
           {/* CTA Button */}
           <div className="mt-10">
-            <button className="px-8 py-3 rounded-full bg-red-600 text-white font-semibold hover:opacity-90 transition"
-              onClick={() => setShowPopup(true)}>
+            <button
+              className="px-8 py-3 rounded-full bg-red-600 text-white font-semibold hover:opacity-90 transition"
+              onClick={() => setShowPopup(true)}
+            >
               Apply Now
             </button>
           </div>
@@ -485,7 +512,8 @@ export default function Home() {
               Powerful Tools to Plan Your Education
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Use our free calculators and tools to make informed decisions about your education financing
+              Use our free calculators and tools to make informed decisions
+              about your education financing
             </p>
           </motion.div>
 
@@ -513,7 +541,9 @@ export default function Home() {
                       <div className="mx-auto w-12 h-12 bg-gradient-primary rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                         <tool.icon className="h-6 w-6 text-white" />
                       </div>
-                      <CardTitle className="text-xl text-white">{tool.title}</CardTitle>
+                      <CardTitle className="text-xl text-white">
+                        {tool.title}
+                      </CardTitle>
                     </CardHeader>
                     <CardContent className="text-center">
                       <p className="text-gray-200 mb-4">{tool.description}</p>
@@ -533,7 +563,6 @@ export default function Home() {
               </motion.div>
             ))}
           </div>
-
         </div>
       </section>
       {/* Why Choose Us Section */}
@@ -580,17 +609,28 @@ export default function Home() {
                 {whyLoan.image_background && (
                   <div
                     className="absolute inset-0 bg-cover bg-center"
-                    style={{ backgroundImage: `url(${whyLoan.image_background.url})` }}
+                    style={{
+                      backgroundImage: `url(${whyLoan.image_background.url})`,
+                    }}
                   />
                 )}
                 <div className="absolute inset-0 bg-black/60" />
 
                 <div className="relative z-10 p-8 text-white">
                   {whyLoan.success_number?.map((item, i) => (
-                    <div key={item.id} className="flex items-center mb-6 last:mb-0">
-                      {i === 0 && <Users className="h-8 w-8 mr-3 text-red-600" />}
-                      {i === 1 && <Shield className="h-8 w-8 mr-3 text-red-600" />}
-                      {i === 2 && <GraduationCap className="h-8 w-8 mr-3 text-red-600" />}
+                    <div
+                      key={item.id}
+                      className="flex items-center mb-6 last:mb-0"
+                    >
+                      {i === 0 && (
+                        <Users className="h-8 w-8 mr-3 text-red-600" />
+                      )}
+                      {i === 1 && (
+                        <Shield className="h-8 w-8 mr-3 text-red-600" />
+                      )}
+                      {i === 2 && (
+                        <GraduationCap className="h-8 w-8 mr-3 text-red-600" />
+                      )}
                       <div>
                         <h3 className="text-2xl font-bold">
                           {item.title} <span className="text-red-600">+</span>
@@ -605,8 +645,6 @@ export default function Home() {
           </div>
         </section>
       )}
-
-
 
       {/* Loan Partners Section */}
       {bankBlock && <Banksloans isLoading={isLoading} bankBlock={bankBlock} />}
@@ -627,16 +665,25 @@ export default function Home() {
               Ready to Start Your Journey?
             </h2>
             <p className="text-xl text-white/90 mb-8">
-              Get personalized loan options and scholarship opportunities in minutes
+              Get personalized loan options and scholarship opportunities in
+              minutes
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button asChild size="lg" className="bg-white text-primary hover:bg-white/90 h-14 px-8">
+              <Button
+                asChild
+                size="lg"
+                className="bg-white text-primary hover:bg-white/90 h-14 px-8"
+              >
                 <Link to="/contact">
                   Get Started Now
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
-              <Button asChild size="lg" className="bg-white text-primary hover:bg-white/90 h-14 px-8">
+              <Button
+                asChild
+                size="lg"
+                className="bg-white text-primary hover:bg-white/90 h-14 px-8"
+              >
                 <Link to="/tools">Explore Tools</Link>
               </Button>
             </div>
