@@ -34,6 +34,7 @@ const ScrollToTopButton: React.FC<Props> = ({
     <>
       {isVisible && (
         <>
+          {/* Request form */}
           {showFormIcon && (
             <Tooltip>
               <TooltipTrigger asChild>
@@ -49,32 +50,19 @@ const ScrollToTopButton: React.FC<Props> = ({
             </Tooltip>
           )}
 
-          {/* Live Chat Button */}
-          <button
-            onClick={() => setChatOpen((prev) => !prev)}
-            className="fixed bottom-32 right-6 z-40 bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 transition-colors md:bottom-20"
-            aria-label="Live Chat"
-          >
-            <MessageSquareMore className="h-6 w-6" />
-          </button>
-
-          {/* ChatBot Widget */}
-          {chatOpen && (
-            <div id="chatbot-container">
-                {chatOpen && <ChatBot onClose={() => setChatOpen(false)} />}
-            </div>
-          )}
-
-          {/* Scroll to Top Button */}
+          {/* Scroll to Top */}
           <button
             onClick={scrollToTop}
-            className="fixed bottom-20 right-6 z-40 bg-primary text-white p-2 rounded-full shadow-lg hover:bg-red-600 transition-colors md:bottom-6"
+            className="fixed bottom-20 right-7 z-40 bg-primary text-white p-2 rounded-full shadow-lg hover:bg-red-600 transition-colors"
             aria-label="Scroll to top"
           >
             <ChevronUp className="h-6 w-6" />
           </button>
         </>
       )}
+
+      {/* ✅ Load Gallabox once here */}
+      <ChatBot onClose={() => setChatOpen(false)} />
       <style>{`
 
         .sonar-button {
