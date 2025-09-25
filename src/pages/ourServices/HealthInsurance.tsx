@@ -1,5 +1,38 @@
 "use client";
+import axios from "axios";
 import React, { useMemo, useState } from "react";
+import qs from "qs";
+import { HealthInsurance } from "@/lib/types/OurService";
+import { useQuery } from "@tanstack/react-query";
+import { toast } from "sonner";
+import CreditCardSkeleton from "@/Loaders/our-services/CreditCardSkeleton";
+const query = qs.stringify({
+  populate: {
+    our_services: {
+      on: {
+        "fintech.insurance": {
+          populate: {
+            background_image: { fields: ["url", "name", "documentId"] },
+            countrys: {
+              populate: {
+                providers: true,
+                sections: {
+                  populate: {
+                    rows: {
+                      populate: {
+                        values: true,
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  },
+});
 const THEME = {
   red: "#E3000F",
   blue: "#2563EB",
@@ -306,8 +339,7 @@ const DATA: Record<CountryKey, CountryData> = {
     currency: "€",
     description:
       "Many students enroll in the French social security system (Assurance Maladie). Complementary private insurance covers co-pays, repatriation and travel protection.",
-    providersLine:
-      "Insurance Providers – ACS, APRIL, Allianz, AXA, CHAPKA",
+    providersLine: "Insurance Providers – ACS, APRIL, Allianz, AXA, CHAPKA",
     providers: [
       { id: "acs", name: "ACS" },
       { id: "april", name: "APRIL" },
@@ -591,7 +623,12 @@ const FeatureGrid: React.FC<{
     </div>
   );
 };
-
+const fetchHealthInasurance = async () => {
+  const { data } = await axios.get(
+    `${import.meta.env.VITE_CMS_GLOBALURL}/api/our-service?${query}`
+  );
+  return data?.data?.our_services[0] || {};
+};
 /* =========================
    MAIN PAGE
    ========================= */
@@ -608,29 +645,44 @@ export default function HealthInasurance() {
     WebkitBackgroundClip: "text",
     WebkitTextFillColor: "transparent",
   } as React.CSSProperties;
+  const { data, isLoading, isError, error } = useQuery<HealthInsurance>({
+    queryKey: ["healthinsurance"],
+    queryFn: fetchHealthInasurance,
+  });
+  if (isError) {
+    toast.error("failed to load");
+    console.log("failed to load", error);
+    return null;
+  }
 
+  if (isLoading || !data) {
+    return <CreditCardSkeleton />;
+  }
   return (
     <div
       className="min-h-screen"
       style={{ background: THEME.surface, color: THEME.text }}
     >
       {/* HERO */}
-       <section className="relative text-white pt-32 pb-10 lg:pt-40 lg:pb-36">
-                <div
-                    className="absolute inset-0 bg-cover bg-right bg-no-repeat"
-                    style={{
-                        backgroundImage: "url('/assets/images/ourservices-img.jpg')",
-                    }}
-                >
-                    <div className="absolute inset-0 bg-black/70 md:bg-black/50" />
-                </div>
-                <div className="relative w-full max-w-[1400px] mx-auto px-6 flex flex-col items-center md:items-start justify-center text-left">
-                 <h1 className="text-2xl md:text-4xl font-bold text-white max-w-3xl">
-            Health Insurance Compare
+      <section className="relative text-white pt-32 pb-10 lg:pt-40 lg:pb-36">
+        <div
+          className="absolute inset-0 bg-cover bg-right bg-no-repeat"
+          style={{
+            backgroundImage: `url(${
+              data?.background_image?.url ||
+              "/assets/images/ourservices-img.jpg"
+            })`,
+          }}
+        >
+          <div className="absolute inset-0 bg-black/70 md:bg-black/50" />
+        </div>
+        <div className="relative w-full max-w-[1400px] mx-auto px-6 flex flex-col items-center md:items-start justify-center text-left">
+          <h1 className="text-2xl md:text-4xl font-bold text-white max-w-3xl">
+            {data?.heading || "Health Insurance Compare"}
           </h1>
           <p className="text-white/90 mt-3 max-w-2xl">
-            Pick a country to see student-friendly providers and benefit
-            comparisons. Built for fast scanning and mobile-first browsing.
+            {data?.description ||
+              "Pick a country to see student-friendly providers and benefit comparisons. Built for fast scanning and mobile-first browsing."}
           </p>
         </div>
       </section>

@@ -188,3 +188,62 @@ export interface Benfits {
   title: string;
   list: List[];
 }
+export interface GIC{
+  id: number;
+  background_image: Image;
+  heading: string;
+  description: string;
+  title: string;
+  description2: string;
+  Requirement_heading: string;
+  requirement_lists:string;
+}
+export interface HealthInsurance{
+  id:number;
+  background_image: Image;
+  heading:string;
+  description:string;
+  countrys: countrys[];
+
+}
+export interface countrys{
+  id: number;
+  name: string;
+  short:string;
+  currency:string;
+  description:string;
+  providersLine:string;
+  providers:providers[];
+  sections: sections[]
+}
+export interface providers{
+  id:number;
+  providerId:string;
+  name: string;
+}
+export interface sections{
+  id:number;
+  section:string;
+  rows:rows[]
+}
+export interface rows{
+  id:number;
+  name: string;
+  values: values[]
+}
+export interface values{
+  id:number;
+  providerId:string;
+  value: string;
+}
+//! sim cards
+
+export interface SimCards {
+  id: number;
+  heading: string;
+  description: string;
+  providers_heading: string;
+  providers_description: string;
+  provider_list: string;
+  background_image: Image;
+}
