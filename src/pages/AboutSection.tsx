@@ -1,6 +1,6 @@
 import { AboutUsBlock } from "@/lib/types/LandingPage";
 import React, { useState, useEffect, useRef } from "react";
-type Prop = { about: AboutUsBlock,  isLoading: boolean  }
+type Prop = { about: AboutUsBlock; isLoading: boolean };
 const AboutSection: React.FC<Prop> = ({ about }) => {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -88,9 +88,8 @@ const AboutSection: React.FC<Prop> = ({ about }) => {
     }, [end, start, duration, isVisible]);
     return count;
   };
-  const contentData = about?.content && about.content.length > 0
-    ? about.content
-    : defaultContent;
+  const contentData =
+    about?.content && about.content.length > 0 ? about.content : defaultContent;
   return (
     <section className="about-section" ref={sectionRef}>
       <div className="w-full max-w-[1400px] mx-auto px-4">
@@ -109,35 +108,37 @@ const AboutSection: React.FC<Prop> = ({ about }) => {
 
             {/* Section 1 */}
             {contentData?.map((con, idx) => {
-              return <div key={con?.id || idx}>  <div
-                className="flex items-start  pt-3"
-                data-aos="fade-right"
-                data-aos-anchor-placement="center-bottom"
-                data-aos-duration="1000"
-                data-aos-delay="200"
-              >
-                <img
-                  src={con?.gif?.url || ""}
-
-                  alt="Graduation Hat"
-                  className="w-10 h-10 mt-1 flex-shrink-0"
-                />
-                <span className="font-bold text-lg md:leading-10">
-                  {con?.title || ""}
-                </span>
-              </div>
-                <p
-                  className="para pb-1"
-                  data-aos="fade-right"
-                  data-aos-anchor-placement="center-bottom"
-                  data-aos-duration="1000"
-                  data-aos-delay="200"
-                >
-                  {con?.sub_title || ""} </p></div>
+              return (
+                <div key={con?.id || idx}>
+                  {" "}
+                  <div
+                    className="flex items-start  pt-3"
+                    data-aos="fade-right"
+                    data-aos-anchor-placement="center-bottom"
+                    data-aos-duration="1000"
+                    data-aos-delay="200"
+                  >
+                    <img
+                      src={con?.gif?.url || ""}
+                      alt="Graduation Hat"
+                      className="w-10 h-10 mt-1 flex-shrink-0"
+                    />
+                    <span className="font-bold text-lg md:leading-10">
+                      {con?.title || ""}
+                    </span>
+                  </div>
+                  <p
+                    className="para pb-1"
+                    data-aos="fade-right"
+                    data-aos-anchor-placement="center-bottom"
+                    data-aos-duration="1000"
+                    data-aos-delay="200"
+                  >
+                    {con?.sub_title || ""}{" "}
+                  </p>
+                </div>
+              );
             })}
-
-
-
 
             {/* Final Paragraph */}
             <p
@@ -152,31 +153,36 @@ const AboutSection: React.FC<Prop> = ({ about }) => {
             </p>
           </div>
 
-
-
           <div className="flex flex-col gap-4 sm:hidden ">
-            {stats.map((stat, i) => {
-              const count = useCounter(stat.value);
-              return (
-                <div
-                  key={stat.id}
-                  className="stat-box"
-                  data-aos="fade-up"
-                  data-aos-delay={i * 200}
-                  data-aos-duration="1000"
-                  data-aos-anchor-placement="center-bottom"
-                >
-                  <div className="left-box">
-                    <img src={stat.icon} alt="" className="icon" />
-                    <div className="count text-[#1e73be]">
-                      {count.toLocaleString("en-US")}
-                      {stat.suffix}
+            {about &&
+              about?.about_number &&
+              about?.about_number?.map((stat, i) => {
+                const numericValue =
+                  parseFloat(stat.count.replace(/[^0-9.]/g, "")) || 0;
+                const count = useCounter(numericValue);
+                return (
+                  <div
+                    key={stat.id}
+                    className="stat-box"
+                    data-aos="fade-up"
+                    data-aos-delay={i * 200}
+                    data-aos-duration="1000"
+                    data-aos-anchor-placement="center-bottom"
+                  >
+                    <div className="left-box">
+                      <img
+                        src={stat?.image?.url}
+                        alt={stat?.image?.name || ""}
+                        className="icon"
+                      />
+                      <div className="count text-[#1e73be]">
+                        {count.toLocaleString("en-US")}+
+                      </div>
                     </div>
+                    <div className="label">{stat.text}</div>
                   </div>
-                  <div className="label">{stat.label}</div>
-                </div>
-              );
-            })}
+                );
+              })}
           </div>
 
           <div
@@ -187,8 +193,10 @@ const AboutSection: React.FC<Prop> = ({ about }) => {
             data-aos-anchor-placement="center-bottom"
           >
             <img
-              src={about?.chairman.url || "https://vsourcevarsity.com/assets/images/founder.webp"}
-
+              src={
+                about?.chairman.url ||
+                "https://vsourcevarsity.com/assets/images/founder.webp"
+              }
               alt="Founder"
               className="founder-img"
             />
@@ -200,8 +208,14 @@ const AboutSection: React.FC<Prop> = ({ about }) => {
         {about?.about_number?.length ? (
           <div className="bottom-section">
             {about.about_number.map((stat, i) => {
-              // convert string count → number for animation
-              const count = useCounter(Number(stat.count));
+              // Extract numeric part
+              const numericValue =
+                parseFloat(stat.count.replace(/[^0-9.]/g, "")) || 0;
+
+              // Extract suffix (non-numeric characters)
+              const suffix = stat.count.replace(/[0-9.,\s]/g, "");
+
+              const count = useCounter(numericValue);
 
               return (
                 <div
@@ -219,7 +233,7 @@ const AboutSection: React.FC<Prop> = ({ about }) => {
                       className="icon"
                     />
                     <div className="count text-[#1e73be]">
-                      {count.toLocaleString("en-US")}+
+                      {count.toLocaleString("en-US")} {suffix} +
                     </div>
                   </div>
                   <div className="label">{stat.text}</div>
@@ -233,7 +247,6 @@ const AboutSection: React.FC<Prop> = ({ about }) => {
             <p>No stats available</p>
           </div>
         )}
-
       </div>
 
       <style>{`
