@@ -247,3 +247,28 @@ export interface SimCards {
   provider_list: string;
   background_image: Image;
 }
+export interface EducationLoan{
+  id: number;
+  heading: string;
+  description: string;
+  background_image: Image;
+  sub_heading: string;
+  faq_heading: string;
+  lists: lists[];
+  sub_topic: sub_topic[];
+  faq_detail: faq_detail[];
+}
+export interface lists{
+  id : number;
+  list: string;
+}
+export interface sub_topic{
+  id: number;
+  heading: string;
+  description: string;
+}
+export  interface faq_detail{
+  id: number;
+  heading: string;
+  description: string;
+}
