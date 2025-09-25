@@ -220,13 +220,13 @@ const ChatBot: React.FC<ChatBotProps> = ({ onClose }) => {
       url: "https://waw.gallabox.com",
       options: {
         waId: "919000139547",
-        siteName: "Vsource Overseas",
+        siteName: "Vsource Fintech",
         siteTag: "Very Responsive",
         siteLogo:
           "https://files.gallabox.com/66bf5c653523fb168cc0de1e/a1575190-cfd9-4ae4-9493-593087c368d8-Untitled2.png",
         widgetPosition: "RIGHT",
         welcomeMessage:
-          "Hi, I'm Vsource Overseas Assistant. How can I help you?",
+          "Hi, I'm Vsource Fintech Assistant. How can I help you?",
         brandColor: "#25D366",
         messageText: "Looking for Masters Abroad",
         replyOptions: [

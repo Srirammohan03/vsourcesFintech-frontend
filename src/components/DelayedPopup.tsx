@@ -159,7 +159,7 @@ const DelayedPopup: React.FC<DelayedPopupProps> = ({ onMinimize }) => {
               animate={controls}
             >
               <div className="relative w-full rounded-2xl shadow-xl overflow-hidden">
-                <div className="bg-white p-6 text-gray-800 rounded-2xl">
+                <div className="bg-white p-6 text-gray-800 rounded-2xl max-h-[90vh] max-w-[90vw] overflow-auto">
                   {/* Header */}
                   <div className="bg-red-500 text-white py-4 px-6 -mx-6 -mt-6 mb-6 text-center relative rounded-t-2xl">
                     <h2 className="text-xl font-bold mb-1">Save</h2>

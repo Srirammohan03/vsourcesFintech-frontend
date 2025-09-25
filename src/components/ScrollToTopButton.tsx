@@ -40,7 +40,7 @@ const ScrollToTopButton: React.FC<Props> = ({
               <TooltipTrigger asChild>
                 <button
                   onClick={onFormIconClick}
-                  className="sonar-button fixed bottom-44 right-6 z-40 bg-red-600 text-white p-3 rounded-full shadow-lg hover:bg-red-700 transition-colors md:bottom-32 mb-3 flex items-center justify-center"
+                  className="sonar-button fixed bottom-32 right-6 z-40 bg-red-600 text-white p-3 rounded-full shadow-lg hover:bg-red-700 transition-colors md:bottom-32 mb-3 flex items-center justify-center"
                   aria-label="Open Form"
                 >
                   <FileText className="h-6 w-6" />

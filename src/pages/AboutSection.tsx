@@ -159,6 +159,10 @@ const AboutSection: React.FC<Prop> = ({ about }) => {
               about?.about_number?.map((stat, i) => {
                 const numericValue =
                   parseFloat(stat.count.replace(/[^0-9.]/g, "")) || 0;
+
+                // Extract suffix (non-numeric characters)
+                const suffix = stat.count.replace(/[0-9.,\s]/g, "");
+
                 const count = useCounter(numericValue);
                 return (
                   <div
@@ -176,7 +180,7 @@ const AboutSection: React.FC<Prop> = ({ about }) => {
                         className="icon"
                       />
                       <div className="count text-[#1e73be]">
-                        {count.toLocaleString("en-US")}+
+                        {count.toLocaleString("en-US")} {suffix} +
                       </div>
                     </div>
                     <div className="label">{stat.text}</div>

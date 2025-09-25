@@ -1,8 +1,16 @@
 import React, { useState } from "react";
-import { CheckCircle2, User, Mail, Phone, Globe, BookOpen, Banknote } from "lucide-react";
+import {
+  CheckCircle2,
+  User,
+  Mail,
+  Phone,
+  Globe,
+  BookOpen,
+  Banknote,
+} from "lucide-react";
 
-// Main App component
-const App = () => {
+// Main AbroadForm component
+const AbroadForm = () => {
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -54,27 +62,37 @@ const App = () => {
           <p className="text-blue-100 mb-8 font-light leading-relaxed">
             Financing your study abroad dream should be seamless. Our education
             loans are designed to cover all your needs, from tuition to living
-            expenses, with a smooth, hassle-free application process. We're
-            here to help you take on the world.
+            expenses, with a smooth, hassle-free application process. We're here
+            to help you take on the world.
           </p>
 
           <ul className="space-y-4 text-blue-100">
             <li className="flex items-start gap-3">
               <CheckCircle2 className="w-6 h-6 text-blue-200 mt-1" />
               <span>
-                <span className="font-semibold text-white">Pre-admission loans</span> are available so you can apply worry-free.
+                <span className="font-semibold text-white">
+                  Pre-admission loans
+                </span>{" "}
+                are available so you can apply worry-free.
               </span>
             </li>
             <li className="flex items-start gap-3">
               <CheckCircle2 className="w-6 h-6 text-blue-200 mt-1" />
               <span>
-                Covers <span className="font-semibold text-white">tuition, living, flights, and more</span> – all in one loan.
+                Covers{" "}
+                <span className="font-semibold text-white">
+                  tuition, living, flights, and more
+                </span>{" "}
+                – all in one loan.
               </span>
             </li>
             <li className="flex items-start gap-3">
               <CheckCircle2 className="w-6 h-6 text-blue-200 mt-1" />
               <span>
-                <span className="font-semibold text-white">Collateral-free options</span> for top international universities.
+                <span className="font-semibold text-white">
+                  Collateral-free options
+                </span>{" "}
+                for top international universities.
               </span>
             </li>
           </ul>
@@ -144,7 +162,9 @@ const App = () => {
                   className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-xl appearance-none bg-white cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
                   required
                 >
-                  <option value="" disabled>Country of Study</option>
+                  <option value="" disabled>
+                    Country of Study
+                  </option>
                   <option value="usa">USA</option>
                   <option value="uk">UK</option>
                   <option value="canada">Canada</option>
@@ -153,8 +173,18 @@ const App = () => {
                   <option value="germany">Germany</option>
                 </select>
                 <div className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none">
-                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  <svg
+                    className="w-5 h-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M19 9l-7 7-7-7"
+                    />
                   </svg>
                 </div>
               </div>
@@ -169,13 +199,25 @@ const App = () => {
                   className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-xl appearance-none bg-white cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
                   required
                 >
-                  <option value="" disabled>Admission Status</option>
+                  <option value="" disabled>
+                    Admission Status
+                  </option>
                   <option value="confirmed">Admission Confirmed</option>
                   <option value="pending">Admission Pending</option>
                 </select>
                 <div className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none">
-                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  <svg
+                    className="w-5 h-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M19 9l-7 7-7-7"
+                    />
                   </svg>
                 </div>
               </div>
@@ -191,13 +233,25 @@ const App = () => {
                 className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-xl appearance-none bg-white cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
                 required
               >
-                <option value="" disabled>Select Loan Type</option>
+                <option value="" disabled>
+                  Select Loan Type
+                </option>
                 <option value="collateral">With Collateral</option>
                 <option value="non-collateral">Without Collateral</option>
               </select>
               <div className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none">
-                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                <svg
+                  className="w-5 h-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M19 9l-7 7-7-7"
+                  />
                 </svg>
               </div>
             </div>
@@ -241,4 +295,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default AbroadForm;

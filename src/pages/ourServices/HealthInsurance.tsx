@@ -5,6 +5,14 @@ import { HealthInsurance } from "@/lib/types/OurService";
 import { useQuery } from "@tanstack/react-query";
 import { toast } from "sonner";
 import CreditCardSkeleton from "@/Loaders/our-services/CreditCardSkeleton";
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from "@/components/ui/select";
+
 const query = qs.stringify({
   populate: {
     our_services: {
@@ -246,32 +254,47 @@ export default function HealthInasurance() {
   });
 
   const DATA = useMemo(() => {
+    if (!data?.countrys || !Array.isArray(data.countrys)) {
+      return {}; // ✅ Return empty object instead of undefined
+    }
+
     return data.countrys.reduce((acc, country) => {
+      if (!country) return acc; // safety check
+
       acc[country.name] = {
-        short: country.short,
-        currency: country.currency,
-        description: country.description,
-        providersLine: country.providersLine,
-        providers: country.providers.map((p) => ({
-          id: p.providerId,
-          name: p.name,
-        })),
-        sections: country.sections.map((s) => ({
-          section: s.section,
-          rows: s.rows.map((r) => ({
-            name: r.name,
-            values: r.values.reduce((vacc, val) => {
-              vacc[val.providerId] = val.value;
-              return vacc;
-            }, {} as Record<string, string>),
-          })),
-        })),
+        short: country.short ?? "",
+        currency: country.currency ?? "",
+        description: country.description ?? "",
+        providersLine: country.providersLine ?? "",
+        providers: Array.isArray(country.providers)
+          ? country.providers.map((p) => ({
+              id: p.providerId,
+              name: p.name,
+            }))
+          : [],
+        sections: Array.isArray(country.sections)
+          ? country.sections.map((s) => ({
+              section: s.section ?? "",
+              rows: Array.isArray(s.rows)
+                ? s.rows.map((r) => ({
+                    name: r.name ?? "",
+                    values: Array.isArray(r.values)
+                      ? r.values.reduce((vacc, val) => {
+                          vacc[val.providerId] = val.value;
+                          return vacc;
+                        }, {} as Record<string, string>)
+                      : {},
+                  }))
+                : [],
+            }))
+          : [],
       };
+
       return acc;
     }, {} as Record<CountryKey, CountryData>);
   }, [data]);
 
-  const countries = useMemo(() => Object.keys(DATA) as CountryKey[], [DATA]);
+  const countries = useMemo(() => Object?.keys(DATA) as CountryKey[], [DATA]);
 
   const [country, setCountry] = useState<CountryKey>("United States");
 
@@ -338,21 +361,27 @@ export default function HealthInasurance() {
       <div className="w-full max-w-[1400px] mx-auto px-6 py-10 sm:px-6 lg:px-8 ">
         <SectionCard className="space-y-8">
           {/* Country dropdown */}
-          <div className="text-center">
+          <div className="text-center flex flex-col items-center">
             <label className="block text-sm font-semibold text-gray-800 mb-2">
               Select Country
             </label>
-            <select
-              value={country}
-              onChange={(e) => setCountry(e.target.value as CountryKey)}
-              className="w-full md:w-96 rounded-xl border border-gray-300 bg-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            >
-              {countries.map((k) => (
-                <option key={k} value={k}>
-                  {DATA[k].short === "USA" ? "USA" : k}
-                </option>
-              ))}
-            </select>
+            <div className="w-full md:w-96 px-3 py-2 ">
+              <Select
+                value={country}
+                onValueChange={(value) => setCountry(value as CountryKey)}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Select country" />
+                </SelectTrigger>
+                <SelectContent>
+                  {countries.map((k) => (
+                    <SelectItem key={k} value={k}>
+                      {DATA[k].short === "USA" ? "USA" : k}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
           </div>
 
           {/* Heading */}
