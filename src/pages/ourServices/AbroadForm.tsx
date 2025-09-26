@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from "react";
 import {
   CheckCircle2,
@@ -8,62 +10,97 @@ import {
   BookOpen,
   Banknote,
 } from "lucide-react";
+import axios from "axios";
+import { useMutation } from "@tanstack/react-query";
+import { toast } from "sonner";
 
-// Main AbroadForm component
+// shadcn/ui Select
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from "@/components/ui/select";
+
 const AbroadForm = () => {
   const [formData, setFormData] = useState({
-    fullName: "",
+    name: "",
     email: "",
-    mobile: "",
+    number: "",
     country: "",
-    status: "",
+    admission_status: "",
     loanType: "",
   });
 
   const [loanAmount, setLoanAmount] = useState(1000000);
 
-  // Function to handle form input changes
-  const handleInputChange = (e) => {
+  // ✅ Submit mutation
+  const mutation = useMutation({
+    mutationFn: async (payload: any) => {
+      const { data } = await axios.post(
+        `${import.meta.env.VITE_CMS_GLOBALURL}/api/abroad-forms`,
+        {
+          data: payload, // 🔹 Strapi v4 requires wrapping in "data"
+        }
+      );
+      return data;
+    },
+    onSuccess: () => {
+      toast.success("Form submitted successfully!");
+      setFormData({
+        name: "",
+        email: "",
+        number: "",
+        country: "",
+        admission_status: "",
+        loanType: "",
+      });
+      setLoanAmount(1000000);
+    },
+    onError: (err: any) => {
+      console.error(err.response?.data);
+      toast.error(
+        err.response?.data?.error?.message || "Something went wrong!"
+      );
+    },
+  });
+
+  // ✅ Handlers
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Function to handle loan amount slider change
-  const handleLoanAmountChange = (e) => {
+  const handleLoanAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setLoanAmount(Number(e.target.value));
   };
 
-  // Function to format the loan amount with commas and currency symbol
-  const formatAmount = (value) => {
-    return value.toLocaleString("en-IN");
-  };
-
-  // Function to handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form Data Submitted:", {
+    mutation.mutate({
       ...formData,
       loanAmount,
     });
-    // Here you would typically send the data to a server or API
   };
+
+  const formatAmount = (amount: number) =>
+    new Intl.NumberFormat("en-IN").format(amount);
 
   return (
     <section className="min-h-screen bg-gray-100 flex items-center justify-center p-4 sm:p-8">
       <div className="w-full max-w-6xl mx-auto rounded-3xl shadow-2xl overflow-hidden bg-white md:grid md:grid-cols-2 lg:gap-8">
-        {/* Left Section - Hero Content */}
+        {/* Left Section */}
         <div className="p-6 md:p-12 flex flex-col justify-center bg-blue-700 text-white rounded-t-3xl md:rounded-l-3xl md:rounded-tr-none">
-          <h2 className="text-3xl md:text-4xl font-extrabold mb-4 leading-tight tracking-wide">
+          <h2 className="text-3xl md:text-4xl font-extrabold mb-4">
             Your Passport to Global Education
           </h2>
-          <p className="text-blue-100 mb-8 font-light leading-relaxed">
+          <p className="text-blue-100 mb-8 font-light">
             Financing your study abroad dream should be seamless. Our education
             loans are designed to cover all your needs, from tuition to living
-            expenses, with a smooth, hassle-free application process. We're here
-            to help you take on the world.
+            expenses. We're here to help you take on the world.
           </p>
 
           <ul className="space-y-4 text-blue-100">
@@ -73,7 +110,7 @@ const AbroadForm = () => {
                 <span className="font-semibold text-white">
                   Pre-admission loans
                 </span>{" "}
-                are available so you can apply worry-free.
+                available so you can apply worry-free.
               </span>
             </li>
             <li className="flex items-start gap-3">
@@ -82,8 +119,8 @@ const AbroadForm = () => {
                 Covers{" "}
                 <span className="font-semibold text-white">
                   tuition, living, flights, and more
-                </span>{" "}
-                – all in one loan.
+                </span>
+                .
               </span>
             </li>
             <li className="flex items-start gap-3">
@@ -92,14 +129,10 @@ const AbroadForm = () => {
                 <span className="font-semibold text-white">
                   Collateral-free options
                 </span>{" "}
-                for top international universities.
+                for top universities.
               </span>
             </li>
           </ul>
-
-          {/* <div className="mt-8 flex justify-center md:justify-start">
-            <div className="w-64 h-24 bg-blue-800 rounded-full blur-3xl opacity-50"></div>
-          </div> */}
         </div>
 
         {/* Right Section - Form */}
@@ -113,11 +146,11 @@ const AbroadForm = () => {
               <User className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
               <input
                 type="text"
-                name="fullName"
+                name="name"
                 placeholder="Full Name"
-                value={formData.fullName}
+                value={formData.name}
                 onChange={handleInputChange}
-                className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
+                className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500"
                 required
               />
             </div>
@@ -131,7 +164,7 @@ const AbroadForm = () => {
                 placeholder="Email Address"
                 value={formData.email}
                 onChange={handleInputChange}
-                className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
+                className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500"
                 required
               />
             </div>
@@ -141,122 +174,82 @@ const AbroadForm = () => {
               <Phone className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
               <input
                 type="tel"
-                name="mobile"
+                name="number"
                 placeholder="Mobile Number"
-                value={formData.mobile}
+                value={formData.number}
                 onChange={handleInputChange}
-                className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
+                className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500"
                 required
               />
             </div>
 
-            {/* Country and Course fields */}
+            {/* Country + Admission Status */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              {/* Country */}
               <div className="relative">
                 <Globe className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
-                <select
-                  name="country"
+                <Select
                   value={formData.country}
-                  onChange={handleInputChange}
-                  className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-xl appearance-none bg-white cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
-                  required
+                  onValueChange={(val) =>
+                    setFormData((prev) => ({ ...prev, country: val }))
+                  }
                 >
-                  <option value="" disabled>
-                    Country of Study
-                  </option>
-                  <option value="usa">USA</option>
-                  <option value="uk">UK</option>
-                  <option value="canada">Canada</option>
-                  <option value="australia">Australia</option>
-                  <option value="france">France</option>
-                  <option value="germany">Germany</option>
-                </select>
-                <div className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none">
-                  <svg
-                    className="w-5 h-5"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M19 9l-7 7-7-7"
-                    />
-                  </svg>
-                </div>
+                  <SelectTrigger className="w-full pl-12">
+                    <SelectValue placeholder="Country of Study" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="usa">USA</SelectItem>
+                    <SelectItem value="uk">UK</SelectItem>
+                    <SelectItem value="canada">Canada</SelectItem>
+                    <SelectItem value="australia">Australia</SelectItem>
+                    <SelectItem value="france">France</SelectItem>
+                    <SelectItem value="germany">Germany</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
 
-              {/* Admission Status */}
               <div className="relative">
                 <BookOpen className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
-                <select
-                  name="status"
-                  value={formData.status}
-                  onChange={handleInputChange}
-                  className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-xl appearance-none bg-white cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
-                  required
+                <Select
+                  value={formData.admission_status}
+                  onValueChange={(val) =>
+                    setFormData((prev) => ({ ...prev, admission_status: val }))
+                  }
                 >
-                  <option value="" disabled>
-                    Admission Status
-                  </option>
-                  <option value="confirmed">Admission Confirmed</option>
-                  <option value="pending">Admission Pending</option>
-                </select>
-                <div className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none">
-                  <svg
-                    className="w-5 h-5"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M19 9l-7 7-7-7"
-                    />
-                  </svg>
-                </div>
+                  <SelectTrigger className="w-full pl-12">
+                    <SelectValue placeholder="Admission Status" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="confirmed">
+                      Admission Confirmed
+                    </SelectItem>
+                    <SelectItem value="pending">Admission Pending</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
             </div>
 
             {/* Loan Type */}
             <div className="relative">
               <Banknote className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
-              <select
-                name="loanType"
+              <Select
                 value={formData.loanType}
-                onChange={handleInputChange}
-                className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-xl appearance-none bg-white cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
-                required
+                onValueChange={(val) =>
+                  setFormData((prev) => ({ ...prev, loanType: val }))
+                }
               >
-                <option value="" disabled>
-                  Select Loan Type
-                </option>
-                <option value="collateral">With Collateral</option>
-                <option value="non-collateral">Without Collateral</option>
-              </select>
-              <div className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none">
-                <svg
-                  className="w-5 h-5"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M19 9l-7 7-7-7"
-                  />
-                </svg>
-              </div>
+                <SelectTrigger className="w-full pl-12">
+                  <SelectValue placeholder="Select Loan Type" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="collateral">With Collateral</SelectItem>
+                  <SelectItem value="non-collateral">
+                    Without Collateral
+                  </SelectItem>
+                </SelectContent>
+              </Select>
             </div>
 
-            {/* Loan Amount Slider */}
+            {/* Loan Amount */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Loan Amount
@@ -272,7 +265,7 @@ const AbroadForm = () => {
                   step={500000}
                   value={loanAmount}
                   onChange={handleLoanAmountChange}
-                  className="w-full h-2 bg-blue-100 rounded-lg appearance-none cursor-pointer range-lg [&::-webkit-slider-thumb]:bg-blue-600 [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:shadow-lg"
+                  className="w-full h-2 bg-blue-100 rounded-lg appearance-none cursor-pointer"
                 />
               </div>
               <div className="flex justify-between text-xs text-gray-500 mt-2">
@@ -281,12 +274,13 @@ const AbroadForm = () => {
               </div>
             </div>
 
-            {/* Submit Button */}
+            {/* Submit */}
             <button
               type="submit"
-              className="w-full bg-red-600 text-white font-bold py-3 px-6 rounded-xl shadow-lg "
+              disabled={mutation.isPending}
+              className="w-full bg-red-600 text-white font-bold py-3 px-6 rounded-xl shadow-lg disabled:opacity-60"
             >
-              Get My Loan Quote
+              {mutation.isPending ? "Submitting..." : "Get My Loan Quote"}
             </button>
           </form>
         </div>

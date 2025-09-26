@@ -390,9 +390,10 @@ export default function HealthInasurance() {
               Compare and Get the Best Insurance Plans for:{" "}
               <span style={highlight}>{c.short}</span>
             </h2>
-            <p className="text-gray-700 leading-7 max-w-4xl mx-auto">
+            <p className="text-gray-700 sm:max-w-4xl sm:mx-auto tracking-tight text-left sm:text-justify">
               {c.description}
             </p>
+
             <p className="text-sm md:text-base font-medium text-gray-800">
               {c.providersLine}
             </p>
