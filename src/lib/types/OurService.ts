@@ -61,7 +61,10 @@ interface BlockedAccountProvider {
   title: string;
   description: string;
   image: Image;
-  list: ProviderListItem[];
+  processing_fee:string;
+monthly_fee:string;
+processing_time:string;
+banking_model:string;
 }
 
 export interface BlockedAccount {
@@ -72,11 +75,6 @@ export interface BlockedAccount {
   background_image: Image;
   faq: FAQ[];
   blocked_account_providers: BlockedAccountProvider[];
-}
-
-export interface List {
-  id: number;
-  list: string;
 }
 
 export interface WorksCard {

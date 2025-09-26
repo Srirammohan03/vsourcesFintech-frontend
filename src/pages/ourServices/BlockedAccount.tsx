@@ -247,7 +247,6 @@ const query = qs.stringify({
             blocked_account_providers: {
               populate: {
                 image: { fields: ["url", "name", "documentId"] },
-                list: true,
               },
             },
           },
@@ -271,6 +270,11 @@ const BlockedAccount: React.FC = () => {
     queryKey: ["blockAccount"],
     queryFn: fetchBlockedAccount,
   });
+
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
+
   if (isError) {
     toast.error("failed to load");
     console.log("failed to load", error);
@@ -374,14 +378,14 @@ const BlockedAccount: React.FC = () => {
                 </div>
                 <p className="text-gray-700 mb-6">{provider?.description}</p>
                 <div className="grid grid-cols-2 gap-y-2 text-gray-800 font-semibold">
-                  {/* <span>Processing Fee:</span>
-                <span>{fees.processingFee}</span>
-                <span>Monthly Fee:</span>
-                <span>{fees.monthlyFee}</span>
-                <span>Processing Time:</span>
-                <span>{fees.processingTime}</span>
-                <span>Banking Model:</span>
-                <span>{fees.bankingModel}</span> */}
+                  <span>Processing Fee:</span>
+                  <span>{provider?.processing_fee}</span>
+                  <span>Monthly Fee:</span>
+                  <span>{provider?.monthly_fee}</span>
+                  <span>Processing Time:</span>
+                  <span>{provider?.processing_time}</span>
+                  <span>Banking Model:</span>
+                  <span>{provider?.banking_model}</span>
                 </div>
               </div>
             ))}

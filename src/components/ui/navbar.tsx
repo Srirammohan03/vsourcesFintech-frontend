@@ -465,20 +465,16 @@ export function Navbar() {
         >
           <div className="w-full border-b">
             <div className="w-full max-w-[1400px] mx-auto px-4 h-20 flex items-center justify-between">
-              <Link
-                to="/"
-                onClick={() => setIsOpen(false)}
-                className="flex items-center gap-3"
-              >
+              <Link to="/" className="flex items-center gap-2 relative z-20">
                 <img
+                  alt="Vsource Logo"
+                  className="h-16 md:h-20 w-auto object-contain rounded-xl"
                   src="/assets/images/fintech-logo.png"
-                  alt="Vsource"
-                  className="h-16 md:h-20 w-auto object-contain rounded-xl shadow-md"
                 />
                 <img
+                  alt="Vsource Logo"
+                  className="h-16 md:h-20 w-auto object-contain rounded-xl"
                   src="/assets/images/20 years logo-01.png"
-                  alt="20 Years"
-                  className="h-12 w-auto object-contain"
                 />
               </Link>
               <button
