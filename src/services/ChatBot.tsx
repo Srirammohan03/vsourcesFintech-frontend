@@ -216,46 +216,23 @@ interface ChatBotProps {
 
 const ChatBot: React.FC<ChatBotProps> = ({ onClose }) => {
   useEffect(() => {
-    (window as any).gbwawc = {
-      url: "https://waw.gallabox.com",
-      options: {
-        waId: "919000139547",
-        siteName: "Vsource Fintech",
-        siteTag: "Very Responsive",
-        siteLogo:
-          "https://files.gallabox.com/66bf5c653523fb168cc0de1e/a1575190-cfd9-4ae4-9493-593087c368d8-Untitled2.png",
-        widgetPosition: "RIGHT",
-        welcomeMessage:
-          "Hi, I'm Vsource Fintech Assistant. How can I help you?",
-        brandColor: "#25D366",
-        messageText: "Looking for Masters Abroad",
-        replyOptions: [
-          "Tell me about eligibility for studying abroad",
-          "What Documents do I need for admission",
-          "How much education loan can I avail for abroad studies",
-          "What are non collateral education loan options?",
-        ],
-        version: "v1",
-        widgetPositionMarginX: 12,
-        widgetPositionMarginY: 12,
-      },
+    const token = import.meta.env.VITE_CMS_TOKEN;
+
+    // ✅ Setup Chatty (script already exists globally)
+    (window as any).Chatty = function (c: any) {
+      (window as any).Chatty._.push(c);
     };
+    (window as any).Chatty._ = [];
+    (window as any).Chatty.url = "https://widget.gallabox.com";
+    (window as any).Chatty.hash = token;
 
-    const script = document.createElement("script");
-    script.async = true;
-    script.src =
-      "https://waw.gallabox.com/whatsapp-widget.min.js?_=" +
-      new Date().getTime();
-    document.body.appendChild(script);
-
-    // ⚡ Optionally listen for widget close if Gallabox exposes events
-    (window as any).gbWidgetOnClose = () => {
+    // Optional: handle close
+    (window as any).Chatty.onClose = () => {
       if (onClose) onClose();
     };
 
     return () => {
-      document.body.removeChild(script);
-      delete (window as any).gbWidgetOnClose;
+      delete (window as any).Chatty;
     };
   }, [onClose]);
 
