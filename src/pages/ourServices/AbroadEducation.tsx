@@ -134,7 +134,7 @@ const AbroadEducation: React.FC = () => {
           style={{
             backgroundImage: `url(${
               data?.background_image?.url ||
-              "/assets/images/ourservices-img.jpg"
+              "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762862486/rp2drehs0klzgtznsxmx.jpg"
             })`,
           }}
         >

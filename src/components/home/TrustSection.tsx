@@ -63,7 +63,6 @@ const OurServices: React.FC = () => {
             key={index}
             className="service-card"
             data-aos="fade-up"
-            data-aos-delay={index * 100}
             style={{
               backgroundImage: `url(${service.backgroundImage})`,
               backgroundRepeat: "no-repeat",
@@ -79,7 +78,6 @@ const OurServices: React.FC = () => {
               <div
                 className="icon-wrapper"
                 data-aos="fade-right"
-                data-aos-delay={index * 200}
                 data-aos-anchor-placement="center-bottom"
               >
                 {service.icon}
@@ -88,7 +86,6 @@ const OurServices: React.FC = () => {
               <h3
                 className="card-title"
                 data-aos="fade-right"
-                data-aos-delay={index * 200}
                 data-aos-anchor-placement="center-bottom"
               >
                 {service.title}
@@ -97,7 +94,6 @@ const OurServices: React.FC = () => {
               <p
                 className="card-desc"
                 data-aos="fade-right"
-                data-aos-delay={index * 200}
                 data-aos-anchor-placement="center-bottom"
               >
                 {service.description}
