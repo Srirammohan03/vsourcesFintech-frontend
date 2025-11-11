@@ -16,7 +16,7 @@ import NotFound from "./pages/NotFound";
 import ContactBar from "./components/ContactBar";
 import { Footer } from "./components/ui/footer";
 import GoVirtual from "./services/GoVirtual";
-import { Navbar } from "./components/ui/navbar";
+// import { Navbar } from "./components/ui/navbar";
 import EducationLoan from "./pages/EducationLoan";
 import ScrollToTop from "./ScrollToTop";
 
@@ -65,6 +65,8 @@ import ScrollToTopButton from "./components/ScrollToTopButton";
 import DelayedPopup from "./components/DelayedPopup";
 import NbfcPage from "./pages/ourpartner/NbfcPage";
 import BankPage from "./pages/ourpartner/BankPage";
+import View360 from "./pages/View360";
+import Navbar from "./components/Navbar";
 const queryClient = new QueryClient();
 
 const AppContent = () => {
@@ -121,6 +123,7 @@ const AppContent = () => {
             <Route path="/" element={<Home />} />
             <Route path="/about-us" element={<AboutPage />} />
             <Route path="/gallery" element={<GalleryPage />} />
+            <Route path="/view-360" element={<View360 />} />
             <Route
               path="/services/abroad-education-loan"
               element={<AbroadEducation />}
