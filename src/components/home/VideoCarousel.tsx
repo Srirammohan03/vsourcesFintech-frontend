@@ -7,14 +7,46 @@ type VideoItem = {
 };
 
 const videos: VideoItem[] = [
-  { name: "SAMSRUTHI", video: "/assets/images/video/student4.mp4" },
-  { name: "AMITH REDDY", video: "/assets/images/video/student8.mp4" },
-  { name: "BEDRE VISHWAS", video: "/assets/images/video/student7.mp4" },
-  { name: "DEEKSHITHA", video: "/assets/images/video/student1.mp4" },
-  { name: "SHAIK MUNEER AHMED", video: "/assets/images/video/student6.mp4" },
-  { name: "KHASHIKA", video: "/assets/images/video/student2.mp4" },
-  { name: "SATHVIKA", video: "/assets/images/video/student5.mp4" },
-  { name: "LOVLISH REDDY", video: "/assets/images/video/student3.mp4" },
+  {
+    name: "SAMSRUTHI",
+    video:
+      "https://res.cloudinary.com/dch00stdh/video/upload/f_auto,q_auto:eco,br_300k/v1762691780/student4_bjqhnt.mp4",
+  },
+  {
+    name: "AMITH REDDY",
+    video:
+      "https://res.cloudinary.com/dch00stdh/video/upload/f_auto,q_auto:eco,br_300k/v1762694135/student8_blnbpq.mp4",
+  },
+  {
+    name: "BEDRE VISHWAS",
+    video:
+      "https://res.cloudinary.com/dch00stdh/video/upload/f_auto,q_auto:eco,br_300k/v1762694056/student7_fuwbjh.mp4",
+  },
+  {
+    name: "DEEKSHITHA",
+    video:
+      "https://res.cloudinary.com/dch00stdh/video/upload/f_auto,q_auto:eco,br_300k/v1762693376/student1_kbxkmk.mp4",
+  },
+  {
+    name: "SHAIK MUNEER AHMED",
+    video:
+      "https://res.cloudinary.com/dch00stdh/video/upload/f_auto,q_auto:eco,br_300k/v1762693862/student6_bajxom.mp4",
+  },
+  {
+    name: "KHASHIKA",
+    video:
+      "https://res.cloudinary.com/dch00stdh/video/upload/f_auto,q_auto:eco,br_300k/v1762693691/student2_y8tg7j.mp4",
+  },
+  {
+    name: "SATHVIKA",
+    video:
+      "https://res.cloudinary.com/dch00stdh/video/upload/f_auto,q_auto:eco,br_300k/v1762693758/student5_n9mezn.mp4",
+  },
+  {
+    name: "LOVLISH REDDY",
+    video:
+      "https://res.cloudinary.com/dch00stdh/video/upload/f_auto,q_auto:eco,br_300k/v1762692631/student3_kpisvc.mp4",
+  },
 ];
 
 const OFFSET = 3;
@@ -25,228 +57,169 @@ const displayedVideos = [
 ];
 
 const VideoCarousel: React.FC = () => {
-  const [currentIndex, setCurrentIndex] = useState(OFFSET);
+  const [currentIndex, setCurrentIndex] = useState<number>(OFFSET);
   const [playingIndex, setPlayingIndex] = useState<number | null>(null);
-  const carouselRef = useRef<HTMLDivElement>(null);
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
-  const [cardCalculatedWidth, setCardCalculatedWidth] = useState(300);
-  const gapSize = 10;
 
-  const updateCardWidthAndPadding = () => {
-    const container = carouselRef.current;
-    if (!container || container.children.length === 0) return;
+  const carouselRef = useRef<HTMLDivElement | null>(null);
+  const sectionRef = useRef<HTMLDivElement | null>(null);
 
-    let newCardWidth: number;
-    if (window.innerWidth >= 1024) {
-      newCardWidth = (container.offsetWidth - 2 * gapSize) / 3;
-      newCardWidth = Math.min(300, newCardWidth);
-    } else if (window.innerWidth >= 768) {
-      newCardWidth = (container.offsetWidth - gapSize) / 2;
-      newCardWidth = Math.min(300, newCardWidth);
-    } else {
-      newCardWidth = container.offsetWidth - 2 * gapSize;
-      newCardWidth = Math.min(300, newCardWidth);
-    }
-    setCardCalculatedWidth(newCardWidth);
+  // Array of video DOM refs
+  const videoRefs = useRef<HTMLVideoElement[]>([]);
 
-    const padding = `calc(50% - ${newCardWidth / 2}px)`;
-    container.style.paddingLeft = padding;
-    container.style.paddingRight = padding;
+  const [cardCalculatedWidth, setCardCalculatedWidth] = useState<number>(280);
+
+  /* ---------- Update Card Width ---------- */
+  const updateCardWidth = () => {
+    let W = 280;
+    if (window.innerWidth >= 1024) W = 300;
+    else if (window.innerWidth >= 768) W = 260;
+    else W = 220;
+
+    setCardCalculatedWidth(W);
   };
 
-  const scrollToIndex = (index: number, behavior: ScrollBehavior = "smooth") => {
+  /* ---------- Initial Setup ---------- */
+  useEffect(() => {
+    updateCardWidth();
+
+    setTimeout(() => {
+      scrollToIndex(OFFSET, "auto");
+    }, 60);
+
+    window.addEventListener("resize", updateCardWidth);
+    return () => window.removeEventListener("resize", updateCardWidth);
+  }, []);
+
+  /* ---------- Smooth Scroll to Index ---------- */
+  const scrollToIndex = (
+    index: number,
+    behavior: ScrollBehavior = "smooth"
+  ) => {
     const container = carouselRef.current;
     if (!container) return;
 
-    const videoCards = Array.from(container.children) as HTMLElement[];
-    const targetElement = videoCards[index];
+    const cards = Array.from(container.children) as HTMLElement[];
+    const target = cards[index];
+    if (!target) return;
 
-    if (targetElement) {
-      const containerWidth = container.offsetWidth;
-      const elementOffsetLeft = targetElement.offsetLeft;
-      const elementWidth = targetElement.offsetWidth;
+    const scrollPos =
+      target.offsetLeft - container.clientWidth / 2 + target.clientWidth / 2;
 
-      const scrollLeft = elementOffsetLeft - containerWidth / 2 + elementWidth / 2;
-      container.scrollTo({ left: scrollLeft, behavior });
-    }
-
+    container.scrollTo({ left: scrollPos, behavior });
     setCurrentIndex(index);
   };
 
-  const goPrev = () => {
-    const prevIndex = currentIndex - 1;
-    if (prevIndex >= OFFSET) scrollToIndex(prevIndex);
-  };
+  const goPrev = () => scrollToIndex(currentIndex - 1);
+  const goNext = () => scrollToIndex(currentIndex + 1);
 
-  const goNext = () => {
-    const nextIndex = currentIndex + 1;
-    if (nextIndex < videos.length + OFFSET) scrollToIndex(nextIndex);
-  };
-
-  useEffect(() => {
-    videoRefs.current.forEach((video, index) => {
-      if (!video) return;
-      if (index !== currentIndex) {
-        video.pause();
-        video.currentTime = 0;
-      }
-    });
-    setPlayingIndex(null);
-  }, [currentIndex]);
-
-  useEffect(() => {
-    if (!carouselRef.current) return;
-    const timer = setTimeout(() => {
-      updateCardWidthAndPadding();
-      scrollToIndex(currentIndex, "auto");
-    }, 50);
-    return () => clearTimeout(timer);
-  }, []);
-
+  /* ---------- Detect Active Card While Scrolling ---------- */
   useEffect(() => {
     const container = carouselRef.current;
     if (!container) return;
 
-    const handleScroll = () => {
-      const containerCenter = container.scrollLeft + container.offsetWidth / 2;
-      const videoCards = Array.from(container.children) as HTMLElement[];
+    let ticking = false;
 
-      let newActiveIndex = currentIndex;
-      let minDistance = Infinity;
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
 
-      videoCards.forEach((child, index) => {
-        const childCenter = child.offsetLeft + child.offsetWidth / 2;
-        const distance = Math.abs(containerCenter - childCenter);
-        if (distance < minDistance) {
-          minDistance = distance;
-          newActiveIndex = index;
-        }
+      requestAnimationFrame(() => {
+        const center = container.scrollLeft + container.clientWidth / 2;
+
+        let nearest = currentIndex;
+        let minDist = Infinity;
+
+        const children = Array.from(container.children) as HTMLElement[];
+
+        children.forEach((child, i) => {
+          const childCenter = child.offsetLeft + child.clientWidth / 2;
+
+          const dist = Math.abs(center - childCenter);
+          if (dist < minDist) {
+            minDist = dist;
+            nearest = i;
+          }
+        });
+
+        setCurrentIndex(nearest);
+        ticking = false;
       });
+    };
 
-      if (newActiveIndex !== currentIndex) setCurrentIndex(newActiveIndex);
+    container.addEventListener("scroll", onScroll);
+    return () => container.removeEventListener("scroll", onScroll);
+  }, []);
 
-      // Infinite scroll logic
-      if (newActiveIndex >= videos.length + OFFSET) {
-        const newIndex = newActiveIndex - videos.length;
-        const replacementCard = videoCards[newIndex];
-        container.scrollTo({
-          left:
-            replacementCard.offsetLeft -
-            container.offsetWidth / 2 +
-            replacementCard.offsetWidth / 2,
-          behavior: "auto",
-        });
-        setCurrentIndex(newIndex);
-      } else if (
-        newActiveIndex < OFFSET &&
-        newActiveIndex >= 0 &&
-        container.scrollLeft < 10
-      ) {
-        const newIndex = videos.length + newActiveIndex;
-        const replacementCard = videoCards[newIndex];
-        container.scrollTo({
-          left:
-            replacementCard.offsetLeft -
-            container.offsetWidth / 2 +
-            replacementCard.offsetWidth / 2,
-          behavior: "auto",
-        });
-        setCurrentIndex(newIndex);
+  /* ---------- Stop Inactive Videos ---------- */
+  useEffect(() => {
+    videoRefs.current.forEach((v, i) => {
+      if (v && i !== playingIndex) {
+        v.pause();
+        v.currentTime = 0;
       }
-    };
+    });
+  }, [playingIndex]);
 
-    let scrollTimeout: NodeJS.Timeout;
-    const debounced = () => {
-      clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(handleScroll, 100);
-    };
+  /* ---------- Play Video ---------- */
+  const handlePlay = (i: number) => {
+    scrollToIndex(i);
 
-    container.addEventListener("scroll", debounced);
-    window.addEventListener("resize", updateCardWidthAndPadding);
-
-    return () => {
-      container.removeEventListener("scroll", debounced);
-      window.removeEventListener("resize", updateCardWidthAndPadding);
-      clearTimeout(scrollTimeout);
-    };
-  }, [currentIndex]);
-
-  const handlePlayClick = (index: number) => {
-    const v = videoRefs.current[index];
-    if (!v) return;
-
-    if (index !== currentIndex) {
-      scrollToIndex(index);
-      setTimeout(() => {
-        const vNow = videoRefs.current[index];
-        if (vNow) {
-          vNow.play().catch(() => {});
-          setPlayingIndex(index);
-        }
-      }, 200);
-      return;
-    }
-
-    v.play().catch(() => {});
-    setPlayingIndex(index);
+    setTimeout(() => {
+      const v = videoRefs.current[i];
+      if (v) {
+        v.play().catch(() => {});
+        setPlayingIndex(i);
+      }
+    }, 150);
   };
-
-  const onVideoPause = (index: number) => {
-    if (playingIndex === index) setPlayingIndex(null);
-  };
-
-  const onVideoEnded = () => {
-    setPlayingIndex(null);
-  };
-
-  const isLeftArrowDisabled = currentIndex === OFFSET;
-  const isRightArrowDisabled = currentIndex === videos.length + OFFSET - 1;
 
   return (
     <div ref={sectionRef} className={styles.wrapper}>
       <h2 className={styles.title}>Our Student Testimonials</h2>
 
       <div className={styles.carouselContainer}>
-        <button
-          onClick={goPrev}
-          className={styles.arrowButtonLeft}
-          disabled={isLeftArrowDisabled}
-        >
+        <button onClick={goPrev} className={styles.arrowButtonLeft}>
           ❮
         </button>
 
-        <div className={styles.carousel} ref={carouselRef}>
+        <div ref={carouselRef} className={styles.carousel}>
           {displayedVideos.map((vid, index) => {
             const isActive = index === currentIndex;
-            const isPlaying = playingIndex === index;
+            const isPlaying = index === playingIndex;
 
             return (
               <div
-                key={`${vid.name}-${index}`}
-                className={`${styles.videoCard} ${isActive ? styles.activeCard : ""}`}
-                style={{ width: `${cardCalculatedWidth}px` }}
+                key={index}
+                className={`${styles.videoCard} ${
+                  isActive ? styles.activeCard : ""
+                }`}
+                style={{ width: cardCalculatedWidth }}
               >
                 <div className={styles.videoArea}>
                   <video
-                    ref={(el) => (videoRefs.current[index] = el)}
+                    ref={(el) => {
+                      if (el) videoRefs.current[index] = el;
+                    }}
                     src={vid.video}
                     className={styles.video}
                     muted
                     loop
                     playsInline
+                    preload="metadata"
                     controls={isPlaying}
-                    onPause={() => onVideoPause(index)}
-                    onEnded={onVideoEnded}
+                    onEnded={() => setPlayingIndex(null)}
+                    onPause={() => setPlayingIndex(null)}
                   />
 
-                  {isActive && !isPlaying && (
+                  {!isPlaying && isActive && (
                     <button
                       className={styles.playButton}
-                      onClick={() => handlePlayClick(index)}
-                      aria-label="Play video"
+                      onClick={() => handlePlay(index)}
                     >
-                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 200 200"
+                      >
                         <circle cx="100" cy="100" r="90" />
                         <polygon points="80,60 150,100 80,140" />
                       </svg>
@@ -257,8 +230,12 @@ const VideoCarousel: React.FC = () => {
                 {isActive && (
                   <>
                     <div className={styles.videoCardText}>
-                      <span className={styles.studentTestimonials}>› Student </span>
-                      <span className={styles.testimonialText}>Testimonials</span>
+                      <span className={styles.studentTestimonials}>
+                        › Student{" "}
+                      </span>
+                      <span className={styles.testimonialText}>
+                        Testimonials
+                      </span>
                     </div>
                     <div className={styles.nameTag}>{vid.name}</div>
                   </>
@@ -268,11 +245,7 @@ const VideoCarousel: React.FC = () => {
           })}
         </div>
 
-        <button
-          onClick={goNext}
-          className={styles.arrowButtonRight}
-          disabled={isRightArrowDisabled}
-        >
+        <button onClick={goNext} className={styles.arrowButtonRight}>
           ❯
         </button>
       </div>

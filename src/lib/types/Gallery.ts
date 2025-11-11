@@ -9,7 +9,7 @@ export interface Students {
   id: number;
   card_title: string;
   card_title1: string;
-  students_images: Images[];
+  students_images: StudentImage[];
 }
 
 export interface Blocks {
@@ -18,7 +18,7 @@ export interface Blocks {
   title?: string;
   subheading?: string;
   view360url?: string;
-  journey_images?: Images[];
+  journey_images?: StudentImage[];
 }
 
 export interface Images {
@@ -27,4 +27,23 @@ export interface Images {
   url: string;
   name: string;
   alternativeText?: string;
+}
+
+export interface StudentImage {
+  id: number;
+  name: string;
+  url: string;
+  formats?: ImageFormats;
+}
+
+export interface ImageFormats {
+  small?: ImageFormat;
+  medium?: ImageFormat;
+  thumbnail?: ImageFormat;
+}
+
+export interface ImageFormat {
+  url: string;
+  width: number;
+  height: number;
 }

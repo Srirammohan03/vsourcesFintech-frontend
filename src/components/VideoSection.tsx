@@ -1,31 +1,20 @@
 import { useState } from "react";
 import SectionTitle from "./SectionTitle";
 import AnimateOnScroll from "./AnimateOnScroll";
-import { CompanyBlock } from "@/lib/types/LandingPage";
 
-type Prop = {
-  video?: CompanyBlock | null;
-  isLoading: boolean;
-};
-
-const VideoSection: React.FC<Prop> = ({ video, isLoading }) => {
+const VideoSection = () => {
   const [isPlaying, setIsPlaying] = useState(false);
 
-  if (isLoading || !video) {
-    return <p className="text-center py-10">Loading...</p>;
-  }
-
-  const handlePlay = () => setIsPlaying(true);
+  const handlePlay = () => {
+    setIsPlaying(true);
+  };
 
   return (
     <section className="py-9 md:py-22 bg-gray-50">
       <div className="w-full max-w-[1400px] mx-auto px-4">
         <SectionTitle
-          title={video.title || "Company Video"}
-          subtitle={
-            video.description ||
-            "Get to know us better through our corporate presentation"
-          }
+          title="Company Video"
+          subtitle="Get to know us better through our corporate presentation"
         />
 
         <AnimateOnScroll>
@@ -33,10 +22,7 @@ const VideoSection: React.FC<Prop> = ({ video, isLoading }) => {
             {isPlaying ? (
               <iframe
                 className="w-full h-full"
-                src={
-                  video.video?.url ||
-                  "https://www.youtube.com/embed/IbjoEr-lTuw?autoplay=1"
-                }
+                src="https://www.youtube.com/embed/IbjoEr-lTuw?autoplay=1"
                 title="Company Video"
                 frameBorder="0"
                 allow="autoplay; encrypted-media"
@@ -48,10 +34,7 @@ const VideoSection: React.FC<Prop> = ({ video, isLoading }) => {
                 onClick={handlePlay}
               >
                 <img
-                  src={
-                    video.thumbnail?.url ||
-                    "https://img.youtube.com/vi/IbjoEr-lTuw/maxresdefault.jpg"
-                  }
+                  src="https://img.youtube.com/vi/IbjoEr-lTuw/maxresdefault.jpg"
                   alt="Company Video Thumbnail"
                   className="w-full h-full object-cover"
                 />
@@ -79,6 +62,10 @@ const VideoSection: React.FC<Prop> = ({ video, isLoading }) => {
                     </svg>
                   </div>
                 </div>
+                {/* <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6">
+                  <h3 className="text-white text-xl font-semibold">CHARAN TEJA</h3>
+                  <p className="text-white/80">CEO, Vsource Company</p>
+                </div> */}
               </div>
             )}
           </div>
