@@ -15,14 +15,17 @@ const fallbackServices = [
     title: "ABROAD MASTERS",
     description:
       "Turn your masters dream\n into a global reality\nUS | UK | IRELAND | CANADA | FRANCE",
-    imageSrc: "/assets/images/aborad.jpg",
+    imageSrc:
+      "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762857619/ii78bltggggakhho0ysv.jpg",
     externalUrl: "https://vsourceoverseas.com/",
     logoSrc: "/assets/images/logo overseas.png",
   },
   {
     title: "MBBS IN ABROAD",
-    description: "Affordable, Globally Recognized\n MBBS Abroad\nGeorgia | Russia",
-    imageSrc: "/assets/images/mbbs.jpg",
+    description:
+      "Affordable, Globally Recognized\n MBBS Abroad\nGeorgia | Russia",
+    imageSrc:
+      "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762857636/ahusyvnzcu1f3cvoxqc1.jpg",
     externalUrl: "https://vsourceadmissions.com/",
     logoSrc: "/assets/images/mini logo.png",
   },
@@ -68,15 +71,17 @@ const ServicesSection: React.FC<Prop> = ({ compre, isLoading = false }) => {
 
         <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6">
           {isLoading
-            ? 
-              Array.from({ length: skeletonCount }).map((_, i) => (
+            ? Array.from({ length: skeletonCount }).map((_, i) => (
                 <div
                   key={`skeleton-${i}`}
                   className="animate-pulse rounded-xl bg-gray-100 h-64 md:h-56"
                 />
               ))
             : services.map((service: any, index: number) => (
-                <AnimateOnScroll key={service.id ?? service.title} delay={index * 100}>
+                <AnimateOnScroll
+                  key={service.id ?? service.title}
+                  delay={index * 100}
+                >
                   <div
                     role="button"
                     tabIndex={0}
@@ -98,7 +103,8 @@ const ServicesSection: React.FC<Prop> = ({ compre, isLoading = false }) => {
                         onError={(e) => {
                           const target = e.target as HTMLImageElement;
                           target.onerror = null;
-                          target.src = "https://via.placeholder.com/600x400?text=Image+Not+Found";
+                          target.src =
+                            "https://via.placeholder.com/600x400?text=Image+Not+Found";
                         }}
                       />
                     </div>

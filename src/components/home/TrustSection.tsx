@@ -12,21 +12,24 @@ interface Service {
 
 const services: Service[] = [
   {
-    backgroundImage: "/assets/images/dedicated-banker.jpg",
+    backgroundImage:
+      "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762858858/x1y1ad3cvsxqjchxqefu.jpg",
     icon: <User size={40} color="#ffffff" />,
     title: "Dedicated Banker",
     description:
       "Get personalized assistance from our dedicated education loan bankers to guide you through the entire loan process",
   },
   {
-    backgroundImage: "/assets/images/Easy-Applicationprocess.jpg",
+    backgroundImage:
+      "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762858859/ks9gnlmo4hrfxo1du04f.jpg",
     icon: <GraduationCap size={40} color="#ffffff" />,
     title: "Easy Application process",
     description:
       "Our streamlined application process makes it simple and quick to apply for an education loan online",
   },
   {
-    backgroundImage: "/assets/images/UnderExpert-Guidance.jpg",
+    backgroundImage:
+      "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762858858/cfjlrshdlcjj6xkhnaas.jpg",
     icon: <IndianRupee size={40} color="#ffffff" />,
     title: "Under Expert Guidance",
     description:
