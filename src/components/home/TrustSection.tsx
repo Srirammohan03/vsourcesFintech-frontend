@@ -2,73 +2,84 @@ import React, { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { User, GraduationCap, IndianRupee } from "lucide-react";
-import { ServicesBlock } from "@/lib/types/LandingPage";
 
-type Prop = {
-  trust: ServicesBlock;
-  isLoading: boolean;
-};
+interface Service {
+  icon: JSX.Element;
+  title: string;
+  description: string;
+  backgroundImage: string;
+}
 
-// Mapping: title (from CMS) -> Icon
-const iconMap: Record<string, JSX.Element> = {
-  "Dedicated Banker": <User size={40} color="#ffffff" />,
-  "Easy Application process": <GraduationCap size={40} color="#ffffff" />,
-  "Under Expert Guidance": <IndianRupee size={40} color="#ffffff" />,
-};
+const services: Service[] = [
+  {
+    backgroundImage: "/assets/images/dedicated-banker.jpg",
+    icon: <User size={40} color="#ffffff" />,
+    title: "Dedicated Banker",
+    description:
+      "Get personalized assistance from our dedicated education loan bankers to guide you through the entire loan process",
+  },
+  {
+    backgroundImage: "/assets/images/Easy-Applicationprocess.jpg",
+    icon: <GraduationCap size={40} color="#ffffff" />,
+    title: "Easy Application process",
+    description:
+      "Our streamlined application process makes it simple and quick to apply for an education loan online",
+  },
+  {
+    backgroundImage: "/assets/images/UnderExpert-Guidance.jpg",
+    icon: <IndianRupee size={40} color="#ffffff" />,
+    title: "Under Expert Guidance",
+    description:
+      "Receive expert guidance from our team of financial advisors to choose the best loan options tailored to your needs",
+  },
+];
 
-const OurServices: React.FC<Prop> = ({ trust, isLoading }) => {
+const OurServices: React.FC = () => {
   useEffect(() => {
     AOS.init({ duration: 800, once: true });
   }, []);
 
-  if (isLoading) {
-    return <p className="text-center">Loading...</p>;
-  }
-
-  if (!trust || !trust.services_list) {
-    return null;
-  }
-
   return (
     <section className="mx-auto" style={styles.section}>
-      {/* Title from CMS */}
       <h2
         style={styles.title}
-        data-aos="zoom-in"
         data-aos-anchor-placement="center-bottom"
+        data-aos="zoom-in"
       >
-        {trust.title}
+        Our Services
       </h2>
 
+      {/* The container is horizontally scrollable on mobile */}
       <div
         className="scroll-container"
         role="region"
         aria-label="Scrollable list of services"
       >
-        {trust.services_list.map((service, index) => (
+        {services.map((service, index) => (
           <div
-            key={service.id}
+            key={index}
             className="service-card"
             data-aos="fade-up"
             data-aos-delay={index * 100}
             style={{
-              backgroundImage: `url(${service.image?.url})`,
+              backgroundImage: `url(${service.backgroundImage})`,
               backgroundRepeat: "no-repeat",
               backgroundSize: "cover",
-              backgroundPosition: "center",
+              backgroundPosition:
+                index === services.length - 1 ? "center 15%" : "center",
             }}
           >
+            {/* pointer-events:none so the overlay doesn't block horizontal drag */}
             <div className="card-overlay" />
 
             <div className="card-content">
-              {/* Icon wrapper */}
               <div
                 className="icon-wrapper"
                 data-aos="fade-right"
                 data-aos-delay={index * 200}
                 data-aos-anchor-placement="center-bottom"
               >
-                {iconMap[service.title] ?? <User size={40} color="#ffffff" />}
+                {service.icon}
               </div>
 
               <h3
@@ -93,6 +104,7 @@ const OurServices: React.FC<Prop> = ({ trust, isLoading }) => {
         ))}
       </div>
 
+      {/* Inline CSS: tuned for reliable horizontal scroll on iOS/Android */}
       <style>{`
         .scroll-container {
           display: flex;
@@ -103,21 +115,21 @@ const OurServices: React.FC<Prop> = ({ trust, isLoading }) => {
           padding: 4px 4px 12px;
           scroll-snap-type: x mandatory;
           scroll-behavior: smooth;
-          -webkit-overflow-scrolling: touch;
-          -ms-overflow-style: none;
-          scrollbar-width: none;
-          touch-action: pan-x;
+          -webkit-overflow-scrolling: touch;      /* iOS momentum scroll */
+          -ms-overflow-style: none;               /* IE/Edge hides scrollbar */
+          scrollbar-width: none;                  /* Firefox hides scrollbar */
+          touch-action: pan-x;                    /* allow horizontal drag */
         }
         .scroll-container::-webkit-scrollbar { display: none; }
 
         .service-card {
           position: relative;
-          flex: 0 0 auto;
-          min-width: 82vw;
+          flex: 0 0 auto;                         /* don't shrink */
+          min-width: 82vw;                         /* card width on mobile */
           max-width: 82vw;
           height: 320px;
           border-radius: 16px;
-          scroll-snap-align: center;
+          scroll-snap-align: center;              /* snap each card */
           box-shadow: 0 4px 12px rgba(0,0,0,0.08);
           transition: transform .3s ease;
           display: flex;
@@ -127,7 +139,7 @@ const OurServices: React.FC<Prop> = ({ trust, isLoading }) => {
         .service-card:active { transform: scale(.99); }
 
         .card-overlay {
-          pointer-events: none;
+          pointer-events: none;                   /* don't block swipe */
           position: absolute;
           inset: 0;
           background: rgba(0,0,0,.65);
@@ -147,19 +159,15 @@ const OurServices: React.FC<Prop> = ({ trust, isLoading }) => {
         }
 
         .icon-wrapper {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          height: 60px;
-          width: 60px;
+          display: flex; align-items: center; justify-content: center;
+          height: 60px; width: 60px;
           margin-bottom: 14px;
         }
-
         .card-title {
           font-size: 24px;
           font-weight: 800;
           margin: 6px 0 8px;
-          color: #0A84FF;
+          color: #0A84FF; /* accent title */
         }
         .card-desc {
           font-size: 18px;
@@ -167,6 +175,7 @@ const OurServices: React.FC<Prop> = ({ trust, isLoading }) => {
           color: #fff;
         }
 
+        /* Tablet/Desktop: switch to 3-column grid, no horizontal scroll */
         @media (min-width: 768px) {
           .scroll-container {
             display: grid;
