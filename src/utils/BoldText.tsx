@@ -11,7 +11,6 @@ export function BoldText({ text }: BoldTextProps) {
       data-aos="fade-right"
       data-aos-anchor-placement="center-bottom"
       data-aos-duration="1000"
-      data-aos-delay="800"
     >
       {parts.map((part, i) =>
         part.startsWith("**") && part.endsWith("**") ? (

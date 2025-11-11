@@ -83,7 +83,7 @@ const AboutSection: React.FC = () => {
             <h1
               data-aos="fade-right"
               data-aos-duration="1000"
-              data-aos-delay="200"
+              
               data-aos-anchor-placement="center-bottom"
               className="text-3xl md:text-4xl font-bold mb-4"
             >
@@ -94,7 +94,6 @@ const AboutSection: React.FC = () => {
               className="subheading text-lg md:text-xl font-semibold text-red-600 mb-4"
               data-aos="fade-right"
               data-aos-duration="1000"
-              data-aos-delay="400"
               data-aos-anchor-placement="center-bottom"
             >
               <span className="font-semibold">
@@ -107,7 +106,6 @@ const AboutSection: React.FC = () => {
               data-aos="fade-right"
               data-aos-anchor-placement="center-bottom"
               data-aos-duration="1000"
-              data-aos-delay="600"
             >
               At <span className="font-semibold">VSource Fintech</span>, we
               believe that financial barriers should never stand in the way of
@@ -124,7 +122,6 @@ const AboutSection: React.FC = () => {
               data-aos="fade-right"
               data-aos-anchor-placement="center-bottom"
               data-aos-duration="1000"
-              data-aos-delay="800"
             >
               Partnering with{" "}
               <span className="font-semibold">leading banks and NBFCs</span>, we
@@ -146,7 +143,6 @@ const AboutSection: React.FC = () => {
               data-aos="fade-right"
               data-aos-anchor-placement="center-bottom"
               data-aos-duration="1000"
-              data-aos-delay="1000"
             >
               Thousands of students have trusted us to turn their{" "}
               <span className="font-semibold">
@@ -164,7 +160,6 @@ const AboutSection: React.FC = () => {
               data-aos="fade-right"
               data-aos-anchor-placement="center-bottom"
               data-aos-duration="1000"
-              data-aos-delay="1000"
             >
               Our Legacy in Numbers
             </p>
@@ -174,7 +169,6 @@ const AboutSection: React.FC = () => {
               className="stats"
               data-aos="zoom-in-up"
               data-aos-duration="1000"
-              data-aos-delay="700"
             >
               {stats.map((stat, index) => {
                 const count = useCounter(stat.value);
@@ -185,7 +179,6 @@ const AboutSection: React.FC = () => {
                     data-aos="fade-up"
                     data-aos-anchor-placement="center-bottom"
                     data-aos-duration="1000"
-                    data-aos-delay={800 + index * 200}
                   >
                     <img src={stat.icon} alt={stat.label} className="icon" />
                     <div className="stat-info">
@@ -207,7 +200,6 @@ const AboutSection: React.FC = () => {
             data-aos="fade-right"
             data-aos-anchor-placement="center-bottom"
             data-aos-duration="1200"
-            data-aos-delay="400"
           >
             <img
               src="https://vsourcevarsity.com/assets/images/founder.webp"
@@ -215,14 +207,12 @@ const AboutSection: React.FC = () => {
               data-aos="fade-right"
               data-aos-anchor-placement="center-bottom"
               data-aos-duration="1200"
-              data-aos-delay="500"
             />
             <p
               className="caption"
               data-aos="fade-left"
               data-aos-anchor-placement="center-bottom"
               data-aos-duration="1000"
-              data-aos-delay="700"
             >
               <strong style={{ fontSize: "20px" }}>“</strong>
               Redefining Education for Tomorrow’s Innovators

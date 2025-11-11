@@ -20,11 +20,11 @@ const SectionTitle = ({
       centered && "text-center",
       className  
     )} data-aos-anchor-placement="center-bottom">
-      <h2 className="text-3xl font-bold tracking-tight md:text-4xl mb-2" data-aos="zoom-in" data-aos-delay="200">
+      <h2 className="text-3xl font-bold tracking-tight md:text-4xl mb-2" data-aos="zoom-in" >
         {title}
       </h2>
       {subtitle && (
-        <p className="text-lg text-muted-foreground max-w-3xl mx-auto" data-aos="zoom-in" data-aos-delay="400">
+        <p className="text-lg text-muted-foreground max-w-3xl mx-auto" data-aos="zoom-in">
           {subtitle}
         </p>
       )}

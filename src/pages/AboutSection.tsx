@@ -10,28 +10,28 @@ const AboutSection: React.FC = () => {
       value: 100000,
       suffix: "+",
       label: "Students Happier",
-      icon: "https://cdn-icons-gif.flaticon.com/6454/6454106.gif",
+      icon: "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762770342/hat_phpbum.gif",
     },
     {
       id: 2,
       value: 20,
       suffix: "+",
       label: "Years of\nExperience",
-      icon: "https://cdn-icons-gif.flaticon.com/15370/15370761.gif",
+      icon: "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762770342/handshake_ewjcsn.gif",
     },
     {
       id: 3,
       value: 25,
       suffix: "+",
       label: "Banking & NBFC Ties",
-      icon: "/assets/images/diversity.gif",
+      icon: "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762859256/ovrs1mfsktm2gsplkrjp.gif",
     },
     {
       id: 4,
       value: 500,
       suffix: "+ cr",
       label: "Disbursed Every Year",
-      icon: "/assets/images/money-bag.gif",
+      icon: "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762859437/hiakpqhcdkebhvmnracz.gif",
     },
   ];
 
@@ -75,7 +75,6 @@ const AboutSection: React.FC = () => {
               data-aos="fade-right"
               data-aos-anchor-placement="center-bottom"
               data-aos-duration="1000"
-              data-aos-delay="0"
               className="text-[#1e73be]"
             >
               About Vsource Fintech
@@ -87,7 +86,6 @@ const AboutSection: React.FC = () => {
               data-aos="fade-right"
               data-aos-anchor-placement="center-bottom"
               data-aos-duration="1000"
-              data-aos-delay="200"
             >
               <img
                 src="/assets/images/Graduation-Hat.gif"
@@ -103,7 +101,6 @@ const AboutSection: React.FC = () => {
               data-aos="fade-right"
               data-aos-anchor-placement="center-bottom"
               data-aos-duration="1000"
-              data-aos-delay="200"
             >
               Are you planning to study abroad but worried about finances? We
               are South India's most trusted name in education loan guidance,
@@ -116,7 +113,6 @@ const AboutSection: React.FC = () => {
               data-aos="fade-right"
               data-aos-anchor-placement="center-bottom"
               data-aos-duration="1000"
-              data-aos-delay="200"
             >
               <img
                 src="/assets/images/globe.gif"
@@ -132,7 +128,6 @@ const AboutSection: React.FC = () => {
               data-aos="fade-right"
               data-aos-anchor-placement="center-bottom"
               data-aos-duration="1000"
-              data-aos-delay="200"
             >
               We offer end-to-end support for students looking to finance their
               higher education overseas. From choosing the right loan provider
@@ -146,7 +141,6 @@ const AboutSection: React.FC = () => {
               data-aos="fade-right"
               data-aos-anchor-placement="center-bottom"
               data-aos-duration="1000"
-              data-aos-delay="200"
             >
               <img
                 src="/assets/images/Briefcase.gif"
@@ -162,7 +156,6 @@ const AboutSection: React.FC = () => {
               data-aos="fade-right"
               data-aos-anchor-placement="center-bottom"
               data-aos-duration="1000"
-              data-aos-delay="200"
             >
               We specialize in securing study abroad loans for students heading
               to: UK, USA, Ireland, France, and Canada.
@@ -174,7 +167,6 @@ const AboutSection: React.FC = () => {
               data-aos="fade-right"
               data-aos-anchor-placement="center-bottom"
               data-aos-duration="1000"
-              data-aos-delay="200"
             >
               <span className="font-bold">100% Educational Loan Guidance </span>
               provided to support your academic journey.
@@ -189,7 +181,6 @@ const AboutSection: React.FC = () => {
                   key={stat.id}
                   className="stat-box"
                   data-aos="fade-up"
-                  data-aos-delay={i * 200}
                   data-aos-duration="1000"
                   data-aos-anchor-placement="center-bottom"
                 >
@@ -214,7 +205,7 @@ const AboutSection: React.FC = () => {
             data-aos-anchor-placement="center-bottom"
           >
             <img
-              src="https://vsourcevarsity.com/assets/images/founder.webp"
+              src="https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762754020/imgi_5_founder_pcglp8.jpg"
               alt="Founder"
               className="founder-img"
             />
@@ -232,7 +223,6 @@ const AboutSection: React.FC = () => {
                 key={stat.id}
                 className="stat-box"
                 data-aos="fade-up"
-                data-aos-delay={i * 200}
                 data-aos-duration="1000"
                 data-aos-anchor-placement="center-bottom"
               >
