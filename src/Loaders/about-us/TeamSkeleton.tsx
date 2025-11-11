@@ -14,7 +14,6 @@ export default function TeamSkeleton({ count = 4 }: { count?: number }) {
             key={index}
             data-aos="fade-up"
             data-aos-anchor-placement="center-bottom"
-            data-aos-delay={delay}
           >
             <div className="img">
               <Skeleton
@@ -28,14 +27,12 @@ export default function TeamSkeleton({ count = 4 }: { count?: number }) {
               <h3
                 data-aos="fade-right"
                 data-aos-anchor-placement="center-bottom"
-                data-aos-delay={delay}
               >
                 <Skeleton width={120} height={20} enableAnimation={true} />
               </h3>
               <p
                 data-aos="fade-right"
                 data-aos-anchor-placement="center-bottom"
-                data-aos-delay={delay}
               >
                 <Skeleton width={80} height={15} enableAnimation={true} />
               </p>
