@@ -46,15 +46,30 @@ type LocationPref = "center" | "suburbs" | "custom";
 
 const currencyFormatters: Record<string, (n: number) => string> = {
   USD: (n) =>
-    new Intl.NumberFormat(undefined, { style: "currency", currency: "USD" }).format(n),
+    new Intl.NumberFormat(undefined, {
+      style: "currency",
+      currency: "USD",
+    }).format(n),
   GBP: (n) =>
-    new Intl.NumberFormat(undefined, { style: "currency", currency: "GBP" }).format(n),
+    new Intl.NumberFormat(undefined, {
+      style: "currency",
+      currency: "GBP",
+    }).format(n),
   CAD: (n) =>
-    new Intl.NumberFormat(undefined, { style: "currency", currency: "CAD" }).format(n),
+    new Intl.NumberFormat(undefined, {
+      style: "currency",
+      currency: "CAD",
+    }).format(n),
   EUR: (n) =>
-    new Intl.NumberFormat(undefined, { style: "currency", currency: "EUR" }).format(n),
+    new Intl.NumberFormat(undefined, {
+      style: "currency",
+      currency: "EUR",
+    }).format(n),
   AUD: (n) =>
-    new Intl.NumberFormat(undefined, { style: "currency", currency: "AUD" }).format(n),
+    new Intl.NumberFormat(undefined, {
+      style: "currency",
+      currency: "AUD",
+    }).format(n),
 };
 
 // ===== Baselines by country (approximate, editable) =====
@@ -66,7 +81,12 @@ type LivingData = {
     accommodation: { onCampus: number; shared: number; private: number }; // monthly per person
     transportPass: number; // monthly
     uberPerRide: number; // per ride
-    foodCostPerMeal: { budget: number; moderate: number; premium: number; luxury: number }; // eating-out
+    foodCostPerMeal: {
+      budget: number;
+      moderate: number;
+      premium: number;
+      luxury: number;
+    }; // eating-out
     groceriesMonthly: number; // baseline groceries (cook at home)
     homeElectricity: number; // typical monthly share
     homeWater: number; // typical monthly share
@@ -95,8 +115,19 @@ const DATA: Record<CountryKey, LivingData> = {
       "Other",
     ],
     universitiesByCity: {
-      London: ["Imperial College London", "UCL", "King's College London", "LSE", "Queen Mary", "Other"],
-      Manchester: ["University of Manchester", "Manchester Metropolitan", "Other"],
+      London: [
+        "Imperial College London",
+        "UCL",
+        "King's College London",
+        "LSE",
+        "Queen Mary",
+        "Other",
+      ],
+      Manchester: [
+        "University of Manchester",
+        "Manchester Metropolitan",
+        "Other",
+      ],
       Edinburgh: ["University of Edinburgh", "Heriot-Watt University", "Other"],
       Birmingham: ["University of Birmingham", "Aston University", "Other"],
       Glasgow: ["University of Glasgow", "Strathclyde", "Other"],
@@ -139,15 +170,30 @@ const DATA: Record<CountryKey, LivingData> = {
     ],
     universitiesByCity: {
       "New York": ["NYU", "Columbia University", "CUNY", "Other"],
-      Boston: ["Harvard University", "MIT", "Boston University", "Northeastern", "Other"],
+      Boston: [
+        "Harvard University",
+        "MIT",
+        "Boston University",
+        "Northeastern",
+        "Other",
+      ],
       "San Francisco": ["USF", "SFSU", "Other"],
       "Los Angeles": ["UCLA", "USC", "CSULA", "Other"],
-      Chicago: ["University of Chicago", "Northwestern (Evanston)", "UIC", "Other"],
+      Chicago: [
+        "University of Chicago",
+        "Northwestern (Evanston)",
+        "UIC",
+        "Other",
+      ],
       Austin: ["University of Texas at Austin", "Other"],
       Seattle: ["University of Washington", "Other"],
       Atlanta: ["Georgia Tech", "Emory University", "Other"],
       "Ann Arbor": ["University of Michigan", "Other"],
-      Pittsburgh: ["Carnegie Mellon University", "University of Pittsburgh", "Other"],
+      Pittsburgh: [
+        "Carnegie Mellon University",
+        "University of Pittsburgh",
+        "Other",
+      ],
       Other: ["Other"],
     },
     living: {
@@ -181,9 +227,19 @@ const DATA: Record<CountryKey, LivingData> = {
       "Other",
     ],
     universitiesByCity: {
-      Toronto: ["University of Toronto", "Ryerson/TMU", "York University", "Other"],
+      Toronto: [
+        "University of Toronto",
+        "Ryerson/TMU",
+        "York University",
+        "Other",
+      ],
       Vancouver: ["UBC", "Simon Fraser University", "Other"],
-      Montreal: ["McGill University", "Université de Montréal", "Concordia", "Other"],
+      Montreal: [
+        "McGill University",
+        "Université de Montréal",
+        "Concordia",
+        "Other",
+      ],
       Calgary: ["University of Calgary", "Other"],
       Ottawa: ["University of Ottawa", "Carleton University", "Other"],
       Edmonton: ["University of Alberta", "Other"],
@@ -253,9 +309,23 @@ const DATA: Record<CountryKey, LivingData> = {
   },
   Ireland: {
     code: "EUR",
-    cities: ["Dublin", "Cork", "Galway", "Limerick", "Waterford", "Maynooth", "Other"],
+    cities: [
+      "Dublin",
+      "Cork",
+      "Galway",
+      "Limerick",
+      "Waterford",
+      "Maynooth",
+      "Other",
+    ],
     universitiesByCity: {
-      Dublin: ["Trinity College Dublin", "University College Dublin", "Dublin City University", "TU Dublin", "Other"],
+      Dublin: [
+        "Trinity College Dublin",
+        "University College Dublin",
+        "Dublin City University",
+        "TU Dublin",
+        "Other",
+      ],
       Cork: ["University College Cork", "Other"],
       Galway: ["University of Galway", "Other"],
       Limerick: ["University of Limerick", "Other"],
@@ -291,8 +361,20 @@ const DATA: Record<CountryKey, LivingData> = {
       "Other",
     ],
     universitiesByCity: {
-      Sydney: ["University of Sydney", "UNSW Sydney", "UTS", "Macquarie University", "Other"],
-      Melbourne: ["University of Melbourne", "Monash University", "RMIT", "Swinburne", "Other"],
+      Sydney: [
+        "University of Sydney",
+        "UNSW Sydney",
+        "UTS",
+        "Macquarie University",
+        "Other",
+      ],
+      Melbourne: [
+        "University of Melbourne",
+        "Monash University",
+        "RMIT",
+        "Swinburne",
+        "Other",
+      ],
       Brisbane: ["University of Queensland", "QUT", "Griffith", "Other"],
       Perth: ["University of Western Australia", "Curtin University", "Other"],
       Adelaide: ["University of Adelaide", "UniSA", "Other"],
@@ -361,36 +443,57 @@ const DATA: Record<CountryKey, LivingData> = {
 };
 
 // ===== UI Primitives =====
-const StepBadge: React.FC<{ active?: boolean; done?: boolean; index: number }> = ({
-  active,
-  done,
-  index,
-}) => (
+const StepBadge: React.FC<{
+  active?: boolean;
+  done?: boolean;
+  index: number;
+}> = ({ active, done, index }) => (
   <div
     className={cn(
       "w-10 h-10 rounded-full flex items-center justify-center text-sm font-semibold border",
       done
         ? "bg-white border-white text-white"
         : active
-          ? "bg-gradient-to-r from-[#7C3AED] to-[#A78BFA] text-white border-transparent shadow"
-          : "bg-gray-300 text-gray-700 border-transparent"
+        ? "bg-gradient-to-r from-[#7C3AED] to-[#A78BFA] text-white border-transparent shadow"
+        : "bg-gray-300 text-gray-700 border-transparent"
     )}
-    style={done ? { background: THEME.gray, color: THEME.text, borderColor: THEME.gray } : undefined}
+    style={
+      done
+        ? { background: THEME.gray, color: THEME.text, borderColor: THEME.gray }
+        : undefined
+    }
   >
     {done ? "✓" : index}
   </div>
 );
 
-const Card: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({ className, ...props }) => (
-  <div className={cn("rounded-2xl bg-white shadow-sm ring-1 ring-black/5 p-4 md:p-6", className)} {...props} />
+const Card: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
+  className,
+  ...props
+}) => (
+  <div
+    className={cn(
+      "rounded-2xl bg-white shadow-sm ring-1 ring-black/5 p-4 md:p-6",
+      className
+    )}
+    {...props}
+  />
 );
 
-const SectionTitle: React.FC<{ title: string; subtitle?: string }> = ({ title, subtitle }) => (
+const SectionTitle: React.FC<{ title: string; subtitle?: string }> = ({
+  title,
+  subtitle,
+}) => (
   <div className="mb-5">
-    <h2 className="text-xl md:text-2xl font-semibold" style={{ color: THEME.text }}>
+    <h2
+      className="text-xl md:text-2xl font-semibold"
+      style={{ color: THEME.text }}
+    >
       {title}
     </h2>
-    {subtitle && <p className="text-sm md:text-base text-gray-600 mt-1">{subtitle}</p>}
+    {subtitle && (
+      <p className="text-sm md:text-base text-gray-600 mt-1">{subtitle}</p>
+    )}
   </div>
 );
 
@@ -412,18 +515,25 @@ export default function CompareCostOfLivingPage() {
 
   // Step 3 — Accommodation (exact like screenshot: cards + location)
   const [accomType, setAccomType] = useState<AccomType>("shared");
-  const [roommateOption, setRoommateOption] = useState<"single" | "two" | "threePlus">("two");
+  const [roommateOption, setRoommateOption] = useState<
+    "single" | "two" | "threePlus"
+  >("two");
   const [locationPref, setLocationPref] = useState<LocationPref>("center");
   const [customKm, setCustomKm] = useState<number>(3);
 
   // Step 4 — Utilities (home)
-  const [elecLevel, setElecLevel] = useState<"included" | "share" | "full">("share");
-  const [waterLevel, setWaterLevel] = useState<"included" | "share" | "full">("share");
+  const [elecLevel, setElecLevel] = useState<"included" | "share" | "full">(
+    "share"
+  );
+  const [waterLevel, setWaterLevel] = useState<"included" | "share" | "full">(
+    "share"
+  );
   const [broadband, setBroadband] = useState<boolean>(true);
 
   // Step 5 — Food (exact like screenshot: weekday chips + tiers)
   const [eatOutDays, setEatOutDays] = useState<string[]>(["Mon"]);
-  const [restaurantTier, setRestaurantTier] = useState<RestaurantTier>("budget");
+  const [restaurantTier, setRestaurantTier] =
+    useState<RestaurantTier>("budget");
 
   // Step 6 — Transportation (exact like screenshot: image cards + frequency pills)
   const [walk, setWalk] = useState<Frequency>("Sometimes");
@@ -473,20 +583,33 @@ export default function CompareCostOfLivingPage() {
 
     // roommate factor (only for shared)
     if (accomType === "shared") {
-      const factor = roommateOption === "single" ? 1 : roommateOption === "two" ? 0.8 : 0.65;
+      const factor =
+        roommateOption === "single" ? 1 : roommateOption === "two" ? 0.8 : 0.65;
       base *= factor;
     }
 
     // location multiplier
     const locMult =
-      locationPref === "center" ? 1.15 : locationPref === "suburbs" ? 0.95 : Math.max(0.85, 1.05 - (customKm || 0) * 0.01);
+      locationPref === "center"
+        ? 1.15
+        : locationPref === "suburbs"
+        ? 0.95
+        : Math.max(0.85, 1.05 - (customKm || 0) * 0.01);
     const accomMonthly = base * locMult;
 
     // Utilities (home)
     const elec =
-      elecLevel === "included" ? 0 : elecLevel === "share" ? L.homeElectricity * 0.6 : L.homeElectricity;
+      elecLevel === "included"
+        ? 0
+        : elecLevel === "share"
+        ? L.homeElectricity * 0.6
+        : L.homeElectricity;
     const water =
-      waterLevel === "included" ? 0 : waterLevel === "share" ? L.homeWater * 0.6 : L.homeWater;
+      waterLevel === "included"
+        ? 0
+        : waterLevel === "share"
+        ? L.homeWater * 0.6
+        : L.homeWater;
     const internet = broadband ? L.homeInternet : 0;
     const utilitiesMonthly = elec + water + internet;
 
@@ -503,20 +626,39 @@ export default function CompareCostOfLivingPage() {
     const transportMonthly = pass + bikeMaintain + uberCost;
 
     // Misc
-    const entertainmentMonthly = L.entertainmentBase * FREQ_FACTOR[entertainment];
+    const entertainmentMonthly =
+      L.entertainmentBase * FREQ_FACTOR[entertainment];
     const clothingMonthly = L.clothingBase * FREQ_FACTOR[clothing];
-    const mobileMonthly = L.mobilePlan * (mobilePlanUse === "Never" ? 0 : mobilePlanUse === "Rarely" ? 0.7 : mobilePlanUse === "Sometimes" ? 1 : 1.2);
+    const mobileMonthly =
+      L.mobilePlan *
+      (mobilePlanUse === "Never"
+        ? 0
+        : mobilePlanUse === "Rarely"
+        ? 0.7
+        : mobilePlanUse === "Sometimes"
+        ? 1
+        : 1.2);
     const fitnessMonthly = L.fitnessMembership * FREQ_FACTOR[fitness];
 
-    const miscMonthly = entertainmentMonthly + clothingMonthly + mobileMonthly + fitnessMonthly;
+    const miscMonthly =
+      entertainmentMonthly + clothingMonthly + mobileMonthly + fitnessMonthly;
 
-    const totalMonthly = accomMonthly + utilitiesMonthly + foodMonthly + transportMonthly + miscMonthly;
+    const totalMonthly =
+      accomMonthly +
+      utilitiesMonthly +
+      foodMonthly +
+      transportMonthly +
+      miscMonthly;
 
     const pie = [
       { name: "Accommodation", value: accomMonthly, color: THEME.blue },
       { name: "Food", value: foodMonthly, color: THEME.yellow },
       { name: "Transportation", value: transportMonthly, color: THEME.sky },
-      { name: "Utilities", value: utilitiesMonthly + miscMonthly, color: THEME.red }, // to mirror screenshot legend
+      {
+        name: "Utilities",
+        value: utilitiesMonthly + miscMonthly,
+        color: THEME.red,
+      }, // to mirror screenshot legend
     ];
 
     return {
@@ -550,7 +692,16 @@ export default function CompareCostOfLivingPage() {
   ]);
 
   // Step nav / validation
-  const stepsLabels = ["Step 1", "Step 2", "Step 3", "Step 4", "Step 5", "Step 6", "Step 7", "Result"];
+  const stepsLabels = [
+    "Step 1",
+    "Step 2",
+    "Step 3",
+    "Step 4",
+    "Step 5",
+    "Step 6",
+    "Step 7",
+    "Result",
+  ];
   const isResult = step === 8;
   const goNext = () => setStep((s) => Math.min(8, s + 1));
   const goPrev = () => setStep((s) => Math.max(1, s - 1));
@@ -560,14 +711,20 @@ export default function CompareCostOfLivingPage() {
       case 1:
         return name.trim().length >= 2 && /@/.test(email);
       case 2:
-        return Boolean(city) && (Boolean(university) || customUniversity.trim().length > 2);
+        return (
+          Boolean(city) &&
+          (Boolean(university) || customUniversity.trim().length > 2)
+        );
       default:
         return true;
     }
   }, [step, name, email, city, university, customUniversity]);
 
   // Pills for frequency
-  const FreqPills: React.FC<{ value: Frequency; onChange: (v: Frequency) => void }> = ({ value, onChange }) => (
+  const FreqPills: React.FC<{
+    value: Frequency;
+    onChange: (v: Frequency) => void;
+  }> = ({ value, onChange }) => (
     <div className="flex gap-2 mt-3 flex-wrap">
       {(["Never", "Rarely", "Sometimes", "Often"] as Frequency[]).map((f) => (
         <button
@@ -588,13 +745,16 @@ export default function CompareCostOfLivingPage() {
   );
 
   return (
-    <div className="min-h-screen" style={{ background: THEME.surface, color: THEME.text }}>
+    <div
+      className="min-h-screen"
+      style={{ background: THEME.surface, color: THEME.text }}
+    >
       {/* HERO */}
       {/* HERO */}
       <section
         className="relative w-full pt-16 pb-12 bg-cover bg-[left_center] lg:bg-[top_center]"
         style={{
-          backgroundImage: `url(/assets/images/tools-bg.jpg)`, // <-- replace with your image
+          backgroundImage: `url(/assets/images/tools-bg.webp)`, // <-- replace with your image
         }}
       >
         {/* Dark overlay */}
@@ -606,13 +766,12 @@ export default function CompareCostOfLivingPage() {
             Compare Cost of Living in Countries for Study Abroad
           </h1>
           <p className="text-white/90 mt-3 max-w-3xl mx-auto">
-            Walk through the 7 steps to estimate your <b>monthly</b> living cost by
-            city and lifestyle. We break down accommodation, utilities, food,
+            Walk through the 7 steps to estimate your <b>monthly</b> living cost
+            by city and lifestyle. We break down accommodation, utilities, food,
             transport and more — then visualize it in a clean pie chart.
           </p>
         </div>
       </section>
-
 
       {/* STEPPER */}
       <div className="w-full max-w-[1400px] mx-auto px-6 py-10">
@@ -624,9 +783,17 @@ export default function CompareCostOfLivingPage() {
               const done = step > index;
               return (
                 <div key={label} className="flex items-center gap-3 min-w-max">
-                  <StepBadge index={index < 8 ? index : 7} active={active} done={done && index < 8} />
-                  <div className="text-xs md:text-sm text-gray-700">{label}</div>
-                  {i < stepsLabels.length - 1 && <div className="w-10 md:w-24 h-[2px] bg-gray-200" />}
+                  <StepBadge
+                    index={index < 8 ? index : 7}
+                    active={active}
+                    done={done && index < 8}
+                  />
+                  <div className="text-xs md:text-sm text-gray-700">
+                    {label}
+                  </div>
+                  {i < stepsLabels.length - 1 && (
+                    <div className="w-10 md:w-24 h-[2px] bg-gray-200" />
+                  )}
                 </div>
               );
             })}
@@ -685,7 +852,9 @@ export default function CompareCostOfLivingPage() {
                 <SectionTitle title="Country" />
                 <div className="grid gap-6">
                   <div>
-                    <label className="text-sm font-medium">Select a country of your choice</label>
+                    <label className="text-sm font-medium">
+                      Select a country of your choice
+                    </label>
                     <select
                       value={country}
                       onChange={(e) => setCountry(e.target.value as CountryKey)}
@@ -700,7 +869,9 @@ export default function CompareCostOfLivingPage() {
                   </div>
 
                   <div>
-                    <label className="text-sm font-medium">Select a city of your choice</label>
+                    <label className="text-sm font-medium">
+                      Select a city of your choice
+                    </label>
                     <select
                       value={city}
                       onChange={(e) => setCity(e.target.value)}
@@ -722,15 +893,19 @@ export default function CompareCostOfLivingPage() {
                         onChange={(e) => setUniversity(e.target.value)}
                         className="mt-1 w-full rounded-xl border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                       >
-                        {(cfg.universitiesByCity[city] || ["Other"]).map((u) => (
-                          <option key={u} value={u}>
-                            {u}
-                          </option>
-                        ))}
+                        {(cfg.universitiesByCity[city] || ["Other"]).map(
+                          (u) => (
+                            <option key={u} value={u}>
+                              {u}
+                            </option>
+                          )
+                        )}
                       </select>
                     </div>
                     <div>
-                      <label className="text-sm font-medium">Custom university (optional)</label>
+                      <label className="text-sm font-medium">
+                        Custom university (optional)
+                      </label>
                       <input
                         value={customUniversity}
                         onChange={(e) => setCustomUniversity(e.target.value)}
@@ -746,34 +921,39 @@ export default function CompareCostOfLivingPage() {
             {/* STEP 3 — Accommodation (exact like screenshot) */}
             {step === 3 && (
               <Card>
-                <SectionTitle title="Accommodation" subtitle="Choose accommodation type and proximity to the university/city center." />
+                <SectionTitle
+                  title="Accommodation"
+                  subtitle="Choose accommodation type and proximity to the university/city center."
+                />
                 <div className="grid md:grid-cols-4 gap-4">
-                  {([
-                    {
-                      key: "onCampus",
-                      label: "On-Campus",
-                      img: "https://images.unsplash.com/photo-1519455953755-af066f52f1ea?q=80&w=800&auto=format&fit=crop",
-                      hint: "University-managed housing",
-                    },
-                    {
-                      key: "shared",
-                      label: "Shared Apartments",
-                      img: "https://images.unsplash.com/photo-1519710164239-da123dc03ef4?q=80&w=800&auto=format&fit=crop",
-                      hint: "Private room in shared unit",
-                    },
-                    {
-                      key: "private",
-                      label: "Private Apartments",
-                      img: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?q=80&w=800&auto=format&fit=crop",
-                      hint: "Studio / 1-bed",
-                    },
-                    {
-                      key: "other",
-                      label: "Others",
-                      img: "https://images.unsplash.com/photo-1554995207-c18c203602cb?q=80&w=800&auto=format&fit=crop",
-                      hint: "Homestay / relatives, etc.",
-                    },
-                  ] as const).map((opt) => {
+                  {(
+                    [
+                      {
+                        key: "onCampus",
+                        label: "On-Campus",
+                        img: "https://images.unsplash.com/photo-1519455953755-af066f52f1ea?q=80&w=800&auto=format&fit=crop",
+                        hint: "University-managed housing",
+                      },
+                      {
+                        key: "shared",
+                        label: "Shared Apartments",
+                        img: "https://images.unsplash.com/photo-1519710164239-da123dc03ef4?q=80&w=800&auto=format&fit=crop",
+                        hint: "Private room in shared unit",
+                      },
+                      {
+                        key: "private",
+                        label: "Private Apartments",
+                        img: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?q=80&w=800&auto=format&fit=crop",
+                        hint: "Studio / 1-bed",
+                      },
+                      {
+                        key: "other",
+                        label: "Others",
+                        img: "https://images.unsplash.com/photo-1554995207-c18c203602cb?q=80&w=800&auto=format&fit=crop",
+                        hint: "Homestay / relatives, etc.",
+                      },
+                    ] as const
+                  ).map((opt) => {
                     const active = accomType === opt.key;
                     const price =
                       opt.key === "other"
@@ -786,7 +966,9 @@ export default function CompareCostOfLivingPage() {
                         onClick={() => setAccomType(opt.key)}
                         className={cn(
                           "text-left rounded-2xl border p-3 hover:shadow transition",
-                          active ? "border-transparent bg-indigo-50" : "border-gray-300"
+                          active
+                            ? "border-transparent bg-indigo-50"
+                            : "border-gray-300"
                         )}
                       >
                         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -838,18 +1020,24 @@ export default function CompareCostOfLivingPage() {
                 </div>
 
                 <div className="mt-6">
-                  <div className="text-sm font-medium mb-2">Where would you like to live?</div>
+                  <div className="text-sm font-medium mb-2">
+                    Where would you like to live?
+                  </div>
                   <div className="grid md:grid-cols-3 gap-4">
                     <button
                       type="button"
                       onClick={() => setLocationPref("center")}
                       className={cn(
                         "rounded-2xl border p-4 text-left",
-                        locationPref === "center" ? "bg-indigo-50 border-transparent" : "border-gray-300"
+                        locationPref === "center"
+                          ? "bg-indigo-50 border-transparent"
+                          : "border-gray-300"
                       )}
                     >
                       <div className="font-semibold">Within City Center</div>
-                      <div className="text-xs text-gray-600">Under 3 miles • Up to 30 mins walking</div>
+                      <div className="text-xs text-gray-600">
+                        Under 3 miles • Up to 30 mins walking
+                      </div>
                     </button>
 
                     <button
@@ -857,20 +1045,28 @@ export default function CompareCostOfLivingPage() {
                       onClick={() => setLocationPref("suburbs")}
                       className={cn(
                         "rounded-2xl border p-4 text-left",
-                        locationPref === "suburbs" ? "bg-indigo-50 border-transparent" : "border-gray-300"
+                        locationPref === "suburbs"
+                          ? "bg-indigo-50 border-transparent"
+                          : "border-gray-300"
                       )}
                     >
                       <div className="font-semibold">Within Suburbs</div>
-                      <div className="text-xs text-gray-600">Under 40 mins • Up to 120 mins of travel</div>
+                      <div className="text-xs text-gray-600">
+                        Under 40 mins • Up to 120 mins of travel
+                      </div>
                     </button>
 
                     <div
                       className={cn(
                         "rounded-2xl border p-4",
-                        locationPref === "custom" ? "bg-indigo-50 border-transparent" : "border-gray-300"
+                        locationPref === "custom"
+                          ? "bg-indigo-50 border-transparent"
+                          : "border-gray-300"
                       )}
                     >
-                      <label className="font-semibold block">Custom Distance</label>
+                      <label className="font-semibold block">
+                        Custom Distance
+                      </label>
                       <div className="mt-2 flex items-center gap-3">
                         <input
                           type="number"
@@ -884,7 +1080,9 @@ export default function CompareCostOfLivingPage() {
                         />
                         <span className="text-sm text-gray-600">km</span>
                       </div>
-                      <div className="text-xs text-gray-600 mt-2">Lower distance → slightly higher rent.</div>
+                      <div className="text-xs text-gray-600 mt-2">
+                        Lower distance → slightly higher rent.
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -894,19 +1092,33 @@ export default function CompareCostOfLivingPage() {
             {/* STEP 4 — Utilities */}
             {step === 4 && (
               <Card>
-                <SectionTitle title="Utilities (Home)" subtitle="Estimate your share of home utilities." />
+                <SectionTitle
+                  title="Utilities (Home)"
+                  subtitle="Estimate your share of home utilities."
+                />
                 <div className="grid md:grid-cols-3 gap-4">
                   <div>
                     <div className="font-medium">Electricity</div>
                     <div className="mt-3 grid gap-2">
                       {(["included", "share", "full"] as const).map((v) => (
-                        <label key={v} className="flex items-center gap-2 text-sm">
-                          <input type="radio" checked={elecLevel === v} onChange={() => setElecLevel(v)} />
+                        <label
+                          key={v}
+                          className="flex items-center gap-2 text-sm"
+                        >
+                          <input
+                            type="radio"
+                            checked={elecLevel === v}
+                            onChange={() => setElecLevel(v)}
+                          />
                           {v === "included"
                             ? "Included in rent"
                             : v === "share"
-                              ? `Shared (${fmt(cfg.living.homeElectricity * 0.6)}/mo)`
-                              : `Pay full (${fmt(cfg.living.homeElectricity)}/mo)`}
+                            ? `Shared (${fmt(
+                                cfg.living.homeElectricity * 0.6
+                              )}/mo)`
+                            : `Pay full (${fmt(
+                                cfg.living.homeElectricity
+                              )}/mo)`}
                         </label>
                       ))}
                     </div>
@@ -915,13 +1127,20 @@ export default function CompareCostOfLivingPage() {
                     <div className="font-medium">Water</div>
                     <div className="mt-3 grid gap-2">
                       {(["included", "share", "full"] as const).map((v) => (
-                        <label key={v} className="flex items-center gap-2 text-sm">
-                          <input type="radio" checked={waterLevel === v} onChange={() => setWaterLevel(v)} />
+                        <label
+                          key={v}
+                          className="flex items-center gap-2 text-sm"
+                        >
+                          <input
+                            type="radio"
+                            checked={waterLevel === v}
+                            onChange={() => setWaterLevel(v)}
+                          />
                           {v === "included"
                             ? "Included in rent"
                             : v === "share"
-                              ? `Shared (${fmt(cfg.living.homeWater * 0.6)}/mo)`
-                              : `Pay full (${fmt(cfg.living.homeWater)}/mo)`}
+                            ? `Shared (${fmt(cfg.living.homeWater * 0.6)}/mo)`
+                            : `Pay full (${fmt(cfg.living.homeWater)}/mo)`}
                         </label>
                       ))}
                     </div>
@@ -930,7 +1149,11 @@ export default function CompareCostOfLivingPage() {
                     <div className="font-medium">Home Internet</div>
                     <div className="mt-3">
                       <label className="flex items-center gap-2 text-sm">
-                        <input type="checkbox" checked={broadband} onChange={(e) => setBroadband(e.target.checked)} />
+                        <input
+                          type="checkbox"
+                          checked={broadband}
+                          onChange={(e) => setBroadband(e.target.checked)}
+                        />
                         Include broadband ({fmt(cfg.living.homeInternet)}/mo)
                       </label>
                       <p className="text-xs text-gray-500 mt-2">
@@ -945,61 +1168,74 @@ export default function CompareCostOfLivingPage() {
             {/* STEP 5 — Food (exact like screenshot) */}
             {step === 5 && (
               <Card>
-                <SectionTitle title="Food" subtitle="How often do you eat out and what type of places?" />
+                <SectionTitle
+                  title="Food"
+                  subtitle="How often do you eat out and what type of places?"
+                />
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
-                    <div className="text-sm font-medium">How often do you eat out each week?</div>
+                    <div className="text-sm font-medium">
+                      How often do you eat out each week?
+                    </div>
                     <div className="mt-3 flex gap-2 flex-wrap">
-                      {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map((d) => {
-                        const active = eatOutDays.includes(d);
-                        return (
-                          <button
-                            key={d}
-                            type="button"
-                            onClick={() =>
-                              setEatOutDays((prev) =>
-                                prev.includes(d) ? prev.filter((x) => x !== d) : [...prev, d]
-                              )
-                            }
-                            className={cn(
-                              "px-3 py-2 rounded-xl border text-sm",
-                              active
-                                ? "bg-indigo-600 text-white border-transparent"
-                                : "bg-white text-gray-700 border-gray-300"
-                            )}
-                          >
-                            {d}
-                          </button>
-                        );
-                      })}
+                      {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map(
+                        (d) => {
+                          const active = eatOutDays.includes(d);
+                          return (
+                            <button
+                              key={d}
+                              type="button"
+                              onClick={() =>
+                                setEatOutDays((prev) =>
+                                  prev.includes(d)
+                                    ? prev.filter((x) => x !== d)
+                                    : [...prev, d]
+                                )
+                              }
+                              className={cn(
+                                "px-3 py-2 rounded-xl border text-sm",
+                                active
+                                  ? "bg-indigo-600 text-white border-transparent"
+                                  : "bg-white text-gray-700 border-gray-300"
+                              )}
+                            >
+                              {d}
+                            </button>
+                          );
+                        }
+                      )}
                     </div>
                   </div>
 
                   <div>
-                    <div className="text-sm font-medium">What type of restaurants do you usually visit?</div>
+                    <div className="text-sm font-medium">
+                      What type of restaurants do you usually visit?
+                    </div>
                     <div className="mt-3 grid grid-cols-2 gap-3">
-                      {([
-                        {
-                          key: "budget",
-                          label: "Budget · $",
-                          img: "https://images.unsplash.com/photo-1561758033-d89a9ad46330?q=80&w=800&auto=format&fit=crop",
-                        },
-                        {
-                          key: "moderate",
-                          label: "Moderate · $$",
-                          img: "https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=800&auto=format&fit=crop",
-                        },
-                        {
-                          key: "premium",
-                          label: "Premium · $$$",
-                          img: "https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=800&auto=format&fit=crop",
-                        },
-                        {
-                          key: "luxury",
-                          label: "Luxury · $$$$",
-                          img: "https://images.unsplash.com/photo-1559339352-5a1fa1cd58c1?q=80&w=800&auto=format&fit=crop",
-                        },
-                      ] as const).map((r) => {
+                      {(
+                        [
+                          {
+                            key: "budget",
+                            label: "Budget · $",
+                            img: "https://images.unsplash.com/photo-1561758033-d89a9ad46330?q=80&w=800&auto=format&fit=crop",
+                          },
+                          {
+                            key: "moderate",
+                            label: "Moderate · $$",
+                            img: "https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=800&auto=format&fit=crop",
+                          },
+                          {
+                            key: "premium",
+                            label: "Premium · $$$",
+                            img: "https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=800&auto=format&fit=crop",
+                          },
+                          {
+                            key: "luxury",
+                            label: "Luxury · $$$$",
+                            img: "https://images.unsplash.com/photo-1559339352-5a1fa1cd58c1?q=80&w=800&auto=format&fit=crop",
+                          },
+                        ] as const
+                      ).map((r) => {
                         const active = restaurantTier === r.key;
                         return (
                           <button
@@ -1008,11 +1244,17 @@ export default function CompareCostOfLivingPage() {
                             onClick={() => setRestaurantTier(r.key)}
                             className={cn(
                               "rounded-2xl border p-3 text-left",
-                              active ? "bg-indigo-50 border-transparent" : "border-gray-300"
+                              active
+                                ? "bg-indigo-50 border-transparent"
+                                : "border-gray-300"
                             )}
                           >
                             {/* eslint-disable-next-line @next/next/no-img-element */}
-                            <img src={r.img} alt={r.label} className="h-24 w-full object-cover rounded-xl mb-3" />
+                            <img
+                              src={r.img}
+                              alt={r.label}
+                              className="h-24 w-full object-cover rounded-xl mb-3"
+                            />
                             <div className="font-semibold">{r.label}</div>
                             <div className="text-xs text-gray-600">
                               ~{fmt(cfg.living.foodCostPerMeal[r.key])} per meal
@@ -1029,7 +1271,10 @@ export default function CompareCostOfLivingPage() {
             {/* STEP 6 — Transportation (exact like screenshot) */}
             {step === 6 && (
               <Card>
-                <SectionTitle title="Transportation" subtitle="What would be your regular modes of commute?" />
+                <SectionTitle
+                  title="Transportation"
+                  subtitle="What would be your regular modes of commute?"
+                />
                 <div className="grid md:grid-cols-2 gap-6">
                   {[
                     {
@@ -1059,9 +1304,16 @@ export default function CompareCostOfLivingPage() {
                   ].map((m) => (
                     <div key={m.title}>
                       {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={m.img} alt={m.title} className="h-36 w-full object-cover rounded-xl" />
+                      <img
+                        src={m.img}
+                        alt={m.title}
+                        className="h-36 w-full object-cover rounded-xl"
+                      />
                       <div className="mt-2 font-medium">{m.title}</div>
-                      <FreqPills value={m.value as Frequency} onChange={m.set as any} />
+                      <FreqPills
+                        value={m.value as Frequency}
+                        onChange={m.set as any}
+                      />
                     </div>
                   ))}
                 </div>
@@ -1071,7 +1323,10 @@ export default function CompareCostOfLivingPage() {
             {/* STEP 7 — Misc */}
             {step === 7 && (
               <Card>
-                <SectionTitle title="Miscellaneous" subtitle="Set monthly lifestyle ranges." />
+                <SectionTitle
+                  title="Miscellaneous"
+                  subtitle="Set monthly lifestyle ranges."
+                />
                 <div className="grid md:grid-cols-2 gap-6">
                   {[
                     {
@@ -1101,9 +1356,16 @@ export default function CompareCostOfLivingPage() {
                   ].map((m) => (
                     <div key={m.title}>
                       {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={m.img} alt={m.title} className="h-36 w-full object-cover rounded-xl" />
+                      <img
+                        src={m.img}
+                        alt={m.title}
+                        className="h-36 w-full object-cover rounded-xl"
+                      />
                       <div className="mt-2 font-medium">{m.title}</div>
-                      <FreqPills value={m.value as Frequency} onChange={m.set as any} />
+                      <FreqPills
+                        value={m.value as Frequency}
+                        onChange={m.set as any}
+                      />
                     </div>
                   ))}
                 </div>
@@ -1144,7 +1406,13 @@ export default function CompareCostOfLivingPage() {
                 <div className="h-72">
                   <ResponsiveContainer width="100%" height="100%">
                     <PieChart>
-                      <Pie dataKey="value" data={costs.pie} innerRadius={60} outerRadius={100} paddingAngle={2}>
+                      <Pie
+                        dataKey="value"
+                        data={costs.pie}
+                        innerRadius={60}
+                        outerRadius={100}
+                        paddingAngle={2}
+                      >
                         {costs.pie.map((entry, index) => (
                           <Cell key={`cell-${index}`} fill={entry.color} />
                         ))}
@@ -1157,31 +1425,45 @@ export default function CompareCostOfLivingPage() {
                 <div>
                   <div className="grid grid-cols-2 gap-3 text-sm">
                     <div className="text-gray-600">Accommodation</div>
-                    <div className="text-right font-medium">{fmt(costs.accomMonthly)}</div>
+                    <div className="text-right font-medium">
+                      {fmt(costs.accomMonthly)}
+                    </div>
 
                     <div className="text-gray-600">Food</div>
-                    <div className="text-right font-medium">{fmt(costs.foodMonthly)}</div>
+                    <div className="text-right font-medium">
+                      {fmt(costs.foodMonthly)}
+                    </div>
 
                     <div className="text-gray-600">Transportation</div>
-                    <div className="text-right font-medium">{fmt(costs.transportMonthly)}</div>
+                    <div className="text-right font-medium">
+                      {fmt(costs.transportMonthly)}
+                    </div>
 
                     <div className="text-gray-600">Utilities + Misc</div>
-                    <div className="text-right font-medium">{fmt(costs.utilitiesMonthly + costs.miscMonthly)}</div>
+                    <div className="text-right font-medium">
+                      {fmt(costs.utilitiesMonthly + costs.miscMonthly)}
+                    </div>
 
                     <div className="col-span-2 border-t my-2" />
 
                     <div className="text-gray-800">Grand Total (Monthly)</div>
-                    <div className="text-right text-lg font-bold" style={{ color: THEME.red }}>
+                    <div
+                      className="text-right text-lg font-bold"
+                      style={{ color: THEME.red }}
+                    >
                       {fmt(costs.totalMonthly)}
                     </div>
 
                     <div className="text-gray-600">≈ per year</div>
-                    <div className="text-right font-semibold">{fmt(costs.totalYearly)}</div>
+                    <div className="text-right font-semibold">
+                      {fmt(costs.totalYearly)}
+                    </div>
                   </div>
 
                   <p className="text-xs text-gray-500 mt-3">
-                    City: <b>{city}</b> • Country: <b>{country}</b> • University:{" "}
-                    <b>{customUniversity || university}</b>. Adjust steps to refine your estimate.
+                    City: <b>{city}</b> • Country: <b>{country}</b> •
+                    University: <b>{customUniversity || university}</b>. Adjust
+                    steps to refine your estimate.
                   </p>
                 </div>
               </div>
@@ -1207,7 +1489,6 @@ export default function CompareCostOfLivingPage() {
 
               {showPopup && <DelayedPopup onMinimize={handlePopupClose} />}
             </div>
-
           </div>
         )}
       </div>

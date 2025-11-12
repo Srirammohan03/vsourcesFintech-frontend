@@ -212,7 +212,6 @@ export default function BankComparisonTool() {
         </div>
       </section>
 
-
       {/* MAIN CONTENT */}
       <section className="py-16">
         <div className="w-full max-w-[1400px] mx-auto px-6 space-y-8">

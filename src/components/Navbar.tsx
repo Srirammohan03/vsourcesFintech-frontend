@@ -185,40 +185,60 @@ const TOOLS_SECTIONS: Section[] = [
   },
 ];
 
+const PARTNERS_SECTIONS: Section[] = [
+  {
+    heading: "OUR LENDING PARTNERS",
+    items: [
+      { name: "Credila", path: "/our-partners/credila", icon: Banknote },
+      { name: "NBFC", path: "/our-partners/nbfc", icon: Banknote },
+      { name: "Auxilo", path: "/our-partners/auxilo", icon: Banknote },
+      { name: "Avanse", path: "/our-partners/avanse", icon: Banknote },
+      {
+        name: "Incred Finance",
+        path: "/our-partners/incred-finance",
+        icon: Banknote,
+      },
+      {
+        name: "MPOWER Financing",
+        path: "/our-partners/mpower-financing",
+        icon: Banknote,
+      },
+      {
+        name: "Prodigy Finance",
+        path: "/our-partners/prodigy-finance",
+        icon: Banknote,
+      },
+      {
+        name: "IDFC FIRST Bank",
+        path: "/our-partners/idfc-first-bank",
+        icon: Banknote,
+      },
+      { name: "Axis Bank", path: "/our-partners/axis-bank", icon: Banknote },
+    ],
+  },
+  {
+    heading: "IMPORTANT LOAN TOOLS",
+    items: [
+      {
+        name: "Compare Loan Offers",
+        path: "/our-partners/compare-loan-offers",
+        icon: Scale,
+      },
+      {
+        name: "Bank Comparison Tool",
+        path: "/our-partners/bank-comparison-tool",
+        icon: Building2,
+      },
+    ],
+  },
+];
+
 const NAV_STRUCTURE = (banks: BankLayoutProps[]): NavNode[] => [
   { type: "link", name: "Home", path: "/" },
   { type: "link", name: "About Us", path: "/about-us" },
   { type: "dropdown", name: "Our Services", sections: SERVICES_SECTIONS },
   { type: "dropdown", name: "Tools", sections: TOOLS_SECTIONS },
-  {
-    type: "dropdown",
-    name: "Our Partners",
-    sections: [
-      {
-        heading: "OUR LENDING PARTNERS",
-        items: banks.map((bank) => ({
-          name: bank.title,
-          path: `/our-partners/${bank?.slug}`,
-          icon: Banknote,
-        })),
-      },
-      {
-        heading: "IMPORTANT LOAN TOOLS",
-        items: [
-          {
-            name: "Compare Loan Offers",
-            path: "/our-partners/compare-loan-offers",
-            icon: Scale,
-          },
-          {
-            name: "Bank Comparison Tool",
-            path: "/our-partners/bank-comparison-tool",
-            icon: Building2,
-          },
-        ],
-      },
-    ],
-  },
+  { type: "dropdown", name: "Our Partners", sections: PARTNERS_SECTIONS },
   { type: "link", name: "360 View", path: "/view-360" },
   { type: "link", name: "Gallery", path: "/gallery" },
   { type: "link", name: "Branches", path: "/contact" },

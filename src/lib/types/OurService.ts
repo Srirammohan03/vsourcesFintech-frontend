@@ -1,4 +1,5 @@
-import { BanksBlock, Image } from "./LandingPage";
+import { Image } from "./BankConfig";
+import { BanksBlock } from "./LandingPage";
 
 export interface Services {
   id: number;
@@ -61,10 +62,10 @@ interface BlockedAccountProvider {
   title: string;
   description: string;
   image: Image;
-  processing_fee:string;
-monthly_fee:string;
-processing_time:string;
-banking_model:string;
+  processing_fee: string;
+  monthly_fee: string;
+  processing_time: string;
+  banking_model: string;
 }
 
 export interface BlockedAccount {
@@ -186,7 +187,7 @@ export interface Benfits {
   title: string;
   list: List[];
 }
-export interface GIC{
+export interface GIC {
   id: number;
   background_image: Image;
   heading: string;
@@ -194,44 +195,43 @@ export interface GIC{
   title: string;
   description2: string;
   Requirement_heading: string;
-  requirement_lists:string;
+  requirement_lists: string;
 }
-export interface HealthInsurance{
-  id:number;
+export interface HealthInsurance {
+  id: number;
   background_image: Image;
-  heading:string;
-  description:string;
+  heading: string;
+  description: string;
   countrys: countrys[];
-
 }
-export interface countrys{
+export interface countrys {
   id: number;
   name: string;
-  short:string;
-  currency:string;
-  description:string;
-  providersLine:string;
-  providers:providers[];
-  sections: sections[]
+  short: string;
+  currency: string;
+  description: string;
+  providersLine: string;
+  providers: providers[];
+  sections: sections[];
 }
-export interface providers{
-  id:number;
-  providerId:string;
+export interface providers {
+  id: number;
+  providerId: string;
   name: string;
 }
-export interface sections{
-  id:number;
-  section:string;
-  rows:rows[]
+export interface sections {
+  id: number;
+  section: string;
+  rows: rows[];
 }
-export interface rows{
-  id:number;
+export interface rows {
+  id: number;
   name: string;
-  values: values[]
+  values: values[];
 }
-export interface values{
-  id:number;
-  providerId:string;
+export interface values {
+  id: number;
+  providerId: string;
   value: string;
 }
 //! sim cards
@@ -245,7 +245,7 @@ export interface SimCards {
   provider_list: string;
   background_image: Image;
 }
-export interface EducationLoan{
+export interface EducationLoan {
   id: number;
   heading: string;
   description: string;
@@ -256,16 +256,16 @@ export interface EducationLoan{
   sub_topic: sub_topic[];
   faq_detail: faq_detail[];
 }
-export interface lists{
-  id : number;
+export interface lists {
+  id: number;
   list: string;
 }
-export interface sub_topic{
+export interface sub_topic {
   id: number;
   heading: string;
   description: string;
 }
-export  interface faq_detail{
+export interface faq_detail {
   id: number;
   heading: string;
   description: string;
