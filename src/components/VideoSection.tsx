@@ -37,6 +37,7 @@ const VideoSection = () => {
                   src="https://img.youtube.com/vi/IbjoEr-lTuw/maxresdefault.jpg"
                   alt="Company Video Thumbnail"
                   className="w-full h-full object-cover"
+                  loading="lazy"
                 />
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="w-20 h-20 rounded-full bg-primary flex items-center justify-center transition-transform group-hover:scale-110">

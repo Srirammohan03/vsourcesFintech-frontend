@@ -2,21 +2,48 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { BanksBlock } from "@/lib/types/LandingPage";
-
-type Prop = {
-  bankBlock?: BanksBlock | null;
-  isLoading?: boolean;
+import axios from "axios";
+import qs from "qs";
+import { useQuery } from "@tanstack/react-query";
+const query = qs.stringify({
+  populate: {
+    blocks: {
+      on: {
+        "fintech.banks": {
+          populate: {
+            bank: {
+              populate: {
+                logo: { fields: ["url", "name", "documentId"] },
+              },
+            },
+          },
+        },
+      },
+    },
+  },
+});
+const fetchHome = async () => {
+  const { data } = await axios.get(
+    `${import.meta.env.VITE_CMS_GLOBALURL}/api/fintech-landing-page?${query}`
+  );
+  return data?.data?.blocks[0] || {};
 };
-
 // credila /our-partners/credila nbfc  /our-partners/nbfc auxilo  /our-partners/auxilo
-const Banksloans: React.FC<Prop> = ({ bankBlock, isLoading }) => {
+const Banksloans: React.FC = () => {
   const [visibleCount, setVisibleCount] = useState(8); // show first 8 banks
-
-  if (isLoading || !bankBlock || !bankBlock.bank) {
+  const {
+    data: bankBlock,
+    isLoading,
+    isError,
+  } = useQuery<BanksBlock>({
+    queryKey: ["landingPage"],
+    queryFn: fetchHome,
+  });
+  if (isLoading || !bankBlock.bank || !bankBlock) {
     return <p className="text-center">Loading...</p>;
   }
 
-  const visibleBanks = bankBlock.bank.slice(0, visibleCount);
+  const visibleBanks = bankBlock?.bank.slice(0, visibleCount);
 
   const handleToggle = () => {
     if (visibleCount >= bankBlock.bank.length) {
@@ -61,6 +88,7 @@ const Banksloans: React.FC<Prop> = ({ bankBlock, isLoading }) => {
                     src={bank.logo?.url || "/assets/images/placeholder.png"}
                     alt={bank.name}
                     className="max-h-12 object-cover"
+                    loading="lazy"
                   />
                 </div>
               </Link>

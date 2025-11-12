@@ -151,6 +151,7 @@ const ScholarshipsSection = () => {
                             src={item.country === "USA" ? usaFlag : ukFlag}
                             alt={`${item.country} Flag`}
                             className="h-8 w-12 object-cover rounded"
+                            loading="lazy"
                           />
                         </td>
                         <td className="px-2 sm:px-6 py-3 sm:py-5">
@@ -163,6 +164,7 @@ const ScholarshipsSection = () => {
                               }}
                               alt={item.studentName}
                               className="h-8 w-8 sm:h-12 sm:w-12 rounded-full mr-2 sm:mr-3 object-cover"
+                              loading="lazy"
                             />
                             <span className="text-sm sm:text-base font-medium text-gray-900">
                               {item.studentName}
