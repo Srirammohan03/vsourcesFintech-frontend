@@ -91,6 +91,7 @@ const AboutSection: React.FC = () => {
                 src="/assets/images/Graduation-Hat.gif"
                 alt="Graduation Hat"
                 className="w-10 h-10 mt-1 flex-shrink-0"
+                loading="lazy"
               />
               <span className="font-bold text-lg md:leading-10">
                 Study Abroad Education Loans Made Easy
@@ -118,6 +119,7 @@ const AboutSection: React.FC = () => {
                 src="/assets/images/globe.gif"
                 alt="Globe"
                 className="w-8 h-8 mt-1 flex-shrink-0"
+                loading="lazy"
               />
               <span className="font-bold text-lg  md:leading-10">
                 100% Assistance for Education Loans to Study Abroad
@@ -146,6 +148,7 @@ const AboutSection: React.FC = () => {
                 src="/assets/images/Briefcase.gif"
                 alt="Briefcase"
                 className="w-10 h-10 mt-1 flex-shrink-0"
+                loading="lazy"
               />
               <span className="font-bold text-lg  md:leading-10">
                 Trusted Education Loan Experts for Top Global Destinations
@@ -185,7 +188,12 @@ const AboutSection: React.FC = () => {
                   data-aos-anchor-placement="center-bottom"
                 >
                   <div className="left-box">
-                    <img src={stat.icon} alt="" className="icon" />
+                    <img
+                      src={stat.icon}
+                      alt=""
+                      className="icon"
+                      loading="lazy"
+                    />
                     <div className="count text-[#1e73be]">
                       {count.toLocaleString("en-US")}
                       {stat.suffix}
@@ -208,6 +216,7 @@ const AboutSection: React.FC = () => {
               src="https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762754020/imgi_5_founder_pcglp8.jpg"
               alt="Founder"
               className="founder-img"
+              loading="lazy"
             />
             <p className="quote">
               “Redefining Education for Tomorrow’s Innovators”
@@ -227,7 +236,7 @@ const AboutSection: React.FC = () => {
                 data-aos-anchor-placement="center-bottom"
               >
                 <div className="left-box">
-                  <img src={stat.icon} alt="" className="icon" />
+                  <img src={stat.icon} alt="" className="icon" loading="lazy" />
                   <div className="count text-[#1e73be]">
                     {count.toLocaleString("en-US")}
                     {stat.suffix}

@@ -158,6 +158,7 @@ const ScholarshipsSection = () => {
                                   : "https://img.freepik.com/free-vector/illustration-uk-flag_53876-18166.jpg?semt=ais_hybrid&w=200";
                             }}
                             className="h-8 w-12 object-cover rounded"
+                            loading="lazy"
                           />
                         </td>
                         <td className="px-2 sm:px-6 py-3 sm:py-5">
@@ -170,6 +171,7 @@ const ScholarshipsSection = () => {
                                   "https://cdn-icons-png.flaticon.com/512/847/847969.png";
                               }}
                               className="h-8 w-8 sm:h-12 sm:w-12 rounded-full mr-2 sm:mr-3 object-cover"
+                              loading="lazy"
                             />
                             <span className="text-sm sm:text-base font-medium text-gray-900">
                               {item.studentName}
