@@ -1,12 +1,5 @@
 import React, { useMemo, useState } from "react";
 import { Banknote } from "lucide-react";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 
 // Replace this with your project's `cn` util if you have one
 const cn = (...args: Array<string | false | null | undefined>) =>
@@ -93,7 +86,6 @@ export default function CompareLoanOffers() {
   const [termYears, setTermYears] = useState<number>(10);
   const [customRate, setCustomRate] = useState<number | "">("");
   const [useCustomRate, setUseCustomRate] = useState(false);
-  const [copied, setCopied] = useState(null);
 
   // Extra monthly costs
   const [monthlyMortgageInsurance, setMonthlyMortgageInsurance] =
@@ -200,7 +192,7 @@ export default function CompareLoanOffers() {
       <section
         className="relative pt-32 pb-16 lg:pt-32 lg:pb-24 text-white bg-cover bg-[left_center] lg:bg-[top_center]"
         style={{
-          backgroundImage: `url(/assets/images/tools-bg.webp)`,
+          backgroundImage: `url(/assets/images/tools-bg.jpg)`,
         }}
       >
         <div className="absolute inset-0 bg-black/50" />
@@ -418,18 +410,13 @@ export default function CompareLoanOffers() {
                   <label className="text-sm font-medium text-slate-700">
                     Sort by
                   </label>
-                  <Select defaultValue="recommended">
-                    <SelectTrigger className="w-full rounded-lg border px-3 py-2 mt-2">
-                      <SelectValue placeholder="Select option" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="recommended">
-                        Recommended (lowest total monthly)
-                      </SelectItem>
-                      <SelectItem value="rate">Lowest rate</SelectItem>
-                      <SelectItem value="monthly">Lowest monthly</SelectItem>
-                    </SelectContent>
-                  </Select>
+                  <select className="w-full rounded-lg border px-3 py-2 mt-2">
+                    <option value="recommended">
+                      Recommended (lowest total monthly)
+                    </option>
+                    <option value="rate">Lowest rate</option>
+                    <option value="monthly">Lowest monthly</option>
+                  </select>
                 </div>
               </div>
             </div>
@@ -445,7 +432,7 @@ export default function CompareLoanOffers() {
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {computed.map((c, idx) => (
+                  {computed.map((c) => (
                     <article
                       key={c.bank}
                       className="p-4 rounded-xl border shadow-sm bg-white"
@@ -535,20 +522,14 @@ export default function CompareLoanOffers() {
                             </a>
 
                             <button
-                              onClick={() => {
+                              onClick={() =>
                                 navigator.clipboard.writeText(
                                   JSON.stringify(c, null, 2)
-                                );
-                                setCopied(idx);
-                                setTimeout(() => setCopied(null), 5000);
-                              }}
-                              className={`ml-4 text-xs px-2 py-1 rounded border transition-colors ${
-                                copied === idx
-                                  ? "bg-green-100 border-green-400 text-green-600"
-                                  : "bg-slate-100 border"
-                              }`}
+                                )
+                              }
+                              className="ml-auto text-xs px-2 py-1 rounded bg-slate-100 border"
                             >
-                              {copied === idx ? "Copied!" : "Copy details"}
+                              Copy details
                             </button>
                           </div>
                         </div>

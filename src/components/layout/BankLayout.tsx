@@ -1,27 +1,43 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+interface TrustedByItem {
+  icon: React.ElementType;
+  label: string;
+  labelCount?: number;
+}
+export interface EligibilityItem {
+  criteria: string;
+  details: string;
+}
+interface BankLayoutProps {
+  heroBg: string;
+  heroTitle: string;
+  heroSubtitle?: string;
+  interstRate?: string;
+  serviceCharge?: string;
+  marginRate?: string;
+  bankImg: string;
+  description: string;
+  trustedBy: TrustedByItem[];
+  documents: string[];
+  eligibility: EligibilityItem[];
+}
+import { useEffect, useState } from "react";
 import DelayedPopup from "../DelayedPopup";
-import { BankLayoutProps, TrustedByItem } from "@/lib/types/BankConfig";
+import { Link } from "react-router-dom";
 
+// Counter Hook
 function useCounter(to: number, duration: number = 200) {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
-    const end = Math.max(0, Math.round(to));
-    if (end === 0) {
-      setCount(0);
-      return;
-    }
-
     let start = 0;
+    const end = to;
     const incrementTime = Math.max(Math.floor(duration / end), 10);
 
     const timer = setInterval(() => {
       start += 1;
       setCount(start);
-      if (start >= end) {
-        setCount(end);
-        clearInterval(timer);
-      }
+      if (start === end) clearInterval(timer);
     }, incrementTime);
 
     return () => clearInterval(timer);
@@ -38,7 +54,7 @@ const TrustedByCard = ({
   const count = useCounter(labelCount);
   return (
     <div className="flex items-center justify-between gap-6 px-6 py-4 bg-[#0a9cf9] font-semibold text-white shadow-xl rounded-lg w-full max-w-[400px] min-h-[80px] md:min-h-[80px] sm:min-h-[80px]">
-      {/* <Icon className="w-10 h-11" /> */}
+      <Icon className="w-10 h-11" />
       <span className="text-3xl">{count}+</span>
       <span className="text-sm sm:text-base">{label}</span>
     </div>
@@ -46,13 +62,14 @@ const TrustedByCard = ({
 };
 
 const BankLayout: React.FC<BankLayoutProps> = ({
-  background_image,
-  title,
-  subtitle,
+  heroBg,
+  heroTitle,
+  heroSubtitle,
   interstRate,
   serviceCharge,
   marginRate,
-  bankImage,
+  bankImg,
+  description,
   trustedBy,
   documents,
   eligibility,
@@ -62,22 +79,21 @@ const BankLayout: React.FC<BankLayoutProps> = ({
   const handlePopupClose = () => {
     setShowPopup(false);
   };
-
   return (
     <div className="w-full">
       {/* Hero Section */}
       <section
         className="relative pt-32 pb-16 lg:pt-40 lg:pb-40 text-white bg-cover bg-[left_center] lg:bg-[top_center]"
         style={{
-          backgroundImage: background_image
-            ? `url(${background_image?.url})`
-            : "url(/assets/images/our-partners.webp)",
+          backgroundImage: heroBg ? `url(${heroBg})` : "none",
         }}
       >
         <div className="absolute inset-0 bg-black/50" />
         <div className="relative z-10 w-full max-w-[1400px] mx-auto px-4 text-center">
-          <h1 className="text-3xl md:text-5xl font-bold">{title}</h1>
-          {subtitle && <p className="mt-4 text-lg md:text-xl">{subtitle}</p>}
+          <h1 className="text-3xl md:text-5xl font-bold">{heroTitle}</h1>
+          {heroSubtitle && (
+            <p className="mt-4 text-lg md:text-xl">{heroSubtitle}</p>
+          )}
         </div>
       </section>
 
@@ -86,7 +102,7 @@ const BankLayout: React.FC<BankLayoutProps> = ({
         <div className="w-full max-w-[1400px] mx-auto px-4 grid grid-cols-1 md:grid-cols-2 items-center gap-12">
           <div>
             <h1 className="text-3xl md:text-4xl font-bold text-gray-900">
-              {title} Education Loan
+              {heroTitle} Education Loan
             </h1>
             <p className="mt-3 text-lg text-gray-700">
               Unlock hassle-free education loan assistance with Vsources!
@@ -117,19 +133,19 @@ const BankLayout: React.FC<BankLayoutProps> = ({
             </div>
 
             <div className="mt-8 flex gap-4">
-              <a
-                href="/tools/gpa-calculator"
+              <Link
+                to="/tools/gpa-calculator"
                 className="px-6 py-3 border-2 border-red-600 text-red-600 font-medium rounded-lg hover:bg-pink-50 transition"
               >
                 Check Eligibility
-              </a>
+              </Link>
             </div>
           </div>
           <div className="">
-            <div className="rounded-2xl">
+            <div className=" rounded-2xl">
               <img
-                src={bankImage?.url}
-                alt={title}
+                src={bankImg}
+                alt={heroTitle}
                 className="rounded-2xl shadow"
               />
             </div>
@@ -142,11 +158,11 @@ const BankLayout: React.FC<BankLayoutProps> = ({
         <div className="w-full max-w-[1400px] mx-auto px-4 text-center">
           <h2 className="text-2xl font-bold mb-6">
             Our Education Loans are Trusted By{" "}
-            <span className="text-red-600">{title}</span>
+            <span className="text-red-600">{heroTitle}</span>
           </h2>
           <div className="flex flex-wrap justify-center gap-4">
             {trustedBy.map((item, idx) => (
-              <TrustedByCard key={item?.id || idx} {...item} />
+              <TrustedByCard key={idx} {...item} />
             ))}
           </div>
         </div>
@@ -158,7 +174,7 @@ const BankLayout: React.FC<BankLayoutProps> = ({
           <div>
             <h2 className="text-3xl font-bold mb-4">
               Required Documents for <br />
-              {title} Education Loan
+              {heroTitle} Education Loan
             </h2>
             <p className="text-gray-700 leading-relaxed">
               To ensure a smooth loan approval process, applicants must submit a
@@ -187,7 +203,8 @@ const BankLayout: React.FC<BankLayoutProps> = ({
             </h3>
             <ul className="space-y-4">
               {documents.map((doc, idx) => (
-                <li key={doc?.id || idx} className="flex items-center gap-3">
+                <li key={idx} className="flex items-center gap-3">
+                  {/* Check Icon */}
                   <div className="flex items-center justify-center w-7 h-7 rounded-full bg-red-100">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -204,7 +221,7 @@ const BankLayout: React.FC<BankLayoutProps> = ({
                       />
                     </svg>
                   </div>
-                  <span className="text-gray-700">{doc?.document}</span>
+                  <span className="text-gray-700">{doc}</span>
                 </li>
               ))}
             </ul>
@@ -221,9 +238,10 @@ const BankLayout: React.FC<BankLayoutProps> = ({
       <section className="py-12 bg-gray-50">
         <div className="w-full max-w-[1400px] mx-auto px-4">
           <h2 className="text-2xl font-bold mb-6 text-center">
-            Education Loan Eligibility {title}
+            Education Loan Eligibility {heroTitle}
           </h2>
 
+          {/* Responsive Table */}
           <div className="overflow-x-auto hidden md:block">
             <table className="w-full max-w-[900px] mx-auto rounded-lg overflow-hidden shadow-sm border border-gray-200">
               <thead>
@@ -239,7 +257,7 @@ const BankLayout: React.FC<BankLayoutProps> = ({
               <tbody className="divide-y divide-gray-200">
                 {eligibility.map((item, idx) => (
                   <tr
-                    key={item?.id || idx}
+                    key={idx}
                     className={`${
                       idx % 2 === 0 ? "bg-white" : "bg-gray-50"
                     } hover:bg-red-50 transition`}
@@ -254,10 +272,11 @@ const BankLayout: React.FC<BankLayoutProps> = ({
             </table>
           </div>
 
+          {/* Mobile Card Layout */}
           <div className="space-y-4 md:hidden">
             {eligibility.map((item, idx) => (
               <div
-                key={item?.id || idx}
+                key={idx}
                 className="border rounded-lg bg-white shadow-sm p-4"
               >
                 <p className="font-semibold text-gray-800">{item.criteria}</p>
