@@ -1,9 +1,7 @@
-import BankLayout, { BankLayoutProps } from "@/components/layout/BankLayout";
-import { fetchBanks } from "@/components/ui/navbar";
+import BankLayout from "@/components/layout/BankLayout";
+import { BankLayoutProps, fetchBanks } from "@/lib/types/BankConfig";
 import BannerSkeleton from "@/Loaders/about-us/BannerSkeleton";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
-import { Globe, University, Users } from "lucide-react";
 import { useParams } from "react-router-dom";
 import { toast } from "sonner";
 

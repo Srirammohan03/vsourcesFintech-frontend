@@ -5,6 +5,9 @@ import { BanksBlock } from "@/lib/types/LandingPage";
 import axios from "axios";
 import qs from "qs";
 import { useQuery } from "@tanstack/react-query";
+import { toast } from "sonner";
+import BannerSkeleton from "@/Loaders/about-us/BannerSkeleton";
+
 const query = qs.stringify({
   populate: {
     blocks: {
@@ -22,41 +25,74 @@ const query = qs.stringify({
     },
   },
 });
+
 const fetchHome = async () => {
-  const { data } = await axios.get(
-    `${import.meta.env.VITE_CMS_GLOBALURL}/api/fintech-landing-page?${query}`
-  );
-  return data?.data?.blocks[0] || {};
+  try {
+    const { data } = await axios.get(
+      `${import.meta.env.VITE_CMS_GLOBALURL}/api/fintech-landing-page?${query}`
+    );
+    return data?.data?.blocks[0] || {};
+  } catch (error) {
+    throw new Error("Failed to fetch bank data");
+  }
 };
-// credila /our-partners/credila nbfc  /our-partners/nbfc auxilo  /our-partners/auxilo
+
 const Banksloans: React.FC = () => {
-  const [visibleCount, setVisibleCount] = useState(8); // show first 8 banks
+  const [visibleCount, setVisibleCount] = useState(8);
   const {
     data: bankBlock,
     isLoading,
     isError,
+    error,
+    refetch,
+    isPending,
   } = useQuery<BanksBlock>({
     queryKey: ["landingPage"],
     queryFn: fetchHome,
+    staleTime: 10 * 60 * 1000,
+    retry: 2,
   });
-  if (isLoading || !bankBlock.bank || !bankBlock) {
-    return <p className="text-center">Loading...</p>;
+
+  if (isLoading) return <BannerSkeleton />;
+
+  if (isError) {
+    toast.error((error as Error).message || "Something went wrong");
+    return (
+      <div className="text-center py-10">
+        <p className="text-gray-600 mb-4">
+          Failed to load bank data. Please try again.
+        </p>
+        <button
+          onClick={() => refetch()}
+          className="px-6 py-2 rounded-full bg-red-600 text-white font-semibold hover:bg-red-700 transition"
+          disabled={isLoading || isPending}
+        >
+          Retry
+        </button>
+      </div>
+    );
   }
 
-  const visibleBanks = bankBlock?.bank.slice(0, visibleCount);
+  if (!bankBlock?.bank?.length)
+    return (
+      <p className="text-center text-gray-500 py-10">
+        No bank partners available at the moment.
+      </p>
+    );
+
+  const visibleBanks = bankBlock.bank.slice(0, visibleCount);
 
   const handleToggle = () => {
     if (visibleCount >= bankBlock.bank.length) {
-      setVisibleCount(8); // reset to first 8
+      setVisibleCount(8);
     } else {
-      setVisibleCount((prev) => prev + 8); // load next 8
+      setVisibleCount((prev) => prev + 8);
     }
   };
 
   return (
     <section className="py-10 lg:py-16 bg-surface">
       <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Heading */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -72,7 +108,6 @@ const Banksloans: React.FC = () => {
           </p>
         </motion.div>
 
-        {/* Banks Grid */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
           {visibleBanks.map((bank) => (
             <motion.div
@@ -89,6 +124,9 @@ const Banksloans: React.FC = () => {
                     alt={bank.name}
                     className="max-h-12 object-cover"
                     loading="lazy"
+                    onError={(e) => {
+                      e.currentTarget.src = "/assets/images/placeholder.png";
+                    }}
                   />
                 </div>
               </Link>
@@ -96,7 +134,6 @@ const Banksloans: React.FC = () => {
           ))}
         </div>
 
-        {/* Load More Button */}
         {bankBlock.bank.length > 8 && (
           <div className="text-center mt-8">
             <button

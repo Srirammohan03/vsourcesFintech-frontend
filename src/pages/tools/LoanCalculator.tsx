@@ -1,6 +1,3 @@
-// components/tools/LoanCalculator.tsx
-"use client";
-
 import React, { useEffect, useMemo, useState } from "react";
 import ToolPageTemplate from "@/components/layout/ToolPageLayout";
 import { Calculator, DollarSign, Percent, RotateCcw } from "lucide-react";
@@ -31,14 +28,13 @@ export default function LoanCalculator() {
 
   useEffect(() => {
     calculateEMI();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loanAmount, interestRate, loanTenure]);
 
   const clamp = (v: number, min: number, max: number) =>
     isNaN(v) ? min : Math.min(Math.max(v, min), max);
 
   const calculateEMI = () => {
-    const principal = clamp(loanAmount, 100000, 5000000); // ₹1L–₹50L
+    const principal = clamp(loanAmount, 100000, 5000000);
     const rate = clamp(interestRate, 0, 100);
     const years = clamp(loanTenure, 1, 30);
     const m = rate / (12 * 100);
@@ -77,7 +73,11 @@ export default function LoanCalculator() {
   const pieData = useMemo(
     () => [
       { name: "Principal", value: Math.max(0, loanAmount), color: THEME.red },
-      { name: "Interest", value: Math.max(0, totalInterest), color: THEME.yellow },
+      {
+        name: "Interest",
+        value: Math.max(0, totalInterest),
+        color: THEME.yellow,
+      },
     ],
     [loanAmount, totalInterest]
   );
@@ -242,8 +242,16 @@ export default function LoanCalculator() {
 
               {/* Chips */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
-                <StatChip label="Monthly EMI" value={formatINR(emi)} bg={THEME.red} />
-                <StatChip label="Total Payment" value={formatINR(totalPayment)} bg={THEME.blue} />
+                <StatChip
+                  label="Monthly EMI"
+                  value={formatINR(emi)}
+                  bg={THEME.red}
+                />
+                <StatChip
+                  label="Total Payment"
+                  value={formatINR(totalPayment)}
+                  bg={THEME.blue}
+                />
                 <StatChip
                   label="Total Interest"
                   value={formatINR(totalInterest)}
@@ -308,7 +316,10 @@ export default function LoanCalculator() {
                       {/* Center label */}
                       <foreignObject x="30%" y="34%" width="40%" height="32%">
                         <div className="w-full h-full flex flex-col items-center justify-center text-center">
-                          <p className="text-[10px] tracking-wide" style={{ color: "#6b7280" }}>
+                          <p
+                            className="text-[10px] tracking-wide"
+                            style={{ color: "#6b7280" }}
+                          >
                             TOTAL
                           </p>
                           <p className="text-base sm:text-lg font-semibold leading-tight">
@@ -322,14 +333,21 @@ export default function LoanCalculator() {
 
                 {/* LEGEND + EMI */}
                 <div className="space-y-3">
-                  <LegendRow color={THEME.red} label="Principal" value={formatINR(loanAmount)} />
+                  <LegendRow
+                    color={THEME.red}
+                    label="Principal"
+                    value={formatINR(loanAmount)}
+                  />
                   <LegendRow
                     color={THEME.yellow}
                     label="Interest"
                     value={formatINR(totalInterest)}
                     dark
                   />
-                  <div className="border-t pt-3" style={{ borderColor: THEME.gray }}>
+                  <div
+                    className="border-t pt-3"
+                    style={{ borderColor: THEME.gray }}
+                  >
                     <LegendRow
                       color={THEME.blue}
                       label="Monthly EMI"
@@ -352,14 +370,20 @@ export default function LoanCalculator() {
               }}
             >
               <CardHeader className="pb-2">
-                <CardTitle className="text-base md:text-lg font-semibold" style={{ color: THEME.text }}>
+                <CardTitle
+                  className="text-base md:text-lg font-semibold"
+                  style={{ color: THEME.text }}
+                >
                   Loan Summary
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-3 text-sm">
                 <Row label="Principal" value={formatINR(loanAmount)} />
                 <Row label="Interest Rate" value={`${interestRate}% p.a.`} />
-                <Row label="Tenure" value={`${loanTenure} years (${loanTenure * 12} months)`} />
+                <Row
+                  label="Tenure"
+                  value={`${loanTenure} years (${loanTenure * 12} months)`}
+                />
                 <Row label="Total Payment" value={formatINR(totalPayment)} />
                 <Row label="Total Interest" value={formatINR(totalInterest)} />
                 <Row label="Monthly EMI" value={formatINR(emi)} />
@@ -368,22 +392,52 @@ export default function LoanCalculator() {
           </div>
         }
         howItWorks={[
-          { icon: <DollarSign className="h-8 w-8 mx-auto" color={THEME.red} />, title: "Enter Loan Details", description: "Provide loan amount, interest rate, and tenure." },
-          { icon: <Calculator className="h-8 w-8 mx-auto" color={THEME.blue} />, title: "Instant Calculation", description: "We compute EMI and total cost instantly." },
-          { icon: <Percent className="h-8 w-8 mx-auto" color={THEME.yellow} />, title: "Plan Smarter", description: "Use insights to reduce interest burden." },
+          {
+            icon: <DollarSign className="h-8 w-8 mx-auto" color={THEME.red} />,
+            title: "Enter Loan Details",
+            description: "Provide loan amount, interest rate, and tenure.",
+          },
+          {
+            icon: <Calculator className="h-8 w-8 mx-auto" color={THEME.blue} />,
+            title: "Instant Calculation",
+            description: "We compute EMI and total cost instantly.",
+          },
+          {
+            icon: <Percent className="h-8 w-8 mx-auto" color={THEME.yellow} />,
+            title: "Plan Smarter",
+            description: "Use insights to reduce interest burden.",
+          },
         ]}
         extraSectionTitle="Tips for Loan Planning"
         extraSectionContent={
           <ul className="text-left list-disc list-inside space-y-2">
-            <li style={{ color: THEME.text }}>Compare lenders before finalizing an education loan.</li>
-            <li style={{ color: THEME.text }}>Consider repayment options after the moratorium period.</li>
-            <li style={{ color: THEME.text }}>Prepay when possible to reduce interest burden.</li>
+            <li style={{ color: THEME.text }}>
+              Compare lenders before finalizing an education loan.
+            </li>
+            <li style={{ color: THEME.text }}>
+              Consider repayment options after the moratorium period.
+            </li>
+            <li style={{ color: THEME.text }}>
+              Prepay when possible to reduce interest burden.
+            </li>
           </ul>
         }
         references={[
-          { title: "EMI Calculator", description: "Calculate your EMIs for different loan scenarios.", link: "/tools/emi-calculator" },
-          { title: "Loan Eligibility", description: "Check your eligibility before applying.", link: "/tools/loan-eligibility-calculator" },
-          { title: "Interest Calculator", description: "Understand how much interest you’ll pay.", link: "/tools/interest-calculator" },
+          {
+            title: "EMI Calculator",
+            description: "Calculate your EMIs for different loan scenarios.",
+            link: "/tools/emi-calculator",
+          },
+          {
+            title: "Loan Eligibility",
+            description: "Check your eligibility before applying.",
+            link: "/tools/loan-eligibility-calculator",
+          },
+          {
+            title: "Interest Calculator",
+            description: "Understand how much interest you’ll pay.",
+            link: "/tools/interest-calculator",
+          },
         ]}
       />
     </div>
@@ -419,9 +473,15 @@ function LegendRow({
     <div className="flex items-center justify-between text-sm">
       <div className="flex items-center gap-2">
         {!noDot && (
-          <span className="inline-block h-3 w-3 rounded-full" style={{ backgroundColor: color }} />
+          <span
+            className="inline-block h-3 w-3 rounded-full"
+            style={{ backgroundColor: color }}
+          />
         )}
-        <span className={bold ? "font-semibold" : ""} style={{ color: dark ? "#111827" : THEME.text }}>
+        <span
+          className={bold ? "font-semibold" : ""}
+          style={{ color: dark ? "#111827" : THEME.text }}
+        >
           {label}
         </span>
       </div>

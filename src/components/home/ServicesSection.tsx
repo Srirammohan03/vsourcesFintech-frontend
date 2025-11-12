@@ -32,12 +32,12 @@ const ServicesSection = () => {
         />
 
         {/* Services grid */}
-        <div className="mt-14 grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+        <div className="mt-14 flex md:flex-row flex-col gap-8 lg:gap-12">
           {services.map((service, index) => (
             <AnimateOnScroll key={service.title} delay={index * 100}>
               <div
                 onClick={() => window.open(service.externalUrl, "_blank")}
-                className="relative rounded-2xl overflow-hidden shadow-md bg-gray-50 cursor-pointer transform transition-all duration-500 hover:scale-[1.03] hover:shadow-2xl group"
+                className="relative rounded-2xl overflow-hidden shadow-md bg-gray-50 cursor-pointer transform transition-all duration-500  hover:shadow-2xl group"
               >
                 {/* Image */}
                 <div className="aspect-[16/10] overflow-hidden">
@@ -77,7 +77,7 @@ const ServicesSection = () => {
                       href={"/assets/media/Brochure 16 pages _CTC.pdf"}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-xs sm:text-sm bg-white text-black font-bold px-4 py-2 sm:px-5 sm:py-2.5 rounded-md hover:bg-gray-200 transition text-center flex-1 sm:flex-none"
+                      className="text-xs sm:text-sm bg-white text-black font-bold p-2  rounded-md hover:bg-gray-200 transition text-center flex-1 sm:flex-none"
                       onClick={(e) => e.stopPropagation()}
                     >
                       VIEW PROGRAM
@@ -85,7 +85,7 @@ const ServicesSection = () => {
 
                     <a
                       href="tel:+919912611119"
-                      className="flex-1 sm:flex-none text-xs sm:text-sm md:text-base bg-red-600 text-white font-semibold px-4 py-2 sm:px-6 sm:py-3 rounded-md hover:bg-red-700 transition-all text-center shadow-md"
+                      className="flex-1 sm:flex-none text-xs sm:text-sm md:text-base bg-red-600 text-white font-semibold p-2  rounded-md hover:bg-red-700 transition-all text-center shadow-md"
                       onClick={(e) => e.stopPropagation()}
                     >
                       CALL NOW

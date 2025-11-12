@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, memo } from "react";
 import {
   Globe,
   UserCheck,
@@ -271,10 +271,6 @@ const BlockedAccount: React.FC = () => {
     queryFn: fetchBlockedAccount,
   });
 
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
-
   if (isError) {
     toast.error("failed to load");
     console.log("failed to load", error);
@@ -474,4 +470,4 @@ const BlockedAccount: React.FC = () => {
   );
 };
 
-export default BlockedAccount;
+export default memo(BlockedAccount);

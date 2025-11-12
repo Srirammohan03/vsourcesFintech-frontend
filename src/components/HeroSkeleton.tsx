@@ -1,60 +1,58 @@
 import React from "react";
-import Skeleton from "react-loading-skeleton";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
 const HeroSkeleton = () => {
   return (
-    <section className="relative w-full text-white overflow-hidden min-h-screen">
-
-      {/* Desktop BG Skeleton */}
-      <div className="hidden sm:block absolute inset-0">
-        <Skeleton height="100%" width="100%" />
-      </div>
-
-      {/* Mobile Layout (Full Height) */}
-      <div className="relative z-10 sm:hidden w-full px-4 pt-32 pb-8 overflow-hidden min-h-screen flex flex-col">
+    <SkeletonTheme
+      baseColor="rgba(229,231,235,0.9)"
+      highlightColor="rgba(243,244,246,0.9)"
+    >
+      <section className="relative w-full min-h-screen bg-white overflow-hidden">
+        {/* Background */}
         <div className="absolute inset-0">
           <Skeleton height="100%" width="100%" />
         </div>
 
-        {/* Content */}
-        <div className="relative z-10 flex flex-col justify-between flex-grow">
-          <div className="flex">
-            <div className="w-[50%] bg-white/10 backdrop-blur-sm rounded-2xl p-2 flex flex-col space-y-4 mb-5">
-              <Skeleton height={20} width="90%" />
-              <Skeleton height={20} width="70%" />
+        {/* Overlay to match hero opacity */}
+        <div className="absolute inset-0 bg-white/10 backdrop-blur-sm" />
 
-              <div className="flex items-center space-x-2 mt-6">
-                {[1, 2, 3, 4].map((i) => (
-                  <Skeleton key={i} circle width={20} height={20} />
-                ))}
-              </div>
+        {/* Navbar Skeleton */}
+        <div className="relative z-10 flex justify-between items-center px-6 sm:px-12 py-6">
+          {/* Logo */}
+          <Skeleton height={50} width={150} borderRadius={8} />
 
-              <Skeleton height={18} width="80%" />
-            </div>
-          </div>
-
-          {/* Search box */}
-          <div className="w-full mt-4">
-            <Skeleton height={55} borderRadius={12} />
+          {/* Nav Items */}
+          <div className="hidden md:flex items-center gap-6">
+            {[1, 2, 3, 4, 5, 6].map((i) => (
+              <Skeleton key={i} height={18} width={80} borderRadius={8} />
+            ))}
           </div>
         </div>
-      </div>
 
-      {/* Desktop Layout (Full Height) */}
-      <div className="hidden sm:flex flex-col justify-between relative z-10 w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-20 min-h-screen">
+        {/* Hero Content */}
+        <div className="relative z-10 flex flex-col items-center text-center justify-center px-6 sm:px-12 min-h-[75vh] space-y-6">
+          {/* Heading */}
+          <div className="space-y-4 max-w-3xl w-full">
+            <Skeleton height={60} width="75%" className="mx-auto rounded-md" />
+            <Skeleton height={35} width="55%" className="mx-auto rounded-md" />
+          </div>
 
-        <div className="text-center space-y-6 sm:space-y-8">
-          <Skeleton height={45} width="60%" className="mx-auto" />
-          <Skeleton height={22} width="70%" className="mx-auto" />
+          {/* Subtext */}
+          <div className="space-y-3 max-w-2xl w-full mt-6">
+            <Skeleton height={18} width="90%" className="mx-auto rounded-md" />
+            <Skeleton height={18} width="85%" className="mx-auto rounded-md" />
+            <Skeleton height={18} width="70%" className="mx-auto rounded-md" />
+          </div>
+
+          {/* CTA Buttons */}
+          <div className="flex justify-center gap-5 mt-8">
+            <Skeleton height={50} width={180} borderRadius={10} />
+            <Skeleton height={50} width={150} borderRadius={10} />
+          </div>
         </div>
-
-        <div className="mt-10">
-          <Skeleton height={70} borderRadius={16} />
-        </div>
-      </div>
-
-    </section>
+      </section>
+    </SkeletonTheme>
   );
 };
 

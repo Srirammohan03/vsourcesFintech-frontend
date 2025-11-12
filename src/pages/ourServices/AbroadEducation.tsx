@@ -22,6 +22,7 @@ import { Services } from "@/lib/types/OurService";
 import { HighlightedText } from "@/utils/HighlightedText";
 import RichText from "@/utils/RichText";
 import CreditCardSkeleton from "@/Loaders/our-services/CreditCardSkeleton";
+
 const features = [
   {
     title: "Multiple Lenders",
@@ -601,7 +602,7 @@ const AbroadEducation: React.FC = () => {
         </div>
       </section>
       {/* Loan Partners Section */}
-      <Banksloans isLoading={isLoading} bankBlock={data?.bank || null} />
+      <Banksloans />
       {/* Loan Schemes */}
       <section className="py-10 bg-gray-50">
         <div className="w-full max-w-[1400px] mx-auto px-6">

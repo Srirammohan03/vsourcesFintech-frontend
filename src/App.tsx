@@ -6,13 +6,14 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { Layout } from "@/components/layout/layout";
 import ContactBar from "./components/ContactBar";
-import { Footer } from "./components/ui/footer";
 import ScrollToTop from "./ScrollToTop";
 import ScrollToTopButton from "./components/ScrollToTopButton";
 import Navbar from "./components/Navbar";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import HeroSkeleton from "./components/HeroSkeleton";
+import DelayedPopup from "./components/DelayedPopup";
+import Footer from "./components/Footer";
 
 const Home = lazy(() => import("./pages/Home"));
 const Tools = lazy(() => import("./pages/Tools"));
@@ -80,9 +81,17 @@ const GpaCalculatorPage = lazy(() => import("./pages/tools/GpaCalculatorPage"));
 const View360 = lazy(() => import("./pages/View360"));
 const GoVirtual = lazy(() => import("./services/GoVirtual"));
 const NotFound = lazy(() => import("./pages/NotFound"));
-const DelayedPopup = lazy(() => import("./components/DelayedPopup"));
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      refetchOnMount: false,
+      refetchInterval: false,
+      staleTime: 10 * 60 * 1000,
+    },
+  },
+});
 
 const AppContent = () => {
   const [showForm, setShowForm] = useState(false);

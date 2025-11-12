@@ -259,21 +259,35 @@ const AboutSection: React.FC = () => {
         .container { max-width: 1200px; margin: 0 auto; }
 
         .top-section {
-          display: grid;
-          grid-template-columns: 1fr;   
+          display: flex;
           gap: 24px;
+          justify-content: space-between;
+          align-items: center;
         }
 
-        @media (min-width: 768px) {
+        @media (max-width: 950px) {
           .top-section {
-            grid-template-columns: 65% 30%; 
             gap: 32px;
-            align-items: start;
+            flex-direction: column;
           }
+            .left {
+            flex-basis: 100%;
+            min-width: 100%;
+        } 
+        .right {  
+          flex-basis: 100%;
+            min-width: 100%;
+        }
         }
 
-        .left { min-width: 0; }
-        .right { display: flex; flex-direction: column; align-items: center; }
+        .left {
+            flex-basis: 50%;
+            min-width: 50%;
+        } 
+        .right { display: flex; flex-direction: column; align-items: center; 
+          flex-basis: 50%;
+            min-width: 50%;
+        }
         h2 { font-size: clamp(30px, 3.6vw, 32px); font-weight: 700; margin: 0; }
         .desc { font-size: clamp(20px, 2.5vw, 25px); margin: 8px 0 0; line-height: 1.6; }
         .para { font-size: clamp(15px, 2.3vw, 15px); margin: 8px 0 0; }

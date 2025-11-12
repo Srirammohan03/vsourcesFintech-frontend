@@ -3,6 +3,7 @@ import { Students } from "@/lib/types/Gallery";
 import BannerSkeleton from "@/Loaders/about-us/BannerSkeleton";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { memo } from "react";
 import { toast } from "sonner";
 
 export const fetchStudents = async () => {
@@ -158,4 +159,4 @@ const StudentWall = () => {
   );
 };
 
-export default StudentWall;
+export default memo(StudentWall);
