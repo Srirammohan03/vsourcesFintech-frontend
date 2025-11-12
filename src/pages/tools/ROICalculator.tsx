@@ -25,12 +25,22 @@ const THEME = {
 } as const;
 
 /* ---------- helpers ---------- */
-const cls = (...s: (string | false | null | undefined)[]) => s.filter(Boolean).join(" ");
+const cls = (...s: (string | false | null | undefined)[]) =>
+  s.filter(Boolean).join(" ");
 const formatINR = (n: number) =>
-  new Intl.NumberFormat("en-IN", { maximumFractionDigits: 0 }).format(Math.max(0, Math.round(n)));
+  new Intl.NumberFormat("en-IN", { maximumFractionDigits: 0 }).format(
+    Math.max(0, Math.round(n))
+  );
 
 /* ---------- Types ---------- */
-type Country = "UK" | "USA" | "Canada" | "France" | "Ireland" | "Australia" | "Germany";
+type Country =
+  | "UK"
+  | "USA"
+  | "Canada"
+  | "France"
+  | "Ireland"
+  | "Australia"
+  | "Germany";
 type Branch =
   | "Computer Science / IT / Data"
   | "Engineering (Non-CS)"
@@ -243,7 +253,10 @@ export default function ROICalculator() {
       subline,
     });
 
-    setTimeout(() => graphRef.current?.scrollIntoView({ behavior: "smooth" }), 50);
+    setTimeout(
+      () => graphRef.current?.scrollIntoView({ behavior: "smooth" }),
+      50
+    );
   };
 
   // NEW: download output image (chart SVG -> PNG)
@@ -289,7 +302,7 @@ export default function ROICalculator() {
       <section
         className="relative pt-32 pb-16 lg:pt-40 lg:pb-28 text-white bg-cover bg-[left_center] lg:bg-[top_center]"
         style={{
-          backgroundImage: `url(/assets/images/tools-bg.jpg)`,
+          backgroundImage: `url(/assets/images/tools-bg.webp)`,
         }}
       >
         {/* Dark overlay under content */}
@@ -301,9 +314,11 @@ export default function ROICalculator() {
           </h1>
           <p className="mt-3 text-white/90 text-lg max-w-3xl mx-auto text-center">
             Plan your overseas education smartly. Estimate post-study salary,
-            see projections for 5 years,</p>
-          <p className="mt-3 text-white/90 text-lg max-w-3xl mx-auto text-center"> and understand how your loan choice
-            impacts recovery.
+            see projections for 5 years,
+          </p>
+          <p className="mt-3 text-white/90 text-lg max-w-3xl mx-auto text-center">
+            {" "}
+            and understand how your loan choice impacts recovery.
           </p>
         </div>
       </section>
@@ -311,7 +326,9 @@ export default function ROICalculator() {
       {/* FORM SECTION */}
       <main className="w-full max-w-[1400px] mx-auto px-6 py-10">
         <div className="rounded-2xl bg-white shadow-xl ring-1 ring-[#EEF2F7] p-5 md:p-8">
-          <h2 className="text-2xl md:text-3xl font-bold text-[#0B0B2C]">Inputs</h2>
+          <h2 className="text-2xl md:text-3xl font-bold text-[#0B0B2C]">
+            Inputs
+          </h2>
           <p className="text-sm text-gray-600 mb-6">
             Required fields: <span className="font-semibold">Country</span> and{" "}
             <span className="font-semibold">Course Branch</span>
@@ -495,7 +512,6 @@ export default function ROICalculator() {
                   type="button"
                   onClick={() => setShowExtraEdu((s) => !s)}
                   className="rounded-lg px-4 py-3 font-semibold bg-white text-red-600 border-2 border-red-600"
-
                 >
                   + Add Additional Education
                 </button>
@@ -503,7 +519,6 @@ export default function ROICalculator() {
                   type="button"
                   onClick={() => setShowExtraCert((s) => !s)}
                   className="rounded-lg px-4 py-3 font-semibold bg-white text-red-600 border-2 border-red-600"
-
                 >
                   + Add Additional Certification
                 </button>
@@ -515,26 +530,40 @@ export default function ROICalculator() {
           {showExtraEdu && (
             <div className="mt-6 rounded-2xl ring-1 ring-[#E5EBF0] p-4">
               <div className="flex items-center justify-between">
-                <h3 className="font-semibold text-[#0B0B2C]">Additional Education</h3>
+                <h3 className="font-semibold text-[#0B0B2C]">
+                  Additional Education
+                </h3>
                 <button
                   className="rounded-lg px-3 py-1 border-2 border-red-600  text-sm text-red-600 bg-white hover:bg-red-600 hover:text-white"
-                  onClick={() => setExtraEducation((arr) => [...arr, { level: "", institute: "", marks: "" }])}
+                  onClick={() =>
+                    setExtraEducation((arr) => [
+                      ...arr,
+                      { level: "", institute: "", marks: "" },
+                    ])
+                  }
                 >
                   + Add Row
                 </button>
               </div>
               {extraEducation.length === 0 && (
-                <p className="text-sm text-gray-500 mt-2">Add your extra education history.</p>
+                <p className="text-sm text-gray-500 mt-2">
+                  Add your extra education history.
+                </p>
               )}
               <div className="mt-3 space-y-3">
                 {extraEducation.map((row, idx) => (
-                  <div key={idx} className="grid grid-cols-1 md:grid-cols-3 gap-3 items-start">
+                  <div
+                    key={idx}
+                    className="grid grid-cols-1 md:grid-cols-3 gap-3 items-start"
+                  >
                     <InputBox
                       label="Level (e.g., Diploma, PG)"
                       value={row.level}
                       onChange={(e) =>
                         setExtraEducation((arr) =>
-                          arr.map((r, i) => (i === idx ? { ...r, level: e.target.value } : r))
+                          arr.map((r, i) =>
+                            i === idx ? { ...r, level: e.target.value } : r
+                          )
                         )
                       }
                     />
@@ -543,7 +572,9 @@ export default function ROICalculator() {
                       value={row.institute}
                       onChange={(e) =>
                         setExtraEducation((arr) =>
-                          arr.map((r, i) => (i === idx ? { ...r, institute: e.target.value } : r))
+                          arr.map((r, i) =>
+                            i === idx ? { ...r, institute: e.target.value } : r
+                          )
                         )
                       }
                     />
@@ -554,15 +585,24 @@ export default function ROICalculator() {
                           value={row.marks}
                           onChange={(e) =>
                             setExtraEducation((arr) =>
-                              arr.map((r, i) => (i === idx ? { ...r, marks: e.target.value } : r))
+                              arr.map((r, i) =>
+                                i === idx ? { ...r, marks: e.target.value } : r
+                              )
                             )
                           }
                         />
                       </div>
                       <button
                         className="mt-7 text-sm px-3 py-2 rounded-lg"
-                        onClick={() => setExtraEducation((arr) => arr.filter((_, i) => i !== idx))}
-                        style={{ color: THEME.red, border: `1px solid ${THEME.red}` }}
+                        onClick={() =>
+                          setExtraEducation((arr) =>
+                            arr.filter((_, i) => i !== idx)
+                          )
+                        }
+                        style={{
+                          color: THEME.red,
+                          border: `1px solid ${THEME.red}`,
+                        }}
                       >
                         Remove
                       </button>
@@ -577,26 +617,40 @@ export default function ROICalculator() {
           {showExtraCert && (
             <div className="mt-6 rounded-2xl ring-1 ring-[#E5EBF0] p-4">
               <div className="flex items-center justify-between">
-                <h3 className="font-semibold text-[#0B0B2C]">Additional Certifications</h3>
+                <h3 className="font-semibold text-[#0B0B2C]">
+                  Additional Certifications
+                </h3>
                 <button
                   className="rounded-lg px-3 py-1  border-2 border-red-600  text-sm text-red-600 bg-white hover:bg-red-600 hover:text-white"
-                  onClick={() => setExtraCerts((arr) => [...arr, { name: "", provider: "", year: "" }])}
+                  onClick={() =>
+                    setExtraCerts((arr) => [
+                      ...arr,
+                      { name: "", provider: "", year: "" },
+                    ])
+                  }
                 >
                   + Add Row
                 </button>
               </div>
               {extraCerts.length === 0 && (
-                <p className="text-sm text-gray-500 mt-2">Add your relevant certifications.</p>
+                <p className="text-sm text-gray-500 mt-2">
+                  Add your relevant certifications.
+                </p>
               )}
               <div className="mt-3 space-y-3">
                 {extraCerts.map((row, idx) => (
-                  <div key={idx} className="grid grid-cols-1 md:grid-cols-3 gap-3 items-start">
+                  <div
+                    key={idx}
+                    className="grid grid-cols-1 md:grid-cols-3 gap-3 items-start"
+                  >
                     <InputBox
                       label="Certification Name"
                       value={row.name}
                       onChange={(e) =>
                         setExtraCerts((arr) =>
-                          arr.map((r, i) => (i === idx ? { ...r, name: e.target.value } : r))
+                          arr.map((r, i) =>
+                            i === idx ? { ...r, name: e.target.value } : r
+                          )
                         )
                       }
                     />
@@ -605,7 +659,9 @@ export default function ROICalculator() {
                       value={row.provider}
                       onChange={(e) =>
                         setExtraCerts((arr) =>
-                          arr.map((r, i) => (i === idx ? { ...r, provider: e.target.value } : r))
+                          arr.map((r, i) =>
+                            i === idx ? { ...r, provider: e.target.value } : r
+                          )
                         )
                       }
                     />
@@ -616,15 +672,24 @@ export default function ROICalculator() {
                           value={row.year}
                           onChange={(e) =>
                             setExtraCerts((arr) =>
-                              arr.map((r, i) => (i === idx ? { ...r, year: e.target.value } : r))
+                              arr.map((r, i) =>
+                                i === idx ? { ...r, year: e.target.value } : r
+                              )
                             )
                           }
                         />
                       </div>
                       <button
                         className="mt-7 text-sm px-3 py-2 rounded-lg"
-                        onClick={() => setExtraCerts((arr) => arr.filter((_, i) => i !== idx))}
-                        style={{ color: THEME.red, border: `1px solid ${THEME.red}` }}
+                        onClick={() =>
+                          setExtraCerts((arr) =>
+                            arr.filter((_, i) => i !== idx)
+                          )
+                        }
+                        style={{
+                          color: THEME.red,
+                          border: `1px solid ${THEME.red}`,
+                        }}
                       >
                         Remove
                       </button>
@@ -639,21 +704,33 @@ export default function ROICalculator() {
         {/* OUTPUT */}
         {results && (
           <section ref={graphRef} className="mt-10">
-            <h3 className="text-xl md:text-2xl font-bold text-[#0B0B2C] mb-4">Output:</h3>
+            <h3 className="text-xl md:text-2xl font-bold text-[#0B0B2C] mb-4">
+              Output:
+            </h3>
 
-            <div ref={exportRef} className="rounded-2xl ring-1 ring-[#F0E6FF] bg-[#FCEBFF] p-4 md:p-6">
+            <div
+              ref={exportRef}
+              className="rounded-2xl ring-1 ring-[#F0E6FF] bg-[#FCEBFF] p-4 md:p-6"
+            >
               <div className="flex items-center justify-between mb-2">
-                <div className="text-lg md:text-xl font-bold">{country || targetCountry}</div>
-        
+                <div className="text-lg md:text-xl font-bold">
+                  {country || targetCountry}
+                </div>
               </div>
 
               <div className="w-full h-[340px]">
                 <ResponsiveContainer width="100%" height="100%">
-                  <LineChart data={results.points} margin={{ left: 12, right: 12, top: 10, bottom: 10 }}>
+                  <LineChart
+                    data={results.points}
+                    margin={{ left: 12, right: 12, top: 10, bottom: 10 }}
+                  >
                     <CartesianGrid stroke="rgba(0,0,0,0.06)" />
                     <XAxis dataKey="year" />
                     <YAxis tickFormatter={(v) => formatINR(v)} width={90} />
-                    <Tooltip formatter={(v: number) => `₹${formatINR(v as number)}`} labelFormatter={(l) => `Year ${l}`} />
+                    <Tooltip
+                      formatter={(v: number) => `₹${formatINR(v as number)}`}
+                      labelFormatter={(l) => `Year ${l}`}
+                    />
                     <Legend />
                     <Line
                       type="monotone"
@@ -670,19 +747,33 @@ export default function ROICalculator() {
             </div>
 
             <div className="mt-6 rounded-2xl bg-white shadow-lg ring-1 ring-[#EEF2F7] p-4 md:p-6 space-y-2">
-              <p className="text-lg font-semibold text-[#0B0B2C]">{results.headline}</p>
-              <p className="text-sm text-gray-700 leading-relaxed">{results.subline}</p>
+              <p className="text-lg font-semibold text-[#0B0B2C]">
+                {results.headline}
+              </p>
+              <p className="text-sm text-gray-700 leading-relaxed">
+                {results.subline}
+              </p>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-3">
-                <Stat label="Starting (Year 0)" value={`₹${formatINR(results.startSalary)}/yr`} />
-                <Stat label="Estimated EMI" value={`₹${formatINR(results.emi)}/mo`} />
-                <Stat label="Approx. Break-even" value={`${results.breakEvenYears} year(s)`} />
+                <Stat
+                  label="Starting (Year 0)"
+                  value={`₹${formatINR(results.startSalary)}/yr`}
+                />
+                <Stat
+                  label="Estimated EMI"
+                  value={`₹${formatINR(results.emi)}/mo`}
+                />
+                <Stat
+                  label="Approx. Break-even"
+                  value={`${results.breakEvenYears} year(s)`}
+                />
               </div>
 
               {/* NEW: Apply for Loan button */}
               <div className="pt-4">
                 <a
                   href=""
-                  aria-label="Apply now" className="mt-4 mx-auto block px-4 py-3 text-center rounded-xl font-bold bg-red-600 text-white w-full max-w-[360px] shadow-lg hover:brightness-105"
+                  aria-label="Apply now"
+                  className="mt-4 mx-auto block px-4 py-3 text-center rounded-xl font-bold bg-red-600 text-white w-full max-w-[360px] shadow-lg hover:brightness-105"
                   onClick={() => setShowPopup(true)}
                 >
                   Apply Now
@@ -709,7 +800,7 @@ function FieldShell({
 }) {
   return (
     <div>
-      <div className="flex items-center justify-between rounded-xl border px-4 py-3 text-[#0B0B2C] border-gray-400" >
+      <div className="flex items-center justify-between rounded-xl border px-4 py-3 text-[#0B0B2C] border-gray-400">
         <span className="font-semibold">{label}</span>
         <div className="ml-3">
           <div className="min-w-[110px] text-center rounded-lg bg-gray-100 px-3 py-2 font-bold text-[#334155]">
@@ -750,7 +841,10 @@ function LabeledSlider(props: {
     <div>
       <FieldShell
         label={label}
-        valueBox={(valueBoxFormatter ? valueBoxFormatter(value) : formatINR(value)) + (postfix || "")}
+        valueBox={
+          (valueBoxFormatter ? valueBoxFormatter(value) : formatINR(value)) +
+          (postfix || "")
+        }
       />
       <div className="px-1 py-3">
         <input
@@ -798,15 +892,15 @@ function SelectBox({
               ? "border-red-500 ring-2 ring-red-500"
               : "border-[#E5EBF0] focus:ring-2"
           )}
-          style={!error ? { ["--tw-ring-color" as any]: THEME.blue } : undefined}
+          style={
+            !error ? { ["--tw-ring-color" as any]: THEME.blue } : undefined
+          }
         >
           {children}
         </select>
 
         {/* Custom Arrow */}
-        <ChevronDown
-          className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-black"
-        />
+        <ChevronDown className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-black" />
       </div>
       {error && (
         <p className="mt-1 text-xs" style={{ color: THEME.red }}>

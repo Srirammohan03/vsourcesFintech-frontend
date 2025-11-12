@@ -1,6 +1,6 @@
 // src/pages/GpaCalculatorPage.tsx
 import DelayedPopup from "@/components/DelayedPopup";
-import React, { useMemo, useState,  useEffect } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { Link, Route, Routes, BrowserRouter } from "react-router-dom";
 
@@ -52,14 +52,26 @@ type Semester = { id: string; name: string; courses: Course[] };
 type CalcMode = "4.0 GPA" | "CGPA to GPA" | "Percentage to GPA";
 const ALL_GRADES = Object.keys(GRADE_POINTS);
 
-const CONFETTI_COLORS = ["#22c55e", "#eab308", "#0ea5e9", "#7c3aed", "#ef4444", "#f97316", "#06b6d4"];
+const CONFETTI_COLORS = [
+  "#22c55e",
+  "#eab308",
+  "#0ea5e9",
+  "#7c3aed",
+  "#ef4444",
+  "#f97316",
+  "#06b6d4",
+];
 
 /* -----------------------------------
    Utilities (unchanged)
 ------------------------------------*/
 
 function makeSemester(n: number): Semester {
-  return { id: crypto.randomUUID(), name: `Semester ${n}`, courses: [{ id: crypto.randomUUID(), name: "", credits: "", grade: "" }] };
+  return {
+    id: crypto.randomUUID(),
+    name: `Semester ${n}`,
+    courses: [{ id: crypto.randomUUID(), name: "", credits: "", grade: "" }],
+  };
 }
 function round2(n: number) {
   return Math.round(n * 100) / 100;
@@ -95,16 +107,27 @@ const Select: React.FC<{
           </option>
         ))}
       </select>
-      <span aria-hidden className="absolute right-3 text-gray-400 pointer-events-none">
+      <span
+        aria-hidden
+        className="absolute right-3 text-gray-400 pointer-events-none"
+      >
         ▾
       </span>
     </label>
   );
 };
 
-const Modal: React.FC<{ title?: string; children: React.ReactNode; onClose: () => void }> = ({ title, children, onClose }) => {
+const Modal: React.FC<{
+  title?: string;
+  children: React.ReactNode;
+  onClose: () => void;
+}> = ({ title, children, onClose }) => {
   return createPortal(
-    <div className="fixed inset-0 bg-[rgba(2,6,23,0.55)] grid place-items-center p-4 z-50" role="dialog" aria-modal="true">
+    <div
+      className="fixed inset-0 bg-[rgba(2,6,23,0.55)] grid place-items-center p-4 z-50"
+      role="dialog"
+      aria-modal="true"
+    >
       <div className="w-[min(640px,95vw)] bg-white rounded-xl p-4 shadow-2xl animate-slide-up">
         <div className="flex items-center justify-between border-b border-gray-100 pb-2 mb-3">
           {title && <h3 className="m-0 text-lg font-semibold">{title}</h3>}
@@ -132,7 +155,10 @@ const GpaCalculatorPage: React.FC = () => {
   const [mode, setMode] = useState<CalcMode>("4.0 GPA");
   const [semesters, setSemesters] = useState<Semester[]>([makeSemester(1)]);
   const [showResult, setShowResult] = useState(false);
-  const [result, setResult] = useState<{ gpa: number; outOf: number }>({ gpa: 0, outOf: 4 });
+  const [result, setResult] = useState<{ gpa: number; outOf: number }>({
+    gpa: 0,
+    outOf: 4,
+  });
 
   // Converter inputs
   const [cgpa10, setCgpa10] = useState<string>("");
@@ -151,11 +177,17 @@ const GpaCalculatorPage: React.FC = () => {
   function handleAddCourse(semId: string) {
     updateSemester(semId, (s) => ({
       ...s,
-      courses: [...s.courses, { id: crypto.randomUUID(), name: "", credits: "", grade: "" }],
+      courses: [
+        ...s.courses,
+        { id: crypto.randomUUID(), name: "", credits: "", grade: "" },
+      ],
     }));
   }
   function handleRemoveCourse(semId: string, courseId: string) {
-    updateSemester(semId, (s) => ({ ...s, courses: s.courses.filter((c) => c.id !== courseId) }));
+    updateSemester(semId, (s) => ({
+      ...s,
+      courses: s.courses.filter((c) => c.id !== courseId),
+    }));
   }
 
   function clearAll() {
@@ -171,18 +203,32 @@ const GpaCalculatorPage: React.FC = () => {
     if (mode === "4.0 GPA") {
       for (const sem of semesters) {
         for (const [idx, c] of sem.courses.entries()) {
-          if (!c.name.trim()) return [false, `Semester ${sem.name}: Course ${idx + 1} name is empty.`];
+          if (!c.name.trim())
+            return [
+              false,
+              `Semester ${sem.name}: Course ${idx + 1} name is empty.`,
+            ];
           const credits = Number(c.credits);
-          if (!Number.isFinite(credits) || credits <= 0) return [false, `Semester ${sem.name}: Course ${idx + 1} has invalid credits.`];
-          if (!c.grade) return [false, `Semester ${sem.name}: Course ${idx + 1} grade is missing.`];
+          if (!Number.isFinite(credits) || credits <= 0)
+            return [
+              false,
+              `Semester ${sem.name}: Course ${idx + 1} has invalid credits.`,
+            ];
+          if (!c.grade)
+            return [
+              false,
+              `Semester ${sem.name}: Course ${idx + 1} grade is missing.`,
+            ];
         }
       }
     } else if (mode === "CGPA to GPA") {
       const v = Number(cgpa10);
-      if (!Number.isFinite(v) || v < 0 || v > 10) return [false, "Enter CGPA on a 10-point scale (0–10)."];
+      if (!Number.isFinite(v) || v < 0 || v > 10)
+        return [false, "Enter CGPA on a 10-point scale (0–10)."];
     } else {
       const v = Number(percentage);
-      if (!Number.isFinite(v) || v < 0 || v > 100) return [false, "Enter percentage between 0 and 100."];
+      if (!Number.isFinite(v) || v < 0 || v > 100)
+        return [false, "Enter percentage between 0 and 100."];
     }
     return [true];
   }
@@ -276,7 +322,7 @@ const GpaCalculatorPage: React.FC = () => {
       </div>
     );
   };
-    const [showPopup, setShowPopup] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
 
   const handlePopupClose = () => {
     setShowPopup(false);
@@ -289,7 +335,15 @@ const GpaCalculatorPage: React.FC = () => {
     const y = 60 + 45 * Math.sin((Math.PI * (angle + 180)) / 180);
     return (
       <>
-        <line x1="60" y1="60" x2={x} y2={y} stroke="#0f172a" strokeWidth="3.5" strokeLinecap="round" />
+        <line
+          x1="60"
+          y1="60"
+          x2={x}
+          y2={y}
+          stroke="#0f172a"
+          strokeWidth="3.5"
+          strokeLinecap="round"
+        />
         <circle cx="60" cy="60" r="4.5" fill="#0f172a" />
       </>
     );
@@ -301,20 +355,29 @@ const GpaCalculatorPage: React.FC = () => {
       <style>{extraStyles}</style>
 
       {/* Banner */}
-       <section
+      <section
         className="relative pt-32 pb-16 lg:pt-40 lg:pb-36 text-white bg-cover bg-[left_center] lg:bg-[top_center]"
         style={{
-          backgroundImage: `url(/assets/images/tools-bg.jpg)`,
+          backgroundImage: `url(/assets/images/tools-bg.webp)`,
         }}
       >
         {/* Dark overlay under content */}
         <div className="absolute inset-0 bg-black/50 z-0" />
 
-          <div className="w-full max-w-[1400px] mx-auto px-6 relative z-10 text-center">
-          <h1 className="m-0 font-extrabold tracking-wide" style={{ marginBottom: ".35rem", fontSize: "clamp(1.8rem, 2.4vw + 1rem, 2.6rem)", letterSpacing: "0.5px" }}>
+        <div className="w-full max-w-[1400px] mx-auto px-6 relative z-10 text-center">
+          <h1
+            className="m-0 font-extrabold tracking-wide"
+            style={{
+              marginBottom: ".35rem",
+              fontSize: "clamp(1.8rem, 2.4vw + 1rem, 2.6rem)",
+              letterSpacing: "0.5px",
+            }}
+          >
             GPA Calculator
           </h1>
-          <p className="m-0 opacity-95">Compute your GPA on a 4-point scale or convert CGPA/Percentage.</p>
+          <p className="m-0 opacity-95">
+            Compute your GPA on a 4-point scale or convert CGPA/Percentage.
+          </p>
         </div>
       </section>
 
@@ -324,10 +387,20 @@ const GpaCalculatorPage: React.FC = () => {
           {/* LEFT (3/5) */}
           <section className="lg:col-span-3 grid gap-4">
             {/* Calculation Type */}
-            <section className="bg-white rounded-[14px] p-4 shadow-md border border-gray-400x" aria-labelledby="mode-heading">
-              <h2 id="mode-heading" className="text-base font-bold mb-3">Calculation Type</h2>
+            <section
+              className="bg-white rounded-[14px] p-4 shadow-md border border-gray-400x"
+              aria-labelledby="mode-heading"
+            >
+              <h2 id="mode-heading" className="text-base font-bold mb-3">
+                Calculation Type
+              </h2>
               <div>
-                <Select value={mode} onChange={(v) => setMode(v as CalcMode)} ariaLabel="Select GPA calculation type" options={["4.0 GPA", "CGPA to GPA", "Percentage to GPA"]} />
+                <Select
+                  value={mode}
+                  onChange={(v) => setMode(v as CalcMode)}
+                  ariaLabel="Select GPA calculation type"
+                  options={["4.0 GPA", "CGPA to GPA", "Percentage to GPA"]}
+                />
               </div>
             </section>
 
@@ -337,53 +410,97 @@ const GpaCalculatorPage: React.FC = () => {
                 <>
                   <div className="flex items-center justify-between">
                     <h2 className="text-base font-bold mb-2">Semesters</h2>
-                    <span aria-live="polite" className="text-sm text-gray-600">{semesters.length}/12</span>
+                    <span aria-live="polite" className="text-sm text-gray-600">
+                      {semesters.length}/12
+                    </span>
                   </div>
 
                   {semesters.map((sem, idx) => (
-                    <div key={sem.id} aria-label={`Semester ${idx + 1}`} className="border border-gray-400x rounded-lg p-3 mb-4 shadow-sm bg-white">
+                    <div
+                      key={sem.id}
+                      aria-label={`Semester ${idx + 1}`}
+                      className="border border-gray-400x rounded-lg p-3 mb-4 shadow-sm bg-white"
+                    >
                       <div className="flex items-center justify-between mb-2">
                         <strong>Semester {idx + 1}</strong>
                         <button
                           aria-label={`Delete Semester ${idx + 1}`}
                           onClick={() => handleRemoveSemester(sem.id)}
                           disabled={semesters.length === 1}
-                          title={semesters.length === 1 ? "At least one semester is required" : "Remove semester"}
-                          className={`p-1 rounded-md ${semesters.length === 1 ? "opacity-40 cursor-not-allowed" : "hover:bg-gray-100"} `}
+                          title={
+                            semesters.length === 1
+                              ? "At least one semester is required"
+                              : "Remove semester"
+                          }
+                          className={`p-1 rounded-md ${
+                            semesters.length === 1
+                              ? "opacity-40 cursor-not-allowed"
+                              : "hover:bg-gray-100"
+                          } `}
                         >
                           🗑
                         </button>
                       </div>
 
-                      <table className="responsive-table w-full border-collapse bg-white rounded-xl overflow-hidden" role="grid" aria-label={`Courses for Semester ${idx + 1}`}>
+                      <table
+                        className="responsive-table w-full border-collapse bg-white rounded-xl overflow-hidden"
+                        role="grid"
+                        aria-label={`Courses for Semester ${idx + 1}`}
+                      >
                         <thead className="hidden sm:table-header-group">
                           <tr>
-                            <th className="text-left bg-[#eaf2ff] text-[#1f2937] px-3 py-2 font-bold border-b border-[#dde7ff]">S.no</th>
-                            <th className="text-left bg-[#eaf2ff] text-[#1f2937] px-3 py-2 font-bold border-b border-[#dde7ff]">Courses</th>
-                            <th className="text-left bg-[#eaf2ff] text-[#1f2937] px-3 py-2 font-bold border-b border-[#dde7ff]">Credits</th>
-                            <th className="text-left bg-[#eaf2ff] text-[#1f2937] px-3 py-2 font-bold border-b border-[#dde7ff]">Grades</th>
-                            <th className="bg-[#eaf2ff] px-3 py-2 border-b border-[#dde7ff]" aria-hidden></th>
+                            <th className="text-left bg-[#eaf2ff] text-[#1f2937] px-3 py-2 font-bold border-b border-[#dde7ff]">
+                              S.no
+                            </th>
+                            <th className="text-left bg-[#eaf2ff] text-[#1f2937] px-3 py-2 font-bold border-b border-[#dde7ff]">
+                              Courses
+                            </th>
+                            <th className="text-left bg-[#eaf2ff] text-[#1f2937] px-3 py-2 font-bold border-b border-[#dde7ff]">
+                              Credits
+                            </th>
+                            <th className="text-left bg-[#eaf2ff] text-[#1f2937] px-3 py-2 font-bold border-b border-[#dde7ff]">
+                              Grades
+                            </th>
+                            <th
+                              className="bg-[#eaf2ff] px-3 py-2 border-b border-[#dde7ff]"
+                              aria-hidden
+                            ></th>
                           </tr>
                         </thead>
                         <tbody>
                           {sem.courses.map((c, i) => (
                             <tr key={c.id} className="">
-                              <td data-label="S.no" className="px-2 py-2 border-b sm:border-b-0 align-middle">{i + 1}</td>
-                              <td data-label="Courses" className="px-2 py-2 border-b sm:border-b-0 align-middle">
+                              <td
+                                data-label="S.no"
+                                className="px-2 py-2 border-b sm:border-b-0 align-middle"
+                              >
+                                {i + 1}
+                              </td>
+                              <td
+                                data-label="Courses"
+                                className="px-2 py-2 border-b sm:border-b-0 align-middle"
+                              >
                                 <input
                                   placeholder="Course name"
                                   value={c.name}
                                   onChange={(e) =>
                                     updateSemester(sem.id, (s) => ({
                                       ...s,
-                                      courses: s.courses.map((x) => (x.id === c.id ? { ...x, name: e.target.value } : x)),
+                                      courses: s.courses.map((x) =>
+                                        x.id === c.id
+                                          ? { ...x, name: e.target.value }
+                                          : x
+                                      ),
                                     }))
                                   }
                                   aria-label={`Course ${i + 1} name`}
                                   className="w-full border border-gray-300 px-3 py-2 rounded-lg text-sm  outline-none transition"
                                 />
                               </td>
-                              <td data-label="Credits" className="px-2 py-2 border-b sm:border-b-0 align-middle">
+                              <td
+                                data-label="Credits"
+                                className="px-2 py-2 border-b sm:border-b-0 align-middle"
+                              >
                                 <input
                                   placeholder="e.g. 4"
                                   inputMode="decimal"
@@ -391,20 +508,29 @@ const GpaCalculatorPage: React.FC = () => {
                                   onChange={(e) =>
                                     updateSemester(sem.id, (s) => ({
                                       ...s,
-                                      courses: s.courses.map((x) => (x.id === c.id ? { ...x, credits: e.target.value } : x)),
+                                      courses: s.courses.map((x) =>
+                                        x.id === c.id
+                                          ? { ...x, credits: e.target.value }
+                                          : x
+                                      ),
                                     }))
                                   }
                                   aria-label={`Course ${i + 1} credits`}
                                   className="w-full border border-gray-300 px-3 py-2 rounded-lg text-sm outline-none transition"
                                 />
                               </td>
-                              <td data-label="Grades" className="px-2 py-2 border-b sm:border-b-0 align-middle">
+                              <td
+                                data-label="Grades"
+                                className="px-2 py-2 border-b sm:border-b-0 align-middle"
+                              >
                                 <Select
                                   value={c.grade}
                                   onChange={(v) =>
                                     updateSemester(sem.id, (s) => ({
                                       ...s,
-                                      courses: s.courses.map((x) => (x.id === c.id ? { ...x, grade: v } : x)),
+                                      courses: s.courses.map((x) =>
+                                        x.id === c.id ? { ...x, grade: v } : x
+                                      ),
                                     }))
                                   }
                                   ariaLabel={`Course ${i + 1} grade`}
@@ -412,8 +538,18 @@ const GpaCalculatorPage: React.FC = () => {
                                   options={ALL_GRADES}
                                 />
                               </td>
-                              <td data-label="Remove" className="px-2 py-2 align-middle">
-                                <button aria-label={`Remove Course ${i + 1}`} onClick={() => handleRemoveCourse(sem.id, c.id)} title="Remove course" className="p-1 rounded-md hover:bg-gray-100">
+                              <td
+                                data-label="Remove"
+                                className="px-2 py-2 align-middle"
+                              >
+                                <button
+                                  aria-label={`Remove Course ${i + 1}`}
+                                  onClick={() =>
+                                    handleRemoveCourse(sem.id, c.id)
+                                  }
+                                  title="Remove course"
+                                  className="p-1 rounded-md hover:bg-gray-100"
+                                >
                                   ✖
                                 </button>
                               </td>
@@ -438,7 +574,11 @@ const GpaCalculatorPage: React.FC = () => {
                       disabled={semesters.length >= 12}
                       aria-disabled={semesters.length >= 12}
                       aria-label="Add semester"
-                      title={semesters.length >= 12 ? "Maximum 12 semesters allowed" : "Add a new semester"}
+                      title={
+                        semesters.length >= 12
+                          ? "Maximum 12 semesters allowed"
+                          : "Add a new semester"
+                      }
                       className="mt-2 inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-dashed border-gray-400 bg-white hover:border-violet-600 hover:shadow-sm transition"
                     >
                       ＋ Add Semester
@@ -448,27 +588,66 @@ const GpaCalculatorPage: React.FC = () => {
                 </>
               ) : mode === "CGPA to GPA" ? (
                 <div className="grid gap-2">
-                  <h2 className="text-base font-bold">CGPA (10-point) → 4.0 GPA</h2>
-                  <label htmlFor="cgpa10" className="text-sm text-slate-700">Enter CGPA (0–10)</label>
-                  <input id="cgpa10" inputMode="decimal" placeholder="e.g. 8.2" value={cgpa10} onChange={(e) => setCgpa10(e.target.value)} className="w-full border border-gray-300 px-3 py-2 rounded-lg text-sm focus:border-violet-600 focus:ring-4 focus:ring-violet-300 outline-none transition" />
-                  <p className="text-sm text-gray-500">We convert by: <code className="bg-[#eef2ff] px-1 rounded"> (CGPA ÷ 10) × 4 </code></p>
+                  <h2 className="text-base font-bold">
+                    CGPA (10-point) → 4.0 GPA
+                  </h2>
+                  <label htmlFor="cgpa10" className="text-sm text-slate-700">
+                    Enter CGPA (0–10)
+                  </label>
+                  <input
+                    id="cgpa10"
+                    inputMode="decimal"
+                    placeholder="e.g. 8.2"
+                    value={cgpa10}
+                    onChange={(e) => setCgpa10(e.target.value)}
+                    className="w-full border border-gray-300 px-3 py-2 rounded-lg text-sm focus:border-violet-600 focus:ring-4 focus:ring-violet-300 outline-none transition"
+                  />
+                  <p className="text-sm text-gray-500">
+                    We convert by:{" "}
+                    <code className="bg-[#eef2ff] px-1 rounded">
+                      {" "}
+                      (CGPA ÷ 10) × 4{" "}
+                    </code>
+                  </p>
                 </div>
               ) : (
                 <div className="grid gap-2">
                   <h2 className="text-base font-bold">Percentage → 4.0 GPA</h2>
-                  <label htmlFor="pct" className="text-sm text-slate-700">Enter Percentage (0–100)</label>
-                  <input id="pct" inputMode="decimal" placeholder="e.g. 78" value={percentage} onChange={(e) => setPercentage(e.target.value)} className="w-full border border-gray-300 px-3 py-2 rounded-lg text-sm focus:border-violet-600 focus:ring-4 focus:ring-violet-300 outline-none transition" />
-                  <p className="text-sm text-gray-500">We convert by: <code className="bg-[#eef2ff] px-1 rounded">(Percentage ÷ 100) × 4</code></p>
+                  <label htmlFor="pct" className="text-sm text-slate-700">
+                    Enter Percentage (0–100)
+                  </label>
+                  <input
+                    id="pct"
+                    inputMode="decimal"
+                    placeholder="e.g. 78"
+                    value={percentage}
+                    onChange={(e) => setPercentage(e.target.value)}
+                    className="w-full border border-gray-300 px-3 py-2 rounded-lg text-sm focus:border-violet-600 focus:ring-4 focus:ring-violet-300 outline-none transition"
+                  />
+                  <p className="text-sm text-gray-500">
+                    We convert by:{" "}
+                    <code className="bg-[#eef2ff] px-1 rounded">
+                      (Percentage ÷ 100) × 4
+                    </code>
+                  </p>
                 </div>
               )}
             </section>
 
             {/* Actions */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <button onClick={calculate} aria-label="Calculate GPA" className="px-1 py-1 h-12 rounded-xl font-bold bg-red-600 text-white  ">
+              <button
+                onClick={calculate}
+                aria-label="Calculate GPA"
+                className="px-1 py-1 h-12 rounded-xl font-bold bg-red-600 text-white  "
+              >
                 Calculate GPA
               </button>
-              <button onClick={clearAll} aria-label="Clear all grades" className="px-1 py-1 h-12 rounded-xl font-bold bg-white text-red-600 border border-red-600 ">
+              <button
+                onClick={clearAll}
+                aria-label="Clear all grades"
+                className="px-1 py-1 h-12 rounded-xl font-bold bg-white text-red-600 border border-red-600 "
+              >
                 Clear Grades
               </button>
             </div>
@@ -476,22 +655,46 @@ const GpaCalculatorPage: React.FC = () => {
 
           {/* RIGHT (2/5) */}
           <aside className="lg:col-span-2 lg:sticky lg:top-4 self-start">
-            <section className="bg-white rounded-[14px] p-4 shadow-md border border-gray-400x" aria-labelledby="scale-heading">
-              <h2 id="scale-heading" className="text-base font-bold mb-3">4-point Grading Scale Chart</h2>
-              <table className="responsive-table w-full border-collapse text-sm" role="table" aria-label="4 point grading scale">
+            <section
+              className="bg-white rounded-[14px] p-4 shadow-md border border-gray-400x"
+              aria-labelledby="scale-heading"
+            >
+              <h2 id="scale-heading" className="text-base font-bold mb-3">
+                4-point Grading Scale Chart
+              </h2>
+              <table
+                className="responsive-table w-full border-collapse text-sm"
+                role="table"
+                aria-label="4 point grading scale"
+              >
                 <thead className="hidden sm:table-header-group">
                   <tr>
-                    <th className="bg-[#eaf2ff] px-3 py-2 text-left font-bold border-b border-[#dde7ff]">Grade</th>
-                    <th className="bg-[#eaf2ff] px-3 py-2 text-left font-bold border-b border-[#dde7ff]">Scale</th>
-                    <th className="bg-[#eaf2ff] px-3 py-2 text-left font-bold border-b border-[#dde7ff]">Description</th>
+                    <th className="bg-[#eaf2ff] px-3 py-2 text-left font-bold border-b border-[#dde7ff]">
+                      Grade
+                    </th>
+                    <th className="bg-[#eaf2ff] px-3 py-2 text-left font-bold border-b border-[#dde7ff]">
+                      Scale
+                    </th>
+                    <th className="bg-[#eaf2ff] px-3 py-2 text-left font-bold border-b border-[#dde7ff]">
+                      Description
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
                   {GRADING_SCALE.map((r) => (
                     <tr key={r.grade}>
-                      <td data-label="Grade" className="px-3 py-2 border-b">{r.grade}</td>
-                      <td data-label="Scale" className="px-3 py-2 border-b">{r.scale}</td>
-                      <td data-label="Description" className="px-3 py-2 border-b">{r.description}</td>
+                      <td data-label="Grade" className="px-3 py-2 border-b">
+                        {r.grade}
+                      </td>
+                      <td data-label="Scale" className="px-3 py-2 border-b">
+                        {r.scale}
+                      </td>
+                      <td
+                        data-label="Description"
+                        className="px-3 py-2 border-b"
+                      >
+                        {r.description}
+                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -504,20 +707,42 @@ const GpaCalculatorPage: React.FC = () => {
       {/* LEARN / HOW-TO */}
       <section className="w-full max-w-[1400px] mx-auto px-6 py-10">
         <div className="text-center my-8">
-          <h2 className="m-0" style={{ marginBottom: ".35rem", fontSize: "clamp(1.4rem, 1.2rem + 1.2vw, 2rem)" }}>GPA Calculator: How do we Calculate GPA?</h2>
-          <p className="m-0 text-gray-600">Let us take the example of a student who has <strong>2 semesters</strong>. Below we demonstrate how the GPA and CGPA are computed.</p>
+          <h2
+            className="m-0"
+            style={{
+              marginBottom: ".35rem",
+              fontSize: "clamp(1.4rem, 1.2rem + 1.2vw, 2rem)",
+            }}
+          >
+            GPA Calculator: How do we Calculate GPA?
+          </h2>
+          <p className="m-0 text-gray-600">
+            Let us take the example of a student who has{" "}
+            <strong>2 semesters</strong>. Below we demonstrate how the GPA and
+            CGPA are computed.
+          </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* Semester 1 */}
           <div className="bg-white rounded-[14px] p-4 shadow-md border border-gray-400x">
             <h3 className="text-lg font-semibold mb-3">Semester 1</h3>
-            <table className="responsive-table w-full border-collapse" role="table" aria-label="Semester 1 example">
+            <table
+              className="responsive-table w-full border-collapse"
+              role="table"
+              aria-label="Semester 1 example"
+            >
               <thead className="hidden sm:table-header-group">
                 <tr>
-                  <th className="bg-[#eaf2ff] px-3 py-2 text-left font-bold border-b border-[#dde7ff]">Code Number &amp; Subject</th>
-                  <th className="bg-[#eaf2ff] px-3 py-2 text-left font-bold border-b border-[#dde7ff]">Credits</th>
-                  <th className="bg-[#eaf2ff] px-3 py-2 text-left font-bold border-b border-[#dde7ff]">Grade</th>
+                  <th className="bg-[#eaf2ff] px-3 py-2 text-left font-bold border-b border-[#dde7ff]">
+                    Code Number &amp; Subject
+                  </th>
+                  <th className="bg-[#eaf2ff] px-3 py-2 text-left font-bold border-b border-[#dde7ff]">
+                    Credits
+                  </th>
+                  <th className="bg-[#eaf2ff] px-3 py-2 text-left font-bold border-b border-[#dde7ff]">
+                    Grade
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -533,9 +758,18 @@ const GpaCalculatorPage: React.FC = () => {
                   ["Computer Science", "4.5", "A"],
                 ].map((r, i) => (
                   <tr key={i}>
-                    <td data-label="Code Number & Subject" className="px-3 py-2 border-b">{r[0]}</td>
-                    <td data-label="Credits" className="px-3 py-2 border-b">{r[1]}</td>
-                    <td data-label="Grade" className="px-3 py-2 border-b">{r[2]}</td>
+                    <td
+                      data-label="Code Number & Subject"
+                      className="px-3 py-2 border-b"
+                    >
+                      {r[0]}
+                    </td>
+                    <td data-label="Credits" className="px-3 py-2 border-b">
+                      {r[1]}
+                    </td>
+                    <td data-label="Grade" className="px-3 py-2 border-b">
+                      {r[2]}
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -545,12 +779,22 @@ const GpaCalculatorPage: React.FC = () => {
           {/* Semester 2 */}
           <div className="bg-white rounded-[14px] p-4 shadow-md border border-gray-400x">
             <h3 className="text-lg font-semibold mb-3">Semester 2</h3>
-            <table className="responsive-table w-full border-collapse" role="table" aria-label="Semester 2 example">
+            <table
+              className="responsive-table w-full border-collapse"
+              role="table"
+              aria-label="Semester 2 example"
+            >
               <thead className="hidden sm:table-header-group">
                 <tr>
-                  <th className="bg-[#eaf2ff] px-3 py-2 text-left font-bold border-b border-[#dde7ff]">Code Number &amp; Subject</th>
-                  <th className="bg-[#eaf2ff] px-3 py-2 text-left font-bold border-b border-[#dde7ff]">Credits</th>
-                  <th className="bg-[#eaf2ff] px-3 py-2 text-left font-bold border-b border-[#dde7ff]">Grade</th>
+                  <th className="bg-[#eaf2ff] px-3 py-2 text-left font-bold border-b border-[#dde7ff]">
+                    Code Number &amp; Subject
+                  </th>
+                  <th className="bg-[#eaf2ff] px-3 py-2 text-left font-bold border-b border-[#dde7ff]">
+                    Credits
+                  </th>
+                  <th className="bg-[#eaf2ff] px-3 py-2 text-left font-bold border-b border-[#dde7ff]">
+                    Grade
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -566,9 +810,18 @@ const GpaCalculatorPage: React.FC = () => {
                   ["Computer Engineering", "4.5", "A"],
                 ].map((r, i) => (
                   <tr key={i}>
-                    <td data-label="Code Number & Subject" className="px-3 py-2 border-b">{r[0]}</td>
-                    <td data-label="Credits" className="px-3 py-2 border-b">{r[1]}</td>
-                    <td data-label="Grade" className="px-3 py-2 border-b">{r[2]}</td>
+                    <td
+                      data-label="Code Number & Subject"
+                      className="px-3 py-2 border-b"
+                    >
+                      {r[0]}
+                    </td>
+                    <td data-label="Credits" className="px-3 py-2 border-b">
+                      {r[1]}
+                    </td>
+                    <td data-label="Grade" className="px-3 py-2 border-b">
+                      {r[2]}
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -577,22 +830,49 @@ const GpaCalculatorPage: React.FC = () => {
 
           {/* CGPA formula card */}
           <div className="bg-[#f8fbff] rounded-[14px] p-4 shadow-md border border-gray-400">
-            <h3 className="text-lg font-semibold mb-3">CGPA Calculator: How to Check CGPA after Semester 2?</h3>
+            <h3 className="text-lg font-semibold mb-3">
+              CGPA Calculator: How to Check CGPA after Semester 2?
+            </h3>
             <div className="text-sm text-[#0f172a]">
-              <p><strong>Calculate CGPA Formula:</strong> <code className="bg-[#eef2ff] px-1 rounded">Total Semester Grade Point ÷ Total Credits</code></p>
+              <p>
+                <strong>Calculate CGPA Formula:</strong>{" "}
+                <code className="bg-[#eef2ff] px-1 rounded">
+                  Total Semester Grade Point ÷ Total Credits
+                </code>
+              </p>
               <hr className="border-t border-dashed border-gray-200 my-2" />
-              <p><strong>Total Grade Point =</strong> Semester 1 + Semester 2</p>
-              <p>= <strong>208.5</strong> + <strong>216.5</strong></p>
-              <p>= <strong>425</strong></p>
+              <p>
+                <strong>Total Grade Point =</strong> Semester 1 + Semester 2
+              </p>
+              <p>
+                = <strong>208.5</strong> + <strong>216.5</strong>
+              </p>
+              <p>
+                = <strong>425</strong>
+              </p>
               <hr className="border-t border-dashed border-gray-200 my-2" />
-              <p><strong>Total Credit Score =</strong> Semester 1 + Semester 2</p>
-              <p>= <strong>23.0</strong> + <strong>24.5</strong></p>
-              <p>= <strong>47.5</strong></p>
+              <p>
+                <strong>Total Credit Score =</strong> Semester 1 + Semester 2
+              </p>
+              <p>
+                = <strong>23.0</strong> + <strong>24.5</strong>
+              </p>
+              <p>
+                = <strong>47.5</strong>
+              </p>
               <hr className="border-t border-dashed border-gray-200 my-2" />
-              <p><strong>How to Check CGPA</strong></p>
-              <p>= <strong>425 ÷ 47.5</strong></p>
-              <p className="text-lg font-extrabold text-red-500">= <strong>8.94736</strong></p>
-              <div className="inline-block mt-2 bg-white text-red-600 border border-red-600 px-3 py-1 rounded-full font-extrabold">CGPA = <strong>8.9474</strong> at the end of Semester 2</div>
+              <p>
+                <strong>How to Check CGPA</strong>
+              </p>
+              <p>
+                = <strong>425 ÷ 47.5</strong>
+              </p>
+              <p className="text-lg font-extrabold text-red-500">
+                = <strong>8.94736</strong>
+              </p>
+              <div className="inline-block mt-2 bg-white text-red-600 border border-red-600 px-3 py-1 rounded-full font-extrabold">
+                CGPA = <strong>8.9474</strong> at the end of Semester 2
+              </div>
             </div>
           </div>
         </div>
@@ -603,10 +883,17 @@ const GpaCalculatorPage: React.FC = () => {
 
       {/* Result modal */}
       {showResult && (
-        <Modal onClose={() => setShowResult(false)} title="Your calculated GPA is">
+        <Modal
+          onClose={() => setShowResult(false)}
+          title="Your calculated GPA is"
+        >
           <div className="p-2">
             <div className="text-center">
-              <svg viewBox="0 0 120 60" preserveAspectRatio="xMidYMid meet" className="w-full max-w-[520px] block mx-auto mb-2">
+              <svg
+                viewBox="0 0 120 60"
+                preserveAspectRatio="xMidYMid meet"
+                className="w-full max-w-[520px] block mx-auto mb-2"
+              >
                 <defs>
                   <linearGradient id="g" x1="0" x2="1" y1="0" y2="0">
                     <stop offset="0%" stopColor="#ef4444" />
@@ -614,17 +901,33 @@ const GpaCalculatorPage: React.FC = () => {
                     <stop offset="100%" stopColor="#22c55e" />
                   </linearGradient>
                 </defs>
-                <path d="M10,60 A50,50 0 0 1 110,60" fill="none" stroke="url(#g)" strokeWidth="12" strokeLinecap="round" opacity={0.35} />
+                <path
+                  d="M10,60 A50,50 0 0 1 110,60"
+                  fill="none"
+                  stroke="url(#g)"
+                  strokeWidth="12"
+                  strokeLinecap="round"
+                  opacity={0.35}
+                />
                 <GaugeNeedle value={result.gpa / result.outOf} />
               </svg>
 
-              <div style={{ fontSize: "clamp(2rem, 6vw, 2.6rem)" }} className="font-extrabold leading-none" >
-                <span style={{ color: meterColor }}>{result.gpa.toFixed(2)}</span>
-                <span className="text-[0.55em] text-slate-600 ml-1">/ {result.outOf}</span>
+              <div
+                style={{ fontSize: "clamp(2rem, 6vw, 2.6rem)" }}
+                className="font-extrabold leading-none"
+              >
+                <span style={{ color: meterColor }}>
+                  {result.gpa.toFixed(2)}
+                </span>
+                <span className="text-[0.55em] text-slate-600 ml-1">
+                  / {result.outOf}
+                </span>
               </div>
 
               {isGood ? (
-                <p className="mt-2 font-bold text-green-600 text-center">🎉 Congratulations! You have a good score.</p>
+                <p className="mt-2 font-bold text-green-600 text-center">
+                  🎉 Congratulations! You have a good score.
+                </p>
               ) : (
                 <p className="mt-2 font-semibold text-slate-900 text-center">
                   Don’t worry — your average score won’t hinder your goals.
@@ -633,7 +936,9 @@ const GpaCalculatorPage: React.FC = () => {
                 </p>
               )}
 
-              <p className="mt-2 text-sm text-gray-500">Results are indicative based on the 4.0 scale.</p>
+              <p className="mt-2 text-sm text-gray-500">
+                Results are indicative based on the 4.0 scale.
+              </p>
             </div>
 
             {/* <button onClick={() => window.open("#", "_parent")} aria-label="Apply now" className="mt-4 mx-auto block px-4 py-3 rounded-xl font-bold bg-red-600 text-white w-full max-w-[360px] shadow-lg hover:brightness-105"
@@ -643,13 +948,14 @@ const GpaCalculatorPage: React.FC = () => {
             </button> */}
             <a
               href="#"
-              aria-label="Apply now" className="mt-4 mx-auto block px-4 py-3 rounded-xl font-bold bg-red-600 text-white w-full max-w-[360px] shadow-lg hover:brightness-105"
-onClick={() => setShowPopup(true)}
+              aria-label="Apply now"
+              className="mt-4 mx-auto block px-4 py-3 rounded-xl font-bold bg-red-600 text-white w-full max-w-[360px] shadow-lg hover:brightness-105"
+              onClick={() => setShowPopup(true)}
             >
               Apply Now
             </a>
-            
-      {showPopup && <DelayedPopup onMinimize={handlePopupClose} />}
+
+            {showPopup && <DelayedPopup onMinimize={handlePopupClose} />}
           </div>
         </Modal>
       )}
@@ -666,10 +972,22 @@ export const DemoApp: React.FC = () => {
     <BrowserRouter>
       <header className="sticky top-0 z-40 bg-white/90 backdrop-blur-sm border-b border-gray-400x">
         <div className="max-w-[1120px] mx-auto flex items-center justify-between gap-4 py-2 px-4">
-          <Link to="/" className="font-extrabold text-[#0f172a] no-underline">MyAcademics</Link>
+          <Link to="/" className="font-extrabold text-[#0f172a] no-underline">
+            MyAcademics
+          </Link>
           <nav className="flex gap-3">
-            <Link to="/" className="text-[#0f172a] px-2 py-1 rounded-lg hover:bg-gray-100">Home</Link>
-            <Link to="/gpa" className="text-[#0f172a] px-2 py-1 rounded-lg hover:bg-gray-100">GPA Calculator</Link>
+            <Link
+              to="/"
+              className="text-[#0f172a] px-2 py-1 rounded-lg hover:bg-gray-100"
+            >
+              Home
+            </Link>
+            <Link
+              to="/gpa"
+              className="text-[#0f172a] px-2 py-1 rounded-lg hover:bg-gray-100"
+            >
+              GPA Calculator
+            </Link>
           </nav>
         </div>
       </header>
@@ -686,7 +1004,11 @@ const HomeStub: React.FC = () => (
   <div style={{ padding: "2rem", textAlign: "center" }}>
     <h2>Welcome</h2>
     <p>
-      Open the <Link to="/gpa" className="text-sky-600 underline">GPA Calculator</Link> to get started.
+      Open the{" "}
+      <Link to="/gpa" className="text-sky-600 underline">
+        GPA Calculator
+      </Link>{" "}
+      to get started.
     </p>
   </div>
 );

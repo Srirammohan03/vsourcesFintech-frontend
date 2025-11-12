@@ -14,6 +14,15 @@ import "aos/dist/aos.css";
 import HeroSkeleton from "./components/HeroSkeleton";
 import DelayedPopup from "./components/DelayedPopup";
 import Footer from "./components/Footer";
+import CredilaPage from "./pages/ourpartner/CredilaPage";
+import NbfcPage from "./pages/ourpartner/NbfcPage";
+import Auxilopage from "./pages/ourpartner/Auxilopage";
+import AvansePage from "./pages/ourpartner/AvansePage";
+import { IncredFinancingPage } from "./pages/ourpartner/IncredFinancingPage";
+import { MpowerFinancePage } from "./pages/ourpartner/MpowerFinancePage";
+import ProdigyFinancePage from "./pages/ourpartner/ProdigyFinancePage";
+import IDFCpage from "./pages/ourpartner/IDFCpage";
+import AxisPage from "./pages/ourpartner/AxisPage";
 
 const Home = lazy(() => import("./pages/Home"));
 const Tools = lazy(() => import("./pages/Tools"));
@@ -114,11 +123,17 @@ const AppContent = () => {
   }, []);
 
   useEffect(() => {
-    AOS.init({ once: false, mirror: true });
+    AOS.init({
+      duration: 600,
+      once: false,
+      mirror: false,
+      easing: "ease-out",
+      offset: 50,
+    });
   }, []);
 
   useEffect(() => {
-    AOS.refresh();
+    AOS.refreshHard();
   }, [location.pathname]);
 
   useEffect(() => {
@@ -230,7 +245,29 @@ const AppContent = () => {
               path="/tools/estimate-future-earnings"
               element={<EstimateFutureEarnings />}
             />
-            <Route path="/our-partners/:slug" element={<BankPage />} />
+
+            {/* <Route path="/our-partners" element={<Resources />} /> */}
+            <Route path="/our-partners/credila" element={<CredilaPage />} />
+            <Route path="/our-partners/nbfc" element={<NbfcPage />} />
+            <Route path="/our-partners/auxilo" element={<Auxilopage />} />
+            <Route path="/our-partners/avanse" element={<AvansePage />} />
+            <Route
+              path="/our-partners/incred-finance"
+              element={<IncredFinancingPage />}
+            />
+            <Route
+              path="/our-partners/mpower-financing"
+              element={<MpowerFinancePage />}
+            />
+            <Route
+              path="/our-partners/prodigy-finance"
+              element={<ProdigyFinancePage />}
+            />
+            <Route
+              path="/our-partners/idfc-first-bank"
+              element={<IDFCpage />}
+            />
+            <Route path="/our-partners/axis-bank" element={<AxisPage />} />
             <Route
               path="/our-partners/compare-loan-offers"
               element={<CompareLoanOffers />}
@@ -239,8 +276,15 @@ const AppContent = () => {
               path="/our-partners/bank-comparison-tool"
               element={<BankComparisonTool />}
             />
+
+            {/* <Route path="/country" element={<Country />} /> */}
             <Route path="/contact" element={<Contact />} />
+
+            {/* <Route path="/partners/:slug" element={<PartnerDetails />} /> */}
             <Route path="/education-loan" element={<EducationLoan />} />
+
+            {/* Add more services here later */}
+
             <Route path="/meeting" element={<GoVirtual />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

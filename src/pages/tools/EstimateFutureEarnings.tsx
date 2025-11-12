@@ -24,12 +24,22 @@ const THEME = {
 } as const;
 
 /* ---------- helpers ---------- */
-const cls = (...s: (string | false | null | undefined)[]) => s.filter(Boolean).join(" ");
+const cls = (...s: (string | false | null | undefined)[]) =>
+  s.filter(Boolean).join(" ");
 const formatINR = (n: number) =>
-  new Intl.NumberFormat("en-IN", { maximumFractionDigits: 0 }).format(Math.max(0, Math.round(n)));
+  new Intl.NumberFormat("en-IN", { maximumFractionDigits: 0 }).format(
+    Math.max(0, Math.round(n))
+  );
 
 /* ---------- Types ---------- */
-type Country = "UK" | "USA" | "Canada" | "France" | "Ireland" | "Australia" | "Germany";
+type Country =
+  | "UK"
+  | "USA"
+  | "Canada"
+  | "France"
+  | "Ireland"
+  | "Australia"
+  | "Germany";
 type Branch =
   | "Computer Science / IT / Data"
   | "Chemical Engineering"
@@ -243,13 +253,31 @@ export default function EstimateFutureEarnings() {
     }
 
     const notes: string[] = [];
-    if (cbCountry) notes.push(`Country-wise salary base applied for ${country}.`);
-    if (cbIndustry) notes.push(`Industry projection used for ${branch} (growth ~${Math.round(growth * 100)}%/yr).`);
-    if (cbGoals) notes.push("Use the year-wise projection to set milestone targets.");
-    if (cbFinance) notes.push("Supports planning tuition/living budgets vs expected income.");
+    if (cbCountry)
+      notes.push(`Country-wise salary base applied for ${country}.`);
+    if (cbIndustry)
+      notes.push(
+        `Industry projection used for ${branch} (growth ~${Math.round(
+          growth * 100
+        )}%/yr).`
+      );
+    if (cbGoals)
+      notes.push("Use the year-wise projection to set milestone targets.");
+    if (cbFinance)
+      notes.push(
+        "Supports planning tuition/living budgets vs expected income."
+      );
     if (durationNote) notes.push(durationNote);
-    if (currentEdu) notes.push(`Current education: ${currentEdu}${currentMarks ? ` (${currentMarks}%)` : ""}.`);
-    if (prevEdu) notes.push(`Previous education: ${prevEdu}${prevMarks ? ` (${prevMarks}%)` : ""}.`);
+    if (currentEdu)
+      notes.push(
+        `Current education: ${currentEdu}${
+          currentMarks ? ` (${currentMarks}%)` : ""
+        }.`
+      );
+    if (prevEdu)
+      notes.push(
+        `Previous education: ${prevEdu}${prevMarks ? ` (${prevMarks}%)` : ""}.`
+      );
     if (collegeRank) notes.push(`College rank considered: ${collegeRank}.`);
     if (extraEducation.length)
       notes.push(`Additional education added (${extraEducation.length}).`);
@@ -262,7 +290,10 @@ export default function EstimateFutureEarnings() {
 
     setResults({ startSalary, points, headline, notes });
 
-    setTimeout(() => graphRef.current?.scrollIntoView({ behavior: "smooth" }), 40);
+    setTimeout(
+      () => graphRef.current?.scrollIntoView({ behavior: "smooth" }),
+      40
+    );
   };
 
   // Download chart image (SVG → PNG)
@@ -301,38 +332,43 @@ export default function EstimateFutureEarnings() {
   return (
     <div className="min-h-screen bg-[#F6F8FB] text-[15px]">
       {/* HERO */}
-       <section
+      <section
         className="relative pt-32 pb-16 lg:pt-40 lg:pb-36 text-white bg-cover bg-[left_center] lg:bg-[top_center]"
         style={{
-          backgroundImage: `url(/assets/images/tools-bg.jpg)`,
+          backgroundImage: `url(/assets/images/tools-bg.webp)`,
         }}
       >
         {/* Dark overlay under content */}
         <div className="absolute inset-0 bg-black/50 z-0" />
 
-           <div className="w-full max-w-[1400px] mx-auto px-6 h-full flex flex-col justify-center relative z-10">
+        <div className="w-full max-w-[1400px] mx-auto px-6 h-full flex flex-col justify-center relative z-10">
           <h1 className="text-4xl md:text-4xl font-extrabold tracking-tight text-center">
             Estimate Future Earnings
           </h1>
           <p className="mt-3 text-white/90 text-lg text-center max-w-3xl mx-auto">
-            Country-wise & industry-based salary projections to help you set realistic goals and plan finances.
+            Country-wise & industry-based salary projections to help you set
+            realistic goals and plan finances.
           </p>
-
-       
         </div>
       </section>
 
       {/* FORM SECTION */}
       <main className="w-full max-w-[1400px] mx-auto px-6 py-10">
         <div className="rounded-2xl bg-white shadow-xl ring-1 ring-[#EEF2F7] p-5 md:p-8">
-          <h2 className="text-2xl md:text-3xl font-bold text-[#0B0B2C]">Inputs</h2>
+          <h2 className="text-2xl md:text-3xl font-bold text-[#0B0B2C]">
+            Inputs
+          </h2>
           <p className="text-sm text-gray-600 mb-6">
             Required fields: <span className="font-semibold">Country</span> and{" "}
             <span className="font-semibold">Course Branch</span>
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <SelectBox label="Select Current Education" value={currentEdu} onChange={(e) => setCurrentEdu(e.target.value)}>
+            <SelectBox
+              label="Select Current Education"
+              value={currentEdu}
+              onChange={(e) => setCurrentEdu(e.target.value)}
+            >
               <option value="">Select Current Education</option>
               <option>Master's</option>
               <option>Bachelor's</option>
@@ -340,9 +376,18 @@ export default function EstimateFutureEarnings() {
               <option>Other</option>
             </SelectBox>
 
-            <InputBox label="Enter Current Marks (%)" value={currentMarks} onChange={(e) => setCurrentMarks(e.target.value)} placeholder="Eg. 78" />
+            <InputBox
+              label="Enter Current Marks (%)"
+              value={currentMarks}
+              onChange={(e) => setCurrentMarks(e.target.value)}
+              placeholder="Eg. 78"
+            />
 
-            <SelectBox label="Select Prev Education" value={prevEdu} onChange={(e) => setPrevEdu(e.target.value)}>
+            <SelectBox
+              label="Select Prev Education"
+              value={prevEdu}
+              onChange={(e) => setPrevEdu(e.target.value)}
+            >
               <option value="">Select Prev Education</option>
               <option>12th Grade</option>
               <option>Undergraduate</option>
@@ -350,9 +395,19 @@ export default function EstimateFutureEarnings() {
               <option>Other</option>
             </SelectBox>
 
-            <InputBox label="Enter Prev Education Marks (%)" value={prevMarks} onChange={(e) => setPrevMarks(e.target.value)} placeholder="Eg. 82" />
+            <InputBox
+              label="Enter Prev Education Marks (%)"
+              value={prevMarks}
+              onChange={(e) => setPrevMarks(e.target.value)}
+              placeholder="Eg. 82"
+            />
 
-            <SelectBox label="Select Career Branch *" value={branch} error={errors.branch} onChange={(e) => setBranch(e.target.value as Branch)}>
+            <SelectBox
+              label="Select Career Branch *"
+              value={branch}
+              error={errors.branch}
+              onChange={(e) => setBranch(e.target.value as Branch)}
+            >
               <option value="">Select Career Branch</option>
               <option>Computer Science / IT / Data</option>
               <option>Chemical Engineering</option>
@@ -365,7 +420,11 @@ export default function EstimateFutureEarnings() {
               <option>Other</option>
             </SelectBox>
 
-            <SelectBox label="Select College Ranking" value={collegeRank} onChange={(e) => setCollegeRank(e.target.value)}>
+            <SelectBox
+              label="Select College Ranking"
+              value={collegeRank}
+              onChange={(e) => setCollegeRank(e.target.value)}
+            >
               <option value="">Select College Ranking</option>
               <option>Top 50</option>
               <option>Top 100</option>
@@ -375,7 +434,11 @@ export default function EstimateFutureEarnings() {
               <option>Tier-3</option>
             </SelectBox>
 
-            <SelectBox label="Select Course Duration" value={courseDuration} onChange={(e) => setCourseDuration(e.target.value)}>
+            <SelectBox
+              label="Select Course Duration"
+              value={courseDuration}
+              onChange={(e) => setCourseDuration(e.target.value)}
+            >
               <option value="">Select Course Duration</option>
               <option>1 Year</option>
               <option>1.5 Years</option>
@@ -383,7 +446,12 @@ export default function EstimateFutureEarnings() {
               <option>3 Years</option>
             </SelectBox>
 
-            <SelectBox label="Select Country *" value={country} error={errors.country} onChange={(e) => setCountry(e.target.value as Country)}>
+            <SelectBox
+              label="Select Country *"
+              value={country}
+              error={errors.country}
+              onChange={(e) => setCountry(e.target.value as Country)}
+            >
               <option value="">Select Country</option>
               <option>Germany</option>
               <option>UK</option>
@@ -398,7 +466,6 @@ export default function EstimateFutureEarnings() {
             <div
               className=" cursor-pointer rounded-lg px-4 py-3 font-semibold bg-white text-red-600 border-2 border-red-600"
               onClick={() => setShowExtraEdu((s) => !s)}
-          
             >
               + Add Additional Education
             </div>
@@ -406,7 +473,6 @@ export default function EstimateFutureEarnings() {
             <div
               className="rounded-lg px-4 py-3 font-semibold bg-white text-red-600 border-2 border-red-600 cursor-pointer"
               onClick={() => setShowExtraCert((s) => !s)}
-             
             >
               + Add Additional Certification
             </div>
@@ -416,26 +482,42 @@ export default function EstimateFutureEarnings() {
           {showExtraEdu && (
             <div className="mt-6 rounded-2xl ring-1 ring-[#E5EBF0] p-4">
               <div className="flex items-center justify-between">
-                <h3 className="font-semibold text-[#0B0B2C]">Additional Education</h3>
+                <h3 className="font-semibold text-[#0B0B2C]">
+                  Additional Education
+                </h3>
                 <button
                   className="rounded-lg px-3 py-1 text-white text-sm"
-                  onClick={() => setExtraEducation((arr) => [...arr, { level: "", marks: "" }])}
+                  onClick={() =>
+                    setExtraEducation((arr) => [
+                      ...arr,
+                      { level: "", marks: "" },
+                    ])
+                  }
                   style={{ backgroundColor: THEME.blue }}
                 >
                   + Add Row
                 </button>
               </div>
               {extraEducation.length === 0 && (
-                <p className="text-sm text-gray-500 mt-2">Add previous/extra education (e.g., Graduate, PG Diploma).</p>
+                <p className="text-sm text-gray-500 mt-2">
+                  Add previous/extra education (e.g., Graduate, PG Diploma).
+                </p>
               )}
               <div className="mt-3 space-y-3">
                 {extraEducation.map((row, idx) => (
-                  <div key={idx} className="grid grid-cols-1 md:grid-cols-2 gap-3 items-start">
+                  <div
+                    key={idx}
+                    className="grid grid-cols-1 md:grid-cols-2 gap-3 items-start"
+                  >
                     <SelectBox
                       label="Select Additional Education"
                       value={row.level}
                       onChange={(e) =>
-                        setExtraEducation((arr) => arr.map((r, i) => (i === idx ? { ...r, level: e.target.value } : r)))
+                        setExtraEducation((arr) =>
+                          arr.map((r, i) =>
+                            i === idx ? { ...r, level: e.target.value } : r
+                          )
+                        )
                       }
                     >
                       <option value="">Select Additional Education</option>
@@ -451,15 +533,26 @@ export default function EstimateFutureEarnings() {
                           label="Enter Additional Education Marks (%)"
                           value={row.marks}
                           onChange={(e) =>
-                            setExtraEducation((arr) => arr.map((r, i) => (i === idx ? { ...r, marks: e.target.value } : r)))
+                            setExtraEducation((arr) =>
+                              arr.map((r, i) =>
+                                i === idx ? { ...r, marks: e.target.value } : r
+                              )
+                            )
                           }
                           placeholder="Eg. 80"
                         />
                       </div>
                       <button
                         className="mt-7 text-sm px-3 py-2 rounded-lg"
-                        onClick={() => setExtraEducation((arr) => arr.filter((_, i) => i !== idx))}
-                        style={{ color: THEME.red, border: `1px solid ${THEME.red}` }}
+                        onClick={() =>
+                          setExtraEducation((arr) =>
+                            arr.filter((_, i) => i !== idx)
+                          )
+                        }
+                        style={{
+                          color: THEME.red,
+                          border: `1px solid ${THEME.red}`,
+                        }}
                       >
                         Remove
                       </button>
@@ -474,26 +567,39 @@ export default function EstimateFutureEarnings() {
           {showExtraCert && (
             <div className="mt-6 rounded-2xl ring-1 ring-[#E5EBF0] p-4">
               <div className="flex items-center justify-between">
-                <h3 className="font-semibold text-[#0B0B2C]">Additional Certification</h3>
+                <h3 className="font-semibold text-[#0B0B2C]">
+                  Additional Certification
+                </h3>
                 <button
                   className="rounded-lg px-3 py-1 text-white text-sm"
-                  onClick={() => setExtraCerts((arr) => [...arr, { name: "", grade: "" }])}
+                  onClick={() =>
+                    setExtraCerts((arr) => [...arr, { name: "", grade: "" }])
+                  }
                   style={{ backgroundColor: THEME.blue }}
                 >
                   + Add Row
                 </button>
               </div>
               {extraCerts.length === 0 && (
-                <p className="text-sm text-gray-500 mt-2">Add certifications relevant to your field.</p>
+                <p className="text-sm text-gray-500 mt-2">
+                  Add certifications relevant to your field.
+                </p>
               )}
               <div className="mt-3 space-y-3">
                 {extraCerts.map((row, idx) => (
-                  <div key={idx} className="grid grid-cols-1 md:grid-cols-2 gap-3 items-start">
+                  <div
+                    key={idx}
+                    className="grid grid-cols-1 md:grid-cols-2 gap-3 items-start"
+                  >
                     <InputBox
                       label="Certification Name"
                       value={row.name}
                       onChange={(e) =>
-                        setExtraCerts((arr) => arr.map((r, i) => (i === idx ? { ...r, name: e.target.value } : r)))
+                        setExtraCerts((arr) =>
+                          arr.map((r, i) =>
+                            i === idx ? { ...r, name: e.target.value } : r
+                          )
+                        )
                       }
                       placeholder="Eg. AWS Solutions Architect"
                     />
@@ -502,7 +608,11 @@ export default function EstimateFutureEarnings() {
                         label="Select Certificate Grade"
                         value={row.grade}
                         onChange={(e) =>
-                          setExtraCerts((arr) => arr.map((r, i) => (i === idx ? { ...r, grade: e.target.value } : r)))
+                          setExtraCerts((arr) =>
+                            arr.map((r, i) =>
+                              i === idx ? { ...r, grade: e.target.value } : r
+                            )
+                          )
                         }
                       >
                         <option value="">Select Certificate Grade</option>
@@ -514,8 +624,15 @@ export default function EstimateFutureEarnings() {
                       </SelectBox>
                       <button
                         className="mt-7 text-sm px-3 py-2 rounded-lg"
-                        onClick={() => setExtraCerts((arr) => arr.filter((_, i) => i !== idx))}
-                        style={{ color: THEME.red, border: `1px solid ${THEME.red}` }}
+                        onClick={() =>
+                          setExtraCerts((arr) =>
+                            arr.filter((_, i) => i !== idx)
+                          )
+                        }
+                        style={{
+                          color: THEME.red,
+                          border: `1px solid ${THEME.red}`,
+                        }}
                       >
                         Remove
                       </button>
@@ -540,9 +657,14 @@ export default function EstimateFutureEarnings() {
         {/* OUTPUT */}
         {results && (
           <section ref={graphRef} className="mt-10">
-            <h3 className="text-xl md:text-2xl font-bold text-[#0B0B2C] mb-4">Output:</h3>
+            <h3 className="text-xl md:text-2xl font-bold text-[#0B0B2C] mb-4">
+              Output:
+            </h3>
 
-            <div ref={exportRef} className="rounded-2xl ring-1 ring-[#F0E6FF] bg-[#FCEBFF] p-4 md:p-6">
+            <div
+              ref={exportRef}
+              className="rounded-2xl ring-1 ring-[#F0E6FF] bg-[#FCEBFF] p-4 md:p-6"
+            >
               <div className="flex items-center justify-between mb-2">
                 <div className="text-lg md:text-xl font-bold">{country}</div>
                 {/* Download icon */}
@@ -552,19 +674,37 @@ export default function EstimateFutureEarnings() {
                   className="p-2 rounded-lg hover:bg-white/40 transition"
                   aria-label="Download output as image"
                 >
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="text-gray-700">
-                    <path d="M12 3v12m0 0l4-4m-4 4l-4-4M4 21h16" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    className="text-gray-700"
+                  >
+                    <path
+                      d="M12 3v12m0 0l4-4m-4 4l-4-4M4 21h16"
+                      stroke="currentColor"
+                      strokeWidth="1.8"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
                   </svg>
                 </button>
               </div>
 
               <div className="w-full h-[340px]">
                 <ResponsiveContainer width="100%" height="100%">
-                  <LineChart data={results.points} margin={{ left: 12, right: 12, top: 10, bottom: 10 }}>
+                  <LineChart
+                    data={results.points}
+                    margin={{ left: 12, right: 12, top: 10, bottom: 10 }}
+                  >
                     <CartesianGrid stroke="rgba(0,0,0,0.06)" />
                     <XAxis dataKey="year" />
                     <YAxis tickFormatter={(v) => formatINR(v)} width={90} />
-                    <Tooltip formatter={(v: number) => `₹${formatINR(v as number)}`} labelFormatter={(l) => `Year ${l}`} />
+                    <Tooltip
+                      formatter={(v: number) => `₹${formatINR(v as number)}`}
+                      labelFormatter={(l) => `Year ${l}`}
+                    />
                     <Legend />
                     <Line
                       type="monotone"
@@ -581,9 +721,14 @@ export default function EstimateFutureEarnings() {
             </div>
 
             <div className="mt-6 rounded-2xl bg-white shadow-lg ring-1 ring-[#EEF2F7] p-4 md:p-6 space-y-2">
-              <p className="text-lg font-semibold text-[#0B0B2C]">{results.headline}</p>
+              <p className="text-lg font-semibold text-[#0B0B2C]">
+                {results.headline}
+              </p>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-3">
-                <Stat label="Starting (Year 0)" value={`₹${formatINR(results.startSalary)}/yr`} />
+                <Stat
+                  label="Starting (Year 0)"
+                  value={`₹${formatINR(results.startSalary)}/yr`}
+                />
                 <Stat label="Country" value={country} />
                 <Stat label="Branch" value={branch} />
               </div>
@@ -663,17 +808,21 @@ function SelectBox({
               ? "border-red-500 ring-2 ring-red-500"
               : "border-[#E5EBF0] focus:ring-2"
           )}
-          style={!error ? { ["--tw-ring-color" as any]: THEME.blue } : undefined}
+          style={
+            !error ? { ["--tw-ring-color" as any]: THEME.blue } : undefined
+          }
         >
           {children}
         </select>
 
         {/* Custom Arrow */}
-        <ChevronDown
-          className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-black"
-        />
+        <ChevronDown className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-black" />
       </div>
-      {error && <p className="mt-1 text-xs" style={{ color: THEME.red }}>{error}</p>}
+      {error && (
+        <p className="mt-1 text-xs" style={{ color: THEME.red }}>
+          {error}
+        </p>
+      )}
     </div>
   );
 }

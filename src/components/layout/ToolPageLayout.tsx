@@ -27,7 +27,7 @@ export default function ToolPageTemplate({
   extraSectionContent,
   references,
 }: ToolPageTemplateProps) {
-  heroBg = "/assets/images/tools-bg.jpg"
+  heroBg = "/assets/images/tools-bg.webp";
   return (
     <div className="min-h-screen">
       {/* Hero Section */}

@@ -320,8 +320,7 @@ const DATA: Record<CountryKey, CountryData> = {
     currency: "€",
     description:
       "Many students enroll in the French social security system (Assurance Maladie). Complementary private insurance covers co-pays, repatriation and travel protection.",
-    providersLine:
-      "Insurance Providers – ACS, APRIL, Allianz, AXA, CHAPKA",
+    providersLine: "Insurance Providers – ACS, APRIL, Allianz, AXA, CHAPKA",
     providers: [
       { id: "acs", name: "ACS" },
       { id: "april", name: "APRIL" },
@@ -629,16 +628,16 @@ export default function HealthInsuranceComparePage() {
       style={{ background: THEME.surface, color: THEME.text }}
     >
       {/* HERO */}
-        <section
+      <section
         className="relative pt-32 pb-16 lg:pt-40 lg:pb-36 text-white bg-cover bg-[left_center] lg:bg-[top_center]"
         style={{
-          backgroundImage: `url(/assets/images/tools-bg.jpg)`,
+          backgroundImage: `url(/assets/images/tools-bg.webp)`,
         }}
       >
         {/* Dark overlay under content */}
         <div className="absolute inset-0 bg-black/50 z-0" />
 
-         <div className="w-full max-w-[1400px] mx-auto px-6 sm:px-6 lg:px-8 relative z-10 text-center ">
+        <div className="w-full max-w-[1400px] mx-auto px-6 sm:px-6 lg:px-8 relative z-10 text-center ">
           <h1 className="text-2xl md:text-4xl font-bold text-white">
             Health Insurance Compare
           </h1>

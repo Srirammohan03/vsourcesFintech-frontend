@@ -419,7 +419,7 @@ const EducationLoan: React.FC = () => {
             </p>
             <div className="block lg:hidden my-6">
               <img
-                src="/assets/images/education-loans.jpg"
+                src="/assets/images/education-loans.webp"
                 alt="Education Loan"
                 className="w-full h-auto object-cover rounded-xl"
               />
@@ -462,7 +462,8 @@ const EducationLoan: React.FC = () => {
         <div className="hidden lg:block absolute inset-0">
           <img
             src={
-              data?.background_image?.url || "/assets/images/education-loan.png"
+              data?.background_image?.url ||
+              "/assets/images/education-loan.webp"
             }
             alt="Education Loan"
             className="w-full h-full object-cover"
