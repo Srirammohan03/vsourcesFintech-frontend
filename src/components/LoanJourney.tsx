@@ -82,11 +82,13 @@ const LoanJourney: React.FC = () => {
                   src={step.gradient}
                   alt="gradient"
                   className="w-full h-full object-contain"
+                  loading="lazy"
                 />
                 <img
                   src={step.icon}
                   alt={step.title}
                   className="absolute inset-0 w-20 h-20 m-auto"
+                  loading="lazy"
                 />
               </div>
 
@@ -116,11 +118,13 @@ const LoanJourney: React.FC = () => {
                   src={step.gradient}
                   alt="gradient"
                   className="w-full h-full object-contain"
+                  loading="lazy"
                 />
                 <img
                   src={step.icon}
                   alt={step.title}
                   className="absolute inset-0 w-16 h-16 m-auto"
+                  loading="lazy"
                 />
               </div>
 
