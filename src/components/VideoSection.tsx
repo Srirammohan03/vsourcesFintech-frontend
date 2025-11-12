@@ -34,7 +34,7 @@ const VideoSection = () => {
                 onClick={handlePlay}
               >
                 <img
-                  src="https://img.youtube.com/vi/IbjoEr-lTuw/maxresdefault.jpg"
+                  src="https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762838892/gkodku3uo3wt02e1era5.jpg"
                   alt="Company Video Thumbnail"
                   className="w-full h-full object-cover"
                 />
