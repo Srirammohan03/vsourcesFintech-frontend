@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, memo } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
   Globe,
   UserCheck,
@@ -8,14 +8,7 @@ import {
   CreditCard,
   CheckCircle,
 } from "lucide-react";
-import qs from "qs";
-import axios from "axios";
-import { useQuery } from "@tanstack/react-query";
-import { toast } from "sonner";
-import CreditCardSkeleton from "@/Loaders/our-services/CreditCardSkeleton";
-import type { BlockedAccount, FAQ } from "@/lib/types/OurService";
-import { DefaultContext } from "react-icons/lib";
-// import BlockedAccount  from "@/lib/types/OurService";
+import DelayedPopup from "@/components/DelayedPopup";
 
 const faqs = [
   {
@@ -158,17 +151,14 @@ const applySteps = [
   "Receive confirmation letter for visa application.",
   "Activate account upon arrival in Germany via online or bank visit.",
 ];
-
 const AccordionItem = ({
   faq,
   isExpanded,
   onClick,
-  index,
 }: {
-  faq: FAQ;
+  faq: (typeof faqs)[0];
   isExpanded: boolean;
   onClick: () => void;
-  index: number;
 }) => {
   const contentRef = useRef<HTMLDivElement>(null);
   const [height, setHeight] = useState<string | number>("0px");
@@ -178,7 +168,7 @@ const AccordionItem = ({
       setHeight(isExpanded ? contentRef.current.scrollHeight + "px" : "0px");
     }
   }, [isExpanded]);
-  const icon = faqs[index]?.icon ?? faqs[0]?.icon;
+
   return (
     <div className="border border-red-300 rounded-xl bg-[#f3f6fd] shadow-sm overflow-hidden transition-all">
       <button
@@ -190,7 +180,7 @@ const AccordionItem = ({
         aria-expanded={isExpanded}
       >
         <div className="flex items-start gap-4">
-          {icon}
+          {faq.icon}
           <span>{faq.title}</span>
         </div>
         <span className="text-red-600 font-bold text-2xl select-none">
@@ -210,81 +200,23 @@ const AccordionItem = ({
         }}
         className="text-black text-base px-6"
       >
-        {faq &&
-          faq?.content &&
-          faq?.content?.map((f, i) => (
-            <div key={f?.id || i}>
-              <p className="mb-3 text-gray-700 leading-relaxed">
-                {f?.description}
-              </p>
-              <ul className="list-disc pl-5 space-y-1 text-gray-700">
-                {f &&
-                  f?.list?.map((l, i) => <li key={l?.id || i}>{l?.list}</li>)}
-              </ul>
-            </div>
-          ))}
+        {faq.content}
       </div>
     </div>
   );
 };
 
-const query = qs.stringify({
-  populate: {
-    our_services: {
-      on: {
-        "fintech.blocked-accounts": {
-          populate: {
-            background_image: { fields: ["url", "name", "documentId"] },
-            faq: {
-              populate: {
-                content: {
-                  populate: {
-                    list: true,
-                  },
-                },
-              },
-            },
-            blocked_account_providers: {
-              populate: {
-                image: { fields: ["url", "name", "documentId"] },
-              },
-            },
-          },
-        },
-      },
-    },
-  },
-});
-
-const fetchBlockedAccount = async () => {
-  const { data } = await axios.get(
-    `${import.meta.env.VITE_CMS_GLOBALURL}/api/our-service?${query}`
-  );
-  return data?.data?.our_services[0] || {};
-};
-
 const BlockedAccount: React.FC = () => {
   const [expandedIndex, setExpandedIndex] = useState<number>(0); // First open by default
-
-  const { data, isLoading, isError, error } = useQuery<BlockedAccount>({
-    queryKey: ["blockAccount"],
-    queryFn: fetchBlockedAccount,
-  });
-
-  if (isError) {
-    toast.error("failed to load");
-    console.log("failed to load", error);
-    return null;
-  }
-
-  if (isLoading || !data) {
-    return <CreditCardSkeleton />;
-  }
 
   const toggleIndex = (index: number) => {
     setExpandedIndex((prevIndex) => (prevIndex === index ? -1 : index));
   };
+  const [showPopup, setShowPopup] = useState(false);
 
+  const handlePopupClose = () => {
+    setShowPopup(false);
+  };
   return (
     <div className="">
       {/* Hero Section */}
@@ -292,10 +224,8 @@ const BlockedAccount: React.FC = () => {
         <div
           className="absolute inset-0 bg-cover bg-right bg-no-repeat"
           style={{
-            backgroundImage: `url(${
-              data?.background_image?.url ||
-              "/assets/images/ourservices-img.jpg"
-            })`,
+            backgroundImage:
+              "url('https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762862486/rp2drehs0klzgtznsxmx.jpg')",
           }}
         >
           <div className="absolute inset-0 bg-black/70 md:bg-black/50" />
@@ -303,28 +233,25 @@ const BlockedAccount: React.FC = () => {
         <div className="relative w-full max-w-[1400px] mx-auto px-6 flex flex-col items-center md:items-start justify-center text-left">
           <Globe className="w-14 h-14 mb-4 animate-pulse" />
           <h1 className="text-4xl font-extrabold mb-4 leading-tight max-w-3xl">
-            {data?.heading ||
-              "Everything About Blocked Accounts for International Students"}
+            Everything About Blocked Accounts for International Students
           </h1>
           <p className="max-w-2xl">
-            {data?.description ||
-              "Secure your stay in Germany with a Blocked Account. Learn who needs it, how to open it, and essentials to manage your blocked funds easily."}
+            Secure your stay in Germany with a Blocked Account. Learn who needs
+            it, how to open it, and essentials to manage your blocked funds
+            easily.
           </p>
         </div>
       </section>
 
       <section className="space-y-6 w-full max-w-[1400px] mx-auto px-6 py-10">
-        {data &&
-          data?.faq &&
-          data?.faq?.map((faq, i) => (
-            <AccordionItem
-              key={faq?.id || i}
-              faq={faq}
-              isExpanded={expandedIndex === i}
-              onClick={() => toggleIndex(i)}
-              index={i}
-            />
-          ))}
+        {faqs.map((faq, i) => (
+          <AccordionItem
+            key={i}
+            faq={faq}
+            isExpanded={expandedIndex === i}
+            onClick={() => toggleIndex(i)}
+          />
+        ))}
       </section>
 
       {/* How To Open A Blocked Account Steps*/}
@@ -352,39 +279,35 @@ const BlockedAccount: React.FC = () => {
       {/* Providers Section */}
       <section className="space-y-10 w-full max-w-[1400px] mx-auto px-6 py-10">
         <h2 className="text-3xl font-bold text-black text-center mb-10">
-          {data?.provider_heading || "List of German Blocked Account Providers"}
+          List of German Blocked Account Providers
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 ">
-          {data &&
-            data?.blocked_account_providers &&
-            data?.blocked_account_providers?.map((provider, i) => (
-              <div
-                key={provider?.id || i}
-                className="bg-white rounded-2xl p-8 shadow-lg border border-red-200 hover:shadow-2xl transition-shadow cursor-pointer"
-              >
-                <div className="flex items-center flex-row-reverse justify-between gap-4 mb-4">
-                  <img
-                    src={provider?.image?.url}
-                    alt={`${provider?.image?.name} logo`}
-                    className="md:w-44 md:h-20 w-28 h-12 object-contain"
-                  />
-                  <h3 className="text-indigo-800 font-bold text-2xl">
-                    {provider?.title}
-                  </h3>
-                </div>
-                <p className="text-gray-700 mb-6">{provider?.description}</p>
-                <div className="grid grid-cols-2 gap-y-2 text-gray-800 font-semibold">
-                  <span>Processing Fee:</span>
-                  <span>{provider?.processing_fee}</span>
-                  <span>Monthly Fee:</span>
-                  <span>{provider?.monthly_fee}</span>
-                  <span>Processing Time:</span>
-                  <span>{provider?.processing_time}</span>
-                  <span>Banking Model:</span>
-                  <span>{provider?.banking_model}</span>
-                </div>
+          {providers.map(({ name, logo, description, fees }, i) => (
+            <div
+              key={i}
+              className="bg-white rounded-2xl p-8 shadow-lg border border-red-200 hover:shadow-2xl transition-shadow cursor-pointer"
+            >
+              <div className="flex items-center flex-row-reverse justify-between gap-4 mb-4">
+                <img
+                  src={logo}
+                  alt={`${name} logo`}
+                  className="md:w-44 md:h-20 w-28 h-12 object-contain"
+                />
+                <h3 className="text-indigo-800 font-bold text-2xl">{name}</h3>
               </div>
-            ))}
+              <p className="text-gray-700 mb-6">{description}</p>
+              <div className="grid grid-cols-2 gap-y-2 text-gray-800 font-semibold">
+                <span>Processing Fee:</span>
+                <span>{fees.processingFee}</span>
+                <span>Monthly Fee:</span>
+                <span>{fees.monthlyFee}</span>
+                <span>Processing Time:</span>
+                <span>{fees.processingTime}</span>
+                <span>Banking Model:</span>
+                <span>{fees.bankingModel}</span>
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 
@@ -461,13 +384,18 @@ const BlockedAccount: React.FC = () => {
         </p>
       </section>
 
-      <div className="py-6 bottom-6 left-0 right-0 mx-auto max-w-md px-6">
-        <button className="w-full bg-red-600 text-white font-bold py-4 px-2 rounded-xl shadow-lg hover:brightness-110 transition-all">
+      {/* Apply Button */}
+      <div id="apply" className="w-full max-w-sm mx-auto mt-4 mb-4">
+        <button
+          className="w-full py-4 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl text-lg shadow-lg transition"
+          onClick={() => setShowPopup(true)}
+        >
           Start Your Blocked Account Application
         </button>
+        {showPopup && <DelayedPopup onMinimize={handlePopupClose} />}
       </div>
     </div>
   );
 };
 
-export default memo(BlockedAccount);
+export default BlockedAccount;

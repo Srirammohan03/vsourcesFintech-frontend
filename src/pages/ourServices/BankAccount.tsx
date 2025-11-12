@@ -1,11 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import {
-  FaIdCard,
-  FaRegFileAlt,
-  FaRegMoneyBillAlt,
-  FaUserGraduate,
-} from "react-icons/fa";
+import { FaIdCard, FaRegFileAlt, FaUserGraduate } from "react-icons/fa";
 
 import {
   FaUniversity,
@@ -26,12 +21,6 @@ import {
   FaCoins,
 } from "react-icons/fa";
 import DelayedPopup from "@/components/DelayedPopup";
-import qs from "qs";
-import axios from "axios";
-import { toast } from "sonner";
-import CreditCardSkeleton from "@/Loaders/our-services/CreditCardSkeleton";
-import { useQuery } from "@tanstack/react-query";
-import type { BankAccount } from "@/lib/types/OurService";
 
 const countries = [
   "UK",
@@ -154,13 +143,6 @@ const topBanksData = [
   },
 ];
 
-const iconsByIndex = [
-  { icon: <FaUniversity />, color: "#2563EB" }, // index 0
-  { icon: <FaBuilding />, color: "#DC2626" }, // index 1
-  { icon: <FaLandmark />, color: "#059669" }, // index 2
-  { icon: <FaRegMoneyBillAlt />, color: "#D97706" }, // index 3
-];
-
 const bankIconMap: Record<string, { icon: JSX.Element; color: string }> = {
   HSBC: { icon: <FaMoneyBillWave />, color: "#DB0011" },
   Barclays: { icon: <FaBuilding />, color: "#0A6ED1" },
@@ -217,49 +199,8 @@ const stepsToOpenAccount = [
   { step: "Receive Your Debit Card", icon: <FaCreditCard /> },
 ];
 
-const query = qs.stringify({
-  populate: {
-    our_services: {
-      on: {
-        "fintech.bank-account": {
-          populate: {
-            background_image: { fields: ["url", "name", "documentId"] },
-            top_banks: {
-              populate: {
-                background_image: { fields: ["url", "name", "documentId"] },
-                list: true,
-              },
-            },
-          },
-        },
-      },
-    },
-  },
-});
-
-const fetchBankAccount = async () => {
-  const { data } = await axios.get(
-    `${import.meta.env.VITE_CMS_GLOBALURL}/api/our-service?${query}`
-  );
-  return data?.data?.our_services[0] || {};
-};
-
 const BankAccount: React.FC = () => {
   const [showPopup, setShowPopup] = useState(false);
-
-  const { data, isLoading, isError, error } = useQuery<BankAccount>({
-    queryKey: ["bankAccount"],
-    queryFn: fetchBankAccount,
-  });
-  if (isError) {
-    toast.error("failed to load");
-    console.log("failed to load", error);
-    return null;
-  }
-
-  if (isLoading || !data) {
-    return <CreditCardSkeleton />;
-  }
 
   const handlePopupClose = () => {
     setShowPopup(false);
@@ -271,10 +212,8 @@ const BankAccount: React.FC = () => {
         <div
           className="absolute inset-0 bg-cover bg-right bg-no-repeat"
           style={{
-            backgroundImage: `url(${
-              data?.background_image?.url ||
-              "/assets/images/ourservices-img.jpg"
-            })`,
+            backgroundImage:
+              "url('https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762862486/rp2drehs0klzgtznsxmx.jpg')",
           }}
         >
           <div className="absolute inset-0 bg-black/70 md:bg-black/50" />
@@ -282,12 +221,12 @@ const BankAccount: React.FC = () => {
         <div className="w-full max-w-[1400px] mx-auto px-6 flex flex-col items-start justify-start">
           <div className="flex flex-col items-center md:items-start justify-center text-left text-white px-4">
             <h1 className="text-4xl md:text-5xl font-extrabold drop-shadow-lg  max-w-3xl">
-              {data?.heading ||
-                "Simplify Your Study Abroad Journey with a Local Bank Account"}
+              Simplify Your Study Abroad Journey with a Local Bank Account
             </h1>
             <p className="mt-4  text-lg md:text-xl drop-shadow-md  max-w-2xl">
-              {data?.description ||
-                "Whether you’re studying in the UK, USA, Canada, Ireland, France, Australia, or Germany, getting a student bank account makes managing money easier and smarter."}
+              Whether you’re studying in the UK, USA, Canada, Ireland, France,
+              Australia, or Germany, getting a student bank account makes
+              managing money easier and smarter.
             </p>
           </div>
         </div>
@@ -402,55 +341,51 @@ const BankAccount: React.FC = () => {
       >
         <div className="w-full max-w-[1400px] mx-auto px-6 py-10 bg-white rounded-lg shadow-lg border border-blue-100">
           <h2 className="text-3xl font-bold text-black mb-10 text-center">
-            {data?.top_bank_heading ||
-              "Top Banks in These Countries for International Students"}
+            Top Banks in These Countries for International Students
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
-            {data &&
-              data?.top_banks &&
-              data?.top_banks?.map((bank, i) => (
-                <div
-                  key={bank?.id || i}
-                  className="relative p-6 rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden"
-                  style={{
-                    backgroundImage: `url(${bank?.background_image?.url})`,
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
-                  }}
-                >
-                  {/* Overlay */}
-                  <div className="absolute inset-0 bg-black/70"></div>
+            {topBanksData.map(({ country, bgImage, banks }) => (
+              <div
+                key={country}
+                className="relative p-6 rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden"
+                style={{
+                  backgroundImage: `url(${bgImage})`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                }}
+              >
+                {/* Overlay */}
+                <div className="absolute inset-0 bg-black/70"></div>
 
-                  {/* Content */}
-                  <div className="relative z-10 text-white">
-                    <h3 className="text-xl font-semibold mb-6">
-                      {bank?.country}
-                    </h3>
-                    <ul className="space-y-3">
-                      {bank &&
-                        bank?.list?.map((li, i) => {
-                          const { icon, color } =
-                            iconsByIndex[i] ?? iconsByIndex[0];
-                          return (
-                            <li
-                              key={li?.id || i}
-                              className="flex items-center space-x-3 text-white text-base md:text-lg"
-                            >
-                              <span
-                                style={{ color }}
-                                className="text-2xl md:text-3xl"
-                              >
-                                {icon}
-                              </span>
-                              <span>{li?.list}</span>
-                            </li>
-                          );
-                        })}
-                    </ul>
-                  </div>
+                {/* Content */}
+                <div className="relative z-10 text-white">
+                  <h3 className="text-xl font-semibold mb-6">{country}</h3>
+                  <ul className="space-y-3">
+                    {banks.map(({ name, iconKey }) => {
+                      const { icon, color } = bankIconMap[iconKey] ?? {
+                        icon: <FaUniversity />,
+                        color: "#2563EB",
+                      };
+                      return (
+                        <li
+                          key={name}
+                          className="flex items-center space-x-3 text-white text-base md:text-lg"
+                        >
+                          <span
+                            style={{ color }}
+                            className="text-2xl md:text-3xl"
+                          >
+                            {icon}
+                          </span>
+                          <span>{name}</span>
+                        </li>
+                      );
+                    })}
+                  </ul>
                 </div>
-              ))}
+              </div>
+            ))}
           </div>
         </div>
       </motion.section>

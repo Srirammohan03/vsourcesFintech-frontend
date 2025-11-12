@@ -1,45 +1,5 @@
-import axios from "axios";
-import React, { useMemo, useState, useEffect } from "react";
-import qs from "qs";
-import { HealthInsurance } from "@/lib/types/OurService";
-import { useQuery } from "@tanstack/react-query";
-import { toast } from "sonner";
-import CreditCardSkeleton from "@/Loaders/our-services/CreditCardSkeleton";
-import {
-  Select,
-  SelectTrigger,
-  SelectValue,
-  SelectContent,
-  SelectItem,
-} from "@/components/ui/select";
-
-const query = qs.stringify({
-  populate: {
-    our_services: {
-      on: {
-        "fintech.insurance": {
-          populate: {
-            background_image: { fields: ["url", "name", "documentId"] },
-            countrys: {
-              populate: {
-                providers: true,
-                sections: {
-                  populate: {
-                    rows: {
-                      populate: {
-                        values: true,
-                      },
-                    },
-                  },
-                },
-              },
-            },
-          },
-        },
-      },
-    },
-  },
-});
+"use client";
+import React, { useMemo, useState } from "react";
 const THEME = {
   red: "#E3000F",
   blue: "#2563EB",
@@ -49,7 +9,15 @@ const THEME = {
   surface: "#FFFCFB",
   text: "#3A3A3A",
 };
-type CountryKey = string;
+type CountryKey =
+  | "United States"
+  | "United Kingdom"
+  | "Canada"
+  | "France"
+  | "Ireland"
+  | "Australia"
+  | "Germany"
+  | "Other";
 
 type Provider = {
   id: string; // slug
@@ -151,6 +119,390 @@ const LogoBadge: React.FC<{ provider: Provider }> = ({ provider }) => {
     </div>
   );
 };
+const DATA: Record<CountryKey, CountryData> = {
+  "United States": {
+    short: "USA",
+    currency: "$",
+    description:
+      "Health insurance in the U.S. is essential due to the high cost of medical services. International students mandatorily require either private insurance or university-sponsored plans. Coverage must meet the criteria of university and visa requirements. At vsource, we understand that studying abroad is not an easy journey. Having the right insurance can help you provide the safety and protection without thinking about finances. Our insurance team helps students find the most affordable and customised plans that suit the needs of individual student. We compare different options from reliable and trusted companies, so that every student can get the best deal without searching multiple options themselves and can focus on their studies.",
+    providersLine:
+      "Insurance Providers – Tata AIG, Bajaj Allianz, Niva Bupa, HDFC ERGO, Royal Sundaram, Star Health",
+    providers: [
+      { id: "tataaig", name: "Tata AIG" },
+      { id: "bajaj", name: "Bajaj Allianz" },
+      { id: "nivabupa", name: "Niva Bupa" },
+      { id: "hdfc", name: "HDFC ERGO" },
+      { id: "royal", name: "Royal Sundaram" },
+      { id: "star", name: "Star Health" },
+    ],
+    sections: [
+      {
+        section: "Student Essentials",
+        rows: [
+          {
+            name: "Repatriation",
+            values: {
+              tataaig: "Included under Medical Expenses",
+              bajaj: "Included under medical expenses",
+              nivabupa: "Up to $2,500",
+              hdfc: "Included under Medical Expenses",
+              royal: "Up to $2,500",
+              star: "Included under Medical Expenses",
+            },
+          },
+          {
+            name: "Medical Evacuation",
+            values: {
+              tataaig: "Up to $50,000",
+              bajaj: "Up to $75,000",
+              nivabupa: "Up to $100,000",
+              hdfc: "Up to $75,000",
+              royal: "Up to $50,000",
+              star: "Up to $100,000",
+            },
+          },
+          {
+            name: "Dental Treatment",
+            values: {
+              tataaig: "Included up to $1,000",
+              bajaj: "Optional Rider",
+              nivabupa: "Up to $500",
+              hdfc: "Up to $750",
+              royal: "Included up to $1,000",
+              star: "Optional Rider",
+            },
+          },
+        ],
+      },
+      {
+        section: "Personal Protection",
+        rows: [
+          {
+            name: "Accidental Death & Dismemberment",
+            values: {
+              tataaig: "Up to $20,000",
+              bajaj: "Up to $25,000",
+              nivabupa: "Up to $25,000",
+              hdfc: "Up to $20,000",
+              royal: "Up to $15,000",
+              star: "Up to $25,000",
+            },
+          },
+          {
+            name: "Baggage Loss",
+            values: {
+              tataaig: "Up to $1,000",
+              bajaj: "Up to $1,200",
+              nivabupa: "Up to $800",
+              hdfc: "Up to $1,000",
+              royal: "Up to $1,500",
+              star: "Up to $1,200",
+            },
+          },
+          {
+            name: "Study Interruption",
+            values: {
+              tataaig: "Up to $5,000",
+              bajaj: "Up to $7,500",
+              nivabupa: "Up to $10,000",
+              hdfc: "Up to $7,500",
+              royal: "Up to $5,000",
+              star: "Up to $10,000",
+            },
+          },
+        ],
+      },
+    ],
+  },
+
+  "United Kingdom": {
+    short: "UK",
+    currency: "£",
+    description:
+      "In the UK, most international students pay the Immigration Health Surcharge (IHS) to access the NHS. Many still choose private insurance for faster access to specialists, dental/optical cover, or travel-related benefits.",
+    providersLine:
+      "Insurance Providers – AXA, Aviva, Bupa, Endsleigh, Allianz Assistance",
+    providers: [
+      { id: "axa", name: "AXA" },
+      { id: "aviva", name: "Aviva" },
+      { id: "bupa", name: "Bupa" },
+      { id: "endsleigh", name: "Endsleigh" },
+      { id: "allianzassist", name: "Allianz Assistance" },
+    ],
+    sections: [
+      {
+        section: "Student Essentials",
+        rows: [
+          {
+            name: "Repatriation",
+            values: {
+              axa: "Included under medical benefits",
+              aviva: "Included",
+              bupa: "Up to £2,000",
+              endsleigh: "Included",
+              allianzassist: "Up to £2,500",
+            },
+          },
+          {
+            name: "Medical Evacuation",
+            values: {
+              axa: "Up to £75,000",
+              aviva: "Up to £50,000",
+              bupa: "Up to £100,000",
+              endsleigh: "Up to £60,000",
+              allianzassist: "Up to £100,000",
+            },
+          },
+        ],
+      },
+    ],
+  },
+
+  Canada: {
+    short: "Canada",
+    currency: "C$",
+    description:
+      "Canada requires proof of medical insurance for many study permits and provinces. Students often use provincial plans where eligible and add private coverage for gaps, travel and dental.",
+    providersLine:
+      "Insurance Providers – Manulife, Guard.me, Sun Life, Blue Cross, Allianz",
+    providers: [
+      { id: "manulife", name: "Manulife" },
+      { id: "guardme", name: "Guard.me" },
+      { id: "sunlife", name: "Sun Life" },
+      { id: "bluecross", name: "Blue Cross" },
+      { id: "allianz", name: "Allianz" },
+    ],
+    sections: [
+      {
+        section: "Student Essentials",
+        rows: [
+          {
+            name: "Repatriation",
+            values: {
+              manulife: "Included",
+              guardme: "Included",
+              sunlife: "C$2,000",
+              bluecross: "Included",
+              allianz: "C$2,500",
+            },
+          },
+          {
+            name: "Medical Evacuation",
+            values: {
+              manulife: "C$75,000",
+              guardme: "C$100,000",
+              sunlife: "C$60,000",
+              bluecross: "C$75,000",
+              allianz: "C$100,000",
+            },
+          },
+        ],
+      },
+    ],
+  },
+
+  France: {
+    short: "France",
+    currency: "€",
+    description:
+      "Many students enroll in the French social security system (Assurance Maladie). Complementary private insurance covers co-pays, repatriation and travel protection.",
+    providersLine: "Insurance Providers – ACS, APRIL, Allianz, AXA, CHAPKA",
+    providers: [
+      { id: "acs", name: "ACS" },
+      { id: "april", name: "APRIL" },
+      { id: "allianzfr", name: "Allianz" },
+      { id: "axafr", name: "AXA" },
+      { id: "chapka", name: "CHAPKA" },
+    ],
+    sections: [
+      {
+        section: "Student Essentials",
+        rows: [
+          {
+            name: "Repatriation",
+            values: {
+              acs: "Included",
+              april: "Included",
+              allianzfr: "€2,000",
+              axafr: "Included",
+              chapka: "€2,500",
+            },
+          },
+          {
+            name: "Medical Evacuation",
+            values: {
+              acs: "€60,000",
+              april: "€75,000",
+              allianzfr: "€100,000",
+              axafr: "€60,000",
+              chapka: "€100,000",
+            },
+          },
+        ],
+      },
+    ],
+  },
+
+  Ireland: {
+    short: "Ireland",
+    currency: "€",
+    description:
+      "Non-EU students must have private medical insurance when studying in Ireland. Many pick policies that include GP visits, hospital care, and travel coverage.",
+    providersLine:
+      "Insurance Providers – VHI, Irish Life Health, Laya Healthcare, AXA",
+    providers: [
+      { id: "vhi", name: "VHI" },
+      { id: "irishlife", name: "Irish Life Health" },
+      { id: "laya", name: "Laya Healthcare" },
+      { id: "axaire", name: "AXA" },
+    ],
+    sections: [
+      {
+        section: "Student Essentials",
+        rows: [
+          {
+            name: "Repatriation",
+            values: {
+              vhi: "Included",
+              irishlife: "Included",
+              laya: "€2,000",
+              axaire: "€2,500",
+            },
+          },
+          {
+            name: "Medical Evacuation",
+            values: {
+              vhi: "€50,000",
+              irishlife: "€75,000",
+              laya: "€100,000",
+              axaire: "€75,000",
+            },
+          },
+        ],
+      },
+    ],
+  },
+
+  Australia: {
+    short: "Australia",
+    currency: "A$",
+    description:
+      "Overseas Student Health Cover (OSHC) is mandatory for student visas. Popular OSHC providers include Allianz Care, Medibank, nib, Bupa and ahm.",
+    providersLine:
+      "Insurance Providers – Allianz Care, ahm, nib, Medibank, Bupa",
+    providers: [
+      { id: "allianzcare", name: "Allianz Care" },
+      { id: "ahm", name: "ahm OSHC" },
+      { id: "nib", name: "nib OSHC" },
+      { id: "medibank", name: "Medibank" },
+      { id: "bupau", name: "Bupa" },
+    ],
+    sections: [
+      {
+        section: "Student Essentials",
+        rows: [
+          {
+            name: "Student Health Cover",
+            values: {
+              allianzcare: "Hospital + GP + Ambulance",
+              ahm: "Hospital + Extras",
+              nib: "Hospital + GP",
+              medibank: "Hospital + GP + Dental (basic)",
+              bupau: "Hospital + GP",
+            },
+          },
+          {
+            name: "Repatriation",
+            values: {
+              allianzcare: "Included",
+              ahm: "Included",
+              nib: "A$2,000",
+              medibank: "Included",
+              bupau: "A$2,500",
+            },
+          },
+        ],
+      },
+    ],
+  },
+
+  Germany: {
+    short: "Germany",
+    currency: "€",
+    description:
+      "Germany offers statutory (public) and private insurance. Students commonly choose TK/AOK (public) or EDUCARE24/MAWISTA/DR-WALTER (private travel) for gap and travel protection.",
+    providersLine:
+      "Insurance Providers – TK, AOK, MAWISTA, DR-WALTER, HanseMerkur",
+    providers: [
+      { id: "tk", name: "TK" },
+      { id: "aok", name: "AOK" },
+      { id: "mawista", name: "MAWISTA" },
+      { id: "drwalter", name: "DR-WALTER" },
+      { id: "hanse", name: "HanseMerkur" },
+    ],
+    sections: [
+      {
+        section: "Student Essentials",
+        rows: [
+          {
+            name: "Repatriation",
+            values: {
+              tk: "Included",
+              aok: "Included",
+              mawista: "€2,000",
+              drwalter: "Included",
+              hanse: "€2,500",
+            },
+          },
+          {
+            name: "Medical Evacuation",
+            values: {
+              tk: "€75,000",
+              aok: "€60,000",
+              mawista: "€100,000",
+              drwalter: "€75,000",
+              hanse: "€100,000",
+            },
+          },
+        ],
+      },
+    ],
+  },
+
+  Other: {
+    short: "Other",
+    currency: "$",
+    description:
+      "Compare international student insurance options. Benefits typically include medical treatment, evacuation, repatriation, and travel-related protections like baggage or study interruption.",
+    providersLine:
+      "Insurance Providers – Allianz, AXA, Aetna International, Cigna, IMG",
+    providers: [
+      { id: "allianzglobal", name: "Allianz" },
+      { id: "axaintl", name: "AXA" },
+      { id: "aetna", name: "Aetna International" },
+      { id: "cigna", name: "Cigna" },
+      { id: "img", name: "IMG" },
+    ],
+    sections: [
+      {
+        section: "Student Essentials",
+        rows: [
+          {
+            name: "Repatriation",
+            values: {
+              allianzglobal: "Included",
+              axaintl: "Included",
+              aetna: "$2,000",
+              cigna: "Included",
+              img: "$2,500",
+            } as any,
+          },
+        ],
+      },
+    ],
+  },
+};
+
 /* =========================
    ACCORDION
    ========================= */
@@ -238,87 +590,15 @@ const FeatureGrid: React.FC<{
     </div>
   );
 };
-const fetchHealthInasurance = async () => {
-  const { data } = await axios.get(
-    `${import.meta.env.VITE_CMS_GLOBALURL}/api/our-service?${query}`
-  );
-  return data?.data?.our_services[0] || {};
-};
+
 /* =========================
    MAIN PAGE
    ========================= */
 export default function HealthInasurance() {
-  const { data, isLoading, isError, error } = useQuery<HealthInsurance>({
-    queryKey: ["healthinsurance"],
-    queryFn: fetchHealthInasurance,
-  });
-
-  const DATA = useMemo(() => {
-    if (!data?.countrys || !Array.isArray(data.countrys)) {
-      return {}; // ✅ Return empty object instead of undefined
-    }
-
-    return data.countrys.reduce((acc, country) => {
-      if (!country) return acc; // safety check
-
-      acc[country.name] = {
-        short: country.short ?? "",
-        currency: country.currency ?? "",
-        description: country.description ?? "",
-        providersLine: country.providersLine ?? "",
-        providers: Array.isArray(country.providers)
-          ? country.providers.map((p) => ({
-              id: p.providerId,
-              name: p.name,
-            }))
-          : [],
-        sections: Array.isArray(country.sections)
-          ? country.sections.map((s) => ({
-              section: s.section ?? "",
-              rows: Array.isArray(s.rows)
-                ? s.rows.map((r) => ({
-                    name: r.name ?? "",
-                    values: Array.isArray(r.values)
-                      ? r.values.reduce((vacc, val) => {
-                          vacc[val.providerId] = val.value;
-                          return vacc;
-                        }, {} as Record<string, string>)
-                      : {},
-                  }))
-                : [],
-            }))
-          : [],
-      };
-
-      return acc;
-    }, {} as Record<CountryKey, CountryData>);
-  }, [data]);
-
-  const countries = useMemo(() => Object?.keys(DATA) as CountryKey[], [DATA]);
-
+  const countries = Object.keys(DATA) as CountryKey[];
   const [country, setCountry] = useState<CountryKey>("United States");
 
-  useEffect(() => {
-    if (countries.length > 0 && !countries.includes(country)) {
-      setCountry(countries[0]);
-    }
-  }, [countries, country]);
-
   const c = DATA[country];
-
-  if (!c) {
-    return null; // or some fallback
-  }
-
-  if (isError) {
-    toast.error("failed to load");
-    console.log("failed to load", error);
-    return null;
-  }
-
-  if (isLoading || !data) {
-    return <CreditCardSkeleton />;
-  }
 
   // Build a nice title tail color
   const highlight = {
@@ -338,21 +618,19 @@ export default function HealthInasurance() {
         <div
           className="absolute inset-0 bg-cover bg-right bg-no-repeat"
           style={{
-            backgroundImage: `url(${
-              data?.background_image?.url ||
-              "/assets/images/ourservices-img.jpg"
-            })`,
+            backgroundImage:
+              "url('https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762862486/rp2drehs0klzgtznsxmx.jpg')",
           }}
         >
           <div className="absolute inset-0 bg-black/70 md:bg-black/50" />
         </div>
         <div className="relative w-full max-w-[1400px] mx-auto px-6 flex flex-col items-center md:items-start justify-center text-left">
           <h1 className="text-2xl md:text-4xl font-bold text-white max-w-3xl">
-            {data?.heading || "Health Insurance Compare"}
+            Health Insurance Compare
           </h1>
           <p className="text-white/90 mt-3 max-w-2xl">
-            {data?.description ||
-              "Pick a country to see student-friendly providers and benefit comparisons. Built for fast scanning and mobile-first browsing."}
+            Pick a country to see student-friendly providers and benefit
+            comparisons. Built for fast scanning and mobile-first browsing.
           </p>
         </div>
       </section>
@@ -361,27 +639,21 @@ export default function HealthInasurance() {
       <div className="w-full max-w-[1400px] mx-auto px-6 py-10 sm:px-6 lg:px-8 ">
         <SectionCard className="space-y-8">
           {/* Country dropdown */}
-          <div className="text-center flex flex-col items-center">
+          <div className="text-center">
             <label className="block text-sm font-semibold text-gray-800 mb-2">
               Select Country
             </label>
-            <div className="w-full md:w-96 px-3 py-2 ">
-              <Select
-                value={country}
-                onValueChange={(value) => setCountry(value as CountryKey)}
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Select country" />
-                </SelectTrigger>
-                <SelectContent>
-                  {countries.map((k) => (
-                    <SelectItem key={k} value={k}>
-                      {DATA[k].short === "USA" ? "USA" : k}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
+            <select
+              value={country}
+              onChange={(e) => setCountry(e.target.value as CountryKey)}
+              className="w-full md:w-96 rounded-xl border border-gray-300 bg-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            >
+              {countries.map((k) => (
+                <option key={k} value={k}>
+                  {DATA[k].short === "USA" ? "USA" : k}
+                </option>
+              ))}
+            </select>
           </div>
 
           {/* Heading */}
@@ -390,10 +662,9 @@ export default function HealthInasurance() {
               Compare and Get the Best Insurance Plans for:{" "}
               <span style={highlight}>{c.short}</span>
             </h2>
-            <p className="text-gray-700 sm:max-w-4xl sm:mx-auto tracking-tight text-left sm:text-justify">
+            <p className="text-gray-700 leading-7 max-w-4xl mx-auto">
               {c.description}
             </p>
-
             <p className="text-sm md:text-base font-medium text-gray-800">
               {c.providersLine}
             </p>

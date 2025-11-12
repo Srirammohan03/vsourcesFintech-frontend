@@ -1,28 +1,19 @@
 import { Button } from "@/components/ui/button";
-import { House, SquareCheckBig } from "lucide-react";
+import { ActivityIcon, CheckCircle, House, SquareCheckBig } from "lucide-react";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { ChevronRight } from "lucide-react";
 import {
-  Activity,
-  Layers,
-  Download,
-  HelpCircle,
-  CreditCard,
-  LifeBuoy,
+  Activity, // Multiple Lenders
+  Layers, // Tailored Loan Options
+  Download, // Expert Guidance
+  HelpCircle, // Simplified Process
+  CreditCard, // Competitive Rates
+  LifeBuoy, // Post-Loan Support
 } from "lucide-react";
 import AbroadForm from "./AbroadForm";
 import Banksloans from "../Banksloans";
 import DelayedPopup from "@/components/DelayedPopup";
-import qs from "qs";
-import axios from "axios";
-import { useQuery } from "@tanstack/react-query";
-import { toast } from "sonner";
-import { Services } from "@/lib/types/OurService";
-import { HighlightedText } from "@/utils/HighlightedText";
-import RichText from "@/utils/RichText";
-import CreditCardSkeleton from "@/Loaders/our-services/CreditCardSkeleton";
-
 const features = [
   {
     title: "Multiple Lenders",
@@ -67,59 +58,9 @@ const features = [
     image: "/assets/images/Post-Loan-Support.jpg",
   },
 ];
-
-const query = qs.stringify({
-  populate: {
-    our_services: {
-      on: {
-        "fintech.aborad-education": {
-          populate: {
-            background_image: { fields: ["url", "name", "documentId"] },
-            list: true,
-
-            desktop_img: { fields: ["url", "name", "documentId"] },
-            mobile_img: { fields: ["url", "name", "documentId"] },
-            eligible: true,
-            bank: {
-              populate: {
-                bank: {
-                  populate: {
-                    logo: { fields: ["url", "name", "documentId"] },
-                  },
-                },
-              },
-            },
-            schemes_lenders: true,
-          },
-        },
-      },
-    },
-  },
-});
-const fetchAbroadEducation = async () => {
-  const { data } = await axios.get(
-    `${import.meta.env.VITE_CMS_GLOBALURL}/api/our-service?${query}`
-  );
-  return data?.data?.our_services[0] || {};
-};
-
 const AbroadEducation: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [showPopup, setShowPopup] = useState(false);
-
-  const { data, isLoading, isError, error } = useQuery<Services>({
-    queryKey: ["abroadEdu"],
-    queryFn: fetchAbroadEducation,
-  });
-  if (isError) {
-    toast.error("failed to load");
-    console.log("failed to load", error);
-    return null;
-  }
-
-  if (isLoading || !data) {
-    return <CreditCardSkeleton />;
-  }
 
   const handlePopupClose = () => {
     setShowPopup(false);
@@ -128,26 +69,27 @@ const AbroadEducation: React.FC = () => {
     <div className="w-full font-sans">
       {/* Hero Section */}
       <section className="relative bg-[#2563eb] text-white pt-32 pb-10 lg:pt-40 lg:pb-36">
-        {/* Background Image with Overlay */}
+        {/* Background */}
         <div
-          className="absolute inset-0 bg-cover bg-right "
+          className="absolute inset-0 bg-cover bg-right"
           style={{
-            backgroundImage: `url(${
-              data?.background_image?.url ||
-              "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762862486/rp2drehs0klzgtznsxmx.jpg"
-            })`,
+            backgroundImage:
+              "url('https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762862486/rp2drehs0klzgtznsxmx.jpg')",
           }}
         >
-          <div className="absolute inset-0 bg-black/70 md:bg-black/50" />{" "}
-          {/* overlay */}
+          <div className="absolute inset-0 bg-black/70 md:bg-black/50" />
         </div>
 
         {/* Content */}
-        <div className="relative w-full max-w-[1400px] mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
-          {/* Left Side */}
+        <div
+          className="relative w-full max-w-[1400px] mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-10 items-center"
+          data-aos="fade-up"
+        >
           <div className="space-y-6">
-            {/* Breadcrumb with Home icon */}
-            <p className="text-sm opacity-90 flex items-center gap-2">
+            <p
+              className="text-sm opacity-90 flex items-center gap-2"
+              data-aos="fade-right"
+            >
               <Link
                 to="/"
                 className="flex items-center gap-1 hover:text-yellow-300"
@@ -155,34 +97,40 @@ const AbroadEducation: React.FC = () => {
                 <House className="h-5 w-5" />
                 Home
               </Link>
-              <span>
-                <ChevronRight className="h-5 w-5" />
-              </span>
+              <ChevronRight className="h-5 w-5" />
               <span>Abroad Education Loan</span>
             </p>
 
-            {/* Heading */}
-            <h1 className="text-3xl md:text-4xl font-bold leading-tight">
-              {data?.heading || "Abroad Education Loan"}
+            <h1
+              className="text-3xl md:text-4xl font-bold leading-tight"
+              data-aos="zoom-in-up"
+            >
+              Abroad Education Loan
             </h1>
 
-            {/* Highlights */}
-            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {data &&
-                data?.list &&
-                data?.list.map((item, i) => (
-                  <li
-                    key={item?.id || i}
-                    className="flex items-center gap-2 text-white"
-                  >
-                    <SquareCheckBig className="w-5 h-5 text-yellow-300 flex-shrink-0" />
-                    {item?.list}
-                  </li>
-                ))}
+            <ul
+              className="grid grid-cols-1 sm:grid-cols-2 gap-3"
+              data-aos="fade-up"
+            >
+              {[
+                "Fund Up to 100% of Your Education",
+                "Don't Let Finances Stop You",
+                "Competitive Interest Rates",
+                "Flexible Repayment Options",
+              ].map((item, i) => (
+                <li
+                  key={i}
+                  className="flex items-center gap-2 text-white"
+                  data-aos="fade-left"
+                  data-aos-delay={50 + i * 100}
+                >
+                  <SquareCheckBig className="w-5 h-5 text-yellow-300 flex-shrink-0" />
+                  {item}
+                </li>
+              ))}
             </ul>
 
-            {/* Buttons */}
-            <div className="flex gap-4 flex-wrap">
+            <div className="flex gap-4 flex-wrap" data-aos="fade-up">
               <a
                 href="/tools/gpa-calculator"
                 className="px-3 py-2 text-white bg-red-600 font-semibold rounded-lg"
@@ -197,56 +145,33 @@ const AbroadEducation: React.FC = () => {
               >
                 Apply Now
               </Button>
-              {showPopup && <DelayedPopup onMinimize={handlePopupClose} />}
             </div>
           </div>
         </div>
       </section>
 
       {/* How it Works */}
-      <section className="py-10 bg-white">
-        <div className="w-full max-w-[1400px] mx-auto px-6 ">
-          {data?.heading1 ? (
-            <h1 className="text-center mb-4 text-2xl md:text-4xl">
-              <HighlightedText
-                text={data?.heading1}
-                color={"red"}
-                mobileSize={"20px"}
-              />
-            </h1>
-          ) : (
-            <h2 className="text-2xl md:text-4xl font-bold mb-4 text-center">
-              How it <span className="text-red-600">Works?</span>
-            </h2>
-          )}
-
-          {data?.description ? (
-            <RichText content={data?.description} />
-          ) : (
-            <p className=" text-gray-600 text-lg mb-3 leading-relaxed text-justify">
-              We believe the path to your education should be simple and
-              stress-free. Our process is designed to be as seamless as
-              possible, guiding you from your initial inquiry to the final loan
-              disbursement. We handle the complexities so you can focus on what
-              matters most—your studies. Follow our easy steps below to get
-              started on your journey today.
-            </p>
-          )}
-          <div className="">
+      <section className="py-10 bg-white" data-aos="fade-up">
+        <div className="w-full max-w-[1400px] mx-auto px-6">
+          <h2 className="text-2xl md:text-4xl font-bold mb-4 text-center">
+            How it <span className="text-red-600">Works?</span>
+          </h2>
+          <p
+            className="text-gray-600 text-lg mb-3 leading-relaxed text-justify"
+            data-aos="fade-up"
+          >
+            We believe the path to your education should be simple and
+            stress-free...
+          </p>
+          <div className="mt-8" data-aos="zoom-in">
             <img
-              src={
-                data?.desktop_img?.url ||
-                "/assets/images/abroad-ed-loan-steps.jpg"
-              }
-              alt={data?.desktop_img?.name || "How it Works Desktop"}
+              src="/assets/images/abroad-ed-loan-steps.jpg"
+              alt="How it Works Desktop"
               className="hidden md:block mx-auto w-full max-w-[1200px]"
             />
-            {/* Mobile Image */}
             <img
-              src={
-                data?.mobile_img?.url || "/assets/images/abroad-mobil-steps.jpg"
-              }
-              alt={data?.mobile_img?.name || "How it Works Mobile"}
+              src="/assets/images/abroad-mobil-steps.jpg"
+              alt="How it Works Mobile"
               className="block md:hidden mx-auto w-full max-w-[400px]"
             />
           </div>
@@ -254,21 +179,42 @@ const AbroadEducation: React.FC = () => {
       </section>
 
       {/* Why Need a Loan */}
-      <section className="py-10 bg-gray-50">
+      <section
+        className="py-10 bg-gray-50"
+        data-aos="fade-up"
+        data-aos-offset="100"
+        data-aos-duration="700"
+      >
         <div className="w-full max-w-[1400px] mx-auto px-6">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 leading-tight">
+          {/* Section Heading */}
+          <div className="text-center mb-12" data-aos="fade-up">
+            <h2
+              className="text-3xl sm:text-4xl font-extrabold text-gray-900 leading-tight"
+              data-aos="fade-down"
+            >
               Why Do You Need an Education Loan for{" "}
               <span className="text-red-600">Abroad Studies?</span>
             </h2>
-            <p className="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
+            <p
+              className="mt-4 text-lg text-gray-600 max-w-2xl mx-auto"
+              data-aos="fade-up"
+            >
               The cost of educational institutions abroad is rising day by day,
               and securing a loan is a smart move to manage your finances and
               focus on your studies.
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
+
+          {/* Cards Grid */}
+          <div
+            className="grid grid-cols-1 md:grid-cols-3 gap-8"
+            data-aos="fade-up"
+          >
+            {/* Card 1 */}
+            <div
+              className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+              data-aos="fade-right"
+            >
               <div className="flex items-center justify-center mb-4">
                 <div className="bg-purple-100 p-3 rounded-full text-red-600 shadow-md">
                   <svg
@@ -294,7 +240,12 @@ const AbroadEducation: React.FC = () => {
                 financial safety net.
               </p>
             </div>
-            <div className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
+
+            {/* Card 2 */}
+            <div
+              className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+              data-aos="zoom-right"
+            >
               <div className="flex items-center justify-center mb-4">
                 <div className="bg-purple-100 p-3 rounded-full text-red-600 shadow-md">
                   <svg
@@ -328,7 +279,12 @@ const AbroadEducation: React.FC = () => {
                 your journey.
               </p>
             </div>
-            <div className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
+
+            {/* Card 3 */}
+            <div
+              className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+              data-aos="fade-right"
+            >
               <div className="flex items-center justify-center mb-4">
                 <div className="bg-purple-100 p-3 rounded-full text-red-600 shadow-md">
                   <svg
@@ -362,30 +318,52 @@ const AbroadEducation: React.FC = () => {
       </section>
 
       {/* Advantages */}
-      <section className="py-10 bg-white">
-        <div className="w-full max-w-[1400px] mx-auto px-6 ">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 leading-tight">
+      <section
+        className="py-10 bg-white"
+        data-aos="fade-up"
+        data-aos-offset="100"
+        data-aos-duration="700"
+      >
+        <div className="w-full max-w-[1400px] mx-auto px-6">
+          {/* Section Header */}
+          <div className="text-center mb-12" data-aos="fade-up">
+            <h2
+              className="text-3xl sm:text-4xl font-extrabold text-gray-900 leading-tight"
+              data-aos="fade-down"
+            >
               Advantages of Study Loan for{" "}
               <span className="text-red-600">Abroad Studies</span>
             </h2>
-            <p className="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">
+            <p
+              className="mt-4 text-lg text-gray-600 max-w-3xl mx-auto"
+              data-aos="fade-up"
+            >
               An education loan is more than just a financial tool; it's an
               investment in your future that offers numerous benefits beyond
               just covering costs.
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+          {/* Cards Grid */}
+          <div
+            className="grid grid-cols-1 md:grid-cols-2 gap-8"
+            data-aos="fade-up"
+          >
             {/* Advantage Card 1 */}
-            <div className="flex flex-col sm:flex-row items-center sm:items-start p-6 rounded-lg bg-gray-50 border border-gray-100 transition-all duration-300 transform hover:scale-105 hover:shadow-xl">
-              <div className="flex-shrink-0">
-                {/* Icon for Financial Independence */}
+            <div
+              className="flex flex-col sm:flex-row items-center sm:items-start p-6 rounded-lg bg-gray-50 border border-gray-100 transition-all duration-300 transform hover:scale-105 hover:shadow-xl"
+              data-aos="fade-right"
+            >
+              <div className="flex-shrink-0" data-aos="zoom-in">
                 <img
                   src="/assets/images/Financial-Independence.gif"
                   alt="Financial Independence"
                 />
               </div>
-              <div className="ml-0 sm:ml-6 mt-4 sm:mt-0 text-center sm:text-left">
+              <div
+                className="ml-0 sm:ml-6 mt-4 sm:mt-0 text-center sm:text-left"
+                data-aos="fade-up"
+              >
                 <h3 className="text-xl font-bold text-gray-800">
                   Financial Independence
                 </h3>
@@ -398,15 +376,20 @@ const AbroadEducation: React.FC = () => {
             </div>
 
             {/* Advantage Card 2 */}
-            <div className="flex flex-col sm:flex-row items-center sm:items-start p-6 rounded-lg bg-gray-50 border border-gray-100 transition-all duration-300 transform hover:scale-105 hover:shadow-xl">
-              <div className="flex-shrink-0">
-                {/* Icon for Comprehensive Coverage */}
+            <div
+              className="flex flex-col sm:flex-row items-center sm:items-start p-6 rounded-lg bg-gray-50 border border-gray-100 transition-all duration-300 transform hover:scale-105 hover:shadow-xl"
+              data-aos="fade-right"
+            >
+              <div className="flex-shrink-0" data-aos="zoom-in">
                 <img
                   src="/assets/images/CoverAllYourNeeds.gif"
-                  alt="CoverAllYourNeeds"
+                  alt="Cover All Your Needs"
                 />
               </div>
-              <div className="ml-0 sm:ml-6 mt-4 sm:mt-0 text-center sm:text-left">
+              <div
+                className="ml-0 sm:ml-6 mt-4 sm:mt-0 text-center sm:text-left"
+                data-aos="fade-up"
+              >
                 <h3 className="text-xl font-bold text-gray-800">
                   Cover All Your Needs
                 </h3>
@@ -419,15 +402,20 @@ const AbroadEducation: React.FC = () => {
             </div>
 
             {/* Advantage Card 3 */}
-            <div className="flex flex-col sm:flex-row items-center sm:items-start p-6 rounded-lg bg-gray-50 border border-gray-100 transition-all duration-300 transform hover:scale-105 hover:shadow-xl">
-              <div className="flex-shrink-0">
-                {/* Icon for Flexible Repayment */}
+            <div
+              className="flex flex-col sm:flex-row items-center sm:items-start p-6 rounded-lg bg-gray-50 border border-gray-100 transition-all duration-300 transform hover:scale-105 hover:shadow-xl"
+              data-aos="fade-right"
+            >
+              <div className="flex-shrink-0" data-aos="zoom-in">
                 <img
                   src="/assets/images/Flexible-Repayment.gif"
-                  alt="Flexible-Repayment"
+                  alt="Flexible Repayment"
                 />
               </div>
-              <div className="ml-0 sm:ml-6 mt-4 sm:mt-0 text-center sm:text-left">
+              <div
+                className="ml-0 sm:ml-6 mt-4 sm:mt-0 text-center sm:text-left"
+                data-aos="fade-up"
+              >
                 <h3 className="text-xl font-bold text-gray-800">
                   Flexible Repayment Options
                 </h3>
@@ -440,15 +428,20 @@ const AbroadEducation: React.FC = () => {
             </div>
 
             {/* Advantage Card 4 */}
-            <div className="flex flex-col sm:flex-row items-center sm:items-start p-6 rounded-lg bg-gray-50 border border-gray-100 transition-all duration-300 transform hover:scale-105 hover:shadow-xl">
-              <div className="flex-shrink-0">
-                {/* Icon for Credit History */}
+            <div
+              className="flex flex-col sm:flex-row items-center sm:items-start p-6 rounded-lg bg-gray-50 border border-gray-100 transition-all duration-300 transform hover:scale-105 hover:shadow-xl"
+              data-aos="fade-right"
+            >
+              <div className="flex-shrink-0" data-aos="zoom-in">
                 <img
                   src="/assets/images/Financial-Discipline.gif"
-                  alt="Build-Financial-Discipline"
+                  alt="Build Financial Discipline"
                 />
               </div>
-              <div className="ml-0 sm:ml-6 mt-4 sm:mt-0 text-center sm:text-left">
+              <div
+                className="ml-0 sm:ml-6 mt-4 sm:mt-0 text-center sm:text-left"
+                data-aos="fade-up"
+              >
                 <h3 className="text-xl font-bold text-gray-800">
                   Build Financial Discipline
                 </h3>
@@ -464,14 +457,25 @@ const AbroadEducation: React.FC = () => {
       </section>
 
       {/* Why Choose VSource */}
-      <section className="py-10 bg-gray-50">
+      <section
+        className="py-10 bg-gray-50"
+        data-aos="fade-up"
+        data-aos-offset="100"
+        data-aos-duration="700"
+      >
         <div className="w-full max-w-[1400px] mx-auto px-6">
           {/* Heading */}
-          <div className="text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 leading-tight">
+          <div className="text-center mb-12" data-aos="fade-down">
+            <h2
+              className="text-3xl sm:text-4xl font-extrabold text-gray-900 leading-tight"
+              data-aos="fade-up"
+            >
               Why Choose <span className="text-red-600">VSource</span>
             </h2>
-            <p className="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">
+            <p
+              className="mt-4 text-lg text-gray-600 max-w-3xl mx-auto"
+              data-aos="fade-up"
+            >
               We offer a tailored approach to secure your education loan,
               ensuring you have the support and resources you need for your
               academic journey.
@@ -479,30 +483,38 @@ const AbroadEducation: React.FC = () => {
           </div>
 
           {/* Features Section */}
-          <div className="flex flex-col md:flex-row bg-white rounded-2xl shadow-xl overflow-hidden">
+          <div
+            className="flex flex-col md:flex-row bg-white rounded-2xl shadow-xl overflow-hidden"
+            data-aos="fade-up"
+          >
             {/* Left Side: Navigation Panel */}
-            <div className="w-full md:w-1/3 p-6 bg-blue-600 flex flex-col space-y-3">
-              <h2 className="text-2xl font-bold text-white mb-4">
+            <div
+              className="w-full md:w-1/3 p-6 bg-blue-600 flex flex-col space-y-3"
+              data-aos="fade-right"
+            >
+              <h2
+                className="text-2xl font-bold text-white mb-4"
+                data-aos="zoom-in"
+              >
                 Our Features
               </h2>
               {features.map((feature, index) => (
                 <button
                   key={index}
                   onClick={() => setActiveIndex(index)}
-                  className={`group flex items-center p-1 rounded-lg transition-all duration-300
-                                    ${
-                                      index === activeIndex
-                                        ? " text-yellow-400"
-                                        : "text-white  "
-                                    }`}
+                  className={`group flex items-center p-1 rounded-lg transition-all duration-300 ${
+                    index === activeIndex ? "text-yellow-400" : "text-white"
+                  }`}
+                  data-aos="fade-up"
+                  data-aos-delay={50 + index * 50}
                 >
                   <div
-                    className={`p-2.5 rounded-full transition-all duration-300 animate-pulse-scale bg-white
-                                            }`}
+                    className={`p-2.5 rounded-full transition-all duration-300 animate-pulse-scale bg-white`}
+                    data-aos="zoom-in"
+                    data-aos-delay={50 + index * 50}
                   >
                     {feature.icon}
                   </div>
-
                   <h3 className="ml-3 font-medium text-base sm:text-lg">
                     {feature.title}
                   </h3>
@@ -511,12 +523,16 @@ const AbroadEducation: React.FC = () => {
             </div>
 
             {/* Right Side: Feature Content */}
-            <div className="w-full md:w-2/3 relative flex items-end justify-end min-h-[320px] sm:min-h-[400px]">
+            <div
+              className="w-full md:w-2/3 relative flex items-end justify-end min-h-[320px] sm:min-h-[400px]"
+              data-aos="fade-right"
+            >
               {/* Background Image */}
               <img
                 src={features[activeIndex].image}
                 alt={features[activeIndex].title}
                 className="absolute inset-0 w-full h-full object-cover"
+                data-aos="zoom-in"
               />
               <div className="absolute inset-0 bg-black/70"></div>
 
@@ -524,6 +540,7 @@ const AbroadEducation: React.FC = () => {
               <div
                 key={activeIndex}
                 className="relative z-10 px-6 sm:px-10 py-8 text-center md:text-left text-white transition-opacity duration-500"
+                data-aos="fade-up"
               >
                 <h3 className="text-2xl sm:text-4xl font-extrabold mb-3 leading-tight">
                   {features[activeIndex].title}
@@ -536,22 +553,34 @@ const AbroadEducation: React.FC = () => {
           </div>
         </div>
       </section>
+
       {/* Eligibility */}
-      <section className="py-10">
+      <section
+        className="py-10"
+        data-aos="fade-up"
+        data-aos-offset="100"
+        data-aos-duration="700"
+      >
         <div className="w-full max-w-[1400px] mx-auto px-6">
-          <h2 className="text-3xl font-bold mb-6 text-center text-gray-800">
-            {data?.heading2 || "Eligibility for an Education Loan"}
+          {/* Section Heading */}
+          <h2
+            className="text-3xl font-bold mb-6 text-center text-gray-800"
+            data-aos="fade-down"
+          >
+            Eligibility for an Education Loan
           </h2>
-          <p className="mb-10 text-gray-700 text-center">
-            {data?.eligible_description ||
-              "Applicants must meet the following criteria to qualify:"}
+          <p className="mb-10 text-gray-700 text-center" data-aos="fade-up">
+            Applicants must meet the following criteria to qualify:
           </p>
 
           <div className="w-full">
             {/* Desktop Table */}
-            <div className="hidden md:block">
+            <div className="hidden md:block" data-aos="fade-up">
               <table className="w-full border border-gray-300 border-collapse text-left text-sm rounded-xl overflow-hidden shadow-md">
-                <thead className="bg-red-600 text-white text-base">
+                <thead
+                  className="bg-red-600 text-white text-base"
+                  data-aos="fade-down"
+                >
                   <tr>
                     <th className="p-4 border-r border-gray-300 w-1/3">
                       Criteria
@@ -560,59 +589,118 @@ const AbroadEducation: React.FC = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {data &&
-                    data?.eligible &&
-                    data?.eligible?.map((row, i) => (
-                      <tr
-                        key={row?.id || i}
-                        className={`hover:bg-gray-50 transition-colors ${
-                          i % 2 === 0 ? "bg-white" : "bg-red-50"
-                        }`}
-                      >
-                        <td className="p-4 font-medium text-gray-800 border-r border-gray-300">
-                          {row?.criteria}
-                        </td>
-                        <td className="p-4 text-gray-700">{row?.details}</td>
-                      </tr>
-                    ))}
+                  {[
+                    [
+                      "Income Proof",
+                      "Parent/co-borrower must show repayment ability (salary slips, bank statements, or ITR).",
+                    ],
+                    [
+                      "Nationality",
+                      "Must be an Indian citizen. NRIs/foreign students applying in India need RBI approvals.",
+                    ],
+                    [
+                      "Age",
+                      "Typically 18–35 years at application. Some banks may extend based on program.",
+                    ],
+                    [
+                      "Admission Status",
+                      "Confirmed admission to a recognized university/institution is mandatory.",
+                    ],
+                    [
+                      "Co-borrower Requirement",
+                      "Most lenders require a parent, guardian, or spouse as co-borrower/guarantor.",
+                    ],
+                    [
+                      "Academic Performance",
+                      "Good academic track record required. Minimum score cut-off applies for unsecured loans.",
+                    ],
+                  ].map((row, i) => (
+                    <tr
+                      key={i}
+                      className={`hover:bg-gray-50 transition-colors ${
+                        i % 2 === 0 ? "bg-white" : "bg-red-50"
+                      }`}
+                      data-aos="fade-up"
+                      data-aos-delay={50 + i * 50}
+                    >
+                      <td className="p-4 font-medium text-gray-800 border-r border-gray-300">
+                        {row[0]}
+                      </td>
+                      <td className="p-4 text-gray-700">{row[1]}</td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             </div>
 
             {/* Mobile Cards */}
-            <div className="md:hidden space-y-4">
-              {data &&
-                data?.eligible &&
-                data?.eligible?.map((row, i) => (
-                  <div
-                    key={row?.id || i}
-                    className="border border-gray-200 rounded-lg p-4 shadow-sm bg-white"
-                  >
-                    <p className="font-semibold text-red-600 mb-2">
-                      {" "}
-                      {row?.criteria}
-                    </p>
-                    <p className="text-sm text-gray-700 leading-relaxed">
-                      {row?.details}
-                    </p>
-                  </div>
-                ))}
+            <div className="md:hidden space-y-4" data-aos="fade-up">
+              {[
+                [
+                  "Income Proof",
+                  "Parent/co-borrower must show repayment ability with salary slips, bank statements, or ITR.",
+                ],
+                [
+                  "Nationality",
+                  "Indian citizen. NRIs/foreign students need RBI approval when applying in India.",
+                ],
+                [
+                  "Age",
+                  "Must be between 18–35 years (flexible for some programs).",
+                ],
+                [
+                  "Admission Status",
+                  "Admission to a recognized university is mandatory (provisional may be accepted).",
+                ],
+                [
+                  "Co-borrower Requirement",
+                  "Parent, guardian, or spouse usually required as co-borrower.",
+                ],
+                [
+                  "Academic Performance",
+                  "Strong academic record needed. Cut-off scores apply for unsecured loans.",
+                ],
+              ].map((row, i) => (
+                <div
+                  key={i}
+                  className="border border-gray-200 rounded-lg p-4 shadow-sm bg-white"
+                  data-aos="zoom-in-up"
+                  data-aos-delay={50 + i * 50}
+                >
+                  <p className="font-semibold text-red-600 mb-2">{row[0]}</p>
+                  <p className="text-sm text-gray-700 leading-relaxed">
+                    {row[1]}
+                  </p>
+                </div>
+              ))}
             </div>
           </div>
         </div>
       </section>
+
       {/* Loan Partners Section */}
       <Banksloans />
-      {/* Loan Schemes */}
-      <section className="py-10 bg-gray-50">
+      {/* Loan Schemes and Lenders */}
+      <section
+        className="py-10 bg-gray-50"
+        data-aos="fade-up"
+        data-aos-offset="100"
+        data-aos-duration="700"
+      >
         <div className="w-full max-w-[1400px] mx-auto px-6">
-          <h2 className="text-2xl font-bold mb-8 text-center">
+          {/* Section Heading */}
+          <h2
+            className="text-2xl md:text-3xl font-bold mb-8 text-center text-gray-800"
+            data-aos="fade-down"
+          >
             Loan Schemes and Lenders
           </h2>
-          <div className="overflow-x-auto">
-            <table className="w-full border-collapse border border-gray-200 text-sm">
-              <thead>
-                <tr className="bg-purple-600 text-white">
+
+          {/* Table Wrapper */}
+          <div className="overflow-x-auto" data-aos="fade-up">
+            <table className="w-full border-collapse border border-gray-200 text-sm rounded-xl overflow-hidden shadow-md">
+              <thead className="bg-purple-600 text-white" data-aos="fade-down">
+                <tr>
                   <th className="border border-gray-200 px-4 py-3 text-left">
                     Bank
                   </th>
@@ -624,65 +712,59 @@ const AbroadEducation: React.FC = () => {
                   </th>
                 </tr>
               </thead>
+
               <tbody>
-                {(
-                  (data && data?.schemes_lenders && data?.schemes_lenders) || [
-                    {
-                      id: 1,
-                      bank: "State Bank of India",
-                      scheme: "SBI Global Ed-Vantage Scheme",
-                      tenure: "Up to 15 years",
-                    },
-                    {
-                      id: 2,
-                      bank: "Punjab National Bank",
-                      scheme: "PNB Udaan",
-                      tenure: "Up to 15 years",
-                    },
-                    {
-                      id: 3,
-                      bank: "Bank of Baroda",
-                      scheme: "Baroda Scholar",
-                      tenure: "Up to 10 years",
-                    },
-                    {
-                      id: 4,
-                      bank: "HDFC Bank",
-                      scheme: "HDFC Credila Education Loan",
-                      tenure: "Up to 12 years",
-                    },
-                    {
-                      id: 5,
-                      bank: "Axis Bank",
-                      scheme: "Axis Bank Education Loan",
-                      tenure: "Up to 15 years",
-                    },
-                    {
-                      id: 6,
-                      bank: "Indian Bank",
-                      scheme: "Indian Bank Overseas Education Loan",
-                      tenure: "Up to 15 years",
-                    },
-                    {
-                      id: 7,
-                      bank: "Indian Overseas Bank",
-                      scheme: "Vidya Jyoti",
-                      tenure: "Repayment period + 1 year",
-                    },
-                  ]
-                )?.map((row, i) => (
+                {[
+                  {
+                    bank: "State Bank of India",
+                    scheme: "SBI Global Ed-Vantage Scheme",
+                    tenure: "Up to 15 years",
+                  },
+                  {
+                    bank: "Punjab National Bank",
+                    scheme: "PNB Udaan",
+                    tenure: "Up to 15 years",
+                  },
+                  {
+                    bank: "Bank of Baroda",
+                    scheme: "Baroda Scholar",
+                    tenure: "Up to 10 years",
+                  },
+                  {
+                    bank: "HDFC Bank",
+                    scheme: "HDFC Credila Education Loan",
+                    tenure: "Up to 12 years",
+                  },
+                  {
+                    bank: "Axis Bank",
+                    scheme: "Axis Bank Education Loan",
+                    tenure: "Up to 15 years",
+                  },
+                  {
+                    bank: "Indian Bank",
+                    scheme: "Indian Bank Overseas Education Loan",
+                    tenure: "Up to 15 years",
+                  },
+                  {
+                    bank: "Indian Overseas Bank",
+                    scheme: "Vidya Jyoti",
+                    tenure: "Repayment period + 1 year",
+                  },
+                ].map((row, i) => (
                   <tr
-                    key={row?.id || i}
-                    className="odd:bg-white even:bg-gray-100 hover:bg-purple-50"
+                    key={i}
+                    className="odd:bg-white even:bg-gray-100 hover:bg-purple-50 transition-colors duration-200"
+                    data-aos="fade-up"
+                    data-aos-delay={50 + i * 50}
                   >
-                    <td className="border border-gray-200 px-4 py-3">
-                      {row?.bank}
+                    <td className="border border-gray-200 px-4 py-3 font-medium text-gray-800">
+                      {row.bank}
                     </td>
-                    <td className="border border-gray-200 px-4 py-3">
-                      {row?.scheme}
+                    <td className="border border-gray-200 px-4 py-3 text-gray-700">
+                      {row.scheme}
                     </td>
-                    <td className="border border-gray-200 px-4 py-3">
-                      {row?.tenure}
+                    <td className="border border-gray-200 px-4 py-3 text-gray-700">
+                      {row.tenure}
                     </td>
                   </tr>
                 ))}
@@ -691,6 +773,7 @@ const AbroadEducation: React.FC = () => {
           </div>
         </div>
       </section>
+
       <AbroadForm />
       <style>
         {`

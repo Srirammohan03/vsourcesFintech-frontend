@@ -21,29 +21,6 @@ import {
   Building,
 } from "lucide-react";
 import DelayedPopup from "@/components/DelayedPopup";
-import qs from "qs";
-import axios from "axios";
-import { toast } from "sonner";
-import type { EducationLoan } from "@/lib/types/OurService";
-import { useQuery } from "@tanstack/react-query";
-import CreditCardSkeleton from "@/Loaders/our-services/CreditCardSkeleton";
-import RichText from "@/utils/RichText";
-const query = qs.stringify({
-  populate: {
-    our_services: {
-      on: {
-        "fintech.education-loan": {
-          populate: {
-            background_image: { fields: ["url", "name", "documentId"] },
-            lists: true,
-            sub_topic: true,
-            faq_detail: true,
-          },
-        },
-      },
-    },
-  },
-});
 interface BenefitItem {
   id: number;
   image: string;
@@ -262,97 +239,72 @@ const loanData = {
     bgColor: "bg-purple-600",
   },
 };
-interface BenefitItem {
-  id: number;
-  image: string;
-  heading: string;
-  paragraph: string;
-}
-
 const benefitData: BenefitItem[] = [
   {
     id: 1,
-    image:
-      "https://res.cloudinary.com/dch00stdh/image/upload/v1762857041/xtjytiamvgxbkgxd6a0u.jpg",
+    image: "/assets/images/benfit-1.png",
     heading: "Enhanced Productivity",
     paragraph:
       "Streamline your workflow and get more done in less time with our intuitive tools.",
   },
   {
     id: 2,
-    image:
-      "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762857042/zmrni2mldc7ec7f1tnvg.jpg",
+    image: "/assets/images/benfit-2.png",
     heading: "Improved Collaboration",
     paragraph:
       "Work together seamlessly with your team on shared projects, no matter where you are.",
   },
   {
     id: 3,
-    image:
-      "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762857041/mb3arbfq1n9xbmeoigpp.jpg",
+    image: "/assets/images/benfit-3.png",
     heading: "Cost Savings",
     paragraph:
       "Reduce overhead and lower operational costs by adopting our efficient platform.",
   },
   {
     id: 4,
-    image:
-      "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762857041/piucbmgbewi3wvbxlf0j.jpg",
+    image: "/assets/images/benfit-4.png",
     heading: "Data-Driven Decisions",
     paragraph:
       "Gain valuable insights from your data to make smarter, more informed business choices.",
   },
   {
     id: 5,
-    image:
-      "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762857041/arpvxtuiirygnopvwnf7.jpg",
+    image: "/assets/images/benfit-5.png",
     heading: "Scalable Solutions",
     paragraph:
       "Our solution grows with you, providing the flexibility to handle your expanding needs.",
   },
   {
     id: 6,
-    image:
-      "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762857042/uekr3umceflvwljf2un5.jpg",
+    image: "/assets/images/benfit-6.png",
     heading: "Increased Security",
     paragraph:
       "Protect your sensitive information with our robust, industry-leading security features.",
   },
   {
     id: 7,
-    image:
-      "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762857042/lufwibaep1li3zh858dl.jpg",
+    image: "/assets/images/benfit-7.png",
     heading: "Customer Satisfaction",
     paragraph:
       "Delight your customers with a seamless experience and exceptional support.",
   },
   {
     id: 8,
-    image:
-      "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762857042/coj3ceyjjr3gemrfua5i.jpg",
+    image: "/assets/images/benfit-8.png",
     heading: "Market Expansion",
     paragraph:
       "Enter new markets and reach a wider audience with our global-ready capabilities.",
   },
   {
     id: 9,
-    image:
-      "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762857041/bsdtendowvcesmy8f7ua.jpg",
+    image: "/assets/images/benfit-9.png",
     heading: "Swift Approvals",
     paragraph:
       "The streamlined approval process of an online education loan ensures prompt access to the necessary support",
   },
 ];
-const fetchEducationLoan = async () => {
-  const { data } = await axios.get(
-    `${import.meta.env.VITE_CMS_GLOBALURL}/api/our-service?${query}`
-  );
-  return data?.data?.our_services[0] || {};
-};
-
 const EducationLoan: React.FC = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [showPopup, setShowPopup] = useState(false);
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const [activeLoan, setActiveLoan] = useState("secured");
   const toggleFAQ = (index: number) => {
@@ -360,10 +312,6 @@ const EducationLoan: React.FC = () => {
   };
   const containerRef = useRef<HTMLDivElement>(null);
   const [isPaused, setIsPaused] = useState(false);
-  const { data, isLoading, isError, error } = useQuery<EducationLoan>({
-    queryKey: ["educationloan"],
-    queryFn: fetchEducationLoan,
-  });
 
   useEffect(() => {
     const container = containerRef.current;
@@ -373,30 +321,31 @@ const EducationLoan: React.FC = () => {
 
     const scroll = () => {
       if (!isPaused) {
+        // Increment the scroll position
         container.scrollLeft += 1;
-
-        // when we reach halfway (first dataset fully scrolled), reset smoothly
-        if (container.scrollLeft >= container.scrollWidth / 2) {
+        // If we reach the end, jump back to the start for an infinite loop effect
+        if (
+          container.scrollLeft >=
+          container.scrollWidth - container.clientWidth
+        ) {
           container.scrollLeft = 0;
         }
       }
       animationFrameId = requestAnimationFrame(scroll);
     };
 
+    // Start the scrolling animation
     animationFrameId = requestAnimationFrame(scroll);
 
-    return () => cancelAnimationFrame(animationFrameId);
+    // Cleanup function to stop the animation when the component unmounts
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+    };
   }, [isPaused]);
 
-  if (isError) {
-    toast.error("failed to load");
-    console.log("failed to load", error);
-    return null;
-  }
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [showPopup, setShowPopup] = useState(false);
 
-  if (isLoading || !data) {
-    return <CreditCardSkeleton />;
-  }
   const handlePopupClose = () => {
     setShowPopup(false);
   };
@@ -425,20 +374,20 @@ const EducationLoan: React.FC = () => {
               />
             </div>
             <h1 className="text-3xl md:text-4xl font-bold leading-tight">
-              {data?.heading || "Student Education Loans"}
+              Student Education Loans
             </h1>
             <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {data &&
-                data?.lists &&
-                data?.lists.map((item, i) => (
-                  <li
-                    key={item?.id || i}
-                    className="flex items-center gap-2 lg:text-white"
-                  >
-                    <CheckCircle className="w-5 h-5 text-yellow-300 flex-shrink-0" />
-                    {item?.list}
-                  </li>
-                ))}
+              {[
+                "No Credit History Required",
+                "Build Your U.S. Credit Score from Day One",
+                "Easy Online Application",
+                "Exclusive Student Rewards",
+              ].map((item, i) => (
+                <li key={i} className="flex items-center gap-2 lg:text-white">
+                  <CheckCircle className="w-5 h-5 text-yellow-300 flex-shrink-0" />
+                  {item}
+                </li>
+              ))}
             </ul>
             <div className="flex gap-4 flex-wrap">
               <a
@@ -461,9 +410,7 @@ const EducationLoan: React.FC = () => {
         </div>
         <div className="hidden lg:block absolute inset-0">
           <img
-            src={
-              data?.background_image?.url || "/assets/images/education-loan.png"
-            }
+            src="/assets/images/education-loan.png"
             alt="Education Loan"
             className="w-full h-full object-cover"
           />
@@ -475,34 +422,24 @@ const EducationLoan: React.FC = () => {
         <div className="w-full max-w-[1400px] mx-auto px-6">
           <div className="py-10">
             <h2 className="text-2xl font-bold text-gray-800 mb-4 md:text-3xl">
-              {data?.sub_heading}
+              Student Loan
             </h2>
-
-            {data?.description ? (
-              <p className="text-gray-600 md:text-base text-justify">
-                <RichText content={data?.description} />
-              </p>
-            ) : (
-              <>
-                {" "}
-                <p className="text-gray-600 mb-4 md:text-base text-justify">
-                  A student loan is a form of financial aid that helps students
-                  pay for higher education expenses, including tuition, fees,
-                  books, and living costs. Unlike grants or scholarships, a loan
-                  must be repaid, usually with interest. These loans can be a
-                  critical tool for those who cannot afford college outright,
-                  but it's essential to understand the terms and conditions.
-                </p>
-                <p className="text-gray-600 md:text-base text-justify">
-                  Choosing a student loan is a significant financial decision
-                  that can affect your finances for years after graduation. It's
-                  crucial to borrow only what you need and to explore all your
-                  options, including scholarships, grants, and federal
-                  work-study programs, before taking on debt. Once you have a
-                  loan, managing it wisely is key.
-                </p>
-              </>
-            )}
+            <p className="text-gray-600 mb-4 md:text-base text-justify">
+              A student loan is a form of financial aid that helps students pay
+              for higher education expenses, including tuition, fees, books, and
+              living costs. Unlike grants or scholarships, a loan must be
+              repaid, usually with interest. These loans can be a critical tool
+              for those who cannot afford college outright, but it's essential
+              to understand the terms and conditions.
+            </p>
+            <p className="text-gray-600 md:text-base text-justify">
+              Choosing a student loan is a significant financial decision that
+              can affect your finances for years after graduation. It's crucial
+              to borrow only what you need and to explore all your options,
+              including scholarships, grants, and federal work-study programs,
+              before taking on debt. Once you have a loan, managing it wisely is
+              key.
+            </p>
           </div>
         </div>
         <div className="bg-white py-12 px-4 md:px-8 overflow-hidden">
@@ -515,25 +452,28 @@ const EducationLoan: React.FC = () => {
             onMouseEnter={() => setIsPaused(true)}
             onMouseLeave={() => setIsPaused(false)}
             style={{
+              // Hide scrollbar for Chrome, Safari, and Edge
               WebkitOverflowScrolling: "touch",
               msOverflowStyle: "none",
               scrollbarWidth: "none",
             }}
           >
-            {[...benefitData, ...benefitData].map((benefit, idx) => (
+            {benefitData.map((benefit) => (
               <div
-                key={idx} // use index here since data is duplicated
+                key={benefit.id}
                 className="relative flex-shrink-0 w-72 h-96 rounded-xl shadow-lg overflow-hidden"
               >
-                <div className="absolute inset-x-0 top-0 p-4 text-white bg-gradient-to-b from-black/60 to-transparent">
+                <div className="absolute inset-x-0 top-0 p-4  text-white">
                   <h3 className="text-xl font-bold mb-1">{benefit.heading}</h3>
                   <p className="text-sm font-medium">{benefit.paragraph}</p>
                 </div>
+                {/* Image fills the card */}
                 <img
                   src={benefit.image}
                   alt={benefit.heading}
                   className="w-72 h-96 object-cover"
                 />
+                {/* Text positioned at the bottom of the card, on top of the image */}
               </div>
             ))}
           </div>
@@ -541,65 +481,372 @@ const EducationLoan: React.FC = () => {
       </section>
       <section>
         <div className="w-full max-w-[1400px] mx-auto px-6">
-          {data &&
-            data?.sub_topic &&
-            data?.sub_topic.map((sub, i) => (
-              <div className="py-2" key={sub.id || i}>
-                <h2 className="text-2xl font-bold text-gray-800 mb-4 md:text-3xl">
-                  {sub?.heading || "Education Loan EMI Calculator"}
-                </h2>
-                <p className="text-gray-600 mb-4 md:text-base text-justify">
-                  {sub?.description ||
-                    "Use our Education Loan EMI Calculator to estimate your monthly installments instantly. Adjust loan amount, interest rate, and tenure to plan repayments with confidence. This tool helps students and parents understand repayment obligations clearly and make informed financial decisions before borrowing."}
-                </p>
-              </div>
-            ))}
+          <div className="py-2">
+            <h2 className="text-2xl font-bold text-gray-800 mb-4 md:text-3xl">
+              Education Loan EMI Calculator
+            </h2>
+            <p className="text-gray-600 mb-4 md:text-base text-justify">
+              Use our Education Loan EMI Calculator to estimate your monthly
+              installments instantly. Adjust loan amount, interest rate, and
+              tenure to plan repayments with confidence. This tool helps
+              students and parents understand repayment obligations clearly and
+              make informed financial decisions before borrowing.
+            </p>
+          </div>
+
+          <div className="py-2">
+            <h2 className="text-2xl font-bold text-gray-800 mb-4 md:text-3xl">
+              Education Loan Eligibility
+            </h2>
+            <p className="text-gray-600 mb-4 md:text-base text-justify">
+              Check the eligibility criteria such as age, academic background,
+              and co-applicant income requirements. Ensure you meet the lender’s
+              conditions before applying for a loan. Typically, a confirmed
+              admission letter, good academic track record, and co-borrower
+              support are mandatory for approval.
+            </p>
+          </div>
+
+          <div className="py-2">
+            <h2 className="text-2xl font-bold text-gray-800 mb-4 md:text-3xl">
+              Education Loan Tax Deduction Under 80E
+            </h2>
+            <p className="text-gray-600 mb-4 md:text-base text-justify">
+              Claim tax benefits on the interest paid towards education loans
+              under Section 80E of the Income Tax Act. Deductions are available
+              for up to 8 years from the start of repayment. This benefit
+              significantly reduces the overall cost of borrowing, making higher
+              education more affordable for students and their families.
+            </p>
+          </div>
+
+          <div className="py-2">
+            <h2 className="text-2xl font-bold text-gray-800 mb-4 md:text-3xl">
+              Education Loan Interest Rates and Charges
+            </h2>
+            <p className="text-gray-600 mb-4 md:text-base text-justify">
+              Compare interest rates, processing fees, and other charges across
+              leading banks and NBFCs. Transparent cost details help you choose
+              the most affordable loan option. Interest rates may vary depending
+              on creditworthiness, institution type, and repayment tenure, so
+              careful evaluation is essential.
+            </p>
+          </div>
+
+          <div className="py-2">
+            <h2 className="text-2xl font-bold text-gray-800 mb-4 md:text-3xl">
+              Documents Required for an Education Loan
+            </h2>
+            <p className="text-gray-600 mb-4 md:text-base text-justify">
+              Prepare essential documents including admission proof, ID,
+              address, academic records, and co-applicant financials. Submitting
+              complete paperwork speeds up loan approval. Missing or inaccurate
+              documents may delay disbursal, so double-check requirements before
+              applying to avoid rejections.
+            </p>
+          </div>
         </div>
       </section>
+
+      <section className="py-16 bg-gray-50">
+        <div className="w-full max-w-[1400px] mx-auto px-6 text-center">
+          <h2 className="text-3xl font-bold mb-12">
+            Explore Our Education Loans
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <motion.div
+              whileHover={{ scale: 1.03 }}
+              className="relative rounded-2xl shadow-md overflow-hidden"
+            >
+              <div
+                className="absolute inset-0 bg-cover bg-center"
+                style={{
+                  backgroundImage:
+                    "url('/assets/images/Domestic-Education.png')",
+                }}
+              />
+              <div className="absolute inset-0 bg-black/70" />
+
+              <div className="relative p-8 text-left space-y-4 text-white">
+                <h3 className="text-xl font-semibold">
+                  Domestic Education Loans
+                </h3>
+                <ul className="list-disc list-inside space-y-2">
+                  <li>Quick approval process</li>
+                  <li>Competitive interest rates</li>
+                  <li>No collateral for smaller amounts</li>
+                </ul>
+                <Button className="mt-4 text-white bg-red-600 font-semibold">
+                  Speak to an Advisor
+                </Button>
+              </div>
+            </motion.div>
+
+            <motion.div
+              whileHover={{ scale: 1.03 }}
+              className="relative rounded-2xl shadow-md overflow-hidden"
+            >
+              <div
+                className="absolute inset-0 bg-cover bg-center"
+                style={{
+                  backgroundImage: "url('/assets/images/Abroad-Education.jpg')",
+                }}
+              />
+              <div className="absolute inset-0 bg-black/70" />
+
+              <div className="relative p-8 text-left space-y-4 text-white">
+                <h3 className="text-xl font-semibold">
+                  Abroad Education Loans
+                </h3>
+                <ul className="list-disc list-inside space-y-2">
+                  <li>Covers tuition + living expenses</li>
+                  <li>Longer repayment tenure</li>
+                  <li>Moratorium period till course completion</li>
+                </ul>
+                <Button className="mt-4 text-white bg-red-600 font-semibold ">
+                  Speak to an Advisor
+                </Button>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-10">
+        <div className="w-full max-w-[1400px] mx-auto px-6">
+          <h2 className="text-3xl font-bold mb-6 text-center text-gray-800">
+            Eligibility for an Education Loan
+          </h2>
+          <p className="mb-10 text-gray-700 text-center">
+            Applicants must meet the following criteria to qualify:
+          </p>
+
+          <div className="w-full">
+            <div className="hidden md:block">
+              <table className="w-full border border-gray-300 border-collapse text-left text-sm rounded-xl overflow-hidden shadow-md">
+                <thead className="bg-red-600 text-white text-base">
+                  <tr>
+                    <th className="p-4 border-r border-gray-300 w-1/3">
+                      Criteria
+                    </th>
+                    <th className="p-4">Details</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {[
+                    [
+                      "Income Proof",
+                      "Parent/co-borrower must show repayment ability (salary slips, bank statements, or ITR).",
+                    ],
+                    [
+                      "Nationality",
+                      "Must be an Indian citizen. NRIs/foreign students applying in India need RBI approvals.",
+                    ],
+                    [
+                      "Age",
+                      "Typically 18–35 years at application. Some banks may extend based on program.",
+                    ],
+                    [
+                      "Admission Status",
+                      "Confirmed admission to a recognized university/institution is mandatory.",
+                    ],
+                    [
+                      "Co-borrower Requirement",
+                      "Most lenders require a parent, guardian, or spouse as co-borrower/guarantor.",
+                    ],
+                    [
+                      "Academic Performance",
+                      "Good academic track record required. Minimum score cut-off applies for unsecured loans.",
+                    ],
+                  ].map((row, i) => (
+                    <tr
+                      key={i}
+                      className={`hover:bg-gray-50 transition-colors ${
+                        i % 2 === 0 ? "bg-white" : "bg-red-50"
+                      }`}
+                    >
+                      <td className="p-4 font-medium text-gray-800 border-r border-gray-300">
+                        {row[0]}
+                      </td>
+                      <td className="p-4 text-gray-700">{row[1]}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <div className="md:hidden space-y-4">
+              {[
+                [
+                  "Income Proof",
+                  "Parent/co-borrower must show repayment ability with salary slips, bank statements, or ITR.",
+                ],
+                [
+                  "Nationality",
+                  "Indian citizen. NRIs/foreign students need RBI approval when applying in India.",
+                ],
+                [
+                  "Age",
+                  "Must be between 18–35 years (flexible for some programs).",
+                ],
+                [
+                  "Admission Status",
+                  "Admission to a recognized university is mandatory (provisional may be accepted).",
+                ],
+                [
+                  "Co-borrower Requirement",
+                  "Parent, guardian, or spouse usually required as co-borrower.",
+                ],
+                [
+                  "Academic Performance",
+                  "Strong academic record needed. Cut-off scores apply for unsecured loans.",
+                ],
+              ].map((row, i) => (
+                <div
+                  key={i}
+                  className="border border-gray-200 rounded-lg p-4 shadow-sm bg-white"
+                >
+                  <p className="font-semibold text-red-600 mb-2">{row[0]}</p>
+                  <p className="text-sm text-gray-700 leading-relaxed">
+                    {row[1]}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+      <section className="py-10 bg-gray-50">
+        <div className="bg-gray-50 flex flex-col items-center">
+          <div className="w-full max-w-[1400px] mx-auto px-6 bg-white">
+            <h2 className="text-3xl font-bold text-center text-gray-800 mb-2">
+              Documents Required for an Education Loan
+            </h2>
+            <p className="text-center text-gray-600 mb-8 max-w-2xl mx-auto">
+              To ensure a smooth loan application process, please prepare the
+              following documents. The list is categorized for both the student
+              and the co-applicant.
+            </p>
+          </div>
+
+          <div className="hidden md:block overflow-x-auto">
+            <table className="w-full text-left rounded-xl overflow-hidden shadow-lg border-separate border-spacing-0 border border-gray-300">
+              <thead className="bg-red-600 text-white text-md">
+                <tr className="[&>th]:p-4 [&>th]:border-r [&>th]:border-white/20 [&>th:last-child]:border-r-0">
+                  <th className="rounded-tl-xl border-b border-white/20">
+                    Document Type
+                  </th>
+                  <th className="border-b border-white/20">
+                    Applicant (Student)
+                  </th>
+                  <th className="rounded-tr-xl border-b border-white/20">
+                    Co-Applicant
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {documentData.map((row, i) => (
+                  <tr
+                    key={i}
+                    className={`border-t border-gray-200 transition-colors duration-200
+                      ${
+                        i % 2 === 0 ? "bg-white" : "bg-red-50"
+                      } hover:bg-red-100`}
+                  >
+                    <td className="p-4 font-semibold text-gray-800 flex items-center gap-2 border-r border-gray-200">
+                      {row.icon}
+                      <span>{row.type}</span>
+                    </td>
+                    <td className="p-4 border-r border-gray-200">
+                      <p className="text-gray-700">{row.applicant}</p>
+                      <p className="text-xs text-gray-500 mt-1">{row.note}</p>
+                    </td>
+                    <td className="p-4">
+                      <p className="text-gray-700">{row.coApplicant}</p>
+                      <p className="text-xs text-gray-500 mt-1">{row.note}</p>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <div className="md:hidden space-y-5 p-4">
+            {documentData.map((row, i) => (
+              <div
+                key={i}
+                className={`border border-red-200 rounded-xl p-5 shadow-md transition-shadow duration-300 hover:shadow-lg ${
+                  i % 2 === 0 ? "bg-red-50" : "bg-red-100"
+                }`}
+              >
+                <div className="flex items-center gap-2 mb-3">
+                  {row.icon}
+                  <h3 className="font-bold text-lg text-red-700">{row.type}</h3>
+                </div>
+                <div className="space-y-4 text-sm text-gray-700">
+                  <div className="p-3 bg-white rounded-lg shadow-inner">
+                    <p className="font-semibold text-gray-900 mb-1">
+                      Applicant (Student)
+                    </p>
+                    <p className="text-gray-700">{row.applicant}</p>
+                    <p className="text-xs text-gray-500 mt-1">{row.note}</p>
+                  </div>
+                  <div className="p-3 bg-white rounded-lg shadow-inner">
+                    <p className="font-semibold text-gray-900 mb-1">
+                      Co-Applicant
+                    </p>
+                    <p className="text-gray-700">{row.coApplicant}</p>
+                    <p className="text-xs text-gray-500 mt-1">{row.note}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
 
       <section className="py-20 bg-gray-50">
         <div className="w-full max-w-[1000px] mx-auto px-6">
           <h2 className="text-3xl font-bold mb-8 text-center">
-            {data?.faq_heading || " Frequently Asked Questions"}
+            Frequently Asked Questions
           </h2>
           <div className="space-y-4">
-            {data &&
-              data?.faq_detail &&
-              data?.faq_detail.map((faq, i) => (
-                <div
-                  key={i}
-                  className="bg-white rounded-xl shadow-md border border-gray-200"
+            {faqs.map((faq, i) => (
+              <div
+                key={i}
+                className="bg-white rounded-xl shadow-md border border-gray-200"
+              >
+                {/* Question Row */}
+                <button
+                  onClick={() => toggleFAQ(i)}
+                  className="w-full flex justify-between items-center p-5 text-left"
                 >
-                  {/* Question Row */}
-                  <button
-                    onClick={() => toggleFAQ(i)}
-                    className="w-full flex justify-between items-center p-5 text-left"
-                  >
-                    <span className="font-semibold">{faq.heading}</span>
-                    {openIndex === i ? (
-                      <Minus className="w-5 h-5 text-red-600" />
-                    ) : (
-                      <Plus className="w-5 h-5 text-red-600" />
-                    )}
-                  </button>
+                  <span className="font-semibold">{faq[0]}</span>
+                  {openIndex === i ? (
+                    <Minus className="w-5 h-5 text-red-600" />
+                  ) : (
+                    <Plus className="w-5 h-5 text-red-600" />
+                  )}
+                </button>
 
-                  {/* Answer with animation */}
-                  <AnimatePresence initial={false}>
-                    {openIndex === i && (
-                      <motion.div
-                        key="content"
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.3, ease: "easeInOut" }}
-                        className="overflow-hidden px-5 pb-4"
-                      >
-                        <p className="text-gray-700">{faq.description}</p>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-              ))}
+                {/* Answer with animation */}
+                <AnimatePresence initial={false}>
+                  {openIndex === i && (
+                    <motion.div
+                      key="content"
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3, ease: "easeInOut" }}
+                      className="overflow-hidden px-5 pb-4"
+                    >
+                      <p className="text-gray-700">{faq[1]}</p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            ))}
           </div>
         </div>
       </section>
