@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, memo } from "react";
 
 const AboutSection: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -379,4 +379,4 @@ const AboutSection: React.FC = () => {
   );
 };
 
-export default AboutSection;
+export default memo(AboutSection);

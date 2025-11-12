@@ -1,9 +1,6 @@
-import React from "react";
-
 import { lazy, Suspense } from "react";
 const Hero = lazy(() => import("@/components/Hero"));
 const AboutSection = lazy(() => import("./AboutSection"));
-// import AboutSection from "./AboutSection";
 const Accreditation = lazy(() => import("./AccreditationSection"));
 const ScholarshipsSection = lazy(
   () => import("@/components/home/ScholarshipsSection")
@@ -13,7 +10,6 @@ const ToolsSection = lazy(() => import("@/components/ToolsSection"));
 const WhyChooseLoan = lazy(() => import("@/components/WhyChooseLoan"));
 const StartJourneyCTA = lazy(() => import("@/components/StartJourneyCTA"));
 
-// Lazy Imports
 const VideoSection = lazy(() => import("@/components/VideoSection"));
 const VideoCarousel = lazy(() => import("@/components/home/VideoCarousel"));
 const Banksloans = lazy(() => import("./Banksloans"));

@@ -1,16 +1,16 @@
-import React, { lazy } from "react";
+import { lazy, memo } from "react";
 import { motion } from "framer-motion";
-// import SearchHero from "./SearchHero";
 const SearchHero = lazy(() => import("./SearchHero"));
+
 const countryCodes = {
   fr: "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762702273/fr_cdemdi.svg",
   us: "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762702274/us_ruv7bj.svg",
   ie: "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762702273/ie_eixitt.svg",
   ca: "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762702273/ca_p8rr4y.svg",
   gb: "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762702273/gb_ywaagd.svg",
-}; // add your codes
+};
 
-export default function HeroSection() {
+function HeroSection() {
   return (
     <section className="relative w-full text-white overflow-hidden">
       {/* === Background image === */}
@@ -99,3 +99,5 @@ export default function HeroSection() {
     </section>
   );
 }
+
+export default memo(HeroSection);

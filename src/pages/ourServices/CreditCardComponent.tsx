@@ -27,7 +27,6 @@ import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import { CreditCardService } from "@/lib/types/OurService";
 import { toast } from "sonner";
-import HeroSkeleton from "@/Loaders/LandingPages/HeroSkeleton";
 import { HighlightedText } from "@/utils/HighlightedText";
 import CreditCardSkeleton from "@/Loaders/our-services/CreditCardSkeleton";
 
