@@ -18,58 +18,12 @@ import {
   Package,
   Landmark,
   UserCheck,
-  HelpCircle,
 } from "lucide-react";
 import { ChevronRight, Check } from "lucide-react";
 import DelayedPopup from "@/components/DelayedPopup";
-import qs from "qs";
-import axios from "axios";
-import { useQuery } from "@tanstack/react-query";
-import { CreditCardService } from "@/lib/types/OurService";
-import { toast } from "sonner";
-import { HighlightedText } from "@/utils/HighlightedText";
-import CreditCardSkeleton from "@/Loaders/our-services/CreditCardSkeleton";
-
-const query = qs.stringify({
-  populate: {
-    our_services: {
-      on: {
-        "fintech.credit-card": {
-          populate: {
-            background_image: { fields: ["url", "name", "documentId"] },
-            list: true,
-            partner_image: { fields: ["url", "name", "documentId"] },
-            works_card: true,
-            financial_card: {
-              populate: {
-                image: { fields: ["url", "name", "documentId"] },
-                points: true,
-              },
-            },
-          },
-        },
-      },
-    },
-  },
-});
-
-const fetchAbroadEducation = async () => {
-  const { data } = await axios.get(
-    `${import.meta.env.VITE_CMS_GLOBALURL}/api/our-service?${query}`
-  );
-  return data?.data?.our_services[0] || {};
-};
 
 // Country Options
-const countries = [
-  "USA",
-  "UK",
-  "Canada",
-  "France",
-  "Ireland",
-  "Germany",
-  "Australia",
-];
+const countries = ["USA", "UK", "Canada", "France", "Ireland"];
 const howItWorksSteps = [
   {
     icon: <Laptop className="w-8 h-8" />,
@@ -204,32 +158,6 @@ const creditTypes = [
   },
 ];
 
-const staticCardProps = [
-  {
-    icon: <ShieldCheck className="w-10 h-10 text-blue-600 mb-2" />,
-    bgColor: "bg-blue-50",
-  },
-  {
-    icon: <GraduationCap className="w-10 h-10 text-green-600 mb-2" />,
-    bgColor: "bg-green-50",
-  },
-  {
-    icon: <DollarSign className="w-10 h-10 text-yellow-600 mb-2" />,
-    bgColor: "bg-yellow-50",
-  },
-  {
-    icon: <DollarSign className="w-10 h-10 text-purple-600 mb-2" />,
-    bgColor: "bg-purple-50",
-  },
-  {
-    icon: <DollarSign className="w-10 h-10 text-pink-600 mb-2" />,
-    bgColor: "bg-pink-50",
-  },
-];
-
-const defaultIcon = <HelpCircle className="w-10 h-10 text-gray-600 mb-2" />;
-const defaultBg = "bg-gray-50";
-
 // Application Steps
 const applySteps = [
   { step: "Contact Us or Vsources", icon: <Globe className="w-5 h-5" /> },
@@ -250,20 +178,6 @@ const CreditCardComponent = () => {
   const [flipped, setFlipped] = useState<number | null>(null);
   const [showPopup, setShowPopup] = useState(false);
 
-  const { data, isLoading, isError, error } = useQuery<CreditCardService>({
-    queryKey: ["creditcard"],
-    queryFn: fetchAbroadEducation,
-  });
-  if (isError) {
-    toast.error("failed to load");
-    console.log("failed to load", error);
-    return null;
-  }
-
-  if (isLoading || !data) {
-    return <CreditCardSkeleton />;
-  }
-
   const handlePopupClose = () => {
     setShowPopup(false);
   };
@@ -275,10 +189,8 @@ const CreditCardComponent = () => {
         <div
           className="absolute inset-0 bg-cover bg-right bg-no-repeat"
           style={{
-            backgroundImage: `url(${
-              data?.background_image?.url ||
-              "/assets/images/ourservices-img.jpg"
-            })`,
+            backgroundImage:
+              "url('https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762862486/rp2drehs0klzgtznsxmx.jpg')",
           }}
         >
           <div className="absolute inset-0 bg-black/70 md:bg-black/50" />
@@ -288,28 +200,28 @@ const CreditCardComponent = () => {
         <div className="relative w-full max-w-[1400px] mx-auto px-6 flex flex-col items-center md:items-start justify-center text-left">
           <Sparkles className="w-10 h-10 text-white mb-4 animate-pulse" />
           <h1 className="text-4xl font-bold mb-3 text-center max-w-3xl">
-            {data?.heading || "Credit Cards for International Students"}
+            Credit Cards for International Students
           </h1>
           <p className="mb-6 max-w-2xl">
-            {data?.description ||
-              "Empower your financial journey. Manage money smartly and build credit while studying abroad, with exclusive student benefits and intuitive application steps."}
+            Empower your financial journey. Manage money smartly and build
+            credit while studying abroad, with exclusive student benefits and
+            intuitive application steps.
           </p>
 
           {/* Tips */}
           <div className="flex justify-start max-w-2xl flex-col gap-3 mt-2 w-full items-start">
-            {data &&
-              data?.list &&
-              data?.list?.map((tip, i) => (
-                <span
-                  key={tip?.id || i}
-                  className="bg-white/20 px-4 py-2 rounded-xl text-sm font-medium text-white shadow w-fit"
-                >
-                  {tip?.list}
-                </span>
-              ))}
+            {tips.map((tip, i) => (
+              <span
+                key={i}
+                className="bg-white/20 px-4 py-2 rounded-xl text-sm font-medium text-white shadow w-fit"
+              >
+                {tip}
+              </span>
+            ))}
           </div>
         </div>
       </section>
+
       {/* Country Selector */}
       <section className="w-full max-w-[1400px] mx-auto px-6 py-10 flex flex-col items-center">
         <label className="block text-lg font-semibold mb-2 text-gray-700">
@@ -334,24 +246,15 @@ const CreditCardComponent = () => {
         <div className="w-full max-w-[1400px] mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           {/* Left Content Section */}
           <div className="flex flex-col justify-center text-center md:text-left order-2 md:order-1">
-            {data?.partner_heading ? (
-              <h2 className="text-3xl sm:text-4xl  font-extrabold text-black mb-4 leading-tight">
-                <HighlightedText
-                  text={data?.partner_heading}
-                  color={"red"}
-                  mobileSize={"30px"}
-                />
-              </h2>
-            ) : (
-              <h2 className="text-3xl sm:text-4xl  font-extrabold text-black mb-4 leading-tight">
-                Partnering with <span className="text-red-600 ">Zolve</span>
-                <br />
-                to Empower Your Global Journey
-              </h2>
-            )}
+            <h2 className="text-3xl sm:text-4xl  font-extrabold text-black mb-4 leading-tight">
+              Partnering with <span className="text-red-600 ">Zolve</span>
+              <br />
+              to Empower Your Global Journey
+            </h2>
             <p className="text-black text-lg sm:text-xl mx-auto md:mx-0 mb-6 text-justify">
-              {data?.partner_description ||
-                "We’ve teamed up with Zolve to give international students and professionals seamless access to essential financial tools and U.S. credit cards, making your transition abroad much easier."}
+              We’ve teamed up with Zolve to give international students and
+              professionals seamless access to essential financial tools and
+              U.S. credit cards, making your transition abroad much easier.
             </p>
           </div>
 
@@ -359,11 +262,8 @@ const CreditCardComponent = () => {
           <div className="relative order-1 md:order-2 flex justify-center items-center h-64 sm:h-80 md:h-96">
             <div className="w-52 h-52 sm:w-64 sm:h-64 lg:w-72 lg:h-72 p-4 flex items-center justify-center bg-white rounded-3xl shadow-2xl transition transform hover:scale-105">
               <img
-                src={
-                  data?.partner_image?.url ||
-                  "https://www.zolveimages.zolve.com/website/images/zolve_logo.svg"
-                }
-                alt={data?.partner_image?.name || "Zolve Logo"}
+                src="https://www.zolveimages.zolve.com/website/images/zolve_logo.svg"
+                alt="Zolve Logo"
                 className="w-full h-full object-contain"
               />
             </div>
@@ -376,33 +276,28 @@ const CreditCardComponent = () => {
         <div className="w-full max-w-[1400px] mx-auto px-6">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-extrabold text-black mb-4  md:text-4xl">
-              {data?.works_heading || "How Zolve Works"}
+              How Zolve Works
             </h2>
             <p className="text-lg text-gray-600 sm:text-xl max-w-2xl mx-auto">
-              {data?.work_description ||
-                " Zolve simplifies your financial journey to the U.S. in a few easy steps."}
+              Zolve simplifies your financial journey to the U.S. in a few easy
+              steps.
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
-            {data &&
-              data?.works_card &&
-              data?.works_card?.map((step, index) => {
-                const icon = howItWorksSteps[index].icon;
-                return (
-                  <div
-                    key={step?.id || index}
-                    className="flex flex-col items-center text-center p-6 bg-gradient-to-br from-white via-red-100 to-white rounded-2xl shadow-lg transition-transform hover:scale-105 duration-300"
-                  >
-                    <div className="w-16 h-16 flex items-center justify-center rounded-full bg-red-200 text-red-700 mb-4">
-                      {icon}
-                    </div>
-                    <h3 className="text-xl font-bold text-gray-900 mb-2">
-                      {step?.heading}
-                    </h3>
-                    <p className="text-gray-600">{step?.description}</p>
-                  </div>
-                );
-              })}
+            {howItWorksSteps.map((step, index) => (
+              <div
+                key={index}
+                className="flex flex-col items-center text-center p-6 bg-gradient-to-br from-white via-red-100 to-white rounded-2xl shadow-lg transition-transform hover:scale-105 duration-300"
+              >
+                <div className="w-16 h-16 flex items-center justify-center rounded-full bg-red-200 text-red-700 mb-4">
+                  {step.icon}
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-2">
+                  {step.title}
+                </h3>
+                <p className="text-gray-600">{step.description}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -410,104 +305,95 @@ const CreditCardComponent = () => {
       {/* Credit Card Types */}
       <section className="w-full max-w-[900px] mx-auto px-4 sm:px-6 py-10 space-y-10">
         <h2 className="text-2xl md:text-3xl font-bold text-center mb-8 flex items-center gap-2 justify-center">
-          {data?.financial_heading || (
-            <>
-              Financial Products for International Students in {selectedCountry}
-            </>
-          )}
+          Financial Products for International Students in {selectedCountry}
         </h2>
 
-        {data &&
-          data?.financial_card &&
-          data?.financial_card?.map((type, idx) => {
-            const isFlipped = flipped === idx;
-            const { icon, bgColor } = staticCardProps[idx] || {
-              icon: defaultIcon,
-              bgColor: defaultBg,
-            };
+        {creditTypes.map((type, idx) => {
+          const isFlipped = flipped === idx;
 
-            return (
+          return (
+            <div
+              key={idx}
+              className="w-full max-w-4xl perspective mx-auto"
+              style={{ perspective: "1200px" }}
+            >
               <div
-                key={type?.id || idx}
-                className="w-full max-w-4xl perspective mx-auto"
-                style={{ perspective: "1200px" }}
+                onClick={() => setFlipped(isFlipped ? null : idx)}
+                className={`relative w-full min-h-[300px] cursor-pointer select-none transition-transform duration-700 ${
+                  isFlipped ? "rotate-y-180" : ""
+                }`}
+                style={{
+                  transformStyle: "preserve-3d",
+                  touchAction: "manipulation",
+                }}
               >
+                {/* Front Side */}
                 <div
-                  onClick={() => setFlipped(isFlipped ? null : idx)}
-                  className={`relative w-full min-h-[300px] cursor-pointer select-none transition-transform duration-700 ${
-                    isFlipped ? "rotate-y-180" : ""
-                  }`}
-                  style={{
-                    transformStyle: "preserve-3d",
-                    touchAction: "manipulation",
-                  }}
+                  className={`absolute inset-0 backface-hidden rounded-2xl shadow-md flex flex-col sm:flex-row items-center justify-between p-5 sm:p-8 gap-6  ${type.bgColor}`}
                 >
-                  {/* Front Side */}
-                  <div
-                    className={`absolute inset-0 backface-hidden rounded-2xl shadow-md flex flex-col sm:flex-row items-center justify-between p-5 sm:p-8 gap-6 ${bgColor}`}
-                  >
-                    <div className="flex flex-col flex-1 justify-center text-center sm:text-left">
-                      <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-black mb-3 flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-2">
-                        {icon} <span>{type.title}</span>
-                      </h3>
+                  {/* Left: text + icon */}
+                  <div className="flex flex-col flex-1 justify-center text-center sm:text-left">
+                    <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-black mb-3 flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-2">
+                      {type.icon} <span>{type.title}</span>
+                    </h3>
 
-                      <h4 className="text-base md:text-lg font-semibold text-black mb-2">
-                        {type.shortHead}
-                      </h4>
+                    <h4 className="text-base md:text-lg font-semibold text-black mb-2">
+                      {type.shortHead}
+                    </h4>
 
-                      <p className="text-gray-700 text-sm md:text-base mb-4 max-w-md mx-auto sm:mx-0">
-                        {type.shortContent}
-                      </p>
+                    <p className="text-gray-700 text-sm md:text-base mb-4 max-w-md mx-auto sm:mx-0">
+                      {type.shortContent}
+                    </p>
 
-                      <div className="inline-block px-4 py-2 border border-red-600 bg-white text-red-600 rounded-2xl cursor-pointer mt-auto max-w-max mx-auto sm:mx-0">
-                        Tap to know more
-                      </div>
-                    </div>
-
-                    <div className="flex-shrink-0 w-full sm:w-[140px] md:flex items-center justify-center mt-6 sm:mt-0 mx-auto sm:mx-0 hidden">
-                      <img
-                        src={type.image?.url}
-                        alt={type.title}
-                        className="w-full h-auto object-contain max-w-[140px]"
-                        loading="lazy"
-                        draggable={false}
-                      />
+                    <div className="inline-block px-4 py-2 border border-red-600 bg-white text-red-600 rounded-2xl cursor-pointer mt-auto max-w-max mx-auto sm:mx-0">
+                      Tap to know more
                     </div>
                   </div>
 
-                  {/* Back Side */}
-                  <div className="absolute inset-0 backface-hidden rotate-y-180 rounded-2xl bg-white shadow-md border border-indigo-300 p-5 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6">
-                    <div className="flex-1 max-w-md mx-auto sm:mx-0 text-center sm:text-left">
-                      <h3 className="text-indigo-700 text-lg md:text-xl font-semibold mb-4">
-                        Key Features
-                      </h3>
-                      <ul className="space-y-2 md:space-y-3 text-gray-700 text-sm md:text-base">
-                        {type.points?.map((point, i) => (
-                          <li
-                            key={point?.id || i}
-                            className="flex items-start gap-2 md:gap-3"
-                          >
-                            <Check className="w-4 h-4 md:w-5 md:h-5 text-green-600 flex-shrink-0 mt-0.5" />
-                            {point.list}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
+                  {/* Right: image */}
+                  <div className="flex-shrink-0 w-full sm:w-[140px] md:flex items-center justify-center mt-6 sm:mt-0 mx-auto sm:mx-0 hidden">
+                    <img
+                      src={type.imageSrc}
+                      alt={type.title}
+                      className="w-full h-auto object-contain max-w-[140px]"
+                      loading="lazy"
+                      draggable={false}
+                    />
+                  </div>
+                </div>
 
-                    <div className="flex-shrink-0 w-full sm:w-[140px] md:flex items-center justify-center mt-6 sm:mt-0 mx-auto sm:mx-0 hidden">
-                      <img
-                        src={type.image?.url}
-                        alt={`${type.title} details`}
-                        className="w-full h-auto object-contain max-w-[140px]"
-                        loading="lazy"
-                        draggable={false}
-                      />
-                    </div>
+                {/* Back Side */}
+                <div className="absolute inset-0 backface-hidden rotate-y-180 rounded-2xl bg-white shadow-md border border-indigo-300 p-5 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+                  {/* Left: points */}
+                  <div className="flex-1 max-w-md mx-auto sm:mx-0 text-center sm:text-left">
+                    <h3 className="text-indigo-700 text-lg md:text-xl font-semibold mb-4">
+                      Key Features
+                    </h3>
+                    <ul className="space-y-2 md:space-y-3 text-gray-700 text-sm md:text-base">
+                      {type.points.map((point, i) => (
+                        <li key={i} className="flex items-start gap-2 md:gap-3">
+                          <Check className="w-4 h-4 md:w-5 md:h-5 text-green-600 flex-shrink-0 mt-0.5" />
+                          {point}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Right: image */}
+                  <div className="flex-shrink-0 w-full sm:w-[140px] md:flex items-center justify-center mt-6 sm:mt-0 mx-auto sm:mx-0  hidden">
+                    <img
+                      src={type.imageSrc}
+                      alt={`${type.title} details`}
+                      className="w-full h-auto object-contain max-w-[140px]"
+                      loading="lazy"
+                      draggable={false}
+                    />
                   </div>
                 </div>
               </div>
-            );
-          })}
+            </div>
+          );
+        })}
 
         <style>{`
     .rotate-y-180 {
