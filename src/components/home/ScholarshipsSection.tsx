@@ -1,14 +1,12 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, memo } from "react";
 import SectionTitle from "../SectionTitle";
 import AnimateOnScroll from "../AnimateOnScroll";
 
 const ScholarshipsSection = () => {
   const ukFlag =
-    "https://img.freepik.com/free-vector/illustration-uk-flag_53876-18166.jpg?semt=ais_hybrid&w=740";
+    "https://upload.wikimedia.org/wikipedia/en/a/ae/Flag_of_the_United_Kingdom.svg";
   const usaFlag =
-    "https://cdn.britannica.com/33/4833-050-F6E415FE/Flag-United-States-of-America.jpg";
-
-  const defaultStudentImage = "/assets/images/placeholder.jpg";
+    "https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg";
 
   const scholarshipsData = [
     { studentName: "HARIKA KADAR", amount: "₹41,04,848", country: "USA" },
@@ -50,21 +48,26 @@ const ScholarshipsSection = () => {
   ];
 
   const studentImagePaths: Record<string, string> = {
-    "HARIKA KADAR": "/assets/images/HARIKA KADAR (USA).png",
-    "SAMAR AHMED MOHAMMAD": "/assets/images/MOHAMMED SAMAR AHMED.jpeg",
+    "HARIKA KADAR": "/assets/images/scholarship/HARIKA KADAR (USA).png",
+    "SAMAR AHMED MOHAMMAD":
+      "/assets/images/scholarship/MOHAMMED SAMAR AHMED (UK).jpg",
     "PAVAN KUMAR REDDY VANIPENTA":
-      "/assets/images/pavan kumar reddy vanipenta (UK).jpeg",
-    "Kaushik Vijayakumar": "/assets/images/KAUSHIK VIJAYA KUMAR (UK).jpeg",
+      "/assets/images/scholarship/pavan kumar reddy vanipenta (UK).jpg",
+    "Kaushik Vijayakumar":
+      "/assets/images/scholarship/KAUSHIK VIJAYA KUMAR (UK).jpg",
     "JAYANTH KRISHNA SAI BATTIPATI":
-      "/assets/images/JAYANTH KRISHNA SAI BATTIPATI.jpeg",
-    "PRITHVI RAJ CILARAPU": "/assets/images/PRITHVI RAJ CILARAPU (UK).jpeg",
-    "SOUMYA GOPAGONI": "/assets/images/SOUMYA GOPAGONI (UK).jpeg",
+      "/assets/images/scholarship/JAYANTH KRISHNA SAI BATTIPATI.jpg",
+    "PRITHVI RAJ CILARAPU":
+      "/assets/images/scholarship/PRITHVI RAJ CILARAPU (UK).jpg",
+    "SOUMYA GOPAGONI": "/assets/images/scholarship/SOUMYA GOPAGONI (UK).jpg",
     "SUNIL B":
-      "/assets/images/SUNIL BAPANPALLY University of east london .png ",
-    "THATIKONDA TEJASWINI": "/assets/images/Thatikonda Tejaswini -- BPP.jpg",
-    "YATHIN YADAV MEKALA": "/assets/images/YATHIN YADAV MEKALA (UK).jpeg",
-    "Kunchala Jai Srihar": "/assets/images/Kunchala Jai Srihar.jpeg",
-    "SHERI MADHURI": "/assets/images/SHERI MADHURI (USA).jpg",
+      "/assets/images/scholarship/SUNIL BAPANPALLY University of east london_.jpg",
+    "THATIKONDA TEJASWINI":
+      "/assets/images/scholarship/Thatikonda Tejaswini -- BPP.jpg",
+    "YATHIN YADAV MEKALA":
+      "/assets/images/scholarship/YATHIN YADAV MEKALA (UK).jpg",
+    "Kunchala Jai Srihar": "/assets/images/scholarship/Kunchala Jai Srihar.jpg",
+    "SHERI MADHURI": "/assets/images/scholarship/SHERI MADHURI (USA).jpg",
 
     // Add additional images as needed
   };
@@ -120,7 +123,7 @@ const ScholarshipsSection = () => {
               ref={tableRef}
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
-              className="border border-gray-300 rounded-xl shadow-xl overflow-hidden max-h-[450px] overflow-y-auto"
+              className="border border-gray-300 rounded-xl shadow-xl overflow-hidden max-h-[450px] overflow-y-auto scrollbar-hide "
             >
               <table className="min-w-full divide-y divide-gray-200 text-base">
                 <thead className="bg-gray-100 sticky top-0 z-10">
@@ -138,9 +141,7 @@ const ScholarshipsSection = () => {
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
                   {scholarshipsData.map((item, index) => {
-                    const studentImage =
-                      studentImagePaths[item.studentName] ||
-                      defaultStudentImage;
+                    const studentImage = studentImagePaths[item.studentName];
                     return (
                       <tr
                         key={index}
@@ -150,6 +151,12 @@ const ScholarshipsSection = () => {
                           <img
                             src={item.country === "USA" ? usaFlag : ukFlag}
                             alt={`${item.country} Flag`}
+                            onError={(e) => {
+                              e.currentTarget.src =
+                                item?.country === "USA"
+                                  ? "https://cdn.britannica.com/33/4833-050-F6E415FE/Flag-United-States-of-America.jpg"
+                                  : "https://img.freepik.com/free-vector/illustration-uk-flag_53876-18166.jpg?semt=ais_hybrid&w=200";
+                            }}
                             className="h-8 w-12 object-cover rounded"
                             loading="lazy"
                           />
@@ -158,11 +165,11 @@ const ScholarshipsSection = () => {
                           <div className="flex items-center">
                             <img
                               src={studentImage}
-                              onError={(e) => {
-                                (e.currentTarget as HTMLImageElement).src =
-                                  defaultStudentImage;
-                              }}
                               alt={item.studentName}
+                              onError={(e) => {
+                                e.currentTarget.src =
+                                  "https://cdn-icons-png.flaticon.com/512/847/847969.png";
+                              }}
                               className="h-8 w-8 sm:h-12 sm:w-12 rounded-full mr-2 sm:mr-3 object-cover"
                               loading="lazy"
                             />
@@ -187,4 +194,4 @@ const ScholarshipsSection = () => {
   );
 };
 
-export default ScholarshipsSection;
+export default memo(ScholarshipsSection);
