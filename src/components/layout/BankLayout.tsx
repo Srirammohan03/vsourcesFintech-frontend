@@ -1,39 +1,6 @@
 import React, { useEffect, useState } from "react";
 import DelayedPopup from "../DelayedPopup";
-import { Image } from "@/lib/types/LandingPage";
-
-interface TrustedByItem {
-  id?: number;
-  icon: React.ElementType;
-  label: string;
-  labelCount?: number;
-}
-
-export interface EligibilityItem {
-  id?: number;
-  criteria: string;
-  details: string;
-}
-
-export interface Document {
-  id?: number;
-  document: string;
-}
-
-export interface BankLayoutProps {
-  background_image: Image;
-  title: string;
-  subtitle?: string;
-  interstRate?: string;
-  serviceCharge?: string;
-  marginRate?: string;
-  bankImage: Image;
-  description: string;
-  trustedBy: TrustedByItem[];
-  documents: Document[];
-  eligibility: EligibilityItem[];
-  slug?: string;
-}
+import { BankLayoutProps, TrustedByItem } from "@/lib/types/BankConfig";
 
 function useCounter(to: number, duration: number = 200) {
   const [count, setCount] = useState(0);
@@ -86,7 +53,6 @@ const BankLayout: React.FC<BankLayoutProps> = ({
   serviceCharge,
   marginRate,
   bankImage,
-  description,
   trustedBy,
   documents,
   eligibility,

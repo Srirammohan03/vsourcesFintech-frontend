@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { motion } from "framer-motion";
 import { Card, CardHeader, CardContent, CardTitle } from "@/components/ui/card";
 import { Link } from "react-router-dom";
@@ -114,4 +114,4 @@ const ToolsSection: React.FC = () => {
   );
 };
 
-export default ToolsSection;
+export default memo(ToolsSection);

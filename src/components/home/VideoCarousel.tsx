@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, memo } from "react";
 import styles from "./VideoCarousel.module.css";
 
 type VideoItem = {
@@ -253,4 +253,4 @@ const VideoCarousel: React.FC = () => {
   );
 };
 
-export default VideoCarousel;
+export default memo(VideoCarousel);

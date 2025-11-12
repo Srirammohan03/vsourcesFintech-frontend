@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import { motion } from "framer-motion";
 import DelayedPopup from "./DelayedPopup";
 
@@ -154,4 +154,4 @@ const LoanJourney: React.FC = () => {
   );
 };
 
-export default LoanJourney;
+export default memo(LoanJourney);

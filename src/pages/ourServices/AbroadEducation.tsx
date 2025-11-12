@@ -4,12 +4,12 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { ChevronRight } from "lucide-react";
 import {
-  Activity, // Multiple Lenders
-  Layers, // Tailored Loan Options
-  Download, // Expert Guidance
-  HelpCircle, // Simplified Process
-  CreditCard, // Competitive Rates
-  LifeBuoy, // Post-Loan Support
+  Activity,
+  Layers,
+  Download,
+  HelpCircle,
+  CreditCard,
+  LifeBuoy,
 } from "lucide-react";
 import AbroadForm from "./AbroadForm";
 import Banksloans from "../Banksloans";
@@ -18,11 +18,11 @@ import qs from "qs";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import { toast } from "sonner";
-import HeroSkeleton from "@/Loaders/LandingPages/HeroSkeleton";
 import { Services } from "@/lib/types/OurService";
 import { HighlightedText } from "@/utils/HighlightedText";
 import RichText from "@/utils/RichText";
 import CreditCardSkeleton from "@/Loaders/our-services/CreditCardSkeleton";
+
 const features = [
   {
     title: "Multiple Lenders",
@@ -602,7 +602,7 @@ const AbroadEducation: React.FC = () => {
         </div>
       </section>
       {/* Loan Partners Section */}
-      <Banksloans isLoading={isLoading} bankBlock={data?.bank || null} />
+      <Banksloans />
       {/* Loan Schemes */}
       <section className="py-10 bg-gray-50">
         <div className="w-full max-w-[1400px] mx-auto px-6">

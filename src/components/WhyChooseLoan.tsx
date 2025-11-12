@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { motion } from "framer-motion";
 import { CheckCircle, Users, Shield, GraduationCap } from "lucide-react";
 
@@ -109,4 +109,4 @@ const WhyChooseLoan: React.FC<WhyChooseLoanProps> = () => {
   );
 };
 
-export default WhyChooseLoan;
+export default memo(WhyChooseLoan);

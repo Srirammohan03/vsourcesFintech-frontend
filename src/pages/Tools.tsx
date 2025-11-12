@@ -17,46 +17,96 @@ import {
   Shield,
   ArrowRight,
 } from "lucide-react";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
-// ---------------- Tool Categories ----------------
 const toolCategories = [
   {
     title: "Loan Tools",
     description: "Calculate loans, EMI, and compare offers",
     tools: [
-      { name: "Loan Calculator", path: "/tools/loan-calculator", icon: Calculator },
-      { name: "Interest Calculator", path: "/tools/interest-calculator", icon: Calculator },
-      { name: "Loan Repayment Calculator", path: "/tools/loan-repayment-calculator", icon: DollarSign },
-      { name: "Education Loan EMI Calculator", path: "/tools/education-loan-emi-calculator", icon: Calculator },
-      { name: "Bank Comparison Tool", path: "/tools/bank-comparison-tool", icon: Building },
+      {
+        name: "Loan Calculator",
+        path: "/tools/loan-calculator",
+        icon: Calculator,
+      },
+      {
+        name: "Interest Calculator",
+        path: "/tools/interest-calculator",
+        icon: Calculator,
+      },
+      {
+        name: "Loan Repayment Calculator",
+        path: "/tools/loan-repayment-calculator",
+        icon: DollarSign,
+      },
+      {
+        name: "Education Loan EMI Calculator",
+        path: "/tools/education-loan-emi-calculator",
+        icon: Calculator,
+      },
+      {
+        name: "Bank Comparison Tool",
+        path: "/tools/bank-comparison-tool",
+        icon: Building,
+      },
     ],
   },
   {
     title: "Financial Planning Tools",
     description: "Plan your finances and estimate costs",
     tools: [
-      { name: "Expense Calculator", path: "/tools/expense-calculator", icon: PiggyBank },
-      { name: "Savings Calculator", path: "/tools/savings-calculator", icon: PiggyBank },
-      { name: "Cost of Studying Abroad", path: "/tools/cost-of-studying-abroad", icon: Globe },
-      { name: "Living Calculator", path: "/tools/living-calculator", icon: Globe },
-      { name: "ROI Calculator", path: "/tools/roi-calculator", icon: TrendingUp },
-      { name: "Estimate Future Earnings", path: "/tools/estimate-future-earnings", icon: DollarSign },
+      {
+        name: "Expense Calculator",
+        path: "/tools/expense-calculator",
+        icon: PiggyBank,
+      },
+      {
+        name: "Savings Calculator",
+        path: "/tools/savings-calculator",
+        icon: PiggyBank,
+      },
+      {
+        name: "Cost of Studying Abroad",
+        path: "/tools/cost-of-studying-abroad",
+        icon: Globe,
+      },
+      {
+        name: "Living Calculator",
+        path: "/tools/living-calculator",
+        icon: Globe,
+      },
+      {
+        name: "ROI Calculator",
+        path: "/tools/roi-calculator",
+        icon: TrendingUp,
+      },
+      {
+        name: "Estimate Future Earnings",
+        path: "/tools/estimate-future-earnings",
+        icon: DollarSign,
+      },
     ],
   },
   {
     title: "Utilities Tools",
     description: "Helpful utilities for international students",
     tools: [
-      { name: "Time Zone Converter", path: "/tools/time-zone-converter", icon: Clock },
-      { name: "Weather Abroad", path: "/tools/weather-abroad", icon: Thermometer },
-      { name: "Currency Converter", path: "/tools/currency-converter", icon: CreditCard },
+      {
+        name: "Time Zone Converter",
+        path: "/tools/time-zone-converter",
+        icon: Clock,
+      },
+      {
+        name: "Weather Abroad",
+        path: "/tools/weather-abroad",
+        icon: Thermometer,
+      },
+      {
+        name: "Currency Converter",
+        path: "/tools/currency-converter",
+        icon: CreditCard,
+      },
     ],
   },
   {
@@ -71,8 +121,16 @@ const toolCategories = [
     title: "Travel & Insurance Tools",
     description: "Prepare for your journey abroad",
     tools: [
-      { name: "Student Packing List", path: "/tools/packing-list", icon: Backpack },
-      { name: "Health Insurance Compare", path: "/tools/health-insurance-compare", icon: Shield },
+      {
+        name: "Student Packing List",
+        path: "/tools/packing-list",
+        icon: Backpack,
+      },
+      {
+        name: "Health Insurance Compare",
+        path: "/tools/health-insurance-compare",
+        icon: Shield,
+      },
     ],
   },
 ];
@@ -94,7 +152,8 @@ export default function Tools() {
               Educational Tools
             </h1>
             <p className="text-lg sm:text-xl lg:text-2xl text-white/90 max-w-3xl mx-auto leading-relaxed">
-              Free calculators and tools to help you plan your education abroad journey.
+              Free calculators and tools to help you plan your education abroad
+              journey.
             </p>
           </motion.div>
         </div>
@@ -177,7 +236,8 @@ export default function Tools() {
               Need More Help?
             </h2>
             <p className="text-lg sm:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-              Our education loan experts are here to guide you through the entire process with personalized consultation.
+              Our education loan experts are here to guide you through the
+              entire process with personalized consultation.
             </p>
             <Button
               asChild

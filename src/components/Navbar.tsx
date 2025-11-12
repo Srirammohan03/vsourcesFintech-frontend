@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, memo } from "react";
 import { Link, useLocation } from "react-router-dom";
 import {
   Menu,
@@ -22,10 +22,8 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
-import type { BankLayoutProps } from "@/components/layout/BankLayout";
+import { BankLayoutProps, fetchBanks } from "@/lib/types/BankConfig";
 
-/* ---------- Icon color map (used inside dropdown items) ---------- */
 const iconColors: Record<string, string> = {
   Banknote: "text-green-600",
   CreditCard: "text-blue-600",
@@ -44,7 +42,6 @@ const iconColors: Record<string, string> = {
   Luggage: "text-fuchsia-600",
 };
 
-/* ---------- Types ---------- */
 type IconType = React.ComponentType<React.SVGProps<SVGSVGElement>>;
 type SectionItem = { name: string; path: string; icon: IconType };
 type Section = { heading: string; items: SectionItem[] };
@@ -54,7 +51,6 @@ type NavNode =
   | { type: "external"; name: string; href: string }
   | { type: "dropdown"; name: string; sections: Section[] };
 
-/* ---------- Static sections (content preserved from fintech version) ---------- */
 const SERVICES_SECTIONS: Section[] = [
   {
     heading: "BANKING & LOANS",
@@ -189,16 +185,6 @@ const TOOLS_SECTIONS: Section[] = [
   },
 ];
 
-/* ---------- Data ---------- */
-export const fetchBanks = async (): Promise<BankLayoutProps[]> => {
-  const { data } = await axios.get(
-    `${
-      import.meta.env.VITE_CMS_GLOBALURL
-    }/api/our-patners?populate[background_image][fields][0]=url&populate[bankImage][fields][0]=url&populate[trustedBy]=true&populate[documents]=true&populate[eligibility]=true`
-  );
-  return data.data;
-};
-
 const NAV_STRUCTURE = (banks: BankLayoutProps[]): NavNode[] => [
   { type: "link", name: "Home", path: "/" },
   { type: "link", name: "About Us", path: "/about-us" },
@@ -238,20 +224,15 @@ const NAV_STRUCTURE = (banks: BankLayoutProps[]): NavNode[] => [
   { type: "link", name: "Branches", path: "/contact" },
 ];
 
-/* ================================================================== */
-/* ======================= Final Navbar Component ==================== */
-/* ================================================================== */
-
-export default function Navbar() {
+function Navbar() {
   const location = useLocation();
 
-  // match previous navbar behavior/styling
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null); // desktop
   const [openMobileDropdown, setOpenMobileDropdown] = useState<string | null>(
     null
-  ); // mobile
+  );
   const ddRef = useRef<HTMLDivElement | null>(null);
 
   const { data: banks = [], isLoading } = useQuery<BankLayoutProps[]>({
@@ -259,7 +240,6 @@ export default function Navbar() {
     queryFn: fetchBanks,
   });
 
-  /* Scroll styles (transparent -> white) */
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 20);
     onScroll();
@@ -267,14 +247,12 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  /* Close menus on route change */
   useEffect(() => {
     setIsOpen(false);
     setOpenMobileDropdown(null);
     setOpenDropdown(null);
   }, [location.pathname]);
 
-  /* Click outside to close desktop dropdown (same as previous) */
   useEffect(() => {
     const onDocClick = (e: MouseEvent) => {
       if (ddRef.current && !ddRef.current.contains(e.target as Node)) {
@@ -285,7 +263,6 @@ export default function Navbar() {
     return () => document.removeEventListener("mousedown", onDocClick);
   }, []);
 
-  /* Helpers to replicate previous active/hover colors */
   const isPathActive = (path: string) => {
     if (path === "/") return location.pathname === "/";
     return location.pathname === path || location.pathname.startsWith(path);
@@ -315,7 +292,7 @@ export default function Navbar() {
           <img
             alt="Vsource Logo"
             className="h-16 md:h-20 w-auto object-contain rounded-xl"
-            src="/assets/images/fintech-logo.png"
+            src="/assets/images/fintech-logo.webp"
           />
           <img
             src="https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto,w_200,c_limit,dpr_auto/v1762706239/nav-badge20years_re4asz.webp"
@@ -580,3 +557,5 @@ export default function Navbar() {
     </header>
   );
 }
+
+export default memo(Navbar);
