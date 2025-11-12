@@ -29,42 +29,42 @@ const features = [
     description:
       "Gain access to a wide network of trusted lenders, allowing you to compare and choose the best loan terms for your specific needs. Our platform partners with a diverse group of financial institutions, giving you more options and a better chance of finding a loan that fits your financial situation. You'll no longer be limited to a single bank's offering, which can save you money and give you peace of mind.",
     icon: <Activity className="h-8 w-8 text-red-600" />,
-    image: "/assets/images/Multiple-Lenders.jpg",
+    image: "/assets/images/Multiple-Lenders.webp",
   },
   {
     title: "Tailored Loan Options",
     description:
       "We help you find loan options specifically designed for students studying abroad, with flexible terms and competitive interest rates. Your study abroad journey is unique, and your loan should be, too. We match you with lenders who understand the specific needs of international students, offering features like grace periods after graduation, flexible repayment plans, and competitive rates that are hard to find on your own.",
     icon: <Layers className="h-8 w-8 text-red-600" />,
-    image: "/assets/images/TailoredLoan-Options.jpg",
+    image: "/assets/images/TailoredLoan-Options.webp",
   },
   {
     title: "Expert Guidance",
     description:
       "Our loan experts provide personalized advice, walking you through the entire application process to ensure a smooth experience. The world of student loans can be complex and overwhelming. Our team of experts will be with you every step of the way, from understanding the different types of loans available to gathering your documents and submitting your application. We're here to answer all your questions and make sure you feel confident about your financial decisions.",
     icon: <Download className="h-8 w-8 text-red-600" />,
-    image: "/assets/images/Expert-Guidance.jpg",
+    image: "/assets/images/Expert-Guidance.webp",
   },
   {
     title: "Simplified Process",
     description:
       "We've streamlined the application process to save you time and reduce complexity, so you can focus on preparing for your studies. Applying for a loan shouldn't add to your pre-departure stress. Our user-friendly platform digitizes and simplifies the entire process. You can fill out your application online, upload documents securely, and track your loan status without the hassle of endless paperwork and in-person visits.",
     icon: <HelpCircle className="h-8 w-8 text-red-600" />,
-    image: "/assets/images/Simplified-Process.jpg",
+    image: "/assets/images/Simplified-Process.webp",
   },
   {
     title: "Competitive Rates",
     description:
       "Our platform helps you compare competitive interest rates from different lenders, ensuring you get the most affordable loan possible. A lower interest rate means you'll pay less over the life of your loan. We provide transparent comparisons of rates and fees from multiple lenders, giving you the power to choose a loan that won't burden you with excessive long-term costs.",
     icon: <CreditCard className="h-8 w-8 text-red-600" />,
-    image: "/assets/images/CompetitiveRates.jpg",
+    image: "/assets/images/CompetitiveRates.webp",
   },
   {
     title: "Post-Loan Support",
     description:
       "Our support doesn't end when the loan is disbursed. We're here to help you with any questions or issues that arise throughout your studies. Your relationship with us continues long after you've received your funds. Whether you have questions about your repayment schedule, need to understand your loan terms better, or face an unexpected financial issue, our support team is just a call or message away, ready to assist you throughout your academic journey.",
     icon: <LifeBuoy className="h-8 w-8 text-red-600" />,
-    image: "/assets/images/Post-Loan-Support.jpg",
+    image: "/assets/images/Post-Loan-Support.webp",
   },
 ];
 

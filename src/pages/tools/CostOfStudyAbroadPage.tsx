@@ -333,8 +333,8 @@ const StepBadge: React.FC<{
       done
         ? "bg-white border-white text-white"
         : active
-          ? "bg-gradient-to-r from-[#7C3AED] to-[#A78BFA] text-white border-transparent shadow"
-          : "bg-gray-300 text-gray-700 border-transparent"
+        ? "bg-gradient-to-r from-[#7C3AED] to-[#A78BFA] text-white border-transparent shadow"
+        : "bg-gray-300 text-gray-700 border-transparent"
     )}
     style={
       done
@@ -417,11 +417,9 @@ export default function CostOfStudyAbroadPage() {
   const [uber, setUber] = useState<Frequency>("Sometimes");
 
   // Step 7 — Misc
-  const [entertainment, setEntertainment] =
-    useState<Frequency>("Sometimes");
+  const [entertainment, setEntertainment] = useState<Frequency>("Sometimes");
   const [clothing, setClothing] = useState<Frequency>("Rarely");
-  const [mobileInternet, setMobileInternet] =
-    useState<Frequency>("Often");
+  const [mobileInternet, setMobileInternet] = useState<Frequency>("Often");
   const [fitness, setFitness] = useState<Frequency>("Rarely");
 
   // Update tuition placeholder when country/level change
@@ -468,10 +466,10 @@ export default function CostOfStudyAbroadPage() {
       (mobileInternet === "Never"
         ? 0
         : mobileInternet === "Rarely"
-          ? 0.7
-          : mobileInternet === "Sometimes"
-            ? 1
-            : 1.2);
+        ? 0.7
+        : mobileInternet === "Sometimes"
+        ? 1
+        : 1.2);
     const fitnessMonthly = baseline.fitnessMembership * FREQ_FACTOR[fitness];
 
     const livingMonthly =
@@ -488,7 +486,11 @@ export default function CostOfStudyAbroadPage() {
     const pie = [
       { name: "Accommodation", value: accomMonthly * 12, color: THEME.red },
       { name: "Food", value: foodMonthly * 12, color: THEME.sky },
-      { name: "Transportation", value: transportMonthly * 12, color: THEME.blue },
+      {
+        name: "Transportation",
+        value: transportMonthly * 12,
+        color: THEME.blue,
+      },
       {
         name: "Miscellaneous",
         value:
@@ -603,7 +605,7 @@ export default function CostOfStudyAbroadPage() {
       <section
         className="relative pt-32 pb-16 lg:pt-32 lg:pb-24 text-white bg-cover bg-[left_center] lg:bg-[top_center]"
         style={{
-          backgroundImage: `url(/assets/images/tools-bg.jpg)`,
+          backgroundImage: `url(/assets/images/tools-bg.webp)`,
         }}
       >
         {/* Dark overlay under content */}
@@ -621,7 +623,6 @@ export default function CostOfStudyAbroadPage() {
           </p>
         </div>
       </section>
-
 
       {/* Stepper */}
       <div className="w-full max-w-[1400px] mx-auto px-6 py-10">
@@ -683,9 +684,7 @@ export default function CostOfStudyAbroadPage() {
                     />
                   </div>
                   <div className="md:col-span-2">
-                    <label className="text-sm font-medium">
-                      Mobile Number
-                    </label>
+                    <label className="text-sm font-medium">Mobile Number</label>
                     <input
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
@@ -707,9 +706,7 @@ export default function CostOfStudyAbroadPage() {
                     </label>
                     <select
                       value={country}
-                      onChange={(e) =>
-                        setCountry(e.target.value as Country)
-                      }
+                      onChange={(e) => setCountry(e.target.value as Country)}
                       className="mt-1 w-full rounded-xl border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     >
                       {Object.keys(COUNTRY_DATA).map((c) => (
@@ -730,9 +727,7 @@ export default function CostOfStudyAbroadPage() {
                         onChange={(e) => setUniversity(e.target.value)}
                         className="mt-1 w-full rounded-xl border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                       >
-                        <option value="">
-                          Select college/university
-                        </option>
+                        <option value="">Select college/university</option>
                         {COUNTRY_DATA[country].universities.map((u) => (
                           <option key={u} value={u}>
                             {u}
@@ -750,9 +745,7 @@ export default function CostOfStudyAbroadPage() {
                       </label>
                       <input
                         value={customUniversity}
-                        onChange={(e) =>
-                          setCustomUniversity(e.target.value)
-                        }
+                        onChange={(e) => setCustomUniversity(e.target.value)}
                         placeholder="Type your university name"
                         className="mt-1 w-full rounded-xl border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                       />
@@ -856,15 +849,29 @@ export default function CostOfStudyAbroadPage() {
                   subtitle="Choose your housing preference. Costs below are monthly estimates for the selected country."
                 />
                 <div className="grid md:grid-cols-3 gap-4">
-                  {([
-                    { key: "onCampus", label: "On-Campus", hint: "University housing" },
-                    { key: "shared", label: "Shared Apartment", hint: "Room in a shared place" },
-                    { key: "private", label: "Private Apartment", hint: "Studio/1-bed" },
-                  ] as const).map((opt) => {
+                  {(
+                    [
+                      {
+                        key: "onCampus",
+                        label: "On-Campus",
+                        hint: "University housing",
+                      },
+                      {
+                        key: "shared",
+                        label: "Shared Apartment",
+                        hint: "Room in a shared place",
+                      },
+                      {
+                        key: "private",
+                        label: "Private Apartment",
+                        hint: "Studio/1-bed",
+                      },
+                    ] as const
+                  ).map((opt) => {
                     const active = accomType === opt.key;
                     const price =
                       COUNTRY_DATA[country].living.accommodation[
-                      opt.key as "onCampus" | "shared" | "private"
+                        opt.key as "onCampus" | "shared" | "private"
                       ];
                     return (
                       <button
@@ -937,12 +944,14 @@ export default function CostOfStudyAbroadPage() {
                       Typical restaurant type
                     </label>
                     <div className="mt-3 grid grid-cols-2 gap-3">
-                      {([
-                        { key: "budget", label: "Budget $" },
-                        { key: "moderate", label: "Moderate $$" },
-                        { key: "premium", label: "Premium $$$" },
-                        { key: "luxury", label: "Luxury $$$$" },
-                      ] as const).map((r) => (
+                      {(
+                        [
+                          { key: "budget", label: "Budget $" },
+                          { key: "moderate", label: "Moderate $$" },
+                          { key: "premium", label: "Premium $$$" },
+                          { key: "luxury", label: "Luxury $$$$" },
+                        ] as const
+                      ).map((r) => (
                         <button
                           key={r.key}
                           type="button"
@@ -959,7 +968,7 @@ export default function CostOfStudyAbroadPage() {
                             ~
                             {fmtBoth(
                               COUNTRY_DATA[country].living.foodCostPerMeal[
-                              r.key
+                                r.key
                               ],
                               COUNTRY_DATA[country].code
                             )}{" "}
@@ -1158,17 +1167,14 @@ export default function CostOfStudyAbroadPage() {
                           costs.clothingMonthly +
                           costs.mobileInternetMonthly +
                           costs.fitnessMonthly) *
-                        12,
+                          12,
                         COUNTRY_DATA[country].code
                       )}
                     </div>
                     <div className="col-span-2 border-t my-2"></div>
                     <div className="text-gray-600">Living Expense (Yearly)</div>
                     <div className="text-right font-semibold">
-                      {fmtBoth(
-                        costs.livingYearly,
-                        COUNTRY_DATA[country].code
-                      )}
+                      {fmtBoth(costs.livingYearly, COUNTRY_DATA[country].code)}
                     </div>
                     <div className="text-gray-600">Tuition (Yearly)</div>
                     <div className="text-right font-semibold">
@@ -1180,10 +1186,7 @@ export default function CostOfStudyAbroadPage() {
                       className="text-right text-lg font-bold"
                       style={{ color: THEME.red }}
                     >
-                      {fmtBoth(
-                        costs.totalYearly,
-                        COUNTRY_DATA[country].code
-                      )}
+                      {fmtBoth(costs.totalYearly, COUNTRY_DATA[country].code)}
                     </div>
                   </div>
                   <p className="text-xs text-gray-500 mt-3">
@@ -1213,6 +1216,6 @@ export default function CostOfStudyAbroadPage() {
           </div>
         )}
       </div>
-    </div >
+    </div>
   );
 }

@@ -82,78 +82,6 @@ const typesOfAccounts = [
   },
 ];
 
-const topBanksData = [
-  {
-    country: "UK",
-    bgImage: "/assets/images/uk-bank.jpg",
-    banks: [
-      { name: "HSBC Student Account", iconKey: "HSBC" },
-      { name: "Barclays Student Account", iconKey: "Barclays" },
-      { name: "NatWest Student Account", iconKey: "NatWest" },
-    ],
-  },
-  {
-    country: "USA",
-    bgImage: "/assets/images/usa-bank.jpg",
-    banks: [
-      { name: "Bank of America Student Account", iconKey: "Bank of America" },
-      { name: "Chase College Checking", iconKey: "Chase" },
-      { name: "Wells Fargo Student Account", iconKey: "Wells Fargo" },
-    ],
-  },
-  {
-    country: "Canada",
-    bgImage: "/assets/images/canada-bank.jpg",
-    banks: [
-      { name: "RBC Advantage Banking", iconKey: "RBC" },
-      { name: "TD Student Chequing", iconKey: "TD" },
-      { name: "CIBC Smart Account", iconKey: "CIBC" },
-    ],
-  },
-  {
-    country: "Ireland",
-    bgImage: "/assets/images/ireland-bank.jpg",
-    banks: [
-      {
-        name: "Allied Irish Bank Student Account",
-        iconKey: "Allied Irish Bank",
-      },
-      { name: "Bank of Ireland Student Account", iconKey: "Bank of Ireland" },
-      { name: "Permanent TSB Student Account", iconKey: "Permanent TSB" },
-    ],
-  },
-  {
-    country: "France",
-    bgImage: "/assets/images/france-bank.jpg",
-    banks: [
-      { name: "BNP Paribas Student Account", iconKey: "BNP Paribas" },
-      { name: "Société Générale Student Account", iconKey: "Société Générale" },
-      { name: "HSBC France Student Account", iconKey: "HSBC France" },
-    ],
-  },
-  {
-    country: "Australia",
-    bgImage: "/assets/images/Australia-bank.jpg",
-    banks: [
-      {
-        name: "Commonwealth Bank Student Account",
-        iconKey: "Commonwealth Bank",
-      },
-      { name: "ANZ Student Access Advantage", iconKey: "ANZ" },
-      { name: "Westpac Student Account", iconKey: "Westpac" },
-    ],
-  },
-  {
-    country: "Germany",
-    bgImage: "/assets/images/Germany-bank.jpg",
-    banks: [
-      { name: "N26 Student Account", iconKey: "N26" },
-      { name: "Commerzbank StartKonto", iconKey: "Commerzbank" },
-      { name: "Deutsche Bank Student Account", iconKey: "Deutsche Bank" },
-    ],
-  },
-];
-
 const iconsByIndex = [
   { icon: <FaUniversity />, color: "#2563EB" }, // index 0
   { icon: <FaBuilding />, color: "#DC2626" }, // index 1
@@ -161,35 +89,6 @@ const iconsByIndex = [
   { icon: <FaRegMoneyBillAlt />, color: "#D97706" }, // index 3
 ];
 
-const bankIconMap: Record<string, { icon: JSX.Element; color: string }> = {
-  HSBC: { icon: <FaMoneyBillWave />, color: "#DB0011" },
-  Barclays: { icon: <FaBuilding />, color: "#0A6ED1" },
-  NatWest: { icon: <FaLandmark />, color: "#7A0D91" },
-
-  "Bank of America": { icon: <FaCreditCard />, color: "#E31837" },
-  Chase: { icon: <FaBuilding />, color: "#1176BC" },
-  "Wells Fargo": { icon: <FaLandmark />, color: "#C9051A" },
-
-  RBC: { icon: <FaUniversity />, color: "#004AAD" },
-  TD: { icon: <FaBuilding />, color: "#008947" },
-  CIBC: { icon: <FaCoins />, color: "#D7182A" },
-
-  "Allied Irish Bank": { icon: <FaUniversity />, color: "#B71C1C" },
-  "Bank of Ireland": { icon: <FaBuilding />, color: "#007A33" },
-  "Permanent TSB": { icon: <FaMoneyBillWave />, color: "#FFC72C" },
-
-  "BNP Paribas": { icon: <FaCoins />, color: "#008C40" },
-  "Société Générale": { icon: <FaLandmark />, color: "#D2232A" },
-  "HSBC France": { icon: <FaMoneyBillWave />, color: "#DB0011" },
-
-  "Commonwealth Bank": { icon: <FaUniversity />, color: "#00704A" },
-  ANZ: { icon: <FaBuilding />, color: "#1C4F8E" },
-  Westpac: { icon: <FaLandmark />, color: "#C8102E" },
-
-  N26: { icon: <FaCoins />, color: "#000000" },
-  Commerzbank: { icon: <FaMoneyBillWave />, color: "#FF6B00" },
-  "Deutsche Bank": { icon: <FaBuilding />, color: "#00427A" },
-};
 const eligibilityCriteriaCommon = [
   {
     icon: <FaUniversity className="text-blue-600 w-6 h-6" />,

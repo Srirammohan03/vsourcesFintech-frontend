@@ -74,8 +74,12 @@ function utcFromIst(ist: Date) {
   const daySel = Number(dSel.find((p) => p.type === "day")?.value || "0");
   const monSel = Number(dSel.find((p) => p.type === "month")?.value || "0");
   const yrSel = Number(dSel.find((p) => p.type === "year")?.value || "0");
-  const dateNowIST = new Date(`${yrNow}-${pad2(monNow)}-${pad2(dayNow)}T00:00:00Z`);
-  const dateSelIST = new Date(`${yrSel}-${pad2(monSel)}-${pad2(daySel)}T00:00:00Z`);
+  const dateNowIST = new Date(
+    `${yrNow}-${pad2(monNow)}-${pad2(dayNow)}T00:00:00Z`
+  );
+  const dateSelIST = new Date(
+    `${yrSel}-${pad2(monSel)}-${pad2(daySel)}T00:00:00Z`
+  );
   const dayDiff = Math.round(
     (dateSelIST.getTime() - dateNowIST.getTime()) / 86_400_000
   );
@@ -329,17 +333,17 @@ export default function WeatherAbroad() {
   return (
     <div className="bg-white min-h-screen">
       {/* HERO banner with gradient (padding tweakable via heroPad) */}
-     
-          <section
+
+      <section
         className="relative pt-32 pb-16 lg:pt-40 lg:pb-24 text-white bg-cover bg-[left_center] lg:bg-[top_center]"
         style={{
-          backgroundImage: `url(/assets/images/tools-bg.jpg)`,
-        }}ref={heroRef}
+          backgroundImage: `url(/assets/images/tools-bg.webp)`,
+        }}
+        ref={heroRef}
       >
         {/* Dark overlay under content */}
         <div className="absolute inset-0 bg-black/50 z-0" />
 
-        
         <div className="w-full max-w-[1400px] mx-auto px-6 relative z-10">
           <div className="text-center text-white space-y-3">
             <div className="inline-flex items-center justify-center rounded-2xl bg-white/10 p-3">
@@ -349,7 +353,9 @@ export default function WeatherAbroad() {
               Weather Check (Abroad)
             </h1>
             <p className="text-white/80">
-              Search any city worldwide, pick an <span className="font-semibold">IST</span> date & hour, and see the local time and weather.
+              Search any city worldwide, pick an{" "}
+              <span className="font-semibold">IST</span> date & hour, and see
+              the local time and weather.
             </p>
           </div>
         </div>
@@ -370,7 +376,10 @@ export default function WeatherAbroad() {
           >
             {/* City search */}
             <div className="space-y-2">
-              <label className="text-sm font-medium" style={{ color: THEME.text }}>
+              <label
+                className="text-sm font-medium"
+                style={{ color: THEME.text }}
+              >
                 Select City
               </label>
               <div className="relative">
@@ -392,7 +401,10 @@ export default function WeatherAbroad() {
                       <button
                         key={s.id ?? `${s.name}-${s.latitude}-${s.longitude}`}
                         className="w-full text-left px-3 py-2 hover:bg-gray-50"
-                        style={{ color: THEME.text, borderBottom: `1px solid ${THEME.gray}` }}
+                        style={{
+                          color: THEME.text,
+                          borderBottom: `1px solid ${THEME.gray}`,
+                        }}
                         onClick={() => {
                           setSelectedPlace(s);
                           setQuery(`${s.name}, ${s.country}`);
@@ -414,7 +426,10 @@ export default function WeatherAbroad() {
 
             {/* IST Date & Hour */}
             <div className="space-y-2 mt-6">
-              <label className="text-sm font-medium" style={{ color: THEME.text }}>
+              <label
+                className="text-sm font-medium"
+                style={{ color: THEME.text }}
+              >
                 Select Date & Hour (IST)
               </label>
               <div className="relative">
@@ -434,7 +449,8 @@ export default function WeatherAbroad() {
                 onClick={addCity}
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-medium"
                 style={{
-                  background: "linear-gradient(135deg, #9333EA 0%, #2563EB 100%)",
+                  background:
+                    "linear-gradient(135deg, #9333EA 0%, #2563EB 100%)",
                   color: "#fff",
                   boxShadow: "0 8px 18px rgba(37,99,235,0.25)",
                 }}
@@ -476,20 +492,17 @@ export default function WeatherAbroad() {
                 const localWhen = fmtLocal(utcTarget, c.tz || "UTC");
                 const h = pickHourlyAt(c);
                 const temp =
-                  h?.temperature ??
-                  c.current?.temperature ??
-                  undefined;
+                  h?.temperature ?? c.current?.temperature ?? undefined;
                 const code =
-                  h?.weathercode ??
-                  c.current?.weathercode ??
-                  undefined;
+                  h?.weathercode ?? c.current?.weathercode ?? undefined;
                 const label =
-                  code != null
-                    ? WEATHER_TEXT[code] ?? "Weather"
-                    : "Weather";
+                  code != null ? WEATHER_TEXT[code] ?? "Weather" : "Weather";
                 return (
                   <div
-                    key={c.place.id ?? `${c.place.name}-${c.place.latitude}-${c.place.longitude}`}
+                    key={
+                      c.place.id ??
+                      `${c.place.name}-${c.place.latitude}-${c.place.longitude}`
+                    }
                     className="rounded-2xl overflow-hidden"
                     style={{
                       background:
@@ -507,7 +520,10 @@ export default function WeatherAbroad() {
                           >
                             {c.place.name}, {c.place.country}
                           </div>
-                          <div className="text-sm opacity-80" style={{ color: "#1f2937" }}>
+                          <div
+                            className="text-sm opacity-80"
+                            style={{ color: "#1f2937" }}
+                          >
                             {c.tz}
                           </div>
                         </div>
@@ -519,7 +535,10 @@ export default function WeatherAbroad() {
                           >
                             {localWhen}
                           </div>
-                          <div className="text-sm opacity-80" style={{ color: "#1f2937" }}>
+                          <div
+                            className="text-sm opacity-80"
+                            style={{ color: "#1f2937" }}
+                          >
                             IST → Local
                           </div>
                         </div>
@@ -527,18 +546,30 @@ export default function WeatherAbroad() {
 
                       <div className="mt-4 flex items-center justify-between">
                         <div className="flex items-center gap-2">
-                          <Cloud className="h-5 w-5" style={{ color: "#1f2937" }} />
-                          <span className="font-medium" style={{ color: "#1f2937" }}>
+                          <Cloud
+                            className="h-5 w-5"
+                            style={{ color: "#1f2937" }}
+                          />
+                          <span
+                            className="font-medium"
+                            style={{ color: "#1f2937" }}
+                          >
                             {label}
                           </span>
                         </div>
                         <div className="text-right">
                           {temp != null ? (
-                            <div className="text-xl font-bold" style={{ color: "#1f2937" }}>
+                            <div
+                              className="text-xl font-bold"
+                              style={{ color: "#1f2937" }}
+                            >
                               {Math.round(temp)}°C
                             </div>
                           ) : (
-                            <div className="text-sm opacity-70" style={{ color: "#1f2937" }}>
+                            <div
+                              className="text-sm opacity-70"
+                              style={{ color: "#1f2937" }}
+                            >
                               — °C
                             </div>
                           )}

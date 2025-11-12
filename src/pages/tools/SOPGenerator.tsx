@@ -14,7 +14,8 @@ const THEME = {
 } as const;
 
 /* ---------- helpers ---------- */
-const cls = (...s: (string | false | null | undefined)[]) => s.filter(Boolean).join(" ");
+const cls = (...s: (string | false | null | undefined)[]) =>
+  s.filter(Boolean).join(" ");
 
 /* ---------- types ---------- */
 type YesNo = "Yes" | "No";
@@ -165,7 +166,11 @@ const Input: React.FC<
           ? "border-red-500 ring-2 ring-red-500"
           : "border-[#E5EBF0] focus:ring-2 focus:ring-offset-0"
       )}
-      style={!error ? { boxShadow: "0 0 0 0", ["--tw-ring-color" as any]: THEME.blue } : undefined}
+      style={
+        !error
+          ? { boxShadow: "0 0 0 0", ["--tw-ring-color" as any]: THEME.blue }
+          : undefined
+      }
     />
     <FieldNote error={error} />
   </>
@@ -227,11 +232,7 @@ const MultiSelect: React.FC<{
   const remaining = options.filter((o) => !value.includes(o));
   return (
     <div className="w-full">
-      {label && (
-        <Label required={required}>
-          {label}
-        </Label>
-      )}
+      {label && <Label required={required}>{label}</Label>}
       <div
         className={cls(
           "w-full rounded-xl border bg-white px-3 py-2",
@@ -266,14 +267,16 @@ const MultiSelect: React.FC<{
               "ring-1 ring-[#E5EBF0] hover:bg-[#F9FAFB]"
             )}
           >
-            {open ? "Close" : (placeholder || "You can choose multiple")}
+            {open ? "Close" : placeholder || "You can choose multiple"}
           </button>
         </div>
 
         {open && (
           <div className="mt-2 grid grid-cols-1 sm:grid-cols-2 gap-2">
             {remaining.length === 0 && (
-              <div className="text-sm text-gray-500 px-1 py-2">All options selected</div>
+              <div className="text-sm text-gray-500 px-1 py-2">
+                All options selected
+              </div>
             )}
             {remaining.map((opt) => (
               <button
@@ -294,21 +297,36 @@ const MultiSelect: React.FC<{
 };
 
 /* cards & titles */
-const Card: React.FC<React.PropsWithChildren<{ className?: string }>> = ({ className, children }) => (
-  <div className={cls("rounded-2xl shadow-xl bg-white ring-1 ring-[#EEF2F7] p-6 my-10", className)}>
+const Card: React.FC<React.PropsWithChildren<{ className?: string }>> = ({
+  className,
+  children,
+}) => (
+  <div
+    className={cls(
+      "rounded-2xl shadow-xl bg-white ring-1 ring-[#EEF2F7] p-6 my-10",
+      className
+    )}
+  >
     {children}
   </div>
 );
 
-const SectionTitle: React.FC<{ title: string; stepLabel?: string }> = ({ title, stepLabel }) => (
+const SectionTitle: React.FC<{ title: string; stepLabel?: string }> = ({
+  title,
+  stepLabel,
+}) => (
   <div className="flex items-center justify-between mb-6 ">
     <h2 className="text-2xl md:text-3xl font-bold text-[#0B0B2C]">{title}</h2>
-    {stepLabel && <span className="text-sm font-semibold text-red-600" >{stepLabel}</span>}
+    {stepLabel && (
+      <span className="text-sm font-semibold text-red-600">{stepLabel}</span>
+    )}
   </div>
 );
 
 /* buttons (no gradients) */
-const PrimaryButton: React.FC<React.ButtonHTMLAttributes<HTMLButtonElement>> = ({ children, className, ...props }) => (
+const PrimaryButton: React.FC<
+  React.ButtonHTMLAttributes<HTMLButtonElement>
+> = ({ children, className, ...props }) => (
   <button
     {...props}
     className={cls(
@@ -320,7 +338,9 @@ const PrimaryButton: React.FC<React.ButtonHTMLAttributes<HTMLButtonElement>> = (
   </button>
 );
 
-const OutlineRedButton: React.FC<React.ButtonHTMLAttributes<HTMLButtonElement>> = ({ children, className, ...props }) => (
+const OutlineRedButton: React.FC<
+  React.ButtonHTMLAttributes<HTMLButtonElement>
+> = ({ children, className, ...props }) => (
   <button
     {...props}
     className={cls(
@@ -342,7 +362,9 @@ export default function SOPGenerator() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [generated, setGenerated] = useState<string>("");
   const [editorFont, setEditorFont] = useState<string>("Helvetica");
-  const [downloadFormat, setDownloadFormat] = useState<"txt" | "pdf" | "word">("txt");
+  const [downloadFormat, setDownloadFormat] = useState<"txt" | "pdf" | "word">(
+    "txt"
+  );
 
   const editorRef = useRef<HTMLTextAreaElement | null>(null);
 
@@ -356,7 +378,8 @@ export default function SOPGenerator() {
     if (s === 1) {
       if (!form.fullName) e.fullName = "This field is required";
       if (!form.email) e.email = "This field is required";
-      else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) e.email = "Enter a valid email";
+      else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email))
+        e.email = "Enter a valid email";
       if (!form.phone) e.phone = "This field is required";
       if (!form.targetCountry) e.targetCountry = "This field is required";
       if (!form.targetUniversity) e.targetUniversity = "This field is required";
@@ -371,7 +394,8 @@ export default function SOPGenerator() {
     }
     if (s === 8) {
       if (form.whyProgram.length === 0) e.whyProgram = "This field is required";
-      if (form.whyUniversity.length === 0) e.whyUniversity = "This field is required";
+      if (form.whyUniversity.length === 0)
+        e.whyUniversity = "This field is required";
     }
     if (s === 9) {
       if (form.contribute.length === 0) e.contribute = "This field is required";
@@ -385,7 +409,7 @@ export default function SOPGenerator() {
 
   const handleNext = () => {
     if (validateStep(step)) {
-      setStep((Math.min(10, (step + 1)) as Step));
+      setStep(Math.min(10, step + 1) as Step);
       setErrors({});
     }
   };
@@ -399,65 +423,114 @@ export default function SOPGenerator() {
 
     const pgWhy =
       f.whyProgram.length > 0
-        ? `My decision to pursue ${program} is driven by ${f.whyProgram.map((w) => w.toLowerCase()).join(", ")}. ${f.whyProgramReason || ""}`.trim()
+        ? `My decision to pursue ${program} is driven by ${f.whyProgram
+            .map((w) => w.toLowerCase())
+            .join(", ")}. ${f.whyProgramReason || ""}`.trim()
         : `I am keen to pursue ${program} to deepen my knowledge and broaden my impact.`;
 
     const uniWhy =
       f.whyUniversity.length > 0
-        ? `${uni} stands out for its ${f.whyUniversity.map((w) => w.toLowerCase()).join(", ")}. ${f.whyUniversityReason || ""}`.trim()
+        ? `${uni} stands out for its ${f.whyUniversity
+            .map((w) => w.toLowerCase())
+            .join(", ")}. ${f.whyUniversityReason || ""}`.trim()
         : `${uni} aligns strongly with my aspirations.`;
 
-    const achievements = f.achievements.length > 0 ? `Some highlights include ${listToEnglish(f.achievements)}.` : "";
+    const achievements =
+      f.achievements.length > 0
+        ? `Some highlights include ${listToEnglish(f.achievements)}.`
+        : "";
 
     const projects =
       f.hasProjects === "Yes" && f.projects.length > 0
-        ? `During my academic journey, I executed ${f.projects.length} project${f.projects.length > 1 ? "s" : ""}, such as ${f.projects
-            .map((p) => `${p.title}: ${p.summary}${p.impact ? ` (${p.impact})` : ""}`)
+        ? `During my academic journey, I executed ${f.projects.length} project${
+            f.projects.length > 1 ? "s" : ""
+          }, such as ${f.projects
+            .map(
+              (p) =>
+                `${p.title}: ${p.summary}${p.impact ? ` (${p.impact})` : ""}`
+            )
             .join("; ")}.`
         : "";
 
     const internships =
       f.hasInternships === "Yes" && f.internships.length > 0
-        ? `I complemented academics with practical exposure through internship(s) at ${f.internships.map((i) => `${i.org} (${i.role})`).join(", ")} where I ${f.internships
+        ? `I complemented academics with practical exposure through internship(s) at ${f.internships
+            .map((i) => `${i.org} (${i.role})`)
+            .join(", ")} where I ${f.internships
             .map((i) => i.summary)
             .join("; ")}.`
         : "";
 
     const work =
       f.hasWork === "Yes" && f.work.length > 0
-        ? `Professionally, I have worked at ${f.work.map((w) => `${w.company} as ${w.role}${w.duration ? `, ${w.duration}` : ""}`).join("; ")}${
-            f.work.some((w) => w.impact) ? ` where I ${f.work.map((w) => w.impact).filter(Boolean).join("; ")}.` : "."
+        ? `Professionally, I have worked at ${f.work
+            .map(
+              (w) =>
+                `${w.company} as ${w.role}${
+                  w.duration ? `, ${w.duration}` : ""
+                }`
+            )
+            .join("; ")}${
+            f.work.some((w) => w.impact)
+              ? ` where I ${f.work
+                  .map((w) => w.impact)
+                  .filter(Boolean)
+                  .join("; ")}.`
+              : "."
           }`
         : "";
 
     const ec =
       f.hasEC === "Yes" && f.ec.length > 0
-        ? `Beyond academics, I engaged in ${f.ec.map((e) => `${e.org} (${e.role})`).join(", ")}, taking responsibility for ${f.ec
+        ? `Beyond academics, I engaged in ${f.ec
+            .map((e) => `${e.org} (${e.role})`)
+            .join(", ")}, taking responsibility for ${f.ec
             .map((e) => e.responsibility)
             .join("; ")}.`
         : "";
 
     const community =
       f.hasCommunity === "Yes" && f.community.length > 0
-        ? `My community involvement includes contributions at ${f.community.map((c) => `${c.org} as ${c.role}`).join(", ")}, where I ${f.community
+        ? `My community involvement includes contributions at ${f.community
+            .map((c) => `${c.org} as ${c.role}`)
+            .join(", ")}, where I ${f.community
             .map((c) => c.impact)
             .join("; ")}.`
         : "";
 
     const contribute =
-      f.contribute.length > 0 ? `At ${uni}, I plan to contribute through ${f.contribute.map((c) => c.toLowerCase()).join(", ")}, ${f.fitReason || ""}`.trim() : f.fitReason || "";
+      f.contribute.length > 0
+        ? `At ${uni}, I plan to contribute through ${f.contribute
+            .map((c) => c.toLowerCase())
+            .join(", ")}, ${f.fitReason || ""}`.trim()
+        : f.fitReason || "";
 
-    const goal = f.careerGoal || f.careerNotes ? `Upon completing the program, my goal is ${f.careerGoal.toLowerCase() || "to advance professionally"}. ${f.careerNotes}` : "";
+    const goal =
+      f.careerGoal || f.careerNotes
+        ? `Upon completing the program, my goal is ${
+            f.careerGoal.toLowerCase() || "to advance professionally"
+          }. ${f.careerNotes}`
+        : "";
 
-    const intro = `Statement of Purpose – ${name}\n\nI am applying to the ${program} at ${uni}${country ? `, ${country}` : ""}. With a background in ${
-      f.fieldOfStudy || "my discipline"
-    } (${f.highestEdu || ""}) from ${f.collegeName || "my college"}, I have cultivated a strong foundation in core concepts and a persistent curiosity to solve meaningful problems. ${pgWhy}`;
+    const intro = `Statement of Purpose – ${name}\n\nI am applying to the ${program} at ${uni}${
+      country ? `, ${country}` : ""
+    }. With a background in ${f.fieldOfStudy || "my discipline"} (${
+      f.highestEdu || ""
+    }) from ${
+      f.collegeName || "my college"
+    }, I have cultivated a strong foundation in core concepts and a persistent curiosity to solve meaningful problems. ${pgWhy}`;
 
-    const academics = `\n\nAcademic Background\nI completed my ${f.highestEdu || ""} at ${f.collegeName || "my college"}, specializing in ${
+    const academics = `\n\nAcademic Background\nI completed my ${
+      f.highestEdu || ""
+    } at ${f.collegeName || "my college"}, specializing in ${
       f.fieldOfStudy || "the field"
-    }. ${f.relevantCourses ? `Key coursework such as ${f.relevantCourses} equipped me with essential analytical and technical skills. ` : ""}${f.gpa ? `I maintained a GPA of ${
-      f.gpa
-    } (${f.gradingScale}). ` : ""}${achievements}`;
+    }. ${
+      f.relevantCourses
+        ? `Key coursework such as ${f.relevantCourses} equipped me with essential analytical and technical skills. `
+        : ""
+    }${
+      f.gpa ? `I maintained a GPA of ${f.gpa} (${f.gradingScale}). ` : ""
+    }${achievements}`;
 
     const body2 = [projects, internships, work].filter(Boolean).join(" ");
     const motivation = `\n\nWhy ${program} at ${uni}\n${uniWhy}`;
@@ -465,7 +538,19 @@ export default function SOPGenerator() {
     const future = `\n\nFuture Goals\n${goal}`;
     const closing = `\n\nIn closing, I believe ${uni} provides the right environment to transform my potential into tangible impact. I look forward to the opportunity to learn, collaborate, and contribute to the ${program} community.\n\nSincerely,\n${name}`;
 
-    return [intro, academics, body2, ec, community, motivation, contribution, future, closing].filter(Boolean).join("\n");
+    return [
+      intro,
+      academics,
+      body2,
+      ec,
+      community,
+      motivation,
+      contribution,
+      future,
+      closing,
+    ]
+      .filter(Boolean)
+      .join("\n");
   };
 
   const handleGenerate = () => {
@@ -478,7 +563,10 @@ export default function SOPGenerator() {
   /* ---------- downloader ---------- */
   const download = async () => {
     const content = generated || "";
-    const fileBase = (form.fullName ? `${form.fullName}-SOP` : "SOP").replace(/\s+/g, "_");
+    const fileBase = (form.fullName ? `${form.fullName}-SOP` : "SOP").replace(
+      /\s+/g,
+      "_"
+    );
 
     if (downloadFormat === "txt") {
       const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
@@ -491,7 +579,9 @@ export default function SOPGenerator() {
       const html =
         `<!DOCTYPE html><html><head><meta charset="utf-8"><title>${fileBase}</title></head>` +
         `<body style="font-family:${editorFont}, sans-serif; white-space:normal; line-height:1.5; font-size:12pt;">${safe}</body></html>`;
-      const blob = new Blob([html], { type: "application/msword;charset=utf-8" });
+      const blob = new Blob([html], {
+        type: "application/msword;charset=utf-8",
+      });
       triggerDownload(blob, `${fileBase}.doc`);
       return;
     }
@@ -548,19 +638,26 @@ export default function SOPGenerator() {
       <section
         className="relative pt-32 pb-16 lg:pt-32 lg:pb-24 text-white bg-cover bg-[left_center] lg:bg-[top_center]"
         style={{
-          backgroundImage: `url(/assets/images/tools-bg.jpg)`,
+          backgroundImage: `url(/assets/images/tools-bg.webp)`,
         }}
       >
         {/* Dark overlay under content */}
         <div className="absolute inset-0 bg-black/50 z-0" />
 
         <div className="w-full max-w-[1400px] mx-auto px-6 relative z-10 text-center text-white ">
-          <div className="mx-auto mb-6 flex h-14 w-14 items-center justify-center rounded-2xl" style={{ background: "rgba(255,255,255,0.12)" }}>
+          <div
+            className="mx-auto mb-6 flex h-14 w-14 items-center justify-center rounded-2xl"
+            style={{ background: "rgba(255,255,255,0.12)" }}
+          >
             {/* simple doc icon */}
-            <FormInput className="h-12 w-12 animate-pulse"/>
+            <FormInput className="h-12 w-12 animate-pulse" />
           </div>
-          <h1 className="text-4xl md:text-4xl font-extrabold tracking-tight">SOP Generator</h1>
-          <p className="mt-3 text-white/80 text-base md:text-lg">Create a professional Statement of Purpose in 10 quick steps.</p>
+          <h1 className="text-4xl md:text-4xl font-extrabold tracking-tight">
+            SOP Generator
+          </h1>
+          <p className="mt-3 text-white/80 text-base md:text-lg">
+            Create a professional Statement of Purpose in 10 quick steps.
+          </p>
         </div>
       </section>
 
@@ -574,7 +671,10 @@ export default function SOPGenerator() {
         {/* Steps */}
         {step === 1 && (
           <Card>
-            <SectionTitle title="Personal & Program Information" stepLabel="Step 1 of 10" />
+            <SectionTitle
+              title="Personal & Program Information"
+              stepLabel="Step 1 of 10"
+            />
             <div className="grid md:grid-cols-2 gap-4">
               <div>
                 <Label required>Your Full Name</Label>
@@ -632,17 +732,27 @@ export default function SOPGenerator() {
                 />
               </div>
             </div>
-            <NavButtons onBack={() => setStep((Math.max(1, step - 1) as Step))} onNext={handleNext} />
+            <NavButtons
+              onBack={() => setStep(Math.max(1, step - 1) as Step)}
+              onNext={handleNext}
+            />
           </Card>
         )}
 
         {step === 2 && (
           <Card>
-            <SectionTitle title="Academic Background" stepLabel="Step 2 of 10" />
+            <SectionTitle
+              title="Academic Background"
+              stepLabel="Step 2 of 10"
+            />
             <div className="grid md:grid-cols-2 gap-4">
               <div>
                 <Label required>Highest Education</Label>
-                <SelectBox value={form.highestEdu} onChange={(e) => update("highestEdu", e.target.value)} error={errors.highestEdu}>
+                <SelectBox
+                  value={form.highestEdu}
+                  onChange={(e) => update("highestEdu", e.target.value)}
+                  error={errors.highestEdu}
+                >
                   <option value="">Select</option>
                   <option>Bachelor's</option>
                   <option>Master's</option>
@@ -652,19 +762,34 @@ export default function SOPGenerator() {
               </div>
               <div>
                 <Label>University/College Name</Label>
-                <Input value={form.collegeName} onChange={(e) => update("collegeName", e.target.value)} />
+                <Input
+                  value={form.collegeName}
+                  onChange={(e) => update("collegeName", e.target.value)}
+                />
               </div>
               <div>
                 <Label required>Field of Study</Label>
-                <Input value={form.fieldOfStudy} onChange={(e) => update("fieldOfStudy", e.target.value)} error={errors.fieldOfStudy} />
+                <Input
+                  value={form.fieldOfStudy}
+                  onChange={(e) => update("fieldOfStudy", e.target.value)}
+                  error={errors.fieldOfStudy}
+                />
               </div>
               <div>
                 <Label>Relevant Courses</Label>
-                <Input placeholder="Eg. Algorithms, Data Mining" value={form.relevantCourses} onChange={(e) => update("relevantCourses", e.target.value)} />
+                <Input
+                  placeholder="Eg. Algorithms, Data Mining"
+                  value={form.relevantCourses}
+                  onChange={(e) => update("relevantCourses", e.target.value)}
+                />
               </div>
               <div>
                 <Label required>Grading Scale</Label>
-                <SelectBox value={form.gradingScale} onChange={(e) => update("gradingScale", e.target.value)} error={errors.gradingScale}>
+                <SelectBox
+                  value={form.gradingScale}
+                  onChange={(e) => update("gradingScale", e.target.value)}
+                  error={errors.gradingScale}
+                >
                   <option>Out of 10</option>
                   <option>Out of 4</option>
                   <option>Percentage</option>
@@ -673,27 +798,48 @@ export default function SOPGenerator() {
               </div>
               <div>
                 <Label required>GPA</Label>
-                <Input placeholder="Eg. 8.5" value={form.gpa} onChange={(e) => update("gpa", e.target.value)} error={errors.gpa} />
+                <Input
+                  placeholder="Eg. 8.5"
+                  value={form.gpa}
+                  onChange={(e) => update("gpa", e.target.value)}
+                  error={errors.gpa}
+                />
               </div>
             </div>
 
             {/* Achievements */}
             <div className="mt-6">
               <Label>Academic Achievements</Label>
-              <AchievementInput items={form.achievements} onChange={(items) => update("achievements", items)} />
+              <AchievementInput
+                items={form.achievements}
+                onChange={(items) => update("achievements", items)}
+              />
             </div>
 
-            <NavButtons onBack={() => setStep((Math.max(1, step - 1) as Step))} onNext={handleNext} />
+            <NavButtons
+              onBack={() => setStep(Math.max(1, step - 1) as Step)}
+              onNext={handleNext}
+            />
           </Card>
         )}
 
         {step === 3 && (
           <Card>
-            <SectionTitle title="Project & Research Development" stepLabel="Step 3 of 10" />
+            <SectionTitle
+              title="Project & Research Development"
+              stepLabel="Step 3 of 10"
+            />
             <div className="grid md:grid-cols-2 gap-4">
               <div>
-                <Label required>Have you completed any significant projects?</Label>
-                <SelectBox value={form.hasProjects} onChange={(e) => update("hasProjects", e.target.value as YesNo)}>
+                <Label required>
+                  Have you completed any significant projects?
+                </Label>
+                <SelectBox
+                  value={form.hasProjects}
+                  onChange={(e) =>
+                    update("hasProjects", e.target.value as YesNo)
+                  }
+                >
                   <option>No</option>
                   <option>Yes</option>
                 </SelectBox>
@@ -711,32 +857,59 @@ export default function SOPGenerator() {
                   <div className="grid md:grid-cols-3 gap-4">
                     <div>
                       <Label>Title</Label>
-                      <Input value={item.title} onChange={(e) => set({ ...item, title: e.target.value })} />
+                      <Input
+                        value={item.title}
+                        onChange={(e) =>
+                          set({ ...item, title: e.target.value })
+                        }
+                      />
                     </div>
                     <div className="md:col-span-2">
                       <Label>Summary / What you did</Label>
-                      <Input value={item.summary} onChange={(e) => set({ ...item, summary: e.target.value })} />
+                      <Input
+                        value={item.summary}
+                        onChange={(e) =>
+                          set({ ...item, summary: e.target.value })
+                        }
+                      />
                     </div>
                     <div className="md:col-span-3">
                       <Label>Impact (optional)</Label>
-                      <Input placeholder="Eg. Improved accuracy by 12%" value={item.impact || ""} onChange={(e) => set({ ...item, impact: e.target.value })} />
+                      <Input
+                        placeholder="Eg. Improved accuracy by 12%"
+                        value={item.impact || ""}
+                        onChange={(e) =>
+                          set({ ...item, impact: e.target.value })
+                        }
+                      />
                     </div>
                   </div>
                 )}
               />
             )}
 
-            <NavButtons onBack={() => setStep((Math.max(1, step - 1) as Step))} onNext={handleNext} />
+            <NavButtons
+              onBack={() => setStep(Math.max(1, step - 1) as Step)}
+              onNext={handleNext}
+            />
           </Card>
         )}
 
         {step === 4 && (
           <Card>
-            <SectionTitle title="Internships & Training" stepLabel="Step 4 of 10" />
+            <SectionTitle
+              title="Internships & Training"
+              stepLabel="Step 4 of 10"
+            />
             <div className="grid md:grid-cols-2 gap-4">
               <div>
                 <Label>Have you done internships or training?</Label>
-                <SelectBox value={form.hasInternships} onChange={(e) => update("hasInternships", e.target.value as YesNo)}>
+                <SelectBox
+                  value={form.hasInternships}
+                  onChange={(e) =>
+                    update("hasInternships", e.target.value as YesNo)
+                  }
+                >
                   <option>No</option>
                   <option>Yes</option>
                 </SelectBox>
@@ -754,22 +927,36 @@ export default function SOPGenerator() {
                   <div className="grid md:grid-cols-3 gap-4">
                     <div>
                       <Label>Organization</Label>
-                      <Input value={item.org} onChange={(e) => set({ ...item, org: e.target.value })} />
+                      <Input
+                        value={item.org}
+                        onChange={(e) => set({ ...item, org: e.target.value })}
+                      />
                     </div>
                     <div>
                       <Label>Role</Label>
-                      <Input value={item.role} onChange={(e) => set({ ...item, role: e.target.value })} />
+                      <Input
+                        value={item.role}
+                        onChange={(e) => set({ ...item, role: e.target.value })}
+                      />
                     </div>
                     <div className="md:col-span-1">
                       <Label>Summary</Label>
-                      <Input value={item.summary} onChange={(e) => set({ ...item, summary: e.target.value })} />
+                      <Input
+                        value={item.summary}
+                        onChange={(e) =>
+                          set({ ...item, summary: e.target.value })
+                        }
+                      />
                     </div>
                   </div>
                 )}
               />
             )}
 
-            <NavButtons onBack={() => setStep((Math.max(1, step - 1) as Step))} onNext={handleNext} />
+            <NavButtons
+              onBack={() => setStep(Math.max(1, step - 1) as Step)}
+              onNext={handleNext}
+            />
           </Card>
         )}
 
@@ -778,8 +965,13 @@ export default function SOPGenerator() {
             <SectionTitle title="Work Experience" stepLabel="Step 5 of 10" />
             <div className="grid md:grid-cols-2 gap-4">
               <div>
-                <Label required>Have you worked in any professional role?</Label>
-                <SelectBox value={form.hasWork} onChange={(e) => update("hasWork", e.target.value as YesNo)}>
+                <Label required>
+                  Have you worked in any professional role?
+                </Label>
+                <SelectBox
+                  value={form.hasWork}
+                  onChange={(e) => update("hasWork", e.target.value as YesNo)}
+                >
                   <option>No</option>
                   <option>Yes</option>
                 </SelectBox>
@@ -797,26 +989,49 @@ export default function SOPGenerator() {
                   <div className="grid md:grid-cols-4 gap-4">
                     <div>
                       <Label>Company</Label>
-                      <Input value={item.company} onChange={(e) => set({ ...item, company: e.target.value })} />
+                      <Input
+                        value={item.company}
+                        onChange={(e) =>
+                          set({ ...item, company: e.target.value })
+                        }
+                      />
                     </div>
                     <div>
                       <Label>Role</Label>
-                      <Input value={item.role} onChange={(e) => set({ ...item, role: e.target.value })} />
+                      <Input
+                        value={item.role}
+                        onChange={(e) => set({ ...item, role: e.target.value })}
+                      />
                     </div>
                     <div>
                       <Label>Duration</Label>
-                      <Input placeholder="Eg. 2022–2024" value={item.duration} onChange={(e) => set({ ...item, duration: e.target.value })} />
+                      <Input
+                        placeholder="Eg. 2022–2024"
+                        value={item.duration}
+                        onChange={(e) =>
+                          set({ ...item, duration: e.target.value })
+                        }
+                      />
                     </div>
                     <div>
                       <Label>Impact (optional)</Label>
-                      <Input placeholder="Eg. Automated reporting pipeline" value={item.impact || ""} onChange={(e) => set({ ...item, impact: e.target.value })} />
+                      <Input
+                        placeholder="Eg. Automated reporting pipeline"
+                        value={item.impact || ""}
+                        onChange={(e) =>
+                          set({ ...item, impact: e.target.value })
+                        }
+                      />
                     </div>
                   </div>
                 )}
               />
             )}
 
-            <NavButtons onBack={() => setStep((Math.max(1, step - 1) as Step))} onNext={handleNext} />
+            <NavButtons
+              onBack={() => setStep(Math.max(1, step - 1) as Step)}
+              onNext={handleNext}
+            />
           </Card>
         )}
 
@@ -825,8 +1040,13 @@ export default function SOPGenerator() {
             <SectionTitle title="Extra Curricular" stepLabel="Step 6 of 10" />
             <div className="grid md:grid-cols-2 gap-4">
               <div>
-                <Label required>Have you been involved in extracurricular activities?</Label>
-                <SelectBox value={form.hasEC} onChange={(e) => update("hasEC", e.target.value as YesNo)}>
+                <Label required>
+                  Have you been involved in extracurricular activities?
+                </Label>
+                <SelectBox
+                  value={form.hasEC}
+                  onChange={(e) => update("hasEC", e.target.value as YesNo)}
+                >
                   <option>No</option>
                   <option>Yes</option>
                 </SelectBox>
@@ -844,22 +1064,36 @@ export default function SOPGenerator() {
                   <div className="grid md:grid-cols-3 gap-4">
                     <div>
                       <Label>Organization/Club Name</Label>
-                      <Input value={item.org} onChange={(e) => set({ ...item, org: e.target.value })} />
+                      <Input
+                        value={item.org}
+                        onChange={(e) => set({ ...item, org: e.target.value })}
+                      />
                     </div>
                     <div>
                       <Label>Your Role</Label>
-                      <Input value={item.role} onChange={(e) => set({ ...item, role: e.target.value })} />
+                      <Input
+                        value={item.role}
+                        onChange={(e) => set({ ...item, role: e.target.value })}
+                      />
                     </div>
                     <div>
                       <Label>Your Responsibility</Label>
-                      <Input value={item.responsibility} onChange={(e) => set({ ...item, responsibility: e.target.value })} />
+                      <Input
+                        value={item.responsibility}
+                        onChange={(e) =>
+                          set({ ...item, responsibility: e.target.value })
+                        }
+                      />
                     </div>
                   </div>
                 )}
               />
             )}
 
-            <NavButtons onBack={() => setStep((Math.max(1, step - 1) as Step))} onNext={handleNext} />
+            <NavButtons
+              onBack={() => setStep(Math.max(1, step - 1) as Step)}
+              onNext={handleNext}
+            />
           </Card>
         )}
 
@@ -868,8 +1102,15 @@ export default function SOPGenerator() {
             <SectionTitle title="Community Service" stepLabel="Step 7 of 10" />
             <div className="grid md:grid-cols-2 gap-4">
               <div>
-                <Label required>Have you participated in community service?</Label>
-                <SelectBox value={form.hasCommunity} onChange={(e) => update("hasCommunity", e.target.value as YesNo)}>
+                <Label required>
+                  Have you participated in community service?
+                </Label>
+                <SelectBox
+                  value={form.hasCommunity}
+                  onChange={(e) =>
+                    update("hasCommunity", e.target.value as YesNo)
+                  }
+                >
                   <option>No</option>
                   <option>Yes</option>
                 </SelectBox>
@@ -887,72 +1128,139 @@ export default function SOPGenerator() {
                   <div className="grid md:grid-cols-3 gap-4">
                     <div>
                       <Label>Organization</Label>
-                      <Input value={item.org} onChange={(e) => set({ ...item, org: e.target.value })} />
+                      <Input
+                        value={item.org}
+                        onChange={(e) => set({ ...item, org: e.target.value })}
+                      />
                     </div>
                     <div>
                       <Label>Your Role</Label>
-                      <Input value={item.role} onChange={(e) => set({ ...item, role: e.target.value })} />
+                      <Input
+                        value={item.role}
+                        onChange={(e) => set({ ...item, role: e.target.value })}
+                      />
                     </div>
                     <div>
                       <Label>Impact</Label>
-                      <Input placeholder="Eg. Mentored 20 students" value={item.impact} onChange={(e) => set({ ...item, impact: e.target.value })} />
+                      <Input
+                        placeholder="Eg. Mentored 20 students"
+                        value={item.impact}
+                        onChange={(e) =>
+                          set({ ...item, impact: e.target.value })
+                        }
+                      />
                     </div>
                   </div>
                 )}
               />
             )}
 
-            <NavButtons onBack={() => setStep((Math.max(1, step - 1) as Step))} onNext={handleNext} />
+            <NavButtons
+              onBack={() => setStep(Math.max(1, step - 1) as Step)}
+              onNext={handleNext}
+            />
           </Card>
         )}
 
         {step === 8 && (
           <Card>
-            <SectionTitle title="Motivation for the Program" stepLabel="Step 8 of 10" />
+            <SectionTitle
+              title="Motivation for the Program"
+              stepLabel="Step 8 of 10"
+            />
             <div className="space-y-6">
               <MultiSelect
                 required
                 label="Why did you choose this program?"
-                options={["Career opportunities", "Passion for the subject", "Research interests", "Curriculum", "Faculty", "Reputation", "Location", "Other"]}
+                options={[
+                  "Career opportunities",
+                  "Passion for the subject",
+                  "Research interests",
+                  "Curriculum",
+                  "Faculty",
+                  "Reputation",
+                  "Location",
+                  "Other",
+                ]}
                 value={form.whyProgram}
                 onChange={(v) => update("whyProgram", v)}
                 placeholder="You can choose multiple"
                 error={errors.whyProgram}
               />
-              <TextArea placeholder="Explain your reason for choosing this program." value={form.whyProgramReason} onChange={(e) => update("whyProgramReason", e.target.value)} />
+              <TextArea
+                placeholder="Explain your reason for choosing this program."
+                value={form.whyProgramReason}
+                onChange={(e) => update("whyProgramReason", e.target.value)}
+              />
               <MultiSelect
                 required
                 label="Why This University?"
-                options={["Research Opportunities", "Faculty", "Reputation", "Location", "Culture", "Placements", "Alumni", "Scholarship", "Other"]}
+                options={[
+                  "Research Opportunities",
+                  "Faculty",
+                  "Reputation",
+                  "Location",
+                  "Culture",
+                  "Placements",
+                  "Alumni",
+                  "Scholarship",
+                  "Other",
+                ]}
                 value={form.whyUniversity}
                 onChange={(v) => update("whyUniversity", v)}
                 placeholder="You can choose multiple"
                 error={errors.whyUniversity}
               />
-              <TextArea placeholder="Explain your motivation for choosing this university." value={form.whyUniversityReason} onChange={(e) => update("whyUniversityReason", e.target.value)} />
+              <TextArea
+                placeholder="Explain your motivation for choosing this university."
+                value={form.whyUniversityReason}
+                onChange={(e) => update("whyUniversityReason", e.target.value)}
+              />
             </div>
 
-            <NavButtons onBack={() => setStep((Math.max(1, step - 1) as Step))} onNext={handleNext} />
+            <NavButtons
+              onBack={() => setStep(Math.max(1, step - 1) as Step)}
+              onNext={handleNext}
+            />
           </Card>
         )}
 
         {step === 9 && (
           <Card>
-            <SectionTitle title="Fit for the Program" stepLabel="Step 9 of 10" />
+            <SectionTitle
+              title="Fit for the Program"
+              stepLabel="Step 9 of 10"
+            />
             <div className="space-y-6">
               <MultiSelect
                 required
                 label="How do you plan to contribute to the university?"
-                options={["Research", "Leadership", "Academically", "Community Engagement", "Industry", "Sports", "Culture", "Mentorship"]}
+                options={[
+                  "Research",
+                  "Leadership",
+                  "Academically",
+                  "Community Engagement",
+                  "Industry",
+                  "Sports",
+                  "Culture",
+                  "Mentorship",
+                ]}
                 value={form.contribute}
                 onChange={(v) => update("contribute", v)}
                 placeholder="Select..."
                 error={errors.contribute}
               />
-              <TextArea placeholder="What skills or experiences make you a good fit for this course?" value={form.fitReason} onChange={(e) => update("fitReason", e.target.value)} />
+              <TextArea
+                placeholder="What skills or experiences make you a good fit for this course?"
+                value={form.fitReason}
+                onChange={(e) => update("fitReason", e.target.value)}
+              />
             </div>
 
-            <NavButtons onBack={() => setStep((Math.max(1, step - 1) as Step))} onNext={handleNext} />
+            <NavButtons
+              onBack={() => setStep(Math.max(1, step - 1) as Step)}
+              onNext={handleNext}
+            />
           </Card>
         )}
 
@@ -961,8 +1269,14 @@ export default function SOPGenerator() {
             <SectionTitle title="Future Goals" stepLabel="Step 10 of 10" />
             <div className="grid md:grid-cols-2 gap-4">
               <div>
-                <Label required>What are your career goals after completing this program?</Label>
-                <SelectBox value={form.careerGoal} onChange={(e) => update("careerGoal", e.target.value)} error={errors.careerGoal}>
+                <Label required>
+                  What are your career goals after completing this program?
+                </Label>
+                <SelectBox
+                  value={form.careerGoal}
+                  onChange={(e) => update("careerGoal", e.target.value)}
+                  error={errors.careerGoal}
+                >
                   <option value="">Choose one</option>
                   <option>Industry</option>
                   <option>Research</option>
@@ -974,13 +1288,21 @@ export default function SOPGenerator() {
               </div>
               <div>
                 <Label>Notes (optional)</Label>
-                <Input placeholder="Eg. AI product roles focusing on healthcare" value={form.careerNotes} onChange={(e) => update("careerNotes", e.target.value)} />
+                <Input
+                  placeholder="Eg. AI product roles focusing on healthcare"
+                  value={form.careerNotes}
+                  onChange={(e) => update("careerNotes", e.target.value)}
+                />
               </div>
             </div>
 
             <div className="flex items-center justify-between mt-8">
-              <OutlineRedButton onClick={() => setStep(9 as Step)}>Back</OutlineRedButton>
-              <PrimaryButton onClick={handleGenerate}>Show Results</PrimaryButton>
+              <OutlineRedButton onClick={() => setStep(9 as Step)}>
+                Back
+              </OutlineRedButton>
+              <PrimaryButton onClick={handleGenerate}>
+                Show Results
+              </PrimaryButton>
             </div>
           </Card>
         )}
@@ -990,25 +1312,53 @@ export default function SOPGenerator() {
             <SectionTitle title="Edit Your SOP" />
             <div className="flex flex-col md:flex-row md:items-center gap-3 mb-4">
               <div className="flex items-center gap-2">
-                <span className="text-sm font-semibold" style={{ color: THEME.text }}>Format:</span>
+                <span
+                  className="text-sm font-semibold"
+                  style={{ color: THEME.text }}
+                >
+                  Format:
+                </span>
                 <div className="flex gap-2">
                   <label className="flex items-center gap-1 text-sm">
-                    <input type="radio" name="fmt" checked={downloadFormat === "txt"} onChange={() => setDownloadFormat("txt")} />
+                    <input
+                      type="radio"
+                      name="fmt"
+                      checked={downloadFormat === "txt"}
+                      onChange={() => setDownloadFormat("txt")}
+                    />
                     txt
                   </label>
                   <label className="flex items-center gap-1 text-sm">
-                    <input type="radio" name="fmt" checked={downloadFormat === "pdf"} onChange={() => setDownloadFormat("pdf")} />
+                    <input
+                      type="radio"
+                      name="fmt"
+                      checked={downloadFormat === "pdf"}
+                      onChange={() => setDownloadFormat("pdf")}
+                    />
                     pdf
                   </label>
                   <label className="flex items-center gap-1 text-sm">
-                    <input type="radio" name="fmt" checked={downloadFormat === "word"} onChange={() => setDownloadFormat("word")} />
+                    <input
+                      type="radio"
+                      name="fmt"
+                      checked={downloadFormat === "word"}
+                      onChange={() => setDownloadFormat("word")}
+                    />
                     word
                   </label>
                 </div>
               </div>
               <div className="flex items-center gap-2">
-                <span className="text-sm font-semibold" style={{ color: THEME.text }}>Font:</span>
-                <SelectBox value={editorFont} onChange={(e) => setEditorFont(e.target.value)}>
+                <span
+                  className="text-sm font-semibold"
+                  style={{ color: THEME.text }}
+                >
+                  Font:
+                </span>
+                <SelectBox
+                  value={editorFont}
+                  onChange={(e) => setEditorFont(e.target.value)}
+                >
                   <option>Helvetica</option>
                   <option>Arial</option>
                   <option>Inter</option>
@@ -1018,10 +1368,17 @@ export default function SOPGenerator() {
               </div>
             </div>
 
-            <TextArea ref={editorRef as any} style={{ fontFamily: editorFont }} value={generated} onChange={(e) => setGenerated(e.target.value)} />
+            <TextArea
+              ref={editorRef as any}
+              style={{ fontFamily: editorFont }}
+              value={generated}
+              onChange={(e) => setGenerated(e.target.value)}
+            />
 
             <div className="flex items-center justify-between mt-6">
-              <OutlineRedButton onClick={() => setStep(10 as Step)}>Back</OutlineRedButton>
+              <OutlineRedButton onClick={() => setStep(10 as Step)}>
+                Back
+              </OutlineRedButton>
               <PrimaryButton onClick={download}>Download</PrimaryButton>
             </div>
           </Card>
@@ -1033,7 +1390,13 @@ export default function SOPGenerator() {
 
 /* ---------- subcomponents ---------- */
 
-function NavButtons({ onBack, onNext }: { onBack: () => void; onNext: () => void }) {
+function NavButtons({
+  onBack,
+  onNext,
+}: {
+  onBack: () => void;
+  onNext: () => void;
+}) {
   return (
     <div className="flex items-center justify-between mt-8">
       <OutlineRedButton onClick={onBack}>Back</OutlineRedButton>
@@ -1043,7 +1406,13 @@ function NavButtons({ onBack, onNext }: { onBack: () => void; onNext: () => void
 }
 
 /* Achievements: show input only after clicking + Achievement */
-function AchievementInput({ items, onChange }: { items: string[]; onChange: (items: string[]) => void }) {
+function AchievementInput({
+  items,
+  onChange,
+}: {
+  items: string[];
+  onChange: (items: string[]) => void;
+}) {
   const [adding, setAdding] = useState(false);
   const [val, setVal] = useState("");
 
@@ -1058,23 +1427,46 @@ function AchievementInput({ items, onChange }: { items: string[]; onChange: (ite
   return (
     <div>
       {!adding ? (
-        <PrimaryButton type="button" onClick={() => setAdding(true)}>+ Achievement</PrimaryButton>
+        <PrimaryButton type="button" onClick={() => setAdding(true)}>
+          + Achievement
+        </PrimaryButton>
       ) : (
         <div className="flex gap-2 items-start">
           <div className="flex-1">
-            <Input placeholder="Eg. Got 1st rank in Inter College Hackathon." value={val} onChange={(e) => setVal(e.target.value)} />
+            <Input
+              placeholder="Eg. Got 1st rank in Inter College Hackathon."
+              value={val}
+              onChange={(e) => setVal(e.target.value)}
+            />
           </div>
-          <PrimaryButton type="button" onClick={confirmAdd}>Add</PrimaryButton>
-          <OutlineRedButton type="button" onClick={() => { setVal(""); setAdding(false); }}>Cancel</OutlineRedButton>
+          <PrimaryButton type="button" onClick={confirmAdd}>
+            Add
+          </PrimaryButton>
+          <OutlineRedButton
+            type="button"
+            onClick={() => {
+              setVal("");
+              setAdding(false);
+            }}
+          >
+            Cancel
+          </OutlineRedButton>
         </div>
       )}
 
       {items.length > 0 && (
         <div className="flex flex-wrap gap-2 mt-3">
           {items.map((a, i) => (
-            <span key={i} className="inline-flex items-center gap-2 bg-green-50 text-green-700 ring-1 ring-green-200 px-3 py-1 rounded-full text-sm">
+            <span
+              key={i}
+              className="inline-flex items-center gap-2 bg-green-50 text-green-700 ring-1 ring-green-200 px-3 py-1 rounded-full text-sm"
+            >
               {a}
-              <button type="button" className="text-green-700/80 hover:text-green-900" onClick={() => onChange(items.filter((_, idx) => idx !== i))}>
+              <button
+                type="button"
+                className="text-green-700/80 hover:text-green-900"
+                onClick={() => onChange(items.filter((_, idx) => idx !== i))}
+              >
                 ✕
               </button>
             </span>
@@ -1100,21 +1492,33 @@ function Repeater<T>({
   onChange: (items: T[]) => void;
   fields: (item: T, set: (next: T) => void) => React.ReactNode;
 }) {
-  const add = () => onChange([...(items || []), JSON.parse(JSON.stringify(template))]);
+  const add = () =>
+    onChange([...(items || []), JSON.parse(JSON.stringify(template))]);
   const remove = (idx: number) => onChange(items.filter((_, i) => i !== idx));
   return (
     <div className="mt-6 space-y-4">
       <div className="flex items-center justify-between">
         <h3 className="font-semibold text-[#0B0B2C]">{title}</h3>
-        <PrimaryButton type="button" onClick={add}>+ Add</PrimaryButton>
+        <PrimaryButton type="button" onClick={add}>
+          + Add
+        </PrimaryButton>
       </div>
-      {(!items || items.length === 0) && <p className="text-sm text-gray-500">{emptyHelper}</p>}
+      {(!items || items.length === 0) && (
+        <p className="text-sm text-gray-500">{emptyHelper}</p>
+      )}
       <div className="space-y-4">
         {items.map((it, idx) => (
           <div key={idx} className="rounded-2xl ring-1 ring-[#E5EBF0] p-4">
-            {fields(it, (next) => onChange(items.map((x, i) => (i === idx ? next : x))))}
+            {fields(it, (next) =>
+              onChange(items.map((x, i) => (i === idx ? next : x)))
+            )}
             <div className="flex justify-end mt-3">
-              <button type="button" onClick={() => remove(idx)} className="text-sm" style={{ color: THEME.red }}>
+              <button
+                type="button"
+                onClick={() => remove(idx)}
+                className="text-sm"
+                style={{ color: THEME.red }}
+              >
                 Remove
               </button>
             </div>
@@ -1157,7 +1561,11 @@ function Stepper({ current }: { current: Step }) {
                 <div
                   className={cls(
                     "flex items-center justify-center w-12 h-12 rounded-full ring-2 transition-all",
-                    isActive ? "ring-blue-500 shadow-lg" : isCompleted ? "ring-blue-500" : "ring-[#E5EBF0]"
+                    isActive
+                      ? "ring-blue-500 shadow-lg"
+                      : isCompleted
+                      ? "ring-blue-500"
+                      : "ring-[#E5EBF0]"
                   )}
                   style={{
                     background: isActive
@@ -1166,19 +1574,40 @@ function Stepper({ current }: { current: Step }) {
                       ? THEME.blue
                       : "#E5EBF0",
                     color: isActive || isCompleted ? "#fff" : "#6B7280",
-                    boxShadow: isActive ? "0 6px 16px rgba(37,99,235,0.35)" : undefined,
+                    boxShadow: isActive
+                      ? "0 6px 16px rgba(37,99,235,0.35)"
+                      : undefined,
                   }}
                   aria-current={isActive ? "step" : undefined}
                 >
                   {showCheck ? (
-                    <svg viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true">
-                      <path d="M5 10.5l3 3 7-7" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+                    <svg
+                      viewBox="0 0 20 20"
+                      width="20"
+                      height="20"
+                      fill="none"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="M5 10.5l3 3 7-7"
+                        stroke="currentColor"
+                        strokeWidth="2.2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
                     </svg>
                   ) : (
                     <span className="text-sm font-semibold">{i + 1}</span>
                   )}
                 </div>
-                <div className={cls("mt-2 text-xs", isActive ? "font-semibold text-[#0B0B2C]" : "text-gray-600")}>{s.label}</div>
+                <div
+                  className={cls(
+                    "mt-2 text-xs",
+                    isActive ? "font-semibold text-[#0B0B2C]" : "text-gray-600"
+                  )}
+                >
+                  {s.label}
+                </div>
               </div>
 
               {/* Connector */}
@@ -1219,5 +1648,11 @@ function triggerDownload(blob: Blob, filename: string) {
   URL.revokeObjectURL(url);
 }
 function escapeHtml(str: string) {
-  return str.replace(/[&<>"']/g, (m) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" }[m] as string));
+  return str.replace(
+    /[&<>"']/g,
+    (m) =>
+      ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" }[
+        m
+      ] as string)
+  );
 }

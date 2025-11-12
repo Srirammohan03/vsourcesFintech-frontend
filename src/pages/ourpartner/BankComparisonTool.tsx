@@ -189,7 +189,7 @@ export default function BankComparisonTool() {
       <section
         className="relative pt-32 pb-16 lg:pt-32 lg:pb-24 text-white bg-cover bg-[left_center] lg:bg-[top_center]"
         style={{
-          backgroundImage: `url(/assets/images/tools-bg.jpg)`,
+          backgroundImage: `url(/assets/images/tools-bg.webp)`,
         }}
       >
         {/* Dark overlay under content */}
@@ -211,7 +211,6 @@ export default function BankComparisonTool() {
           </div>
         </div>
       </section>
-
 
       {/* MAIN CONTENT */}
       <section className="py-16">
