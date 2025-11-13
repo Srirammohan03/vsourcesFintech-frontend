@@ -131,7 +131,7 @@ export default function LoanCalculator() {
               <Button
                 variant="ghost"
                 onClick={resetAll}
-                className="gap-2 text-sm md:text-base"
+                className="gap-2 text-sm md:text-base hover:text-red-600"
                 style={{ color: THEME.sky }}
                 title="Reset"
               >

@@ -233,7 +233,7 @@ const PARTNERS_SECTIONS: Section[] = [
   },
 ];
 
-const NAV_STRUCTURE = (banks: BankLayoutProps[]): NavNode[] => [
+const NAV_STRUCTURE: NavNode[] = [
   { type: "link", name: "Home", path: "/" },
   { type: "link", name: "About Us", path: "/about-us" },
   { type: "dropdown", name: "Our Services", sections: SERVICES_SECTIONS },
@@ -255,10 +255,10 @@ function Navbar() {
   );
   const ddRef = useRef<HTMLDivElement | null>(null);
 
-  const { data: banks = [], isLoading } = useQuery<BankLayoutProps[]>({
-    queryKey: ["bank"],
-    queryFn: fetchBanks,
-  });
+  // const { data: banks = [], isLoading } = useQuery<BankLayoutProps[]>({
+  //   queryKey: ["bank"],
+  //   queryFn: fetchBanks,
+  // });
 
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 20);
@@ -323,7 +323,7 @@ function Navbar() {
 
         {/* Desktop Navigation – identical layout/behavior */}
         <nav className="hidden md:flex items-center space-x-4 lg:space-x-6">
-          {NAV_STRUCTURE(banks).map((node) => {
+          {NAV_STRUCTURE.map((node) => {
             if (node.type === "link") {
               return (
                 <Link
@@ -399,39 +399,33 @@ function Navbar() {
                   )}
                 >
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4 p-6">
-                    {isLoading ? (
-                      <div className="col-span-2 text-center text-gray-500">
-                        Loading partners...
-                      </div>
-                    ) : (
-                      node.sections.map((section) => (
-                        <div key={section.heading}>
-                          <h4 className="mb-2 text-xs font-semibold uppercase text-gray-500">
-                            {section.heading}
-                          </h4>
-                          <div className="space-y-2">
-                            {section.items.map((item) => {
-                              const Icon = item.icon;
-                              const iconColor =
-                                iconColors[Icon.displayName || Icon.name] ||
-                                "text-gray-500";
-                              return (
-                                <Link
-                                  key={item.path + item.name}
-                                  to={item.path}
-                                  className="flex items-center gap-3 group rounded-md px-2 py-1.5 text-sm text-gray-800 hover:text-red-600 hover:bg-gray-50"
-                                >
-                                  <Icon className={cn("h-4 w-4", iconColor)} />
-                                  <span className="group-hover:text-red-600 font-medium">
-                                    {item.name}
-                                  </span>
-                                </Link>
-                              );
-                            })}
-                          </div>
+                    {node.sections.map((section) => (
+                      <div key={section.heading}>
+                        <h4 className="mb-2 text-xs font-semibold uppercase text-gray-500">
+                          {section.heading}
+                        </h4>
+                        <div className="space-y-2">
+                          {section.items.map((item) => {
+                            const Icon = item.icon;
+                            const iconColor =
+                              iconColors[Icon.displayName || Icon.name] ||
+                              "text-gray-500";
+                            return (
+                              <Link
+                                key={item.path + item.name}
+                                to={item.path}
+                                className="flex items-center gap-3 group rounded-md px-2 py-1.5 text-sm text-gray-800 hover:text-red-600 hover:bg-gray-50"
+                              >
+                                <Icon className={cn("h-4 w-4", iconColor)} />
+                                <span className="group-hover:text-red-600 font-medium">
+                                  {item.name}
+                                </span>
+                              </Link>
+                            );
+                          })}
                         </div>
-                      ))
-                    )}
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>
@@ -467,7 +461,7 @@ function Navbar() {
         )}
       >
         <div className="w-full max-w-[1400px] mx-auto px-4 py-4 space-y-4">
-          {NAV_STRUCTURE(banks).map((node) => {
+          {NAV_STRUCTURE.map((node) => {
             if (node.type === "link") {
               return (
                 <Link
@@ -524,48 +518,40 @@ function Navbar() {
                 >
                   <div className="overflow-hidden">
                     <div className="px-4 pb-3 space-y-3">
-                      {isLoading ? (
-                        <div className="text-center text-gray-500">
-                          Loading partners...
-                        </div>
-                      ) : (
-                        node.sections.map((section) => (
-                          <div key={section.heading}>
-                            <h4 className="mt-1 mb-2 text-xs font-semibold uppercase text-gray-500">
-                              {section.heading}
-                            </h4>
-                            <div className="space-y-1">
-                              {section.items.map((item) => {
-                                const Icon = item.icon;
-                                const iconColor =
-                                  iconColors[Icon.displayName || Icon.name] ||
-                                  "text-gray-500";
-                                return (
-                                  <Link
-                                    key={item.path + item.name}
-                                    to={item.path}
-                                    className={cn(
-                                      "flex items-center gap-3 py-1.5 text-sm",
-                                      isPathActive(item.path)
-                                        ? "text-red-600"
-                                        : "text-gray-800 hover:text-red-600"
-                                    )}
-                                    onClick={() => {
-                                      setIsOpen(false);
-                                      setOpenMobileDropdown(null);
-                                    }}
-                                  >
-                                    <Icon
-                                      className={cn("h-4 w-4", iconColor)}
-                                    />
-                                    {item.name}
-                                  </Link>
-                                );
-                              })}
-                            </div>
+                      {node.sections.map((section) => (
+                        <div key={section.heading}>
+                          <h4 className="mt-1 mb-2 text-xs font-semibold uppercase text-gray-500">
+                            {section.heading}
+                          </h4>
+                          <div className="space-y-1">
+                            {section.items.map((item) => {
+                              const Icon = item.icon;
+                              const iconColor =
+                                iconColors[Icon.displayName || Icon.name] ||
+                                "text-gray-500";
+                              return (
+                                <Link
+                                  key={item.path + item.name}
+                                  to={item.path}
+                                  className={cn(
+                                    "flex items-center gap-3 py-1.5 text-sm",
+                                    isPathActive(item.path)
+                                      ? "text-red-600"
+                                      : "text-gray-800 hover:text-red-600"
+                                  )}
+                                  onClick={() => {
+                                    setIsOpen(false);
+                                    setOpenMobileDropdown(null);
+                                  }}
+                                >
+                                  <Icon className={cn("h-4 w-4", iconColor)} />
+                                  {item.name}
+                                </Link>
+                              );
+                            })}
                           </div>
-                        ))
-                      )}
+                        </div>
+                      ))}
                     </div>
                   </div>
                 </div>

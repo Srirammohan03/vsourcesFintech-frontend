@@ -18,7 +18,7 @@ function HeroSection() {
         className="hidden sm:block absolute inset-0 bg-no-repeat bg-cover bg-center"
         style={{
           backgroundImage:
-            "url(https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762858578/avlygh95olfci5q99tdc.jpg)",
+            "url(https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1763021364/cd2cp7lubaadtsqc0p5k.jpg)",
         }}
       >
         <div className="absolute inset-0 bg-black/50" />
@@ -69,7 +69,7 @@ function HeroSection() {
       </div>
 
       {/* === Desktop Layout === */}
-      <div className="hidden sm:block relative z-10 w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-20">
+      <div className="hidden sm:block relative z-10 w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

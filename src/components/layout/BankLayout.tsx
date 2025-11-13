@@ -134,7 +134,7 @@ const BankLayout: React.FC<BankLayoutProps> = ({
 
             <div className="mt-8 flex gap-4">
               <Link
-                to="/tools/gpa-calculator"
+                to="/tools/loan-calculator"
                 className="px-6 py-3 border-2 border-red-600 text-red-600 font-medium rounded-lg hover:bg-pink-50 transition"
               >
                 Check Eligibility
