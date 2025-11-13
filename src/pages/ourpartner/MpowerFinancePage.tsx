@@ -2,7 +2,7 @@ import React from "react";
 import { Users, Globe, University } from "lucide-react";
 import BankLayout from "@/components/layout/BankLayout";
 
-export const MpowerFinancePage = () => {
+export default function MpowerFinancePage() {
   return (
     <BankLayout
       heroBg="/assets/images/partners/our-partners.webp"
@@ -49,4 +49,4 @@ export const MpowerFinancePage = () => {
       ]}
     />
   );
-};
+}
