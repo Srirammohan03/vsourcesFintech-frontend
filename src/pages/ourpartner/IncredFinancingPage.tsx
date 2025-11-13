@@ -2,7 +2,7 @@ import React from "react";
 import { Users, Globe, University } from "lucide-react";
 import BankLayout from "@/components/layout/BankLayout";
 
-export const IncredFinancingPage = () => {
+export default function IncredFinancingPage  ()  {
   return (
     <BankLayout
       heroBg="/assets/images/partners/our-partners.webp"

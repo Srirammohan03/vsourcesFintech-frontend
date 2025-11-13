@@ -14,15 +14,22 @@ import "aos/dist/aos.css";
 import HeroSkeleton from "./components/HeroSkeleton";
 import DelayedPopup from "./components/DelayedPopup";
 import Footer from "./components/Footer";
-import CredilaPage from "./pages/ourpartner/CredilaPage";
-import NbfcPage from "./pages/ourpartner/NbfcPage";
-import Auxilopage from "./pages/ourpartner/Auxilopage";
-import AvansePage from "./pages/ourpartner/AvansePage";
-import { IncredFinancingPage } from "./pages/ourpartner/IncredFinancingPage";
-import { MpowerFinancePage } from "./pages/ourpartner/MpowerFinancePage";
-import ProdigyFinancePage from "./pages/ourpartner/ProdigyFinancePage";
-import IDFCpage from "./pages/ourpartner/IDFCpage";
-import AxisPage from "./pages/ourpartner/AxisPage";
+
+const CredilaPage = lazy(() => import("./pages/ourpartner/CredilaPage"));
+const NbfcPage = lazy(() => import("./pages/ourpartner/NbfcPage"));
+const Auxilopage = lazy(() => import("./pages/ourpartner/Auxilopage"));
+const AvansePage = lazy(() => import("./pages/ourpartner/AvansePage"));
+const IncredFinancingPage = lazy(
+  () => import("./pages/ourpartner/IncredFinancingPage")
+);
+const MpowerFinancePage = lazy(
+  () => import("./pages/ourpartner/MpowerFinancePage")
+);
+const ProdigyFinancePage = lazy(
+  () => import("./pages/ourpartner/ProdigyFinancePage")
+);
+const IDFCpage = lazy(() => import("./pages/ourpartner/IDFCpage"));
+const AxisPage = lazy(() => import("./pages/ourpartner/AxisPage"));
 
 const Home = lazy(() => import("./pages/Home"));
 const Tools = lazy(() => import("./pages/Tools"));
@@ -157,137 +164,142 @@ const AppContent = () => {
       <div className="flex flex-col min-h-screen">
         {!isGoVirtualPage && <Navbar />}
         <main>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about-us" element={<AboutPage />} />
-            <Route path="/gallery" element={<GalleryPage />} />
-            <Route path="/view-360" element={<View360 />} />
-            <Route
-              path="/services/abroad-education-loan"
-              element={<AbroadEducation />}
-            />
-            <Route
-              path="/services/credit-card"
-              element={<CreditCardComponent />}
-            />
-            <Route
-              path="/services/block-account"
-              element={<BlockedAccount />}
-            />
-            <Route path="/services/bank-account" element={<BankAccount />} />
-            <Route
-              path="/services/health-insurance"
-              element={<HealthInasurance />}
-            />
-            <Route path="/services/forex-card" element={<ForexCard />} />
-            <Route
-              path="/services/travel-insurance"
-              element={<TravelInsurance />}
-            />
-            <Route path="/services/sim-card" element={<SimCard />} />
-            <Route path="/services/gic" element={<GIC />} />
+          <Suspense fallback={<HeroSkeleton />}>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/about-us" element={<AboutPage />} />
+              <Route path="/gallery" element={<GalleryPage />} />
+              <Route path="/view-360" element={<View360 />} />
+              <Route
+                path="/services/abroad-education-loan"
+                element={<AbroadEducation />}
+              />
+              <Route
+                path="/services/credit-card"
+                element={<CreditCardComponent />}
+              />
+              <Route
+                path="/services/block-account"
+                element={<BlockedAccount />}
+              />
+              <Route path="/services/bank-account" element={<BankAccount />} />
+              <Route
+                path="/services/health-insurance"
+                element={<HealthInasurance />}
+              />
+              <Route path="/services/forex-card" element={<ForexCard />} />
+              <Route
+                path="/services/travel-insurance"
+                element={<TravelInsurance />}
+              />
+              <Route path="/services/sim-card" element={<SimCard />} />
+              <Route path="/services/gic" element={<GIC />} />
 
-            <Route path="/tools" element={<Tools />} />
-            <Route path="/tools/loan-calculator" element={<LoanCalculator />} />
-            <Route
-              path="/tools/expense-calculator"
-              element={<ExpenseCalculator />}
-            />
-            <Route
-              path="/tools/currency-converter"
-              element={<CurrencyConverter />}
-            />
-            <Route
-              path="/tools/savings-calculator"
-              element={<SavingsCalculator />}
-            />
-            <Route
-              path="/tools/interest-calculator"
-              element={<InterestCalculator />}
-            />
-            <Route
-              path="/tools/loan-repayment-calculator"
-              element={<LoanRepaymentCalculator />}
-            />
-            <Route
-              path="/tools/education-loan-emi-calculator"
-              element={<EducationLoanEmiCalculator />}
-            />
-            <Route
-              path="/tools/bank-comparison-tool"
-              element={<BankComparisonTool />}
-            />
-            <Route
-              path="/tools/time-zone-converter"
-              element={<TimeZoneConverter />}
-            />
-            <Route path="/tools/weather-abroad" element={<WeatherAbroad />} />
-            <Route
-              path="/tools/gpa-calculator"
-              element={<GpaCalculatorPage />}
-            />
-            <Route path="/tools/packing-list" element={<PackingList />} />
-            <Route path="/tools/sop-generator" element={<SOPGenerator />} />
-            <Route
-              path="/tools/cost-of-studying-abroad"
-              element={<CostOfStudyAbroadPage />}
-            />
-            <Route
-              path="/tools/health-insurance-compare"
-              element={<HealthInsuranceComparePage />}
-            />
-            <Route
-              path="/tools/living-calculator"
-              element={<CompareCostOfLivingPage />}
-            />
-            <Route path="/tools/roi-calculator" element={<ROICalculator />} />
-            <Route
-              path="/tools/estimate-future-earnings"
-              element={<EstimateFutureEarnings />}
-            />
+              <Route path="/tools" element={<Tools />} />
+              <Route
+                path="/tools/loan-calculator"
+                element={<LoanCalculator />}
+              />
+              <Route
+                path="/tools/expense-calculator"
+                element={<ExpenseCalculator />}
+              />
+              <Route
+                path="/tools/currency-converter"
+                element={<CurrencyConverter />}
+              />
+              <Route
+                path="/tools/savings-calculator"
+                element={<SavingsCalculator />}
+              />
+              <Route
+                path="/tools/interest-calculator"
+                element={<InterestCalculator />}
+              />
+              <Route
+                path="/tools/loan-repayment-calculator"
+                element={<LoanRepaymentCalculator />}
+              />
+              <Route
+                path="/tools/education-loan-emi-calculator"
+                element={<EducationLoanEmiCalculator />}
+              />
+              <Route
+                path="/tools/bank-comparison-tool"
+                element={<BankComparisonTool />}
+              />
+              <Route
+                path="/tools/time-zone-converter"
+                element={<TimeZoneConverter />}
+              />
+              <Route path="/tools/weather-abroad" element={<WeatherAbroad />} />
+              <Route
+                path="/tools/gpa-calculator"
+                element={<GpaCalculatorPage />}
+              />
+              <Route path="/tools/packing-list" element={<PackingList />} />
+              <Route path="/tools/sop-generator" element={<SOPGenerator />} />
+              <Route
+                path="/tools/cost-of-studying-abroad"
+                element={<CostOfStudyAbroadPage />}
+              />
+              <Route
+                path="/tools/health-insurance-compare"
+                element={<HealthInsuranceComparePage />}
+              />
+              <Route
+                path="/tools/living-calculator"
+                element={<CompareCostOfLivingPage />}
+              />
+              <Route path="/tools/roi-calculator" element={<ROICalculator />} />
+              <Route
+                path="/tools/estimate-future-earnings"
+                element={<EstimateFutureEarnings />}
+              />
 
-            {/* <Route path="/our-partners" element={<Resources />} /> */}
-            <Route path="/our-partners/credila" element={<CredilaPage />} />
-            <Route path="/our-partners/nbfc" element={<NbfcPage />} />
-            <Route path="/our-partners/auxilo" element={<Auxilopage />} />
-            <Route path="/our-partners/avanse" element={<AvansePage />} />
-            <Route
-              path="/our-partners/incred-finance"
-              element={<IncredFinancingPage />}
-            />
-            <Route
-              path="/our-partners/mpower-financing"
-              element={<MpowerFinancePage />}
-            />
-            <Route
-              path="/our-partners/prodigy-finance"
-              element={<ProdigyFinancePage />}
-            />
-            <Route
-              path="/our-partners/idfc-first-bank"
-              element={<IDFCpage />}
-            />
-            <Route path="/our-partners/axis-bank" element={<AxisPage />} />
-            <Route
-              path="/our-partners/compare-loan-offers"
-              element={<CompareLoanOffers />}
-            />
-            <Route
-              path="/our-partners/bank-comparison-tool"
-              element={<BankComparisonTool />}
-            />
+              {/* <Route path="/our-partners" element={<Resources />} /> */}
+              <Route path="/our-partners/credila" element={<CredilaPage />} />
+              <Route path="/our-partners/nbfc" element={<NbfcPage />} />
+              <Route path="/our-partners/auxilo" element={<Auxilopage />} />
+              <Route path="/our-partners/avanse" element={<AvansePage />} />
+              <Route
+                path="/our-partners/incred-finance"
+                element={<IncredFinancingPage />}
+              />
+              <Route
+                path="/our-partners/mpower-financing"
+                element={<MpowerFinancePage />}
+              />
+              <Route
+                path="/our-partners/prodigy-finance"
+                element={<ProdigyFinancePage />}
+              />
+              <Route
+                path="/our-partners/idfc-first-bank"
+                element={<IDFCpage />}
+              />
+              <Route path="/our-partners/axis-bank" element={<AxisPage />} />
+              <Route
+                path="/our-partners/compare-loan-offers"
+                element={<CompareLoanOffers />}
+              />
+              <Route
+                path="/our-partners/bank-comparison-tool"
+                element={<BankComparisonTool />}
+              />
 
-            {/* <Route path="/country" element={<Country />} /> */}
-            <Route path="/contact" element={<Contact />} />
+              {/* <Route path="/country" element={<Country />} /> */}
+              <Route path="/contact" element={<Contact />} />
 
-            {/* <Route path="/partners/:slug" element={<PartnerDetails />} /> */}
-            <Route path="/education-loan" element={<EducationLoan />} />
+              {/* <Route path="/partners/:slug" element={<PartnerDetails />} /> */}
+              <Route path="/education-loan" element={<EducationLoan />} />
 
-            {/* Add more services here later */}
+              {/* Add more services here later */}
 
-            <Route path="/meeting" element={<GoVirtual />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+              <Route path="/meeting" element={<GoVirtual />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </Suspense>
         </main>
 
         {!isGoVirtualPage && <ContactBar />}
