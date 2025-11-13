@@ -330,23 +330,35 @@ export default function ForexCard() {
         </div>
       </section>
 
-      {/* Benefits Cards grid */}
-      <section>
+      {/* Benefits Cards Grid */}
+      <section
+        className="bg-white"
+        data-aos="fade-up"
+        data-aos-offset="100"
+        data-aos-duration="700"
+      >
         <div className="w-full max-w-[1400px] mx-auto px-6 py-10">
-          <h2 className="text-2xl font-bold text-center mb-8">
-            Benefits for Students
+          {/* Section Header */}
+          <h2
+            className="text-2xl md:text-3xl font-bold text-center mb-8 text-gray-900"
+            data-aos="fade-down"
+          >
+            Benefits for <span className="text-red-600">Students</span>
           </h2>
 
           <Tabs.Root defaultValue="All" className="flex flex-col">
             {/* Tab List */}
-            <Tabs.List className="flex justify-center flex-wrap gap-3 mb-8">
+            <Tabs.List
+              className="flex justify-center flex-wrap gap-3 mb-8"
+              data-aos="fade-up"
+            >
               {categories.map((cat) => (
                 <Tabs.Trigger
                   key={cat}
                   value={cat}
                   className="px-4 py-2 rounded-full text-sm font-medium border border-red-600 
-                text-red-600 hover:bg-red-300 hover:text-white data-[state=active]:bg-red-600 
-                data-[state=active]:text-white transition"
+              text-red-600 hover:bg-red-300 hover:text-white data-[state=active]:bg-red-600 
+              data-[state=active]:text-white transition-all duration-300"
                 >
                   {cat}
                 </Tabs.Trigger>
@@ -360,21 +372,44 @@ export default function ForexCard() {
                   ? BENEFITS
                   : BENEFITS.filter((b) => b.category === cat);
               return (
-                <Tabs.Content key={cat} value={cat}>
+                <Tabs.Content
+                  key={cat}
+                  value={cat}
+                  className="animate-fade-in"
+                  data-aos="fade-up"
+                >
                   <div
                     className="grid gap-5 text-center justify-center 
-               grid-cols-[repeat(auto-fit,minmax(270px,max-content))]"
+              grid-cols-[repeat(auto-fit,minmax(270px,max-content))]"
                   >
-                    {filtered.map((b) => (
+                    {filtered.map((b, index) => (
                       <div
                         key={b.title}
-                        className="bg-white shadow rounded-xl border border-gray-200 p-5 flex flex-col items-center text-center hover:shadow-lg transition w-[250px]"
+                        className="bg-white shadow rounded-xl border border-gray-200 p-5 flex flex-col items-center text-center hover:shadow-lg hover:scale-[1.03] transition-transform duration-300 w-[250px]"
+                        data-aos="zoom-in-up"
+                        data-aos-delay={50 + index * 50}
                       >
-                        <div className="mb-2">{b.icon}</div>
-                        <h3 className="font-semibold text-black mb-1">
+                        <div
+                          className="mb-3"
+                          data-aos="zoom-in"
+                          data-aos-delay={50 + index * 50}
+                        >
+                          {b.icon}
+                        </div>
+                        <h3
+                          className="font-semibold text-black mb-1"
+                          data-aos="fade-up"
+                          data-aos-delay={50 + index * 50}
+                        >
                           {b.title}
                         </h3>
-                        <p className="text-gray-600 text-sm">{b.desc}</p>
+                        <p
+                          className="text-gray-600 text-sm"
+                          data-aos="fade-up"
+                          data-aos-delay={50 + index * 50}
+                        >
+                          {b.desc}
+                        </p>
                       </div>
                     ))}
                   </div>
@@ -386,18 +421,27 @@ export default function ForexCard() {
       </section>
 
       {/* Top Forex Cards Table */}
-      <section className="bg-gray-50 py-10">
-        <div className="max-w-[1400px] mx-auto px-6 space-y-10">
-          {/* 1. Benefits to Customers */}
-          <div>
-            <h2 className="text-center text-3xl font-bold text-gray-900 mb-10">
+      <section
+        className="bg-gray-50 py-10"
+        data-aos="fade-up"
+        data-aos-duration="700"
+        data-aos-offset="100"
+      >
+        <div className="max-w-[1400px] mx-auto px-6 space-y-16">
+          {/* ---------------------- 1. Benefits to Customers ---------------------- */}
+          <div data-aos="fade-up">
+            <h2
+              className="text-center text-3xl font-bold text-gray-900 mb-10"
+              data-aos="fade-down"
+            >
               <span className="text-red-600">EbixCash</span> Globetrotter Travel
               – Benefits to Customers
             </h2>
-            <div className="grid gap-8 md:grid-cols-3">
+
+            <div className="grid gap-8 md:grid-cols-3" data-aos="fade-up">
               {[
                 {
-                  icon: <Globe className="w-10 h-10 text-blue-600  mb-4" />,
+                  icon: <Globe className="w-10 h-10 text-blue-600 mb-4" />,
                   title: "Simple",
                   items: [
                     "Withdraw local currency at 1.9M+ ATMs worldwide",
@@ -407,7 +451,7 @@ export default function ForexCard() {
                   ],
                 },
                 {
-                  icon: <Wallet className="w-10 h-10 text-blue-600  mb-4" />,
+                  icon: <Wallet className="w-10 h-10 text-blue-600 mb-4" />,
                   title: "Smart",
                   items: [
                     "Manage funds smartly",
@@ -418,7 +462,7 @@ export default function ForexCard() {
                 },
                 {
                   icon: (
-                    <ShieldCheck className="w-10 h-10 text-blue-600  mb-4" />
+                    <ShieldCheck className="w-10 h-10 text-blue-600 mb-4" />
                   ),
                   title: "Secure",
                   items: [
@@ -428,18 +472,31 @@ export default function ForexCard() {
                     "Card Insurance",
                   ],
                 },
-              ].map(({ icon, title, items }) => (
+              ].map(({ icon, title, items }, i) => (
                 <article
                   key={title}
-                  className="bg-white rounded-3xl shadow-md p-8 flex flex-col justify-start transition hover:shadow-lg hover:border-red-600 border border-transparent"
+                  className="bg-white rounded-3xl shadow-md p-8 flex flex-col transition hover:shadow-lg hover:border-red-600 border border-transparent"
+                  data-aos="zoom-in-up"
+                  data-aos-delay={50 + i * 50}
                 >
-                  {icon}
-                  <h3 className="text-xl font-semibold mb-4 text-gray-900">
+                  <div data-aos="zoom-in">{icon}</div>
+                  <h3
+                    className="text-xl font-semibold mb-4 text-gray-900"
+                    data-aos="fade-up"
+                    data-aos-delay={50 + i * 50}
+                  >
                     {title}
                   </h3>
+
                   <ul className="text-gray-700 text-sm list-disc list-inside space-y-2">
-                    {items.map((item) => (
-                      <li key={item}>{item}</li>
+                    {items.map((item, idx) => (
+                      <li
+                        key={idx}
+                        data-aos="fade-up"
+                        data-aos-delay={50 + i * 50 + idx * 10}
+                      >
+                        {item}
+                      </li>
                     ))}
                   </ul>
                 </article>
@@ -447,13 +504,17 @@ export default function ForexCard() {
             </div>
           </div>
 
-          {/* 2. Easy Card Management */}
-          <div>
-            <h2 className="text-center text-3xl font-bold text-gray-900 mb-10">
+          {/* ---------------------- 2. Easy Card Management ---------------------- */}
+          <div data-aos="fade-up">
+            <h2
+              className="text-center text-3xl font-bold text-gray-900 mb-10"
+              data-aos="fade-down"
+            >
               <span className="text-red-600">EbixCash</span> Globetrotter Travel
               – Easy Card Management
             </h2>
-            <div className="grid gap-8 md:grid-cols-3">
+
+            <div className="grid gap-8 md:grid-cols-3" data-aos="fade-up">
               {[
                 {
                   icon: <UserCog className="w-10 h-10 text-blue-600 mb-4" />,
@@ -486,18 +547,27 @@ export default function ForexCard() {
                     "IPIN reset",
                   ],
                 },
-              ].map(({ icon, title, items }) => (
+              ].map(({ icon, title, items }, i) => (
                 <article
                   key={title}
-                  className="bg-white rounded-3xl shadow-md p-8 flex flex-col justify-start transition hover:shadow-lg hover:border-red-600 border border-transparent"
+                  className="bg-white rounded-3xl shadow-md p-8 flex flex-col transition hover:shadow-lg hover:border-red-600 border border-transparent"
+                  data-aos="zoom-in-up"
+                  data-aos-delay={300 + i * 150}
                 >
-                  {icon}
+                  <div>{icon}</div>
                   <h3 className="text-xl font-semibold mb-4 text-gray-900">
                     {title}
                   </h3>
+
                   <ul className="text-gray-700 text-sm list-disc list-inside space-y-2">
-                    {items.map((item) => (
-                      <li key={item}>{item}</li>
+                    {items.map((item, idx) => (
+                      <li
+                        key={idx}
+                        data-aos="fade-up"
+                        data-aos-delay={50 + i * 50 + idx * 20}
+                      >
+                        {item}
+                      </li>
                     ))}
                   </ul>
                 </article>
@@ -505,13 +575,17 @@ export default function ForexCard() {
             </div>
           </div>
 
-          {/* 3. Additional Features */}
-          <div>
-            <h2 className="text-center text-3xl font-bold text-gray-900 mb-10">
+          {/* ---------------------- 3. Additional Features ---------------------- */}
+          <div data-aos="fade-up">
+            <h2
+              className="text-center text-3xl font-bold text-gray-900 mb-10"
+              data-aos="fade-down"
+            >
               <span className="text-red-600">EbixCash</span> Globetrotter Travel
               – Additional Features
             </h2>
-            <div className="grid gap-8 md:grid-cols-2">
+
+            <div className="grid gap-8 md:grid-cols-2" data-aos="fade-up">
               {[
                 {
                   icon: <Layers className="w-10 h-10 text-orange-600" />,
@@ -544,21 +618,28 @@ export default function ForexCard() {
                     "Dedicated team available 24/7 in case of loss or theft. Toll-free help worldwide.",
                   fullWidth: true,
                 },
-              ].map(({ icon, title, description, fullWidth }, idx, arr) => (
+              ].map(({ icon, title, description, fullWidth }, i) => (
                 <div
-                  className={`bg-white rounded-3xl shadow-md p-8 flex flex-col justify-start transition hover:shadow-lg hover:border-orange-600 border border-transparent ${
+                  key={title}
+                  className={`bg-white rounded-3xl shadow-md p-8 transition hover:shadow-lg hover:border-orange-600 border border-transparent ${
                     fullWidth ? "md:col-span-2" : ""
                   }`}
+                  data-aos="zoom-in-up"
+                  data-aos-delay={50 + i * 50}
                 >
-                  <div key={title} className="flex flex-row gap-3">
+                  <div className="flex flex-row items-center gap-3 mb-3">
                     {icon}
-                    <h3 className="text-xl font-semibold text-center mb-4 text-gray-900">
+                    <h3 className="text-xl font-semibold text-gray-900">
                       {title}
                     </h3>
                   </div>
-                  <div>
-                    <p className="text-gray-700 text-sm">{description}</p>
-                  </div>
+                  <p
+                    className="text-gray-700 text-sm"
+                    data-aos="fade-up"
+                    data-aos-delay={50 + i * 50}
+                  >
+                    {description}
+                  </p>
                 </div>
               ))}
             </div>

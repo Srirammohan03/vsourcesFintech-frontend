@@ -74,7 +74,6 @@ const AboutSection: React.FC = () => {
             <h2
               data-aos="fade-right"
               data-aos-anchor-placement="center-bottom"
-              data-aos-duration="1000"
               className="text-[#1e73be]"
             >
               About Vsource Fintech
@@ -85,7 +84,6 @@ const AboutSection: React.FC = () => {
               className="flex items-start  pt-3"
               data-aos="fade-right"
               data-aos-anchor-placement="center-bottom"
-              data-aos-duration="1000"
             >
               <img
                 src="/assets/images/Graduation-Hat.gif"
@@ -101,7 +99,6 @@ const AboutSection: React.FC = () => {
               className="para pb-1"
               data-aos="fade-right"
               data-aos-anchor-placement="center-bottom"
-              data-aos-duration="1000"
             >
               Are you planning to study abroad but worried about finances? We
               are South India's most trusted name in education loan guidance,
@@ -113,7 +110,6 @@ const AboutSection: React.FC = () => {
               className="flex items-start pt-1"
               data-aos="fade-right"
               data-aos-anchor-placement="center-bottom"
-              data-aos-duration="1000"
             >
               <img
                 src="/assets/images/globe.gif"
@@ -129,7 +125,6 @@ const AboutSection: React.FC = () => {
               className="para pb-1"
               data-aos="fade-right"
               data-aos-anchor-placement="center-bottom"
-              data-aos-duration="1000"
             >
               We offer end-to-end support for students looking to finance their
               higher education overseas. From choosing the right loan provider
@@ -142,7 +137,6 @@ const AboutSection: React.FC = () => {
               className="flex items-start pt-1"
               data-aos="fade-right"
               data-aos-anchor-placement="center-bottom"
-              data-aos-duration="1000"
             >
               <img
                 src="/assets/images/Briefcase.gif"
@@ -158,7 +152,6 @@ const AboutSection: React.FC = () => {
               className="para"
               data-aos="fade-right"
               data-aos-anchor-placement="center-bottom"
-              data-aos-duration="1000"
             >
               We specialize in securing study abroad loans for students heading
               to: UK, USA, Ireland, France, and Canada.
@@ -169,7 +162,6 @@ const AboutSection: React.FC = () => {
               className="para"
               data-aos="fade-right"
               data-aos-anchor-placement="center-bottom"
-              data-aos-duration="1000"
             >
               <span className="font-bold">100% Educational Loan Guidance </span>
               provided to support your academic journey.
@@ -184,7 +176,6 @@ const AboutSection: React.FC = () => {
                   key={stat.id}
                   className="stat-box"
                   data-aos="fade-up"
-                  data-aos-duration="1000"
                   data-aos-anchor-placement="center-bottom"
                 >
                   <div className="left-box">
@@ -209,7 +200,6 @@ const AboutSection: React.FC = () => {
             className="right"
             data-aos="flip-left"
             data-aos-easing="ease-out-cubic"
-            data-aos-duration="2000"
             data-aos-anchor-placement="center-bottom"
           >
             <img
@@ -232,7 +222,6 @@ const AboutSection: React.FC = () => {
                 key={stat.id}
                 className="stat-box"
                 data-aos="fade-up"
-                data-aos-duration="1000"
                 data-aos-anchor-placement="center-bottom"
               >
                 <div className="left-box">

@@ -242,63 +242,144 @@ const loanData = {
 const benefitData: BenefitItem[] = [
   {
     id: 1,
-    image: "/assets/images/benfit-1.png",
+    image:
+      "https://res.cloudinary.com/dch00stdh/image/upload/v1762857041/xtjytiamvgxbkgxd6a0u.jpg",
     heading: "Enhanced Productivity",
     paragraph:
       "Streamline your workflow and get more done in less time with our intuitive tools.",
   },
   {
     id: 2,
-    image: "/assets/images/benfit-2.png",
+    image:
+      "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762857042/zmrni2mldc7ec7f1tnvg.jpg",
     heading: "Improved Collaboration",
     paragraph:
       "Work together seamlessly with your team on shared projects, no matter where you are.",
   },
   {
     id: 3,
-    image: "/assets/images/benfit-3.png",
+    image:
+      "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762857041/mb3arbfq1n9xbmeoigpp.jpg",
     heading: "Cost Savings",
     paragraph:
       "Reduce overhead and lower operational costs by adopting our efficient platform.",
   },
   {
     id: 4,
-    image: "/assets/images/benfit-4.png",
+    image:
+      "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762857041/piucbmgbewi3wvbxlf0j.jpg",
     heading: "Data-Driven Decisions",
     paragraph:
       "Gain valuable insights from your data to make smarter, more informed business choices.",
   },
   {
     id: 5,
-    image: "/assets/images/benfit-5.png",
+    image:
+      "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762857041/arpvxtuiirygnopvwnf7.jpg",
     heading: "Scalable Solutions",
     paragraph:
       "Our solution grows with you, providing the flexibility to handle your expanding needs.",
   },
   {
     id: 6,
-    image: "/assets/images/benfit-6.png",
+    image:
+      "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762857042/uekr3umceflvwljf2un5.jpg",
     heading: "Increased Security",
     paragraph:
       "Protect your sensitive information with our robust, industry-leading security features.",
   },
   {
     id: 7,
-    image: "/assets/images/benfit-7.png",
+    image:
+      "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762857042/lufwibaep1li3zh858dl.jpg",
     heading: "Customer Satisfaction",
     paragraph:
       "Delight your customers with a seamless experience and exceptional support.",
   },
   {
     id: 8,
-    image: "/assets/images/benfit-8.png",
+    image:
+      "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762857042/coj3ceyjjr3gemrfua5i.jpg",
     heading: "Market Expansion",
     paragraph:
       "Enter new markets and reach a wider audience with our global-ready capabilities.",
   },
   {
     id: 9,
-    image: "/assets/images/benfit-9.png",
+    image:
+      "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762857041/bsdtendowvcesmy8f7ua.jpg",
+    heading: "Swift Approvals",
+    paragraph:
+      "The streamlined approval process of an online education loan ensures prompt access to the necessary support",
+  },
+  {
+    id: 10,
+    image:
+      "https://res.cloudinary.com/dch00stdh/image/upload/v1762857041/xtjytiamvgxbkgxd6a0u.jpg",
+    heading: "Enhanced Productivity",
+    paragraph:
+      "Streamline your workflow and get more done in less time with our intuitive tools.",
+  },
+  {
+    id: 11,
+    image:
+      "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762857042/zmrni2mldc7ec7f1tnvg.jpg",
+    heading: "Improved Collaboration",
+    paragraph:
+      "Work together seamlessly with your team on shared projects, no matter where you are.",
+  },
+  {
+    id: 12,
+    image:
+      "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762857041/mb3arbfq1n9xbmeoigpp.jpg",
+    heading: "Cost Savings",
+    paragraph:
+      "Reduce overhead and lower operational costs by adopting our efficient platform.",
+  },
+  {
+    id: 13,
+    image:
+      "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762857041/piucbmgbewi3wvbxlf0j.jpg",
+    heading: "Data-Driven Decisions",
+    paragraph:
+      "Gain valuable insights from your data to make smarter, more informed business choices.",
+  },
+  {
+    id: 14,
+    image:
+      "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762857041/arpvxtuiirygnopvwnf7.jpg",
+    heading: "Scalable Solutions",
+    paragraph:
+      "Our solution grows with you, providing the flexibility to handle your expanding needs.",
+  },
+  {
+    id: 15,
+    image:
+      "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762857042/uekr3umceflvwljf2un5.jpg",
+    heading: "Increased Security",
+    paragraph:
+      "Protect your sensitive information with our robust, industry-leading security features.",
+  },
+  {
+    id: 16,
+    image:
+      "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762857042/lufwibaep1li3zh858dl.jpg",
+    heading: "Customer Satisfaction",
+    paragraph:
+      "Delight your customers with a seamless experience and exceptional support.",
+  },
+  {
+    id: 17,
+    image:
+      "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762857042/coj3ceyjjr3gemrfua5i.jpg",
+    heading: "Market Expansion",
+    paragraph:
+      "Enter new markets and reach a wider audience with our global-ready capabilities.",
+  },
+  {
+    id: 18,
+    image:
+      "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762857041/bsdtendowvcesmy8f7ua.jpg",
     heading: "Swift Approvals",
     paragraph:
       "The streamlined approval process of an online education loan ensures prompt access to the necessary support",
@@ -352,8 +433,9 @@ const EducationLoan: React.FC = () => {
   return (
     <div className="w-full">
       {/* Hero Section */}
-      <section className="relative lg:text-white pt-28 pb-5 lg:pb-20 lg:pt-36 overflow-hidden">
-        <div className="w-full max-w-[1400px] mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center relative z-10">
+      <section className="relative lg:text-white pt-20  lg:pt-28 overflow-hidden bg-[#0e1221]">
+        <div className="w-full max-w-[1400px] mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center relative">
+          {/* LEFT SIDE CONTENT */}
           <div className="space-y-6">
             <p className="text-sm opacity-90 flex items-center gap-2">
               <Link
@@ -366,16 +448,11 @@ const EducationLoan: React.FC = () => {
               <span>/</span>
               <span>Education Loan</span>
             </p>
-            <div className="block lg:hidden my-6">
-              <img
-                src="/assets/images/education-loans.webp"
-                alt="Education Loan"
-                className="w-full h-auto object-cover rounded-xl"
-              />
-            </div>
+
             <h1 className="text-3xl md:text-4xl font-bold leading-tight">
               Student Education Loans
             </h1>
+
             <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {[
                 "No Credit History Required",
@@ -389,6 +466,7 @@ const EducationLoan: React.FC = () => {
                 </li>
               ))}
             </ul>
+
             <div className="flex gap-4 flex-wrap">
               <a
                 href="/tools/gpa-calculator"
@@ -404,17 +482,20 @@ const EducationLoan: React.FC = () => {
               >
                 Apply Now
               </Button>
+
               {showPopup && <DelayedPopup onMinimize={handlePopupClose} />}
             </div>
           </div>
-        </div>
-        <div className="hidden lg:block absolute inset-0">
-          <img
-            src="/assets/images/education-loan.webp"
-            alt="Education Loan"
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-black/30"></div>
+
+          {/* RIGHT SIDE IMAGE */}
+          <div className="relative   flex items-center justify-center  ">
+            <img
+              src="/assets/images/education-loan.webp"
+              alt="Education Loan"
+              className="h-[350px] max-w-full object-contain rounded-lg rounded-b-none"
+            />
+            {/* <div className="absolute inset-0 bg-black/20 rounded-xl lg:rounded-2xl"></div> */}
+          </div>
         </div>
       </section>
 
@@ -576,7 +657,10 @@ const EducationLoan: React.FC = () => {
                   <li>Competitive interest rates</li>
                   <li>No collateral for smaller amounts</li>
                 </ul>
-                <Button className="mt-4 text-white bg-red-600 font-semibold">
+                <Button
+                  className="mt-4 text-white bg-red-600 font-semibold"
+                  onClick={() => setShowPopup(true)}
+                >
                   Speak to an Advisor
                 </Button>
               </div>
@@ -603,7 +687,10 @@ const EducationLoan: React.FC = () => {
                   <li>Longer repayment tenure</li>
                   <li>Moratorium period till course completion</li>
                 </ul>
-                <Button className="mt-4 text-white bg-red-600 font-semibold ">
+                <Button
+                  className="mt-4 text-white bg-red-600 font-semibold"
+                  onClick={() => setShowPopup(true)}
+                >
                   Speak to an Advisor
                 </Button>
               </div>

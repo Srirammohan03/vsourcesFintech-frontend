@@ -84,7 +84,8 @@ const creditTypes = [
     shortHead: "Safe & Accessible",
     shortContent:
       "Open a U.S. checking account fully online using your Passport, SSN, or ITIN. Perfect for international students.",
-    imageSrc: "/assets/images/lock.gif",
+    imageSrc:
+      "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1763015021/aro3mtcbbdzvla0a7crd.gif",
     bgColor: "bg-blue-50",
     points: [
       "No minimum balance requirement.",
@@ -99,7 +100,8 @@ const creditTypes = [
     shortHead: "Build Credit & Rewards",
     shortContent:
       "Ideal credit products tailored for students with no prior US credit history required.",
-    imageSrc: "/assets/images/tap-to-pay.gif",
+    imageSrc:
+      "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1763015103/so2rjrq1p8q0ggwen9pe.gif",
     bgColor: "bg-green-50",
     points: [
       "No security deposit required for approval.",
@@ -114,7 +116,8 @@ const creditTypes = [
     shortHead: "Fast, Affordable Transfers",
     shortContent:
       "Send money internationally with competitive exchange rates, low fees, and instant tracking for every transfer.",
-    imageSrc: "/assets/images/online-payment.gif",
+    imageSrc:
+      "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v176301517737/v2xupp3wf4s7iejy0fl2.gif",
     bgColor: "bg-yellow-50",
     points: [
       "Transfers to 100+ countries with trusted partners.",
@@ -130,7 +133,8 @@ const creditTypes = [
     shortHead: "Comprehensive & Affordable",
     shortContent:
       "Protect what matters most with insurance plans designed for students abroad.",
-    imageSrc: "/assets/images/privacy-policy.gif",
+    imageSrc:
+      "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v17630157789/ox4ukvvo6xhkv30h6yqz.gif",
     bgColor: "bg-purple-50",
     points: [
       "Rental and liability insurance for off-campus housing.",
@@ -146,7 +150,8 @@ const creditTypes = [
     shortHead: "Flexible & Personalized",
     shortContent:
       "Easily accessible student loans and personal loans tailored for international students.",
-    imageSrc: "/assets/images/discount-bag.gif",
+    imageSrc:
+      "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1763017829/nbl41jipb57szh82yvml.gif",
     bgColor: "bg-pink-50",
     points: [
       "Competitive interest rates customized for students.",
@@ -160,7 +165,7 @@ const creditTypes = [
 
 // Application Steps
 const applySteps = [
-  { step: "Contact Us or Vsources", icon: <Globe className="w-5 h-5" /> },
+  { step: "Contact Vsource", icon: <Globe className="w-5 h-5" /> },
   { step: "Upload Documents", icon: <FileText className="w-5 h-5" /> },
   { step: "Pick Your Card", icon: <CreditCard className="w-5 h-5" /> },
   { step: "Show Income Proof", icon: <DollarSign className="w-5 h-5" /> },
@@ -184,10 +189,10 @@ const CreditCardComponent = () => {
   return (
     <div className="">
       {/* Hero Section */}
-      <section className="relative text-white pt-32 pb-10 lg:pt-40 lg:pb-32">
-        {/* Background Image with Overlay */}
+      <section className="relative text-white pt-32 pb-10 lg:pt-40 lg:pb-32 overflow-hidden">
+        {/* Background Image */}
         <div
-          className="absolute inset-0 bg-cover bg-right bg-no-repeat"
+          className="absolute inset-0 bg-cover bg-right bg-no-repeat scale-105 transition-all duration-[1500ms]"
           style={{
             backgroundImage:
               "url('https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762862486/rp2drehs0klzgtznsxmx.jpg')",
@@ -197,23 +202,45 @@ const CreditCardComponent = () => {
         </div>
 
         {/* Content */}
-        <div className="relative w-full max-w-[1400px] mx-auto px-6 flex flex-col items-center md:items-start justify-center text-left">
-          <Sparkles className="w-10 h-10 text-white mb-4 animate-pulse" />
-          <h1 className="text-4xl font-bold mb-3 text-center max-w-3xl">
+        <div
+          className="relative w-full max-w-[1400px] mx-auto px-6 flex flex-col items-center md:items-start justify-center text-left"
+          data-aos="fade-up"
+        >
+          {/* Icon */}
+          <Sparkles
+            className="w-10 h-10 text-white mb-4 animate-pulse"
+            data-aos="fade-down"
+          />
+
+          {/* Heading */}
+          <h1
+            className="text-4xl font-bold mb-3 text-center md:text-left max-w-3xl leading-tight"
+            data-aos="fade-up"
+          >
             Credit Cards for International Students
           </h1>
-          <p className="mb-6 max-w-2xl">
+
+          {/* Paragraph */}
+          <p
+            className="mb-6 max-w-2xl text-center md:text-left"
+            data-aos="fade-up"
+          >
             Empower your financial journey. Manage money smartly and build
             credit while studying abroad, with exclusive student benefits and
             intuitive application steps.
           </p>
 
-          {/* Tips */}
-          <div className="flex justify-start max-w-2xl flex-col gap-3 mt-2 w-full items-start">
+          {/* Tips Chips */}
+          <div
+            className="flex justify-start max-w-2xl flex-col gap-3 mt-2 w-full items-start"
+            data-aos="fade-up"
+          >
             {tips.map((tip, i) => (
               <span
                 key={i}
-                className="bg-white/20 px-4 py-2 rounded-xl text-sm font-medium text-white shadow w-fit"
+                className="bg-white/20 px-4 py-2 rounded-xl text-sm font-medium text-white shadow w-fit backdrop-blur-sm"
+                data-aos="zoom-in-up"
+                data-aos-delay={50 + i * 50}
               >
                 {tip}
               </span>
@@ -223,15 +250,27 @@ const CreditCardComponent = () => {
       </section>
 
       {/* Country Selector */}
-      <section className="w-full max-w-[1400px] mx-auto px-6 py-10 flex flex-col items-center">
-        <label className="block text-lg font-semibold mb-2 text-gray-700">
+      {/* <section
+        className="w-full max-w-[1400px] mx-auto px-6 py-10 flex flex-col items-center"
+        data-aos="fade-up"
+        data-aos-duration="700"
+        data-aos-offset="80"
+      >
+        <label
+          className="block text-lg font-semibold mb-2 text-gray-700"
+          data-aos="fade-down"
+          data-aos-delay="100"
+        >
           Select Your Country
         </label>
+
         <select
           id="country"
           value={selectedCountry}
           onChange={(e) => setSelectedCountry(e.target.value)}
           className="w-full md:w-1/2 p-3 rounded-xl border border-gray-300 shadow-sm focus:ring-2 focus:ring-purple-500 bg-white"
+          data-aos="zoom-in"
+          data-aos-delay="200"
         >
           {countries.map((c) => (
             <option key={c} value={c}>
@@ -239,19 +278,33 @@ const CreditCardComponent = () => {
             </option>
           ))}
         </select>
-      </section>
+      </section> */}
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-white via-red-100 to-white py-10 px-4 sm:px-6 lg:px-8 overflow-hidden shadow-xl">
+      <section
+        className="bg-gradient-to-br from-white via-red-100 to-white py-10 px-4 sm:px-6 lg:px-8 overflow-hidden shadow-xl"
+        data-aos="fade-in"
+        data-aos-duration="800"
+      >
         <div className="w-full max-w-[1400px] mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           {/* Left Content Section */}
-          <div className="flex flex-col justify-center text-center md:text-left order-2 md:order-1">
-            <h2 className="text-3xl sm:text-4xl  font-extrabold text-black mb-4 leading-tight">
-              Partnering with <span className="text-red-600 ">Zolve</span>
+          <div
+            className="flex flex-col justify-center text-center md:text-left order-2 md:order-1"
+            data-aos="fade-right"
+          >
+            <h2
+              className="text-3xl sm:text-4xl font-extrabold text-black mb-4 leading-tight"
+              data-aos="fade-up"
+            >
+              Partnering with <span className="text-red-600">Zolve</span>
               <br />
               to Empower Your Global Journey
             </h2>
-            <p className="text-black text-lg sm:text-xl mx-auto md:mx-0 mb-6 text-justify">
+
+            <p
+              className="text-black text-lg sm:text-xl mx-auto md:mx-0 mb-6 text-justify"
+              data-aos="fade-up"
+            >
               We’ve teamed up with Zolve to give international students and
               professionals seamless access to essential financial tools and
               U.S. credit cards, making your transition abroad much easier.
@@ -259,7 +312,10 @@ const CreditCardComponent = () => {
           </div>
 
           {/* Right Image Section */}
-          <div className="relative order-1 md:order-2 flex justify-center items-center h-64 sm:h-80 md:h-96">
+          <div
+            className="relative order-1 md:order-2 flex justify-center items-center h-64 sm:h-80 md:h-96"
+            data-aos="zoom-in"
+          >
             <div className="w-52 h-52 sm:w-64 sm:h-64 lg:w-72 lg:h-72 p-4 flex items-center justify-center bg-white rounded-3xl shadow-2xl transition transform hover:scale-105">
               <img
                 src="https://www.zolveimages.zolve.com/website/images/zolve_logo.svg"
@@ -272,30 +328,65 @@ const CreditCardComponent = () => {
       </section>
 
       {/* How It Works */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8">
+      <section
+        className="py-16 px-4 sm:px-6 lg:px-8"
+        data-aos="fade-up"
+        data-aos-duration="700"
+        data-aos-offset="100"
+      >
         <div className="w-full max-w-[1400px] mx-auto px-6">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-extrabold text-black mb-4  md:text-4xl">
+          {/* Header */}
+          <div className="text-center mb-12" data-aos="fade-down">
+            <h2 className="text-3xl font-extrabold text-black mb-4 md:text-4xl">
               How Zolve Works
             </h2>
-            <p className="text-lg text-gray-600 sm:text-xl max-w-2xl mx-auto">
+            <p
+              className="text-lg text-gray-600 sm:text-xl max-w-2xl mx-auto"
+              data-aos="fade-up"
+            >
               Zolve simplifies your financial journey to the U.S. in a few easy
               steps.
             </p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+
+          {/* Steps Grid */}
+          <div
+            className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8"
+            data-aos="fade-up"
+          >
             {howItWorksSteps.map((step, index) => (
               <div
                 key={index}
                 className="flex flex-col items-center text-center p-6 bg-gradient-to-br from-white via-red-100 to-white rounded-2xl shadow-lg transition-transform hover:scale-105 duration-300"
+                data-aos="zoom-in-up"
+                data-aos-delay={50 + index * 50}
               >
-                <div className="w-16 h-16 flex items-center justify-center rounded-full bg-red-200 text-red-700 mb-4">
+                {/* Icon */}
+                <div
+                  className="w-16 h-16 flex items-center justify-center rounded-full bg-red-200 text-red-700 mb-4"
+                  data-aos="zoom-in"
+                  data-aos-delay={50 + index * 50}
+                >
                   {step.icon}
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-2">
+
+                {/* Title */}
+                <h3
+                  className="text-xl font-bold text-gray-900 mb-2"
+                  data-aos="fade-up"
+                  data-aos-delay={50 + index * 50}
+                >
                   {step.title}
                 </h3>
-                <p className="text-gray-600">{step.description}</p>
+
+                {/* Description */}
+                <p
+                  className="text-gray-600"
+                  data-aos="fade-up"
+                  data-aos-delay={50 + index * 50}
+                >
+                  {step.description}
+                </p>
               </div>
             ))}
           </div>
@@ -303,8 +394,16 @@ const CreditCardComponent = () => {
       </section>
 
       {/* Credit Card Types */}
-      <section className="w-full max-w-[900px] mx-auto px-4 sm:px-6 py-10 space-y-10">
-        <h2 className="text-2xl md:text-3xl font-bold text-center mb-8 flex items-center gap-2 justify-center">
+      <section
+        className="w-full max-w-[900px] mx-auto px-4 sm:px-6 py-10 space-y-10"
+        data-aos="fade-up"
+        data-aos-duration="700"
+        data-aos-offset="100"
+      >
+        <h2
+          className="text-2xl md:text-3xl font-bold text-center mb-8 flex items-center gap-2 justify-center"
+          data-aos="fade-down"
+        >
           Financial Products for International Students in {selectedCountry}
         </h2>
 
@@ -316,7 +415,10 @@ const CreditCardComponent = () => {
               key={idx}
               className="w-full max-w-4xl perspective mx-auto"
               style={{ perspective: "1200px" }}
+              data-aos="fade-up"
+              data-aos-delay={50 + idx * 50}
             >
+              {/* Card Wrapper */}
               <div
                 onClick={() => setFlipped(isFlipped ? null : idx)}
                 className={`relative w-full min-h-[300px] cursor-pointer select-none transition-transform duration-700 ${
@@ -327,11 +429,11 @@ const CreditCardComponent = () => {
                   touchAction: "manipulation",
                 }}
               >
-                {/* Front Side */}
+                {/* FRONT SIDE */}
                 <div
-                  className={`absolute inset-0 backface-hidden rounded-2xl shadow-md flex flex-col sm:flex-row items-center justify-between p-5 sm:p-8 gap-6  ${type.bgColor}`}
+                  className={`absolute inset-0 backface-hidden rounded-2xl shadow-md flex flex-col sm:flex-row items-center justify-between p-5 sm:p-8 gap-6 ${type.bgColor}`}
                 >
-                  {/* Left: text + icon */}
+                  {/* Left Content */}
                   <div className="flex flex-col flex-1 justify-center text-center sm:text-left">
                     <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-black mb-3 flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-2">
                       {type.icon} <span>{type.title}</span>
@@ -350,7 +452,7 @@ const CreditCardComponent = () => {
                     </div>
                   </div>
 
-                  {/* Right: image */}
+                  {/* Right Image */}
                   <div className="flex-shrink-0 w-full sm:w-[140px] md:flex items-center justify-center mt-6 sm:mt-0 mx-auto sm:mx-0 hidden">
                     <img
                       src={type.imageSrc}
@@ -362,13 +464,14 @@ const CreditCardComponent = () => {
                   </div>
                 </div>
 
-                {/* Back Side */}
+                {/* BACK SIDE */}
                 <div className="absolute inset-0 backface-hidden rotate-y-180 rounded-2xl bg-white shadow-md border border-indigo-300 p-5 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6">
-                  {/* Left: points */}
+                  {/* Back Content */}
                   <div className="flex-1 max-w-md mx-auto sm:mx-0 text-center sm:text-left">
                     <h3 className="text-indigo-700 text-lg md:text-xl font-semibold mb-4">
                       Key Features
                     </h3>
+
                     <ul className="space-y-2 md:space-y-3 text-gray-700 text-sm md:text-base">
                       {type.points.map((point, i) => (
                         <li key={i} className="flex items-start gap-2 md:gap-3">
@@ -379,8 +482,8 @@ const CreditCardComponent = () => {
                     </ul>
                   </div>
 
-                  {/* Right: image */}
-                  <div className="flex-shrink-0 w-full sm:w-[140px] md:flex items-center justify-center mt-6 sm:mt-0 mx-auto sm:mx-0  hidden">
+                  {/* Back Image */}
+                  <div className="flex-shrink-0 w-full sm:w-[140px] md:flex items-center justify-center mt-6 sm:mt-0 mx-auto sm:mx-0 hidden">
                     <img
                       src={type.imageSrc}
                       alt={`${type.title} details`}
@@ -414,34 +517,68 @@ const CreditCardComponent = () => {
         required for international student card applications.
       </div>
       {/* How To Apply Section */}
-      <section className="w-full max-w-[1400px] mx-auto px-4 py-14">
-        <h2 className="text-2xl md:text-3xl font-bold text-center mb-12">
+      <section
+        className="w-full max-w-[1400px] mx-auto px-4 py-14"
+        data-aos="fade-up"
+        data-aos-duration="700"
+        data-aos-offset="120"
+      >
+        <h2
+          className="text-2xl md:text-3xl font-bold text-center mb-12"
+          data-aos="fade-down"
+        >
           How To Apply in {selectedCountry}
         </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
-          {/* Example step data structure update with descriptions */}
+        <div
+          className="grid grid-cols-1 md:grid-cols-5 gap-8"
+          data-aos="fade-up"
+        >
           {applySteps.map((item, i) => (
             <div
               key={i}
               className="flex flex-col items-center rounded-xl bg-gradient-to-tr from-white via-indigo-50 to-purple-50 p-7 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 group"
+              data-aos="zoom-in-up"
+              data-aos-delay={50 + i * 50}
             >
-              <div className="mb-5">
+              {/* Icon */}
+              <div
+                className="mb-5"
+                data-aos="zoom-in"
+                data-aos-delay={50 + i * 50}
+              >
                 <div
                   className="w-14 h-14 flex items-center justify-center rounded-full bg-gradient-to-br 
-          from-indigo-500 via-purple-500 to-pink-500 text-white shadow-lg group-hover:scale-110 transition-transform"
+            from-indigo-500 via-purple-500 to-pink-500 text-white shadow-lg group-hover:scale-110 transition-transform"
                 >
                   {item.icon}
                 </div>
               </div>
-              <span className="text-lg font-semibold text-indigo-700 mb-2">
+
+              {/* Step Number */}
+              <span
+                className="text-lg font-semibold text-indigo-700 mb-2"
+                data-aos="fade-up"
+                data-aos-delay={50 + i * 50}
+              >
                 Step {i + 1}
               </span>
-              <h3 className="text-md font-bold text-gray-900 mb-2">
+
+              {/* Step Title */}
+              <h3
+                className="text-md font-bold text-gray-900 mb-2"
+                data-aos="fade-up"
+                data-aos-delay={50 + i * 50}
+              >
                 {item.step}
               </h3>
-              {/* Add additional step details or tips here */}
-              <p className="text-sm text-gray-600 mb-2">
+
+              {/* Step Description */}
+              <p
+                className="text-sm text-gray-600 mb-2 text-center"
+                data-aos="fade-up"
+                data-aos-delay={50 + i * 50}
+              >
                 {i === 0
                   ? "Contact our support team or Vsources to begin your application process quickly and get immediate assistance."
                   : i === 1
@@ -454,8 +591,13 @@ const CreditCardComponent = () => {
                   ? "Review all card terms carefully so you are aware of charges, repayments, and rewards before confirming."
                   : ""}
               </p>
-              <div className="mt-auto pt-2">
-                {/* Optional: Tag or more info for each step */}
+
+              {/* Tag */}
+              <div
+                className="mt-auto pt-2"
+                data-aos="fade-up"
+                data-aos-delay={50 + i * 50}
+              >
                 <span className="inline-block px-3 py-1 bg-indigo-100 text-[11px] rounded-xl text-indigo-700 font-medium">
                   {i === 0
                     ? "Assistance Available"
