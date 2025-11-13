@@ -118,7 +118,6 @@ const AboutPage: React.FC = () => {
           <StyledTeamWrapper>
             <div className="main">
               {teamMembers.map((member, index) => {
-                const delay = 50 + index * 50;
                 return (
                   <div
                     className="profile-card"
@@ -141,16 +140,18 @@ const AboutPage: React.FC = () => {
                         data-aos="fade-right"
                         data-aos-anchor-placement="center-bottom"
                       >
-                        {member?.name}
+                        {member?.name?.toUpperCase()}
                       </h3>
                       <p
                         data-aos="fade-right"
                         data-aos-anchor-placement="center-bottom"
                       >
-                        {member?.position}
+                        {member?.position?.toUpperCase()}
                       </p>
                     </div>
-                    <div className="extra-info">{member.bio}</div>
+                    <div className="extra-info">
+                      {member?.bio?.toUpperCase()}
+                    </div>
                   </div>
                 );
               })}
@@ -438,39 +439,39 @@ const teamMembers = [
     name: "Mr. SREENATH REDDY",
     position: "DIRECTOR, ADMINISTRATION",
     image: img18,
-    bio: "VSOURCE COMPANY.",
+    bio: "VSOURCE COMPANY",
   },
   {
     name: "Ms. K CHAITHANYA",
     position: "HR",
     image: img19,
-    bio: "VSOURCE COMPANY.",
+    bio: "VSOURCE COMPANY",
   },
   {
     name: "Mr. NARUN REDDY",
     position: "HEAD, MARKETING",
     image: img20,
-    bio: "VSOURCE VARSITY.",
+    bio: "VSOURCE VARSITY",
   },
   {
     name: "Ms. NAVYA",
     position: "HEAD, MARKETING",
     image: img21,
-    bio: "VSOURCE OVERSEAS.",
+    bio: "VSOURCE OVERSEAS",
   },
   // bpo
   {
     name: "Ms. DEEPIKA",
     position: "INCHARGE, B.P.O",
     image: img22,
-    bio: "VSOURCE FINTECH.",
+    bio: "VSOURCE FINTECH",
   },
 
   {
     name: "Mr. MAHESH",
     position: "INCHARGE, B.P.O",
     image: img24,
-    bio: "VSOURCE OVERSEAS.",
+    bio: "VSOURCE OVERSEAS",
   },
   // BRANCH MANAGER
   {
@@ -483,7 +484,7 @@ const teamMembers = [
     name: "Mr. SRINIVAS CHOWDARY",
     position: "BRANCH MANAGER",
     image: img25,
-    bio: "Tirupati.",
+    bio: "Tirupati",
   },
   {
     name: "Mr. SRINADH YADAV",
@@ -601,12 +602,7 @@ const teamMembers = [
     image: img44,
     bio: "VSOURCE FINTECH",
   },
-  {
-    name: "Ms. KAVYASREE",
-    position: "Sr. ASSOCIATE",
-    image: img45,
-    bio: "VSOURCE FINTECH",
-  },
+
   {
     name: "Mr. MAHESH GOUD",
     position: "Sr. ASSOCIATE",
@@ -618,67 +614,67 @@ const teamMembers = [
     name: "Mr. RAKESH",
     position: "Jr. ASSOCIATE",
     image: img47,
-    bio: "VSOURCE OVERSEAS.",
+    bio: "VSOURCE OVERSEAS",
   },
   {
     name: "Mr. SHAIK MUNEER",
     position: "Jr. ASSOCIATE",
     image: img48,
-    bio: "VSOURCE VARSITY.",
+    bio: "VSOURCE VARSITY",
   },
   {
     name: "Mr. M PAVAN",
     position: "Jr. ASSOCIATE",
     image: img49,
-    bio: "VSOURCE OVERSEAS.",
+    bio: "VSOURCE OVERSEAS",
   },
   {
     name: "Mr. NAGA VENKATESH",
     position: "Jr. ASSOCIATE",
     image: img50,
-    bio: "VSOURCE OVERSEAS.",
+    bio: "VSOURCE OVERSEAS",
   },
   {
     name: "Mr. S PAVAN",
     position: "Jr. ASSOCIATE",
     image: img51,
-    bio: "VSOURCE OVERSEAS.",
+    bio: "VSOURCE OVERSEAS",
   },
   {
     name: "Mr. BHANU SAIRAM",
     position: "Jr. ASSOCIATE",
     image: img52,
-    bio: "VSOURCE VARSITY.",
+    bio: "VSOURCE VARSITY",
   },
   {
     name: "Mr. VIJAY",
     position: "Jr. ASSOCIATE",
     image: img53,
-    bio: "VSOURCE OVERSEAS.",
+    bio: "VSOURCE OVERSEAS",
   },
   {
     name: "Mr. SUBRAHMANYAM",
     position: "Jr. ASSOCIATE",
     image: img54,
-    bio: "VSOURCE VARSITY.",
+    bio: "VSOURCE VARSITY",
   },
   {
     name: "Mr. LAKSHMAN",
     position: "Jr. ASSOCIATE",
     image: img55,
-    bio: "VSOURCE FINTECH.",
+    bio: "VSOURCE FINTECH",
   },
   {
     name: "Mr. MOHAN KRISHNA",
     position: "Jr. ASSOCIATE",
     image: img56,
-    bio: "VSOURCE FINTECH.",
+    bio: "VSOURCE FINTECH",
   },
   {
     name: "Mr. RAMU",
     position: "Jr. ASSOCIATE",
     image: img57,
-    bio: "VSOURCE FINTECH.",
+    bio: "VSOURCE FINTECH",
   },
   {
     name: "Mr. FAHAD",
@@ -690,12 +686,6 @@ const teamMembers = [
     name: "Mr. VAMSHI",
     position: "DIGITAL MARKETING",
     image: img59,
-    bio: "VSOURCE VARSITY.",
-  },
-  {
-    name: "Mr. PURUSHOTHAM REDDY",
-    position: "GROUND MARKETING",
-    image: img60,
-    bio: "ANDHRA & TELANGANA",
+    bio: "VSOURCE VARSITY",
   },
 ];
