@@ -84,8 +84,7 @@ const creditTypes = [
     shortHead: "Safe & Accessible",
     shortContent:
       "Open a U.S. checking account fully online using your Passport, SSN, or ITIN. Perfect for international students.",
-    imageSrc:
-      "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1763015021/aro3mtcbbdzvla0a7crd.gif",
+    imageSrc: "/assets/images/lock.gif",
     bgColor: "bg-blue-50",
     points: [
       "No minimum balance requirement.",
@@ -100,8 +99,7 @@ const creditTypes = [
     shortHead: "Build Credit & Rewards",
     shortContent:
       "Ideal credit products tailored for students with no prior US credit history required.",
-    imageSrc:
-      "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1763015103/so2rjrq1p8q0ggwen9pe.gif",
+    imageSrc: "/assets/images/tap-to-pay.gif",
     bgColor: "bg-green-50",
     points: [
       "No security deposit required for approval.",
@@ -116,8 +114,7 @@ const creditTypes = [
     shortHead: "Fast, Affordable Transfers",
     shortContent:
       "Send money internationally with competitive exchange rates, low fees, and instant tracking for every transfer.",
-    imageSrc:
-      "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v176301517737/v2xupp3wf4s7iejy0fl2.gif",
+    imageSrc: "/assets/images/online-payment.gif",
     bgColor: "bg-yellow-50",
     points: [
       "Transfers to 100+ countries with trusted partners.",
@@ -133,8 +130,7 @@ const creditTypes = [
     shortHead: "Comprehensive & Affordable",
     shortContent:
       "Protect what matters most with insurance plans designed for students abroad.",
-    imageSrc:
-      "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v17630157789/ox4ukvvo6xhkv30h6yqz.gif",
+    imageSrc: "/assets/images/privacy-policy.gif",
     bgColor: "bg-purple-50",
     points: [
       "Rental and liability insurance for off-campus housing.",
@@ -150,8 +146,7 @@ const creditTypes = [
     shortHead: "Flexible & Personalized",
     shortContent:
       "Easily accessible student loans and personal loans tailored for international students.",
-    imageSrc:
-      "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1763017829/nbl41jipb57szh82yvml.gif",
+    imageSrc: "/assets/images/discount-bag.gif",
     bgColor: "bg-pink-50",
     points: [
       "Competitive interest rates customized for students.",
@@ -194,8 +189,7 @@ const CreditCardComponent = () => {
         <div
           className="absolute inset-0 bg-cover bg-right bg-no-repeat scale-105 transition-all duration-[1500ms]"
           style={{
-            backgroundImage:
-              "url('https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762862486/rp2drehs0klzgtznsxmx.jpg')",
+            backgroundImage: "url('/assets/images/ourservices-img.jpg')",
           }}
         >
           <div className="absolute inset-0 bg-black/70 md:bg-black/50" />

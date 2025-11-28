@@ -9,43 +9,35 @@ type VideoItem = {
 const videos: VideoItem[] = [
   {
     name: "SAMSRUTHI",
-    video:
-      "https://res.cloudinary.com/dch00stdh/video/upload/f_auto,q_auto:eco,br_300k/v1762691780/student4_bjqhnt.mp4",
+    video: "/assets/images/video/student4.mp4",
   },
   {
     name: "AMITH REDDY",
-    video:
-      "https://res.cloudinary.com/dch00stdh/video/upload/f_auto,q_auto:eco,br_300k/v1762694135/student8_blnbpq.mp4",
+    video: "/assets/images/video/student8.mp4",
   },
   {
     name: "BEDRE VISHWAS",
-    video:
-      "https://res.cloudinary.com/dch00stdh/video/upload/f_auto,q_auto:eco,br_300k/v1762694056/student7_fuwbjh.mp4",
+    video: "/assets/images/video/student7.mp4",
   },
   {
     name: "DEEKSHITHA",
-    video:
-      "https://res.cloudinary.com/dch00stdh/video/upload/f_auto,q_auto:eco,br_300k/v1762693376/student1_kbxkmk.mp4",
+    video: "/assets/images/video/student1.mp4",
   },
   {
     name: "SHAIK MUNEER AHMED",
-    video:
-      "https://res.cloudinary.com/dch00stdh/video/upload/f_auto,q_auto:eco,br_300k/v1762693862/student6_bajxom.mp4",
+    video: "/assets/images/video/student6.mp4",
   },
   {
     name: "KHASHIKA",
-    video:
-      "https://res.cloudinary.com/dch00stdh/video/upload/f_auto,q_auto:eco,br_300k/v1762693691/student2_y8tg7j.mp4",
+    video: "/assets/images/video/student2.mp4",
   },
   {
     name: "SATHVIKA",
-    video:
-      "https://res.cloudinary.com/dch00stdh/video/upload/f_auto,q_auto:eco,br_300k/v1762693758/student5_n9mezn.mp4",
+    video: "/assets/images/video/student5.mp4",
   },
   {
     name: "LOVLISH REDDY",
-    video:
-      "https://res.cloudinary.com/dch00stdh/video/upload/f_auto,q_auto:eco,br_300k/v1762692631/student3_kpisvc.mp4",
+    video: "/assets/images/video/student3.mp4",
   },
 ];
 

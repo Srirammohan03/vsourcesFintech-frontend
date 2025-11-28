@@ -34,7 +34,7 @@ const VideoSection = () => {
                 onClick={handlePlay}
               >
                 <img
-                  src="https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762838892/gkodku3uo3wt02e1era5.jpg"
+                  src="/assets/images/branches/company.webp"
                   alt="Company Video Thumbnail"
                   className="w-full h-full object-cover"
                   loading="lazy"

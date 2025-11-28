@@ -161,14 +161,23 @@ const DelayedPopup: React.FC<DelayedPopupProps> = ({ onMinimize }) => {
               <div className="relative w-full rounded-2xl shadow-xl overflow-hidden">
                 <div className="bg-white p-6 text-gray-800 rounded-2xl max-h-[90vh] max-w-[90vw] overflow-auto">
                   {/* Header */}
-                  <div className="bg-red-500 text-white py-4 px-6 -mx-6 -mt-6 mb-6 text-center relative rounded-t-2xl">
-                    <h2 className="text-xl font-bold mb-1">Save</h2>
-                    <p className="text-xl font-semibold">
-                      big on your application fees!
+                  <div className="bg-red-500 text-white md:py-6 md:px-6 md:-mx-6 md:-mt-6 mb-6 py-3 px-3 -mx-3  -mt-3 text-center relative rounded-t-2xl space-y-1">
+                    <h2 className="text-2xl font-bold tracking-wide">
+                      STUDY IN UK
+                    </h2>
+
+                    <p className=" font-medium">
+                      TOP UNIVERSITIES • LOW PACKAGES
                     </p>
+
+                    <p className="text-xl font-medium">
+                      APPLY NOW FOR JAN 2026 INTAKE
+                    </p>
+
+                    {/* Close button */}
                     <button
-                      onClick={animateAndClose}
-                      className="absolute top-3 right-3 text-white hover:text-gray-200 transition-colors"
+                      onClick={animateToIconAndClose}
+                      className="absolute top-4 right-4 text-white hover:text-gray-100 transition"
                       aria-label="Close"
                     >
                       <svg
@@ -187,12 +196,6 @@ const DelayedPopup: React.FC<DelayedPopupProps> = ({ onMinimize }) => {
                       </svg>
                     </button>
                   </div>
-
-                  {/* Body */}
-                  <p className="text-center text-gray-700 mb-6 text-lg">
-                    We are just a call away from making your{" "}
-                    <span className="font-bold">dreams into reality!!</span>
-                  </p>
 
                   {/* Form */}
                   <form onSubmit={handleSubmit} className="space-y-4">
@@ -272,23 +275,19 @@ const DelayedPopup: React.FC<DelayedPopupProps> = ({ onMinimize }) => {
                   </form>
 
                   {/* Footer */}
-                  <div className="mt-6 flex flex-col md:flex-row justify-between items-center text-center md:text-left pt-6 border-t border-gray-200">
-                    <p className="text-base mb-4 md:mb-0">
-                      You can always reach us on
-                      <br />
-                      <span className="font-bold text-lg">+91 99126 11119</span>
-                    </p>
+                  <div className="bg-red-500 text-white  md:-mb-6 md:-mx-6 md:p-6 md:mt-3 -mb-3 -mx-3 mt-2 p-3 text-center relative rounded-b-2xl space-y-1">
+                    <span className="text-xl font-medium ">
+                      100% LOAN ASSISTANCE FROM DIFFERENT GOVERNMENT AND PRIVATE
+                      BANKS FOR ACCOMMODATION AND COURSE FEES
+                    </span>
 
-                    <div className="text-xs text-gray-500">
-                      By continuing, you agree to our{" "}
-                      <a href="#" className="underline">
-                        terms
-                      </a>{" "}
-                      and{" "}
-                      <a href="#" className="underline">
-                        privacy policy
-                      </a>
-                    </div>
+                    <span className="text-xl font-medium    ">
+                      ACCOMMODATION SUPPORT IN ABROAD
+                    </span>
+
+                    <span className="text-xl font-medium    ">
+                      COMPLETE GUIDANCE TILL VISA
+                    </span>
                   </div>
                 </div>
               </div>

@@ -10,28 +10,28 @@ const AboutSection: React.FC = () => {
       value: 100000,
       suffix: "+",
       label: "Students Happier",
-      icon: "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762770342/hat_phpbum.gif",
+      icon: "https://cdn-icons-gif.flaticon.com/6454/6454106.gif",
     },
     {
       id: 2,
       value: 20,
       suffix: "+",
       label: "Years of\nExperience",
-      icon: "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762770342/handshake_ewjcsn.gif",
+      icon: "https://cdn-icons-gif.flaticon.com/15370/15370761.gif",
     },
     {
       id: 3,
       value: 25,
       suffix: "+",
       label: "Banking & NBFC Ties",
-      icon: "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762859256/ovrs1mfsktm2gsplkrjp.gif",
+      icon: "/assets/images/bank-a.gif",
     },
     {
       id: 4,
       value: 500,
       suffix: "+ cr",
       label: "Disbursed Every Year",
-      icon: "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762859437/hiakpqhcdkebhvmnracz.gif",
+      icon: "/assets/images/crowdfunding.gif",
     },
   ];
 
@@ -203,7 +203,7 @@ const AboutSection: React.FC = () => {
             data-aos-anchor-placement="center-bottom"
           >
             <img
-              src="https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762754020/imgi_5_founder_pcglp8.jpg"
+              src="/assets/images/founder.webp"
               alt="Founder"
               className="founder-img"
               loading="lazy"

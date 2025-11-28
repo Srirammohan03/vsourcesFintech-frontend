@@ -31,7 +31,7 @@ const Accreditation = memo(() => {
             >
               <h2 className="section-title">ACCREDITATION</h2>
               <motion.img
-                src="https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto,w_350/v1762757629/icef_lzba2f.png"
+                src="/assets/images/icef.webp"
                 alt="ICEF Accreditation"
                 loading="lazy"
                 whileHover={{ scale: 1.05 }}
@@ -48,7 +48,7 @@ const Accreditation = memo(() => {
             >
               <h2 className="section-title">CERTIFICATIONS</h2>
               <motion.img
-                src="https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto,w_350/v1762707879/ets_hrpoem.webp"
+                src="/assets/images/ets.jpeg"
                 alt="ETS Certification"
                 loading="lazy"
                 whileHover={{ scale: 1.05 }}
@@ -66,7 +66,7 @@ const Accreditation = memo(() => {
               <h2 className="section-title">MEMBERSHIPS</h2>
               <div className="membership-row">
                 <motion.img
-                  src="https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto,w_200/v1762707889/images_tzknwo.webp"
+                  src="/assets/images/images.png"
                   alt="EAIE Membership"
                   loading="lazy"
                   whileHover={{ scale: 1.05 }}
@@ -74,7 +74,7 @@ const Accreditation = memo(() => {
                   className="accreditation-img"
                 />
                 <motion.img
-                  src="https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto,w_200/v1762707890/nafsa_awwntg.webp"
+                  src="/assets/images/nafsa.jpg"
                   alt="NAFSA Membership"
                   loading="lazy"
                   whileHover={{ scale: 1.05 }}
@@ -97,7 +97,7 @@ const Accreditation = memo(() => {
             >
               <h2 className="section-title">ACCREDITATION</h2>
               <img
-                src="https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto,w_280/v1762757629/icef_lzba2f.png"
+                src="/assets/images/icef.webp"
                 alt="ICEF Accreditation"
                 loading="lazy"
                 className="accreditation-img"
@@ -112,7 +112,7 @@ const Accreditation = memo(() => {
             >
               <h2 className="section-title">CERTIFICATIONS</h2>
               <img
-                src="https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto,w_280/v1762707879/ets_hrpoem.webp"
+                src="/assets/images/ets.jpeg"
                 alt="ETS Certification"
                 loading="lazy"
                 className="accreditation-img"
@@ -128,13 +128,13 @@ const Accreditation = memo(() => {
               <h2 className="section-title">MEMBERSHIPS</h2>
               <div className="membership-row">
                 <img
-                  src="https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto,w_180/v1762707889/images_tzknwo.webp"
+                  src="/assets/images/images.png"
                   alt="EAIE Membership"
                   loading="lazy"
                   className="accreditation-img"
                 />
                 <img
-                  src="https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto,w_180/v1762707890/nafsa_awwntg.webp"
+                  src="/assets/images/nafsa.jpg"
                   alt="NAFSA Membership"
                   loading="lazy"
                   className="accreditation-img"
