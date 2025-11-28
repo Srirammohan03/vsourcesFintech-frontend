@@ -62,8 +62,7 @@ const WhyChooseLoan: React.FC<WhyChooseLoanProps> = () => {
             <div
               className="absolute inset-0 bg-cover bg-center"
               style={{
-                backgroundImage:
-                  "url('https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762862819/rxlwzvmjasdmccrd7wag.jpg')",
+                backgroundImage: "url('/assets/images/Choose-EduLoan.jpg')",
               }}
             />
 

@@ -315,7 +315,7 @@ function Navbar() {
             src="/assets/images/fintech-logo.webp"
           />
           <img
-            src="https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto,w_200,c_limit,dpr_auto/v1762706239/nav-badge20years_re4asz.webp"
+            src="/assets/images/20 years logo-01.webp"
             alt="20 Years Logo"
             className="h-20 md:h-18 ml-3 w-auto object-contain drop-shadow-md"
           />

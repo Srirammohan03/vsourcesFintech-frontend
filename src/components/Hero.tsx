@@ -17,8 +17,7 @@ function HeroSection() {
       <div
         className="hidden sm:block absolute inset-0 bg-no-repeat bg-cover bg-center"
         style={{
-          backgroundImage:
-            "url(https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1763021364/cd2cp7lubaadtsqc0p5k.jpg)",
+          backgroundImage: "url(/assets/images/bg-01.jpg)",
         }}
       >
         <div className="absolute inset-0 bg-black/50" />
@@ -29,8 +28,7 @@ function HeroSection() {
         <div
           className="absolute inset-0 bg-no-repeat bg-cover bg-[position:center_35%]"
           style={{
-            backgroundImage:
-              "url(https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762858849/var4lvclf4g4ehmk50xj.jpg)",
+            backgroundImage: "url(/assets/images/bg-01-mobile.jpg)",
           }}
         >
           <div className="absolute inset-0 bg-black/50" />
@@ -45,13 +43,16 @@ function HeroSection() {
                   Studying Abroad
                 </span>
               </h1>
-              <div className="flex items-center space-x-2 mt-6">
-                {Object.entries(countryCodes).map(([code, url]) => (
+              <div className="bg-white rounded-xl px-2 py-1 mt-3 flex justify-center gap-1 w-fit ">
+                {["fr", "us", "ie", "ca", "gb"].map((flag, idx) => (
                   <img
-                    key={code}
-                    src={url}
-                    alt={code.toUpperCase()}
-                    className="w-5 h-5 object-cover rounded-full"
+                    key={idx}
+                    src={`https://flagcdn.com/${flag}.svg`}
+                    alt={flag.toUpperCase()}
+                    className="w-4 h-4 object-cover rounded-full"
+                    loading="lazy"
+                    decoding="async"
+                    fetchPriority={idx < 3 ? "high" : "low"}
                   />
                 ))}
               </div>

@@ -242,144 +242,126 @@ const loanData = {
 const benefitData: BenefitItem[] = [
   {
     id: 1,
-    image:
-      "https://res.cloudinary.com/dch00stdh/image/upload/v1762857041/xtjytiamvgxbkgxd6a0u.jpg",
+    image: "/assets/images/benfit-1.png",
     heading: "Enhanced Productivity",
     paragraph:
       "Streamline your workflow and get more done in less time with our intuitive tools.",
   },
   {
     id: 2,
-    image:
-      "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762857042/zmrni2mldc7ec7f1tnvg.jpg",
+    image: "/assets/images/benfit-2.png",
     heading: "Improved Collaboration",
     paragraph:
       "Work together seamlessly with your team on shared projects, no matter where you are.",
   },
   {
     id: 3,
-    image:
-      "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762857041/mb3arbfq1n9xbmeoigpp.jpg",
+    image: "/assets/images/benfit-3.png",
     heading: "Cost Savings",
     paragraph:
       "Reduce overhead and lower operational costs by adopting our efficient platform.",
   },
   {
     id: 4,
-    image:
-      "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762857041/piucbmgbewi3wvbxlf0j.jpg",
+    image: "/assets/images/benfit-4.png",
     heading: "Data-Driven Decisions",
     paragraph:
       "Gain valuable insights from your data to make smarter, more informed business choices.",
   },
   {
     id: 5,
-    image:
-      "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762857041/arpvxtuiirygnopvwnf7.jpg",
+    image: "/assets/images/benfit-5.png",
     heading: "Scalable Solutions",
     paragraph:
       "Our solution grows with you, providing the flexibility to handle your expanding needs.",
   },
   {
     id: 6,
-    image:
-      "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762857042/uekr3umceflvwljf2un5.jpg",
+    image: "/assets/images/benfit-6.png",
     heading: "Increased Security",
     paragraph:
       "Protect your sensitive information with our robust, industry-leading security features.",
   },
   {
     id: 7,
-    image:
-      "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762857042/lufwibaep1li3zh858dl.jpg",
+    image: "/assets/images/benfit-7.png",
     heading: "Customer Satisfaction",
     paragraph:
       "Delight your customers with a seamless experience and exceptional support.",
   },
   {
     id: 8,
-    image:
-      "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762857042/coj3ceyjjr3gemrfua5i.jpg",
+    image: "/assets/images/benfit-8.png",
     heading: "Market Expansion",
     paragraph:
       "Enter new markets and reach a wider audience with our global-ready capabilities.",
   },
   {
     id: 9,
-    image:
-      "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762857041/bsdtendowvcesmy8f7ua.jpg",
+    image: "/assets/images/benfit-9.png",
     heading: "Swift Approvals",
     paragraph:
       "The streamlined approval process of an online education loan ensures prompt access to the necessary support",
   },
   {
     id: 10,
-    image:
-      "https://res.cloudinary.com/dch00stdh/image/upload/v1762857041/xtjytiamvgxbkgxd6a0u.jpg",
+    image: "/assets/images/benfit-1.png",
     heading: "Enhanced Productivity",
     paragraph:
       "Streamline your workflow and get more done in less time with our intuitive tools.",
   },
   {
     id: 11,
-    image:
-      "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762857042/zmrni2mldc7ec7f1tnvg.jpg",
+    image: "/assets/images/benfit-2.png",
     heading: "Improved Collaboration",
     paragraph:
       "Work together seamlessly with your team on shared projects, no matter where you are.",
   },
   {
     id: 12,
-    image:
-      "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762857041/mb3arbfq1n9xbmeoigpp.jpg",
+    image: "/assets/images/benfit-3.png",
     heading: "Cost Savings",
     paragraph:
       "Reduce overhead and lower operational costs by adopting our efficient platform.",
   },
   {
     id: 13,
-    image:
-      "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762857041/piucbmgbewi3wvbxlf0j.jpg",
+    image: "/assets/images/benfit-4.png",
     heading: "Data-Driven Decisions",
     paragraph:
       "Gain valuable insights from your data to make smarter, more informed business choices.",
   },
   {
     id: 14,
-    image:
-      "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762857041/arpvxtuiirygnopvwnf7.jpg",
+    image: "/assets/images/benfit-5.png",
     heading: "Scalable Solutions",
     paragraph:
       "Our solution grows with you, providing the flexibility to handle your expanding needs.",
   },
   {
     id: 15,
-    image:
-      "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762857042/uekr3umceflvwljf2un5.jpg",
+    image: "/assets/images/benfit-6.png",
     heading: "Increased Security",
     paragraph:
       "Protect your sensitive information with our robust, industry-leading security features.",
   },
   {
     id: 16,
-    image:
-      "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762857042/lufwibaep1li3zh858dl.jpg",
+    image: "/assets/images/benfit-7.png",
     heading: "Customer Satisfaction",
     paragraph:
       "Delight your customers with a seamless experience and exceptional support.",
   },
   {
     id: 17,
-    image:
-      "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762857042/coj3ceyjjr3gemrfua5i.jpg",
+    image: "/assets/images/benfit-8.png",
     heading: "Market Expansion",
     paragraph:
       "Enter new markets and reach a wider audience with our global-ready capabilities.",
   },
   {
     id: 18,
-    image:
-      "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762857041/bsdtendowvcesmy8f7ua.jpg",
+    image: "/assets/images/benfit-9.png",
     heading: "Swift Approvals",
     paragraph:
       "The streamlined approval process of an online education loan ensures prompt access to the necessary support",

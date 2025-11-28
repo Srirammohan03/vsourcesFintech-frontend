@@ -115,8 +115,7 @@ export default function ForexCard() {
         <div
           className="absolute inset-0 bg-cover bg-right bg-no-repeat scale-105 transform transition-transform duration-1000"
           style={{
-            backgroundImage:
-              "url('https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762862486/rp2drehs0klzgtznsxmx.jpg')",
+            backgroundImage: "url('/assets/images/ourservices-img.jpg')",
           }}
         >
           <div className="absolute inset-0 bg-black/70 md:bg-black/50" />

@@ -19,24 +19,21 @@ const tools: ToolItem[] = [
     description: "Calculate your education loan EMI and total interest",
     icon: Calculator,
     path: "/tools/loan-calculator",
-    image:
-      "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762862803/ryg3xywmtjgtjlg7sn3i.jpg",
+    image: "/assets/images/loan-calculator.jpg",
   },
   {
     title: "Cost Calculator",
     description: "Estimate the cost of studying abroad",
     icon: TrendingUp,
     path: "/tools/cost-calculator",
-    image:
-      "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762862805/r2shvnfc5cy0pnsin3ht.jpg",
+    image: "/assets/images/Cost-Calculator.jpg",
   },
   {
     title: "Eligibility Checker",
     description: "Check your loan eligibility instantly",
     icon: CheckCircle,
     path: "/tools/eligibility-checker",
-    image:
-      "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762862662/kqahwalzcz5hpp6ikosa.jpg",
+    image: "/assets/images/Eligibility-Checker.jpg",
   },
 ];
 

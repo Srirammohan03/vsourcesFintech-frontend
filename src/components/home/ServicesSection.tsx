@@ -6,8 +6,7 @@ const services = [
     title: "ABROAD MASTERS",
     description:
       "Turn your masters dream into a global reality\nUS | UK | IRELAND | CANADA | FRANCE",
-    imageSrc:
-      "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762857619/ii78bltggggakhho0ysv.jpg",
+    imageSrc: "/assets/images/badges/aborad.jpg",
     externalUrl: "https://vsourceoverseas.com/",
     logoSrc: "/assets/images/logo overseas.png",
   },
@@ -15,8 +14,7 @@ const services = [
     title: "MBBS IN ABROAD",
     description:
       "Affordable, Globally Recognized MBBS Abroad\nGeorgia | Russia",
-    imageSrc:
-      "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762857636/ahusyvnzcu1f3cvoxqc1.jpg",
+    imageSrc: "/assets/images/badges/mbbs.webp",
     externalUrl: "https://vsourceadmissions.com/",
     logoSrc: "/assets/images/mini logo.png",
   },

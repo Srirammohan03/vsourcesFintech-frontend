@@ -1,3 +1,4 @@
+import DelayedPopup from "@/components/DelayedPopup";
 import {
   PlaneTakeoff,
   Sparkles,
@@ -23,43 +24,37 @@ const countries = [
 
 const whyYouNeedData = [
   {
-    iconSrc:
-      "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762864331/rrrypzq9aueade8ty6qx.jpg",
+    iconSrc: "/assets/images/Covers-Emergency.jpg",
     title: "Covers Emergency Medical Assistance",
     description:
       "Unexpected medical emergencies can be financially devastating. Travel insurance covers hospitalisation, doctor's visits, and other medical expenses while you are away from home, ensuring your health is protected.",
   },
   {
-    iconSrc:
-      "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762864066/orfftkgvdv2cxoyhqs4b.jpg",
+    iconSrc: "/assets/images/Covers-Travel.jpg",
     title: "Covers Travel Related Inconveniences",
     description:
       "From flight delays and cancellations to missed connections, travel disruptions are common. Insurance plans help you recoup costs for non-refundable tickets and unexpected accommodation expenses.",
   },
   {
-    iconSrc:
-      "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762864394/esufkot3cq4anqa1w2qx.jpg",
+    iconSrc: "/assets/images/baggage-insurance.webp",
     title: "Covers Baggage-Related Hassles",
     description:
       "Losing your luggage can be a major stressor. Insurance provides coverage for lost, stolen, or damaged baggage, helping you replace essential items and continue your journey smoothly.",
   },
   {
-    iconSrc:
-      "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762864064/pjgj2fbpxiehrzyp9apu.jpg",
+    iconSrc: "/assets/images/Travel-Security.jpg",
     title: "Affordable Travel Security",
     description:
       "Compared to the high cost of international medical care or travel disruptions, travel insurance is a small investment. It offers peace of mind and financial security for your entire trip.",
   },
   {
-    iconSrc:
-      "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762864064/gbjxhv4xmfjogeb1hbva.jpg",
+    iconSrc: "/assets/images/clock-Assistance.jpg",
     title: "Round-the-clock Assistance",
     description:
       "Most travel insurance providers offer 24/7 customer support and emergency assistance services. This means you can get help anytime, anywhere, for a wide range of travel-related issues.",
   },
   {
-    iconSrc:
-      "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762864065/z1vip8x2cfhwzyozt2al.jpg",
+    iconSrc: "/assets/images/Essential-Visa.jpg",
     title: "Essential for Visa Applications",
     description:
       "Many countries, especially in the Schengen Area, require students to have mandatory travel insurance as part of their visa application. Securing a policy is often a critical step to get your visa approved.",
@@ -71,29 +66,25 @@ const planSlides = [
     title: "Travel Insurance for Individuals",
     description:
       "Designed for solo adventurers, this plan provides comprehensive coverage for a single traveler, including medical emergencies, personal liability, and trip cancellations.",
-    image:
-      "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762864754/cphyma5w9xqvdavf0qiq.jpg",
+    image: "/assets/images/Travel-Insurance-Individuals.jpg",
   },
   {
     title: "Travel Insurance for Families",
     description:
       "A single, cost-effective plan that covers the entire family, ensuring every member is protected against unexpected events like medical emergencies, flight delays, and lost baggage.",
-    image:
-      "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762864063/da38yrvgqpwryl5gqhqj.jpg",
+    image: "/assets/images/Travel-Insurance-family.jpg",
   },
   {
     title: "Travel Insurance for Frequent Fliers",
     description:
       "An annual, multi-trip policy that provides year-long coverage for multiple international trips, saving you the hassle and cost of buying a new policy for every journey.",
-    image:
-      "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762865072/xtexec8tdcc7aegiadm4.jpg",
+    image: "/assets/images/Insurance-Frequent-Fliers.jpg",
   },
   {
     title: "Travel Insurance for Students",
     description:
       "Customised plans that meet the specific needs of students studying abroad. These policies often include coverage for tuition fee protection, compassionate visit, and study interruptions.",
-    image:
-      "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762864064/x7eqse6tn30sitrrkt5y.jpg",
+    image: "/assets/images/Travel-Insurance-for-Students.jpg",
   },
 ];
 
@@ -101,7 +92,11 @@ export default function TravelInsurance() {
   const [openIndex, setOpenIndex] = useState(null);
   const [selectedCountry, setSelectedCountry] = useState("USA");
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [showPopup, setShowPopup] = useState(false);
 
+  const handlePopupClose = () => {
+    setShowPopup(false);
+  };
   const toggleFAQ = (index) => {
     setOpenIndex(openIndex === index ? null : index);
   };
@@ -124,8 +119,7 @@ export default function TravelInsurance() {
         <div
           className="absolute inset-0 bg-cover bg-right bg-no-repeat"
           style={{
-            backgroundImage:
-              "url('https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762862486/rp2drehs0klzgtznsxmx.jpg')",
+            backgroundImage: "url('/assets/images/ourservices-img.jpg')",
           }}
         >
           <div className="absolute inset-0 bg-black/70 md:bg-black/50" />
@@ -158,7 +152,10 @@ export default function TravelInsurance() {
               Comprehensive coverage tailored for students studying in USA, UK,
               Canada, Ireland, France, Australia, Germany, and more.
             </p>
-            <button className="mt-2 inline-flex items-center px-8 py-3 bg-red-600 rounded-2xl text-white font-semibold shadow-lg transition duration-300 ease-in-out">
+            <button
+              className="mt-2 inline-flex items-center px-8 py-3 bg-red-600 rounded-2xl text-white font-semibold shadow-lg transition duration-300 ease-in-out"
+              onClick={() => setShowPopup(true)}
+            >
               Get Your Quote
               <svg
                 className="ml-3 w-5 h-5"
@@ -172,10 +169,11 @@ export default function TravelInsurance() {
                 <path d="M5 12h14M12 5l7 7-7 7"></path>
               </svg>
             </button>
+            {showPopup && <DelayedPopup onMinimize={handlePopupClose} />}
           </div>
           <div className="flex-1">
             <img
-              src="https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762864817/ymsfyapq0tikbrxaztf4.jpg"
+              src="/assets/images/travel-insurence.png"
               alt="Student travel insurance"
               className="w-full h-96 object-top object-cover max-w-md mx-auto rounded-xl shadow-lg"
               loading="lazy"

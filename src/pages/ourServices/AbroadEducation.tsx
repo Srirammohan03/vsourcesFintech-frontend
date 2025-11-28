@@ -73,8 +73,7 @@ const AbroadEducation: React.FC = () => {
         <div
           className="absolute inset-0 bg-cover bg-right"
           style={{
-            backgroundImage:
-              "url('https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762862486/rp2drehs0klzgtznsxmx.jpg')",
+            backgroundImage: "url('/assets/images/education-loan.png')",
           }}
         >
           <div className="absolute inset-0 bg-black/70 md:bg-black/50" />

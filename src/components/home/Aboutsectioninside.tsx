@@ -83,7 +83,6 @@ const AboutSection: React.FC = () => {
             <h1
               data-aos="fade-right"
               data-aos-duration="1000"
-              
               data-aos-anchor-placement="center-bottom"
               className="text-3xl md:text-4xl font-bold mb-4"
             >
@@ -202,7 +201,7 @@ const AboutSection: React.FC = () => {
             data-aos-duration="1200"
           >
             <img
-              src="https://vsourcevarsity.com/assets/images/founder.webp"
+              src="/assets/images/founder.webp"
               alt="Founder"
               data-aos="fade-right"
               data-aos-anchor-placement="center-bottom"

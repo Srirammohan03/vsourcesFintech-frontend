@@ -185,18 +185,27 @@ export default function BankComparisonTool() {
 
   return (
     <div className="bg-white min-h-screen">
-      {/* HERO with gradient banner */}
-      <section className="bg-gradient-to-b from-[#002855] to-[#1a1a1a] pt-36 pb-24">
-        <div className="w-full max-w-[1400px] mx-auto px-6">
+      {/* HERO with background image + dark overlay */}
+      <section
+        className="relative pt-32 pb-16 lg:pt-32 lg:pb-24 text-white bg-cover bg-center"
+        style={{
+          backgroundImage: "url('/assets/images/tools-bg.webp')",
+        }}
+      >
+        <div className="absolute inset-0 bg-black/50 z-0" />
+
+        <div className="relative w-full max-w-[1400px] mx-auto px-6">
           <div className="text-center text-white space-y-3">
-            <div className="inline-flex items-center justify-center rounded-2xl bg-white/10 p-3">
+            <div className="inline-flex items-center justify-center rounded-2xl p-3">
               <Calculator className="h-10 w-10 text-white animate-pulse" />
             </div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold">
+
+            <h1 className="text-3xl sm:text-4xl font-extrabold drop-shadow-lg">
               Bank Comparison Tool
             </h1>
-            <p className="text-white/80">
-              Choose banks and compare income criteria, quantum, funding &amp;
+
+            <p className="text-white/70 max-w-2xl mx-auto drop-shadow">
+              Choose banks and compare income criteria, quantum, funding &
               margin, and interest.
             </p>
           </div>
