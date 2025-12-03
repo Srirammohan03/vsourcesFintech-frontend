@@ -115,18 +115,13 @@ const AppContent = () => {
   const [showFormIcon, setShowFormIcon] = useState(false);
   const isGoVirtualPage = location.pathname === "/meeting";
 
+  // SHOW POPUP AFTER 3 SECONDS
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollTop = window.scrollY + window.innerHeight;
-      const docHeight = document.documentElement.scrollHeight;
-      if (scrollTop / docHeight >= 0.2) {
-        setShowForm(true);
-        window.removeEventListener("scroll", handleScroll);
-      }
-    };
+    const timer = setTimeout(() => {
+      setShowForm(true);
+    }, 3000);
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => clearTimeout(timer);
   }, []);
 
   useEffect(() => {
