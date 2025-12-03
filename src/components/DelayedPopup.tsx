@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { memo, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { motion, useAnimation } from "framer-motion";
 import axios from "axios";
@@ -103,7 +103,7 @@ const DelayedPopup: React.FC<DelayedPopupProps> = ({ onMinimize }) => {
     setLoading(true);
     const payload = {
       data: {
-        studentName: name,
+        student_name: name,
         number: phoneNumber,
         service_required: selectedOption,
       },
@@ -159,30 +159,30 @@ const DelayedPopup: React.FC<DelayedPopupProps> = ({ onMinimize }) => {
               animate={controls}
             >
               <div className="relative w-full rounded-2xl shadow-xl overflow-hidden">
-                <div className="bg-white p-6 text-gray-800 rounded-2xl max-h-[90vh] max-w-[90vw] overflow-auto">
+                <div className="bg-white rounded-2xl max-h-[90vh] max-w-[90vw]  text-gray-800 p-4 ">
                   {/* Header */}
-                  <div className="bg-red-500 text-white md:py-6 md:px-6 md:-mx-6 md:-mt-6 mb-6 py-3 px-3 -mx-3  -mt-3 text-center relative rounded-t-2xl space-y-1">
-                    <h2 className="text-2xl font-bold tracking-wide">
+                  <div className="bg-red-500 text-white text-center rounded-t-2xl -mx-4 -mt-4 p-4 md:p-6 md:-mx-6 md:-mt-6 relative space-y-1">
+                    <h2 className="text-xl md:text-2xl font-bold tracking-wide">
                       STUDY IN UK
                     </h2>
 
-                    <p className=" font-medium">
+                    <p className="text-sm md:text-base font-medium">
                       TOP UNIVERSITIES • LOW PACKAGES
                     </p>
 
-                    <p className="text-xl font-medium">
+                    <p className="text-lg md:text-xl font-medium">
                       APPLY NOW FOR JAN 2026 INTAKE
                     </p>
 
-                    {/* Close button */}
+                    {/* Close Button */}
                     <button
                       onClick={animateToIconAndClose}
-                      className="absolute top-4 right-4 text-white hover:text-gray-100 transition"
+                      className="absolute top-3 right-3 md:top-4 md:right-4 hover:text-gray-100 transition"
                       aria-label="Close"
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        className="h-6 w-6"
+                        className="h-6 w-6 md:h-7 md:w-7"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
@@ -198,20 +198,20 @@ const DelayedPopup: React.FC<DelayedPopupProps> = ({ onMinimize }) => {
                   </div>
 
                   {/* Form */}
-                  <form onSubmit={handleSubmit} className="space-y-4">
-                    {/* Name input */}
+                  <form onSubmit={handleSubmit} className="space-y-4 mt-4">
+                    {/* Name */}
                     <input
                       type="text"
                       placeholder="Student Name"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-md text-gray-700 focus:outline-none"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-700 focus:ring-2 focus:ring-red-500 focus:outline-none text-sm md:text-base"
                       required
                     />
 
-                    {/* Phone input */}
-                    <div className="flex rounded-md overflow-hidden border border-gray-300">
-                      <div className="bg-gray-100 text-gray-700 px-4 py-3 flex items-center font-medium border-r rounded-l-md">
+                    {/* Phone */}
+                    <div className="flex border border-gray-300 rounded-lg overflow-hidden">
+                      <div className="bg-gray-100 px-4 py-3 text-gray-700 font-medium border-r">
                         +91
                       </div>
                       <input
@@ -219,7 +219,7 @@ const DelayedPopup: React.FC<DelayedPopupProps> = ({ onMinimize }) => {
                         placeholder="Mobile Number"
                         value={phoneNumber}
                         onChange={(e) => setPhoneNumber(e.target.value)}
-                        className="w-full px-4 py-3 text-gray-700 focus:outline-none"
+                        className="w-full px-4 py-3 text-gray-700 focus:outline-none text-sm md:text-base"
                         required
                         pattern="[0-9]{10}"
                         maxLength={10}
@@ -229,8 +229,8 @@ const DelayedPopup: React.FC<DelayedPopupProps> = ({ onMinimize }) => {
                     {/* Dropdown */}
                     <div className="relative">
                       <div
-                        className="border border-gray-300 rounded-md px-4 py-3 text-gray-700 flex justify-between items-center cursor-pointer"
                         onClick={() => setShowDropdown(!showDropdown)}
+                        className="border border-gray-300 rounded-lg px-4 py-3 text-gray-700 flex justify-between items-center cursor-pointer text-sm md:text-base"
                       >
                         <span>
                           {selectedOption || "Select Service Required"}
@@ -254,8 +254,8 @@ const DelayedPopup: React.FC<DelayedPopupProps> = ({ onMinimize }) => {
                           {options.map((option, index) => (
                             <div
                               key={index}
-                              className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-gray-800"
                               onClick={() => handleOptionClick(option)}
+                              className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-gray-800 text-sm md:text-base"
                             >
                               {option}
                             </div>
@@ -268,26 +268,19 @@ const DelayedPopup: React.FC<DelayedPopupProps> = ({ onMinimize }) => {
                     <button
                       disabled={loading}
                       type="submit"
-                      className="w-full bg-red-500 hover:bg-red-600 text-white font-medium py-3 px-4 rounded-md transition duration-150 shadow-md"
+                      className="w-full bg-red-500 hover:bg-red-600 text-white font-medium py-3 rounded-lg transition duration-150 shadow-md text-sm md:text-base"
                     >
                       {loading ? "Submitting..." : "Request Callback"}
                     </button>
                   </form>
 
                   {/* Footer */}
-                  <div className="bg-red-500 text-white  md:-mb-6 md:-mx-6 md:p-6 md:mt-3 -mb-3 -mx-3 mt-2 p-3 text-center relative rounded-b-2xl space-y-1">
-                    <span className="text-xl font-medium ">
-                      100% LOAN ASSISTANCE FROM DIFFERENT GOVERNMENT AND PRIVATE
-                      BANKS FOR ACCOMMODATION AND COURSE FEES
+                  <div className="bg-red-500 text-white text-center rounded-b-2xl -mx-4 -mb-4 mt-4 p-4 md:p-6 md:-mx-6 space-y-2 md:space-y-3 text-sm md:text-lg font-medium">
+                    <span>
+                      100% LOAN ASSISTANCE FROM GOVERNMENT & PRIVATE BANKS
                     </span>
-
-                    <span className="text-xl font-medium    ">
-                      ACCOMMODATION SUPPORT IN ABROAD
-                    </span>
-
-                    <span className="text-xl font-medium    ">
-                      COMPLETE GUIDANCE TILL VISA
-                    </span>
+                    <span>ACCOMMODATION SUPPORT IN ABROAD</span>
+                    <span>COMPLETE GUIDANCE TILL VISA</span>
                   </div>
                 </div>
               </div>
@@ -299,4 +292,4 @@ const DelayedPopup: React.FC<DelayedPopupProps> = ({ onMinimize }) => {
     : null;
 };
 
-export default DelayedPopup;
+export default memo(DelayedPopup);
