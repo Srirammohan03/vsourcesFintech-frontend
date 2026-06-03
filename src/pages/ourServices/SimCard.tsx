@@ -19,8 +19,7 @@ export default function SimCard() {
         <div
           className="absolute inset-0 bg-cover bg-right bg-no-repeat"
           style={{
-            backgroundImage:
-              "url('/assets/images/ourservices-img.jpg')",
+            backgroundImage: "url('/assets/images/ourservices-img.jpg')",
           }}
         >
           <div className="absolute inset-0 bg-black/70 md:bg-black/50" />
@@ -69,13 +68,13 @@ export default function SimCard() {
               icon: <Phone className="w-12 h-12 text-blue-600 mb-3" />,
               title: "Coverage Across Destinations",
               desc: `Reliable network coverage in ${destinations.join(
-                ", "
+                ", ",
               )} so you can stay connected in your study destination and while traveling.`,
             },
           ].map(({ icon, title, desc }, i) => (
             <div
               key={i}
-              className="bg-white p-6 rounded-xl shadow-lg text-center"
+              className="bg-white p-6 rounded-xl shadow-lg text-center flex flex-col items-center"
             >
               {icon}
               <h3 className="text-xl font-semibold mb-2">{title}</h3>

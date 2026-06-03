@@ -27,9 +27,9 @@ type Mode = "simple" | "compound";
 export default function InterestCalculator() {
   // Inputs
   const [loanAmount, setLoanAmount] = useState<number>(1000000); // ₹10,00,000 default
-  const [interestRate, setInterestRate] = useState<number>(10);  // 10% p.a.
-  const [courseMonths, setCourseMonths] = useState<number>(12);   // 12 months
-  const [tenureYears, setTenureYears] = useState<number>(5);      // 5 years
+  const [interestRate, setInterestRate] = useState<number>(10); // 10% p.a.
+  const [courseMonths, setCourseMonths] = useState<number>(12); // 12 months
+  const [tenureYears, setTenureYears] = useState<number>(5); // 5 years
   const [mode, setMode] = useState<Mode>("simple");
 
   // Outputs
@@ -47,7 +47,7 @@ export default function InterestCalculator() {
 
   const calculate = () => {
     const P = clamp(loanAmount, 100000, 30000000); // ₹1L–₹3Cr
-    const r = clamp(interestRate, 8, 20) / 100;     // decimal
+    const r = clamp(interestRate, 8, 20) / 100; // decimal
     const months = clamp(courseMonths, 6, 72);
     const years = clamp(tenureYears, 1, 20);
 
@@ -85,7 +85,7 @@ export default function InterestCalculator() {
       { name: "Principal", value: Math.max(0, loanAmount), color: THEME.red },
       { name: "Interest", value: Math.max(0, interest), color: THEME.yellow },
     ],
-    [loanAmount, interest]
+    [loanAmount, interest],
   );
 
   const StatChip = ({
@@ -153,7 +153,8 @@ export default function InterestCalculator() {
                   onClick={() => setMode("compound")}
                   className={`px-3 py-1.5 rounded-xl text-sm border ${mode === "compound" ? "font-semibold" : ""}`}
                   style={{
-                    backgroundColor: mode === "compound" ? THEME.yellow : "#fff",
+                    backgroundColor:
+                      mode === "compound" ? THEME.yellow : "#fff",
                     color: mode === "compound" ? THEME.text : THEME.text,
                     borderColor: THEME.gray,
                   }}
@@ -163,11 +164,10 @@ export default function InterestCalculator() {
                 </button>
 
                 <Button
-                  variant="ghost"
+                  variant="outline"
                   onClick={resetAll}
                   className="gap-2 text-sm md:text-base"
-                  style={{ color: THEME.sky }}
-                  title="Reset"
+                  // style={{ color: THEME.sky }}
                 >
                   <RotateCcw className="h-4 w-4" />
                   Reset
@@ -303,9 +303,22 @@ export default function InterestCalculator() {
 
               {/* Top chips */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
-                <StatChip label="Interest" value={formatINR(interest)} bg={THEME.yellow} fg={THEME.text} />
-                <StatChip label="Total Amount" value={formatINR(totalAmount)} bg={THEME.blue} />
-                <StatChip label="Principal" value={formatINR(loanAmount)} bg={THEME.red} />
+                <StatChip
+                  label="Interest"
+                  value={formatINR(interest)}
+                  bg={THEME.yellow}
+                  fg={THEME.text}
+                />
+                <StatChip
+                  label="Total Amount"
+                  value={formatINR(totalAmount)}
+                  bg={THEME.blue}
+                />
+                <StatChip
+                  label="Principal"
+                  value={formatINR(loanAmount)}
+                  bg={THEME.red}
+                />
               </div>
             </CardContent>
           </Card>
@@ -363,7 +376,10 @@ export default function InterestCalculator() {
                       {/* Center label */}
                       <foreignObject x="30%" y="34%" width="40%" height="32%">
                         <div className="w-full h-full flex flex-col items-center justify-center text-center">
-                          <p className="text-[10px] tracking-wide" style={{ color: "#6b7280" }}>
+                          <p
+                            className="text-[10px] tracking-wide"
+                            style={{ color: "#6b7280" }}
+                          >
                             TOTAL
                           </p>
                           <p className="text-base sm:text-lg font-semibold leading-tight">
@@ -377,10 +393,18 @@ export default function InterestCalculator() {
 
                 {/* LEGEND */}
                 <div className="space-y-3">
-                  <LegendRow color={THEME.red} label="Principal" value={formatINR(loanAmount)} />
+                  <LegendRow
+                    color={THEME.red}
+                    label="Principal"
+                    value={formatINR(loanAmount)}
+                  />
                   <LegendRow
                     color={THEME.yellow}
-                    label={mode === "simple" ? "Simple Interest" : "Compound Interest"}
+                    label={
+                      mode === "simple"
+                        ? "Simple Interest"
+                        : "Compound Interest"
+                    }
                     value={formatINR(interest)}
                     dark
                   />
@@ -398,12 +422,20 @@ export default function InterestCalculator() {
               }}
             >
               <CardHeader className="pb-2">
-                <CardTitle className="text-base md:text-lg font-semibold" style={{ color: THEME.text }}>
+                <CardTitle
+                  className="text-base md:text-lg font-semibold"
+                  style={{ color: THEME.text }}
+                >
                   Summary
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-3 text-sm">
-                <Row label="Mode" value={mode === "simple" ? "Simple Interest" : "Compound Interest"} />
+                <Row
+                  label="Mode"
+                  value={
+                    mode === "simple" ? "Simple Interest" : "Compound Interest"
+                  }
+                />
                 <Row label="Principal" value={formatINR(loanAmount)} />
                 <Row label="Interest Rate" value={`${interestRate}% p.a.`} />
                 <Row label="Course Duration" value={`${courseMonths} months`} />
@@ -415,9 +447,22 @@ export default function InterestCalculator() {
           </div>
         }
         howItWorks={[
-          { icon: <DollarSign className="h-8 w-8 mx-auto" color={THEME.red} />, title: "Enter Details", description: "Provide principal, rate, course duration, and tenure." },
-          { icon: <Calculator className="h-8 w-8 mx-auto" color={THEME.blue} />, title: "Choose Mode", description: "Toggle between Simple and Compound interest." },
-          { icon: <Percent className="h-8 w-8 mx-auto" color={THEME.yellow} />, title: "Review Results", description: "See your total interest and amount due." },
+          {
+            icon: <DollarSign className="h-8 w-8 mx-auto" color={THEME.red} />,
+            title: "Enter Details",
+            description:
+              "Provide principal, rate, course duration, and tenure.",
+          },
+          {
+            icon: <Calculator className="h-8 w-8 mx-auto" color={THEME.blue} />,
+            title: "Choose Mode",
+            description: "Toggle between Simple and Compound interest.",
+          },
+          {
+            icon: <Percent className="h-8 w-8 mx-auto" color={THEME.yellow} />,
+            title: "Review Results",
+            description: "See your total interest and amount due.",
+          },
         ]}
         extraSectionTitle="Formulas Used"
         extraSectionContent={
@@ -427,18 +472,39 @@ export default function InterestCalculator() {
               <span className="font-medium">A = P + SI</span>
             </li>
             <li style={{ color: THEME.text }}>
-              Compound (annual): <span className="font-medium">A = P(1 + r)<sup>t</sup></span>,{" "}
-              <span className="font-medium">CI = A − P</span>
+              Compound (annual):{" "}
+              <span className="font-medium">
+                A = P(1 + r)<sup>t</sup>
+              </span>
+              , <span className="font-medium">CI = A − P</span>
             </li>
             <li style={{ color: THEME.text }}>
-              Here, <span className="font-medium">t = courseMonths/12 + tenureYears</span>.
+              Here,{" "}
+              <span className="font-medium">
+                t = courseMonths/12 + tenureYears
+              </span>
+              .
             </li>
           </ul>
         }
         references={[
-          { title: "EMI Calculator", description: "Calculate EMIs for repayment planning.", link: "/tools/emi-calculator" },
-          { title: "Loan Eligibility", description: "Check your eligibility before applying.", link: "/tools/loan-eligibility-calculator" },
-          { title: "Education Loan Calculator", description: "Full loan cost and EMI view.", link: "/tools/education-loan-calculator" },
+          {
+            title: "EMI Calculator",
+            description: "Calculate your EMIs for different loan scenarios.",
+            link: "/tools/education-loan-emi-calculator",
+          },
+          {
+            title: "Loan Repayment Calculator",
+            description:
+              "Check your repayment schedule and outstanding balance over time.",
+            link: "/tools/loan-repayment-calculator",
+          },
+          {
+            title: "Loan Calculator",
+            description:
+              "Estimate your monthly payments and total interest for various loan amounts and tenures.",
+            link: "/tools/loan-calculator",
+          },
         ]}
       />
     </div>
@@ -474,9 +540,15 @@ function LegendRow({
     <div className="flex items-center justify-between text-sm">
       <div className="flex items-center gap-2">
         {!noDot && (
-          <span className="inline-block h-3 w-3 rounded-full" style={{ backgroundColor: color }} />
+          <span
+            className="inline-block h-3 w-3 rounded-full"
+            style={{ backgroundColor: color }}
+          />
         )}
-        <span className={bold ? "font-semibold" : ""} style={{ color: dark ? "#111827" : THEME.text }}>
+        <span
+          className={bold ? "font-semibold" : ""}
+          style={{ color: dark ? "#111827" : THEME.text }}
+        >
           {label}
         </span>
       </div>

@@ -1,6 +1,7 @@
 // layout/ToolPageTemplate.tsx
 import React from "react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 type ToolPageTemplateProps = {
   title: string;
@@ -116,12 +117,12 @@ export default function ToolPageTemplate({
               >
                 <h3 className="font-semibold text-lg mb-2">{ref.title}</h3>
                 <p className="text-sm text-gray-600 mb-4">{ref.description}</p>
-                <a
-                  href={ref.link}
+                <Link
+                  to={ref.link}
                   className="text-red-600 font-medium hover:underline"
                 >
                   Learn More →
-                </a>
+                </Link>
               </div>
             ))}
           </div>

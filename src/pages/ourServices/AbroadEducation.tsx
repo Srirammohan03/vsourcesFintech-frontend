@@ -65,6 +65,7 @@ const AbroadEducation: React.FC = () => {
   const handlePopupClose = () => {
     setShowPopup(false);
   };
+
   return (
     <div className="w-full font-sans">
       {/* Hero Section */}
@@ -129,13 +130,13 @@ const AbroadEducation: React.FC = () => {
               ))}
             </ul>
 
-            <div className="flex gap-4 flex-wrap" data-aos="fade-up">
-              <a
-                href="/tools/gpa-calculator"
+            {/* <div className="flex gap-4 flex-wrap" data-aos="fade-up">
+              <Link
+                to="/tools/gpa-calculator"
                 className="px-3 py-2 text-white bg-red-600 font-semibold rounded-lg"
               >
                 Check Eligibility
-              </a>
+              </Link>
 
               <Button
                 variant="secondary"
@@ -144,7 +145,7 @@ const AbroadEducation: React.FC = () => {
               >
                 Apply Now
               </Button>
-            </div>
+            </div> */}
           </div>
         </div>
       </section>

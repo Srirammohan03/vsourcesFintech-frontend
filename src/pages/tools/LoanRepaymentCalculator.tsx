@@ -24,10 +24,10 @@ const THEME = {
 
 export default function LoanRepaymentCalculator() {
   // Inputs (with your ranges)
-  const [loanAmount, setLoanAmount] = useState<number>(1000000);  // ₹10,00,000 default
-  const [interestRate, setInterestRate] = useState<number>(10);   // 10% p.a.
-  const [courseMonths, setCourseMonths] = useState<number>(12);   // 12 months
-  const [tenureYears, setTenureYears] = useState<number>(5);      // 5 years
+  const [loanAmount, setLoanAmount] = useState<number>(1000000); // ₹10,00,000 default
+  const [interestRate, setInterestRate] = useState<number>(10); // 10% p.a.
+  const [courseMonths, setCourseMonths] = useState<number>(12); // 12 months
+  const [tenureYears, setTenureYears] = useState<number>(5); // 5 years
 
   // Outputs
   const [emi, setEmi] = useState<number>(0);
@@ -55,11 +55,16 @@ export default function LoanRepaymentCalculator() {
    *    m = r/12, n = tenureYears*12, EMI formula
    *    Repayment Interest = (EMI * n) - Effective Principal
    */
+  const principal = clamp(loanAmount, 100000, 30000000);
+  const rate = clamp(interestRate, 8, 20);
+  const monthsValue = clamp(courseMonths, 6, 72);
+  const yearsValue = clamp(tenureYears, 1, 20);
+
   const calculate = () => {
-    const P = clamp(loanAmount, 100000, 30000000); // ₹1L–₹3Cr
-    const r = clamp(interestRate, 8, 20) / 100;    // decimal
-    const months = clamp(courseMonths, 6, 72);
-    const years = clamp(tenureYears, 1, 20);
+    const P = principal;
+    const r = rate / 100;
+    const months = monthsValue;
+    const years = yearsValue;
 
     // 1) Accrued simple interest during course
     const accrued = P * r * (months / 12);
@@ -71,14 +76,9 @@ export default function LoanRepaymentCalculator() {
 
     let E = 0;
     let totalRepay = 0;
-    if (m === 0) {
-      E = P_eff / n;
-      totalRepay = P_eff;
-    } else {
-      const pow = Math.pow(1 + m, n);
-      E = (P_eff * m * pow) / (pow - 1);
-      totalRepay = E * n;
-    }
+    const pow = Math.pow(1 + m, n);
+    E = (P_eff * m * pow) / (pow - 1);
+    totalRepay = E * n;
 
     const repayInterest = totalRepay - P_eff;
     const totalInt = accrued + repayInterest;
@@ -108,10 +108,14 @@ export default function LoanRepaymentCalculator() {
 
   const pieData = useMemo(
     () => [
-      { name: "Principal", value: Math.max(0, loanAmount), color: THEME.red },
-      { name: "Interest", value: Math.max(0, totalInterest), color: THEME.yellow },
+      { name: "Principal", value: Math.max(0, principal), color: THEME.red },
+      {
+        name: "Interest",
+        value: Math.max(0, totalInterest),
+        color: THEME.yellow,
+      },
     ],
-    [loanAmount, totalInterest]
+    [principal, totalInterest],
   );
 
   const StatChip = ({
@@ -186,7 +190,10 @@ export default function LoanRepaymentCalculator() {
                   max={30000000}
                   step={10000}
                   value={loanAmount}
-                  onChange={(e) => setLoanAmount(Number(e.target.value))}
+                  onChange={(e) => {
+                    const value = parseFloat(e.target.value);
+                    setLoanAmount(isNaN(value) ? 100000 : value);
+                  }}
                   style={{ borderColor: THEME.gray, color: THEME.text }}
                 />
                 <input
@@ -196,7 +203,10 @@ export default function LoanRepaymentCalculator() {
                   max={30000000}
                   step={50000}
                   value={loanAmount}
-                  onChange={(e) => setLoanAmount(Number(e.target.value))}
+                  onChange={(e) => {
+                    const value = parseFloat(e.target.value);
+                    setLoanAmount(isNaN(value) ? 100000 : value);
+                  }}
                   className="w-full"
                   style={{ accentColor: THEME.red }}
                 />
@@ -218,7 +228,10 @@ export default function LoanRepaymentCalculator() {
                   max={20}
                   step={0.1}
                   value={interestRate}
-                  onChange={(e) => setInterestRate(Number(e.target.value))}
+                  onChange={(e) => {
+                    const value = parseFloat(e.target.value);
+                    setInterestRate(isNaN(value) ? 8 : value);
+                  }}
                   style={{ borderColor: THEME.gray, color: THEME.text }}
                 />
                 <input
@@ -228,7 +241,10 @@ export default function LoanRepaymentCalculator() {
                   max={20}
                   step={0.1}
                   value={interestRate}
-                  onChange={(e) => setInterestRate(Number(e.target.value))}
+                  onChange={(e) => {
+                    const value = parseFloat(e.target.value);
+                    setInterestRate(isNaN(value) ? 8 : value);
+                  }}
                   className="w-full"
                   style={{ accentColor: THEME.red }}
                 />
@@ -249,7 +265,10 @@ export default function LoanRepaymentCalculator() {
                   min={6}
                   max={72}
                   value={courseMonths}
-                  onChange={(e) => setCourseMonths(Number(e.target.value))}
+                  onChange={(e) => {
+                    const value = parseFloat(e.target.value);
+                    setCourseMonths(isNaN(value) ? 6 : value);
+                  }}
                   style={{ borderColor: THEME.gray, color: THEME.text }}
                 />
                 <input
@@ -259,7 +278,10 @@ export default function LoanRepaymentCalculator() {
                   max={72}
                   step={1}
                   value={courseMonths}
-                  onChange={(e) => setCourseMonths(Number(e.target.value))}
+                  onChange={(e) => {
+                    const value = parseFloat(e.target.value);
+                    setCourseMonths(isNaN(value) ? 6 : value);
+                  }}
                   className="w-full"
                   style={{ accentColor: THEME.red }}
                 />
@@ -280,7 +302,10 @@ export default function LoanRepaymentCalculator() {
                   min={1}
                   max={20}
                   value={tenureYears}
-                  onChange={(e) => setTenureYears(Number(e.target.value))}
+                  onChange={(e) => {
+                    const value = parseFloat(e.target.value);
+                    setTenureYears(isNaN(value) ? 1 : value);
+                  }}
                   style={{ borderColor: THEME.gray, color: THEME.text }}
                 />
                 <input
@@ -289,7 +314,10 @@ export default function LoanRepaymentCalculator() {
                   min={1}
                   max={20}
                   value={tenureYears}
-                  onChange={(e) => setTenureYears(Number(e.target.value))}
+                  onChange={(e) => {
+                    const value = parseFloat(e.target.value);
+                    setTenureYears(isNaN(value) ? 1 : value);
+                  }}
                   className="w-full"
                   style={{ accentColor: THEME.red }}
                 />
@@ -300,9 +328,22 @@ export default function LoanRepaymentCalculator() {
 
               {/* Chips */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
-                <StatChip label="Monthly EMI" value={formatINR(emi)} bg={THEME.red} />
-                <StatChip label="Total Interest" value={formatINR(totalInterest)} bg={THEME.yellow} fg={THEME.text} />
-                <StatChip label="Total Payment" value={formatINR(totalPayment)} bg={THEME.blue} />
+                <StatChip
+                  label="Monthly EMI"
+                  value={formatINR(emi)}
+                  bg={THEME.red}
+                />
+                <StatChip
+                  label="Total Interest"
+                  value={formatINR(totalInterest)}
+                  bg={THEME.yellow}
+                  fg={THEME.text}
+                />
+                <StatChip
+                  label="Total Payment"
+                  value={formatINR(totalPayment)}
+                  bg={THEME.blue}
+                />
               </div>
             </CardContent>
           </Card>
@@ -360,7 +401,10 @@ export default function LoanRepaymentCalculator() {
                       {/* Center label */}
                       <foreignObject x="30%" y="34%" width="40%" height="32%">
                         <div className="w-full h-full flex flex-col items-center justify-center text-center">
-                          <p className="text-[10px] tracking-wide" style={{ color: "#6b7280" }}>
+                          <p
+                            className="text-[10px] tracking-wide"
+                            style={{ color: "#6b7280" }}
+                          >
                             TOTAL
                           </p>
                           <p className="text-base sm:text-lg font-semibold leading-tight">
@@ -374,8 +418,17 @@ export default function LoanRepaymentCalculator() {
 
                 {/* LEGEND */}
                 <div className="space-y-3">
-                  <LegendRow color={THEME.red} label="Principal" value={formatINR(loanAmount)} />
-                  <LegendRow color={THEME.yellow} label="Interest (Course + Repayment)" value={formatINR(totalInterest)} dark />
+                  <LegendRow
+                    color={THEME.red}
+                    label="Principal"
+                    value={formatINR(principal)}
+                  />
+                  <LegendRow
+                    color={THEME.yellow}
+                    label="Interest (Course + Repayment)"
+                    value={formatINR(totalInterest)}
+                    dark
+                  />
                 </div>
               </CardContent>
             </Card>
@@ -390,45 +443,89 @@ export default function LoanRepaymentCalculator() {
               }}
             >
               <CardHeader className="pb-2">
-                <CardTitle className="text-base md:text-lg font-semibold" style={{ color: THEME.text }}>
+                <CardTitle
+                  className="text-base md:text-lg font-semibold"
+                  style={{ color: THEME.text }}
+                >
                   Summary
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-3 text-sm">
-                <Row label="Principal" value={formatINR(loanAmount)} />
-                <Row label="Interest Rate" value={`${interestRate}% p.a.`} />
-                <Row label="Course Duration" value={`${courseMonths} months`} />
-                <Row label="Loan Tenure" value={`${tenureYears} years`} />
-                <Row label="Accrued During Course" value={formatINR(accruedDuringCourse)} />
-                <Row label="Effective Principal (at repayment)" value={formatINR(effectivePrincipal)} />
-                <Row label="Repayment Interest" value={formatINR(repaymentInterest)} />
+                <Row label="Principal" value={formatINR(principal)} />
+                <Row label="Interest Rate" value={`${rate}% p.a.`} />
+                <Row label="Course Duration" value={`${monthsValue} months`} />
+                <Row label="Loan Tenure" value={`${yearsValue} years`} />
+                <Row
+                  label="Accrued During Course"
+                  value={formatINR(accruedDuringCourse)}
+                />
+                <Row
+                  label="Effective Principal (at repayment)"
+                  value={formatINR(effectivePrincipal)}
+                />
+                <Row
+                  label="Repayment Interest"
+                  value={formatINR(repaymentInterest)}
+                />
                 <Row label="Total Interest" value={formatINR(totalInterest)} />
                 <Row label="Monthly EMI" value={formatINR(emi)} />
-                <Row label="Total Payment (overall)" value={formatINR(totalPayment)} />
+                <Row
+                  label="Total Payment (overall)"
+                  value={formatINR(totalPayment)}
+                />
               </CardContent>
             </Card>
           </div>
         }
         howItWorks={[
-          { icon: <DollarSign className="h-8 w-8 mx-auto" color={THEME.red} />, title: "Enter Details", description: "Set course duration, loan amount, rate, and repayment tenure." },
-          { icon: <Calculator className="h-8 w-8 mx-auto" color={THEME.blue} />, title: "We Compute", description: "Interest accrued during course + EMI for repayment period." },
-          { icon: <Percent className="h-8 w-8 mx-auto" color={THEME.yellow} />, title: "Plan Smart", description: "Understand interest split and total outgo." },
+          {
+            icon: <DollarSign className="h-8 w-8 mx-auto" color={THEME.red} />,
+            title: "Enter Details",
+            description:
+              "Set course duration, loan amount, rate, and repayment tenure.",
+          },
+          {
+            icon: <Calculator className="h-8 w-8 mx-auto" color={THEME.blue} />,
+            title: "We Compute",
+            description:
+              "Interest accrued during course + EMI for repayment period.",
+          },
+          {
+            icon: <Percent className="h-8 w-8 mx-auto" color={THEME.yellow} />,
+            title: "Plan Smart",
+            description: "Understand interest split and total outgo.",
+          },
         ]}
         extraSectionTitle="Notes"
         extraSectionContent={
           <ul className="text-left list-disc list-inside space-y-2">
             <li style={{ color: THEME.text }}>
-              Course-period interest is treated as <span className="font-medium">simple interest</span> and added to principal before EMI starts.
+              Course-period interest is treated as{" "}
+              <span className="font-medium">simple interest</span> and added to
+              principal before EMI starts.
             </li>
             <li style={{ color: THEME.text }}>
-              EMI is computed with standard monthly compounding over the selected tenure.
+              EMI is computed with standard monthly compounding over the
+              selected tenure.
             </li>
           </ul>
         }
         references={[
-          { title: "EMI Calculator", description: "Calculate monthly repayments directly.", link: "/tools/emi-calculator" },
-          { title: "Education Loan Calculator", description: "End-to-end education loan cost view.", link: "/tools/education-loan-calculator" },
-          { title: "Interest Calculator", description: "Simple vs compound interest explorer.", link: "/tools/interest-calculator" },
+          {
+            title: "EMI Calculator",
+            description: "Calculate your EMIs for different loan scenarios.",
+            link: "/tools/education-loan-emi-calculator",
+          },
+          {
+            title: "Education Loan EMI Calculator",
+            description: "Calculate EMIs for education loans.",
+            link: "/tools/education-loan-emi-calculator",
+          },
+          {
+            title: "Interest Calculator",
+            description: "Understand how much interest you’ll pay.",
+            link: "/tools/interest-calculator",
+          },
         ]}
       />
     </div>
@@ -464,9 +561,15 @@ function LegendRow({
     <div className="flex items-center justify-between text-sm">
       <div className="flex items-center gap-2">
         {!noDot && (
-          <span className="inline-block h-3 w-3 rounded-full" style={{ backgroundColor: color }} />
+          <span
+            className="inline-block h-3 w-3 rounded-full"
+            style={{ backgroundColor: color }}
+          />
         )}
-        <span className={bold ? "font-semibold" : ""} style={{ color: dark ? "#111827" : THEME.text }}>
+        <span
+          className={bold ? "font-semibold" : ""}
+          style={{ color: dark ? "#111827" : THEME.text }}
+        >
           {label}
         </span>
       </div>
