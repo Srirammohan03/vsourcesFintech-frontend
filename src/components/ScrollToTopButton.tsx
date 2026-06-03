@@ -5,7 +5,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import ChatBot from "@/services/ChatBot";
+// import ChatBot from "@/services/ChatBot";
 
 interface Props {
   showFormIcon: boolean;
@@ -62,7 +62,7 @@ const ScrollToTopButton: React.FC<Props> = ({
       )}
 
       {/* ✅ Load Gallabox once here */}
-      <ChatBot onClose={() => setChatOpen(false)} />
+      {/* <ChatBot onClose={() => setChatOpen(false)} /> */}
       <style>{`
 
         .sonar-button {

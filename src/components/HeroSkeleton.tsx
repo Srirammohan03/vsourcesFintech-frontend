@@ -1,44 +1,60 @@
+import React from "react";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
 
-const HeroSkeleton = () => {
+const HeroSkeleton: React.FC = () => {
   return (
-    <SkeletonTheme
-      baseColor="#d1d5db" // Tailwind gray-300 — distinct visible grey
-      highlightColor="#f9fafb" // Tailwind gray-50 — soft white shimmer
-    >
-      <section className="relative w-full min-h-screen bg-white overflow-hidden flex flex-col">
-        {/* White Background */}
-        <div className="absolute inset-0 bg-white" />
-        {/* Hero Content */}
-        <div className="relative z-10 flex flex-col items-center text-center justify-center flex-grow px-6 sm:px-12 space-y-8 mt-10">
-          {/* Heading */}
-          <div className="space-y-5 max-w-3xl w-full">
-            <Skeleton height={50} width="75%" className="mx-auto rounded-md" />
-            <Skeleton height={30} width="55%" className="mx-auto rounded-md" />
+    <SkeletonTheme baseColor="#d1d5db" highlightColor="#e5e7eb">
+      <div className="flex flex-col min-h-screen bg-[#f9fafb] animate-fade-in">
+        {/* ===== Navbar Skeleton ===== */}
+        <header className="w-full shadow-sm bg-white p-4 flex justify-between items-center">
+          <Skeleton height={32} width={150} borderRadius={8} />
+          <div className="hidden md:flex space-x-6">
+            <Skeleton height={20} width={80} />
+            <Skeleton height={20} width={80} />
+            <Skeleton height={20} width={100} />
+            <Skeleton height={20} width={80} />
+          </div>
+        </header>
+
+        {/* ===== Hero Section ===== */}
+        <section className="flex flex-col md:flex-row items-center justify-between px-6 md:px-16 py-14 gap-10">
+          {/* Left Text */}
+          <div className="flex-1 space-y-4">
+            <Skeleton height={44} width="80%" />
+            <Skeleton height={32} width="60%" />
+            <Skeleton height={20} count={3} width="90%" />
+            <div className="flex space-x-4 mt-4">
+              <Skeleton height={48} width={150} borderRadius={8} />
+              <Skeleton height={48} width={150} borderRadius={8} />
+            </div>
           </div>
 
-          {/* Subtext */}
-          <div className="space-y-3 max-w-2xl w-full mt-6">
-            <Skeleton height={16} width="90%" className="mx-auto rounded-md" />
-            <Skeleton height={16} width="80%" className="mx-auto rounded-md" />
-            <Skeleton height={16} width="70%" className="mx-auto rounded-md" />
+          {/* Right Hero Image */}
+          <div className="flex-1 flex justify-center">
+            <Skeleton height={320} width="80%" borderRadius={16} />
           </div>
+        </section>
 
-          {/* CTA Buttons */}
-          <div className="flex justify-center gap-6 mt-10">
-            <Skeleton height={48} width={160} borderRadius={8} />
-            <Skeleton height={48} width={140} borderRadius={8} />
-          </div>
-        </div>
-
-        {/* Footer-like bottom row (optional visual balance) */}
-        <div className="flex justify-center items-center gap-6 py-8">
-          {[1, 2, 3, 4].map((i) => (
-            <Skeleton key={i} height={40} width={100} borderRadius={6} />
+        {/* ===== Section Cards ===== */}
+        <section className="grid grid-cols-1 md:grid-cols-3 gap-8 px-6 md:px-16 py-10">
+          {[1, 2, 3].map((i) => (
+            <div
+              key={i}
+              className="shadow-md rounded-2xl p-5 bg-white flex flex-col space-y-4 border border-gray-200"
+            >
+              <Skeleton height={160} borderRadius={12} />
+              <Skeleton height={24} width="80%" />
+              <Skeleton height={18} width="60%" />
+            </div>
           ))}
-        </div>
-      </section>
+        </section>
+
+        {/* ===== Footer ===== */}
+        <footer className="mt-auto bg-white py-8 px-6 md:px-16 border-t border-gray-200 flex justify-between items-center">
+          <Skeleton height={20} width={150} />
+          <Skeleton height={20} width={200} />
+        </footer>
+      </div>
     </SkeletonTheme>
   );
 };
