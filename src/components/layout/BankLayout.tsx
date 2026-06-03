@@ -184,13 +184,12 @@ const BankLayout: React.FC<BankLayoutProps> = ({
             </p>
             {/* CTA Buttons */}
             <div className="mt-8 flex gap-4">
-              <a
-                href="#"
+              <button
                 className="px-6 py-3 bg-red-600 text-white font-medium rounded-lg hover:opacity-90 transition"
                 onClick={() => setShowPopup(true)}
               >
                 Apply Now
-              </a>
+              </button>
 
               {showPopup && <DelayedPopup onMinimize={handlePopupClose} />}
             </div>

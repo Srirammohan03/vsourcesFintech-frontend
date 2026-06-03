@@ -23,10 +23,10 @@ const THEME = {
 
 export default function EducationLoanEmiCalculator() {
   // Inputs (with your ranges)
-  const [loanAmount, setLoanAmount] = useState<number>(1000000);  // ₹10,00,000 default
-  const [interestRate, setInterestRate] = useState<number>(10);   // 10% p.a.
-  const [courseMonths, setCourseMonths] = useState<number>(12);    // 12 months
-  const [tenureYears, setTenureYears] = useState<number>(5);       // 5 years
+  const [loanAmount, setLoanAmount] = useState<number>(1000000); // ₹10,00,000 default
+  const [interestRate, setInterestRate] = useState<number>(10); // 10% p.a.
+  const [courseMonths, setCourseMonths] = useState<number>(12); // 12 months
+  const [tenureYears, setTenureYears] = useState<number>(5); // 5 years
 
   // Outputs
   const [emi, setEmi] = useState<number>(0);
@@ -56,7 +56,7 @@ export default function EducationLoanEmiCalculator() {
    */
   const calculate = () => {
     const P = clamp(loanAmount, 100000, 30000000); // ₹1L–₹3Cr
-    const r = clamp(interestRate, 8, 20) / 100;    // decimal
+    const r = clamp(interestRate, 8, 20) / 100; // decimal
     const months = clamp(courseMonths, 6, 72);
     const years = clamp(tenureYears, 1, 20);
 
@@ -108,9 +108,13 @@ export default function EducationLoanEmiCalculator() {
   const pieData = useMemo(
     () => [
       { name: "Principal", value: Math.max(0, loanAmount), color: THEME.red },
-      { name: "Interest", value: Math.max(0, totalInterest), color: THEME.yellow },
+      {
+        name: "Interest",
+        value: Math.max(0, totalInterest),
+        color: THEME.yellow,
+      },
     ],
-    [loanAmount, totalInterest]
+    [loanAmount, totalInterest],
   );
 
   const StatChip = ({
@@ -299,9 +303,22 @@ export default function EducationLoanEmiCalculator() {
 
               {/* Chips */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
-                <StatChip label="Monthly EMI" value={formatINR(emi)} bg={THEME.red} />
-                <StatChip label="Total Interest" value={formatINR(totalInterest)} bg={THEME.yellow} fg={THEME.text} />
-                <StatChip label="Total Payment" value={formatINR(totalPayment)} bg={THEME.blue} />
+                <StatChip
+                  label="Monthly EMI"
+                  value={formatINR(emi)}
+                  bg={THEME.red}
+                />
+                <StatChip
+                  label="Total Interest"
+                  value={formatINR(totalInterest)}
+                  bg={THEME.yellow}
+                  fg={THEME.text}
+                />
+                <StatChip
+                  label="Total Payment"
+                  value={formatINR(totalPayment)}
+                  bg={THEME.blue}
+                />
               </div>
             </CardContent>
           </Card>
@@ -359,7 +376,10 @@ export default function EducationLoanEmiCalculator() {
                       {/* Center label */}
                       <foreignObject x="30%" y="34%" width="40%" height="32%">
                         <div className="w-full h-full flex flex-col items-center justify-center text-center">
-                          <p className="text-[10px] tracking-wide" style={{ color: "#6b7280" }}>
+                          <p
+                            className="text-[10px] tracking-wide"
+                            style={{ color: "#6b7280" }}
+                          >
                             TOTAL
                           </p>
                           <p className="text-base sm:text-lg font-semibold leading-tight">
@@ -373,8 +393,17 @@ export default function EducationLoanEmiCalculator() {
 
                 {/* LEGEND */}
                 <div className="space-y-3">
-                  <LegendRow color={THEME.red} label="Principal" value={formatINR(loanAmount)} />
-                  <LegendRow color={THEME.yellow} label="Total Interest" value={formatINR(totalInterest)} dark />
+                  <LegendRow
+                    color={THEME.red}
+                    label="Principal"
+                    value={formatINR(loanAmount)}
+                  />
+                  <LegendRow
+                    color={THEME.yellow}
+                    label="Total Interest"
+                    value={formatINR(totalInterest)}
+                    dark
+                  />
                 </div>
               </CardContent>
             </Card>
@@ -389,7 +418,10 @@ export default function EducationLoanEmiCalculator() {
               }}
             >
               <CardHeader className="pb-2">
-                <CardTitle className="text-base md:text-lg font-semibold" style={{ color: THEME.text }}>
+                <CardTitle
+                  className="text-base md:text-lg font-semibold"
+                  style={{ color: THEME.text }}
+                >
                   Summary
                 </CardTitle>
               </CardHeader>
@@ -398,33 +430,71 @@ export default function EducationLoanEmiCalculator() {
                 <Row label="Interest Rate" value={`${interestRate}% p.a.`} />
                 <Row label="Course Duration" value={`${courseMonths} months`} />
                 <Row label="Loan Tenure" value={`${tenureYears} years`} />
-                <Row label="Accrued During Course" value={formatINR(accruedDuringCourse)} />
-                <Row label="Effective Principal (at repayment)" value={formatINR(effectivePrincipal)} />
-                <Row label="Repayment Interest" value={formatINR(repaymentInterest)} />
+                <Row
+                  label="Accrued During Course"
+                  value={formatINR(accruedDuringCourse)}
+                />
+                <Row
+                  label="Effective Principal (at repayment)"
+                  value={formatINR(effectivePrincipal)}
+                />
+                <Row
+                  label="Repayment Interest"
+                  value={formatINR(repaymentInterest)}
+                />
                 <Row label="Total Interest" value={formatINR(totalInterest)} />
                 <Row label="Monthly EMI" value={formatINR(emi)} />
-                <Row label="Total Payment (overall)" value={formatINR(totalPayment)} />
+                <Row
+                  label="Total Payment (overall)"
+                  value={formatINR(totalPayment)}
+                />
               </CardContent>
             </Card>
           </div>
         }
         howItWorks={[
-          { icon: <DollarSign className="h-8 w-8 mx-auto" color={THEME.red} />, title: "Enter Details", description: "Set course duration, amount, interest, and repayment tenure." },
-          { icon: <Calculator className="h-8 w-8 mx-auto" color={THEME.blue} />, title: "We Compute", description: "Course-period accrual + EMI for tenure." },
-          { icon: <Percent className="h-8 w-8 mx-auto" color={THEME.yellow} />, title: "Plan Smart", description: "See interest split and your monthly EMI." },
+          {
+            icon: <DollarSign className="h-8 w-8 mx-auto" color={THEME.red} />,
+            title: "Enter Details",
+            description:
+              "Set course duration, amount, interest, and repayment tenure.",
+          },
+          {
+            icon: <Calculator className="h-8 w-8 mx-auto" color={THEME.blue} />,
+            title: "We Compute",
+            description: "Course-period accrual + EMI for tenure.",
+          },
+          {
+            icon: <Percent className="h-8 w-8 mx-auto" color={THEME.yellow} />,
+            title: "Plan Smart",
+            description: "See interest split and your monthly EMI.",
+          },
         ]}
         extraSectionTitle="References for this page"
         extraSectionContent={
           <ul className="text-left list-disc list-inside space-y-2">
             <li style={{ color: THEME.text }}>
-              EMI formula with monthly compounding and simple accrual during moratorium.
+              EMI formula with monthly compounding and simple accrual during
+              moratorium.
             </li>
           </ul>
         }
         references={[
-          { title: "Loan Repayment Calculator", description: "Accrual + EMI view for any loan.", link: "/tools/loan-repayment-calculator" },
-          { title: "Interest Calculator", description: "Simple vs compound interest explorer.", link: "/tools/interest-calculator" },
-          { title: "EMI Calculator", description: "Quick monthly repayment calculator.", link: "/tools/emi-calculator" },
+          {
+            title: "Loan Repayment Calculator",
+            description: "Accrual + EMI view for any loan.",
+            link: "/tools/loan-repayment-calculator",
+          },
+          {
+            title: "Interest Calculator",
+            description: "Simple vs compound interest explorer.",
+            link: "/tools/interest-calculator",
+          },
+          {
+            title: "Bank Comparison Tool",
+            description: "Compare different bank loan options.",
+            link: "/tools/bank-comparison-tool",
+          },
         ]}
       />
     </div>
@@ -460,9 +530,15 @@ function LegendRow({
     <div className="flex items-center justify-between text-sm">
       <div className="flex items-center gap-2">
         {!noDot && (
-          <span className="inline-block h-3 w-3 rounded-full" style={{ backgroundColor: color }} />
+          <span
+            className="inline-block h-3 w-3 rounded-full"
+            style={{ backgroundColor: color }}
+          />
         )}
-        <span className={bold ? "font-semibold" : ""} style={{ color: dark ? "#111827" : THEME.text }}>
+        <span
+          className={bold ? "font-semibold" : ""}
+          style={{ color: dark ? "#111827" : THEME.text }}
+        >
           {label}
         </span>
       </div>

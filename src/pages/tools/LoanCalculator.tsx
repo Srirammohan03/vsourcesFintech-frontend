@@ -72,14 +72,18 @@ export default function LoanCalculator() {
 
   const pieData = useMemo(
     () => [
-      { name: "Principal", value: Math.max(0, loanAmount), color: THEME.red },
+      {
+        name: "Principal",
+        value: Math.max(0, clamp(loanAmount, 100000, 5000000)),
+        color: THEME.red,
+      },
       {
         name: "Interest",
         value: Math.max(0, totalInterest),
         color: THEME.yellow,
       },
     ],
-    [loanAmount, totalInterest]
+    [loanAmount, totalInterest],
   );
 
   const StatChip = ({
@@ -426,12 +430,13 @@ export default function LoanCalculator() {
           {
             title: "EMI Calculator",
             description: "Calculate your EMIs for different loan scenarios.",
-            link: "/tools/emi-calculator",
+            link: "/tools/education-loan-emi-calculator",
           },
           {
-            title: "Loan Eligibility",
-            description: "Check your eligibility before applying.",
-            link: "/tools/loan-eligibility-calculator",
+            title: "Loan Repayment Calculator",
+            description:
+              "Check your repayment schedule and outstanding balance over time.",
+            link: "/tools/loan-repayment-calculator",
           },
           {
             title: "Interest Calculator",

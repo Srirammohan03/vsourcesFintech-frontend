@@ -22,18 +22,18 @@ const tools: ToolItem[] = [
     image: "/assets/images/loan-calculator.jpg",
   },
   {
-    title: "Cost Calculator",
-    description: "Estimate the cost of studying abroad",
+    title: "Interest Calculator",
+    description: "Estimate the interest on your education loan",
     icon: TrendingUp,
-    path: "/tools/cost-calculator",
-    image: "/assets/images/Cost-Calculator.jpg",
+    path: "/tools/interest-calculator",
+    image: "/assets/images/Eligibility-Checker.jpg",
   },
   {
-    title: "Eligibility Checker",
-    description: "Check your loan eligibility instantly",
+    title: "Cost of Studying Abroad",
+    description: "Check eligibility and costs for studying abroad",
     icon: CheckCircle,
-    path: "/tools/eligibility-checker",
-    image: "/assets/images/Eligibility-Checker.jpg",
+    path: "/tools/cost-of-studying-abroad",
+    image: "/assets/images/Cost-Calculator.jpg",
   },
 ];
 
