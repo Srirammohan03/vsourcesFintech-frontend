@@ -208,35 +208,38 @@
 // };
 
 // export default ChatBot;
-import { useEffect } from "react";
+// import { useEffect } from "react";
 
-interface ChatBotProps {
-  onClose?: () => void;
-}
+// interface ChatBotProps {
+//   onClose?: () => void;
+// }
 
-const ChatBot: React.FC<ChatBotProps> = ({ onClose }) => {
-  useEffect(() => {
-    const token = import.meta.env.VITE_CMS_TOKEN;
+// const ChatBot: React.FC<ChatBotProps> = ({ onClose }) => {
+//   useEffect(() => {
+//     const token = import.meta.env.VITE_CMS_TOKEN;
 
-    // ✅ Setup Chatty (script already exists globally)
-    (window as any).Chatty = function (c: any) {
-      (window as any).Chatty._.push(c);
-    };
-    (window as any).Chatty._ = [];
-    (window as any).Chatty.url = "https://widget.gallabox.com";
-    (window as any).Chatty.hash = token;
+//     // ✅ Setup Chatty (script already exists globally)
+//     (window as any).Chatty = function (c: any) {
+//       (window as any).Chatty._.push(c);
+//     };
+//     (window as any).Chatty._ = [];
+//     (window as any).Chatty.url = "https://widget.gallabox.com";
+//     (window as any).Chatty.hash = token;
 
-    // Optional: handle close
-    (window as any).Chatty.onClose = () => {
-      if (onClose) onClose();
-    };
+//     // Optional: handle close
+//     (window as any).Chatty.onClose = () => {
+//       if (onClose) onClose();
+//     };
 
-    return () => {
-      delete (window as any).Chatty;
-    };
-  }, [onClose]);
+//     return () => {
+//       delete (window as any).Chatty;
+//     };
+//   }, [onClose]);
 
-  return null;
-};
+//   return null;
+// };
 
-export default ChatBot;
+// export default ChatBot;
+
+
+

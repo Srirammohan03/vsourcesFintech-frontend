@@ -57,27 +57,42 @@ const ContactBar: React.FC<ContactBarProps> = ({ visible = true }) => {
         <div className="w-full max-w-[1400px] mx-auto px-4">
           <div className="flex justify-around items-center">
             {/* Call Now */}
-            <a href={`tel:${phoneNumber}`} className="flex flex-col items-center hover-lift">
+            <a
+              href={`tel:${phoneNumber}`}
+              className="flex flex-col items-center hover-lift"
+            >
               <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-[#5ac1ff] flex items-center justify-center mb-1 shadow-md">
                 <Phone className="text-white h-4 w-4 md:h-5 md:w-5" />
               </div>
-              <span className="text-[10px] md:text-xs font-medium text-gray-800">Call Now</span>
+              <span className="text-[10px] md:text-xs font-medium text-gray-800">
+                Call Now
+              </span>
             </a>
 
             {/* Request Callback */}
-            <button onClick={handleRequestCallback} className="flex flex-col items-center hover-lift">
+            <button
+              onClick={handleRequestCallback}
+              className="flex flex-col items-center hover-lift"
+            >
               <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-[#f5a623] flex items-center justify-center mb-1 shadow-md">
                 <UserPlus className="text-white h-4 w-4 md:h-5 md:w-5" />
               </div>
-              <span className="text-[10px] md:text-xs font-medium text-gray-800">Request Callback</span>
+              <span className="text-[10px] md:text-xs font-medium text-gray-800">
+                Request Callback
+              </span>
             </button>
 
             {/* Go Virtual */}
-            <button onClick={handleGoVirtual} className="flex flex-col items-center hover-lift">
+            <button
+              onClick={handleGoVirtual}
+              className="flex flex-col items-center hover-lift"
+            >
               <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-black flex items-center justify-center mb-1 shadow-md">
                 <Video className="text-white h-4 w-4 md:h-5 md:w-5" />
               </div>
-              <span className="text-[10px] md:text-xs font-medium text-gray-800">Go Virtual</span>
+              <span className="text-[10px] md:text-xs font-medium text-gray-800">
+                Go Virtual
+              </span>
             </button>
 
             {/* WhatsApp */}
@@ -90,7 +105,9 @@ const ContactBar: React.FC<ContactBarProps> = ({ visible = true }) => {
               <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-[#25d366] flex items-center justify-center mb-1 shadow-md">
                 <FaWhatsapp className="text-white h-4 w-4 md:h-5 md:w-5" />
               </div>
-              <span className="text-[10px] md:text-xs font-medium text-gray-800">WhatsApp</span>
+              <span className="text-[10px] md:text-xs font-medium text-gray-800">
+                WhatsApp
+              </span>
             </a>
           </div>
         </div>
@@ -101,27 +118,42 @@ const ContactBar: React.FC<ContactBarProps> = ({ visible = true }) => {
         <div className="w-full max-w-[1400px] mx-auto px-4 py-4">
           <div className="flex justify-around items-center">
             {/* Call Now */}
-            <a href={`tel:${phoneNumber}`} className="flex flex-col items-center hover-lift">
+            <a
+              href={`tel:${phoneNumber}`}
+              className="flex flex-col items-center hover-lift"
+            >
               <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-[#5ac1ff] flex items-center justify-center mb-1 shadow-md">
                 <Phone className="text-white h-4 w-4 md:h-5 md:w-5" />
               </div>
-              <span className="text-[10px] md:text-xs font-medium text-gray-800">Call Now</span>
+              <span className="text-[10px] md:text-xs font-medium text-gray-800">
+                Call Now
+              </span>
             </a>
 
             {/* Request Callback */}
-            <button onClick={handleRequestCallback} className="flex flex-col items-center hover-lift">
+            <button
+              onClick={handleRequestCallback}
+              className="flex flex-col items-center hover-lift"
+            >
               <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-[#f5a623] flex items-center justify-center mb-1 shadow-md">
                 <UserPlus className="text-white h-4 w-4 md:h-5 md:w-5" />
               </div>
-              <span className="text-[10px] md:text-xs font-medium text-gray-800">Request Callback</span>
+              <span className="text-[10px] md:text-xs font-medium text-gray-800">
+                Request Callback
+              </span>
             </button>
 
             {/* Go Virtual */}
-            <button onClick={handleGoVirtual} className="flex flex-col items-center hover-lift">
+            <button
+              onClick={handleGoVirtual}
+              className="flex flex-col items-center hover-lift"
+            >
               <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-black flex items-center justify-center mb-1 shadow-md">
                 <Video className="text-white h-4 w-4 md:h-5 md:w-5" />
               </div>
-              <span className="text-[10px] md:text-xs font-medium text-gray-800">Go Virtual</span>
+              <span className="text-[10px] md:text-xs font-medium text-gray-800">
+                Go Virtual
+              </span>
             </button>
 
             {/* WhatsApp */}
@@ -134,7 +166,9 @@ const ContactBar: React.FC<ContactBarProps> = ({ visible = true }) => {
               <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-[#25d366] flex items-center justify-center mb-1 shadow-md">
                 <FaWhatsapp className="text-white h-4 w-4 md:h-5 md:w-5" />
               </div>
-              <span className="text-[10px] md:text-xs font-medium text-gray-800">WhatsApp</span>
+              <span className="text-[10px] md:text-xs font-medium text-gray-800">
+                WhatsApp
+              </span>
             </a>
           </div>
         </div>
@@ -145,7 +179,7 @@ const ContactBar: React.FC<ContactBarProps> = ({ visible = true }) => {
 
       {/* Calendly PopupModal */}
       <PopupModal
-        url="https://calendly.com/sriram9491/30min"
+        url="https://calendly.com/server-vsourceoverseas/30min"
         open={openCalendly}
         onModalClose={() => setOpenCalendly(false)}
         rootElement={document.getElementById("root")}
