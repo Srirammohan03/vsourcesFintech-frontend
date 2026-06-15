@@ -14,21 +14,22 @@ import "aos/dist/aos.css";
 import HeroSkeleton from "./components/HeroSkeleton";
 import DelayedPopup from "./components/DelayedPopup";
 import Footer from "./components/Footer";
+import Poonawalla from "./pages/ourpartner/poonawallapage";
 
 const CredilaPage = lazy(() => import("./pages/ourpartner/CredilaPage"));
 const NbfcPage = lazy(() => import("./pages/ourpartner/NbfcPage"));
 const Auxilopage = lazy(() => import("./pages/ourpartner/Auxilopage"));
 const AvansePage = lazy(() => import("./pages/ourpartner/AvansePage"));
 const IncredFinancingPage = lazy(
-  () => import("./pages/ourpartner/IncredFinancingPage")
+  () => import("./pages/ourpartner/IncredFinancingPage"),
 );
 const MpowerFinancePage = lazy(
-  () => import("./pages/ourpartner/MpowerFinancePage")
+  () => import("./pages/ourpartner/MpowerFinancePage"),
 );
 const ProdigyFinancePage = lazy(
-  () => import("./pages/ourpartner/ProdigyFinancePage")
+  () => import("./pages/ourpartner/ProdigyFinancePage"),
 );
-const IDFCpage = lazy(() => import("./pages/ourpartner/IDFCpage"));
+const poonawalla = lazy(() => import("./pages/ourpartner/poonawallapage"));
 const AxisPage = lazy(() => import("./pages/ourpartner/AxisPage"));
 
 const Home = lazy(() => import("./pages/Home"));
@@ -38,28 +39,28 @@ const AboutPage = lazy(() => import("./pages/AboutPage"));
 const GalleryPage = lazy(() => import("./pages/GalleryPage"));
 const EducationLoan = lazy(() => import("./pages/EducationLoan"));
 const AbroadEducation = lazy(
-  () => import("./pages/ourServices/AbroadEducation")
+  () => import("./pages/ourServices/AbroadEducation"),
 );
 const CreditCardComponent = lazy(
-  () => import("./pages/ourServices/CreditCardComponent")
+  () => import("./pages/ourServices/CreditCardComponent"),
 );
 const BlockedAccount = lazy(() => import("./pages/ourServices/BlockedAccount"));
 const BankAccount = lazy(() => import("./pages/ourServices/BankAccount"));
 const HealthInasurance = lazy(
-  () => import("./pages/ourServices/HealthInsurance")
+  () => import("./pages/ourServices/HealthInsurance"),
 );
 const ForexCard = lazy(() => import("./pages/ourServices/ForexCard"));
 const TravelInsurance = lazy(
-  () => import("./pages/ourServices/TravelInsurance")
+  () => import("./pages/ourServices/TravelInsurance"),
 );
 const SimCard = lazy(() => import("./pages/ourServices/SimCard"));
 const GIC = lazy(() => import("./pages/ourServices/GIC"));
 
 const BankComparisonTool = lazy(
-  () => import("./pages/ourpartner/BankComparisonTool")
+  () => import("./pages/ourpartner/BankComparisonTool"),
 );
 const CompareLoanOffers = lazy(
-  () => import("./pages/ourpartner/CompareLoanOffers")
+  () => import("./pages/ourpartner/CompareLoanOffers"),
 );
 const BankPage = lazy(() => import("./pages/ourpartner/BankPage"));
 
@@ -68,30 +69,30 @@ const CurrencyConverter = lazy(() => import("./pages/tools/CurrencyConverter"));
 const ExpenseCalculator = lazy(() => import("./pages/tools/ExpenseCalculator"));
 const SavingsCalculator = lazy(() => import("./pages/tools/SavingsCalculator"));
 const InterestCalculator = lazy(
-  () => import("./pages/tools/InterestCalculator")
+  () => import("./pages/tools/InterestCalculator"),
 );
 const LoanRepaymentCalculator = lazy(
-  () => import("./pages/tools/LoanRepaymentCalculator")
+  () => import("./pages/tools/LoanRepaymentCalculator"),
 );
 const EducationLoanEmiCalculator = lazy(
-  () => import("./pages/tools/EducationLoanEmiCalculator")
+  () => import("./pages/tools/EducationLoanEmiCalculator"),
 );
 const TimeZoneConverter = lazy(() => import("./pages/tools/TimeZoneConverter"));
 const WeatherAbroad = lazy(() => import("./pages/tools/WeatherAbroad"));
 const PackingList = lazy(() => import("./pages/tools/PackingList"));
 const SOPGenerator = lazy(() => import("./pages/tools/SOPGenerator"));
 const CostOfStudyAbroadPage = lazy(
-  () => import("./pages/tools/CostOfStudyAbroadPage")
+  () => import("./pages/tools/CostOfStudyAbroadPage"),
 );
 const HealthInsuranceComparePage = lazy(
-  () => import("./pages/tools/HealthInsuranceComparePage")
+  () => import("./pages/tools/HealthInsuranceComparePage"),
 );
 const CompareCostOfLivingPage = lazy(
-  () => import("./pages/tools/CompareCostOfLivingPage")
+  () => import("./pages/tools/CompareCostOfLivingPage"),
 );
 const ROICalculator = lazy(() => import("./pages/tools/ROICalculator"));
 const EstimateFutureEarnings = lazy(
-  () => import("./pages/tools/EstimateFutureEarnings")
+  () => import("./pages/tools/EstimateFutureEarnings"),
 );
 const GpaCalculatorPage = lazy(() => import("./pages/tools/GpaCalculatorPage"));
 const View360 = lazy(() => import("./pages/View360"));
@@ -269,10 +270,7 @@ const AppContent = () => {
                 path="/our-partners/prodigy-finance"
                 element={<ProdigyFinancePage />}
               />
-              <Route
-                path="/our-partners/idfc-first-bank"
-                element={<IDFCpage />}
-              />
+              <Route path="/our-partners/poonawalla" element={<Poonawalla />} />
               <Route path="/our-partners/axis-bank" element={<AxisPage />} />
               <Route
                 path="/our-partners/compare-loan-offers"

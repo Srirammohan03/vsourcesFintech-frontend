@@ -209,8 +209,8 @@ const PARTNERS_SECTIONS: Section[] = [
         icon: Banknote,
       },
       {
-        name: "IDFC FIRST Bank",
-        path: "/our-partners/idfc-first-bank",
+        name: "Poonawalla Fincorp",
+        path: "/our-partners/poonawalla",
         icon: Banknote,
       },
       { name: "Axis Bank", path: "/our-partners/axis-bank", icon: Banknote },
@@ -251,7 +251,7 @@ function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null); // desktop
   const [openMobileDropdown, setOpenMobileDropdown] = useState<string | null>(
-    null
+    null,
   );
   const ddRef = useRef<HTMLDivElement | null>(null);
 
@@ -292,8 +292,8 @@ function Navbar() {
     isPathActive(path)
       ? "text-red-600"
       : isScrolled
-      ? "text-gray-800"
-      : "text-white";
+        ? "text-gray-800"
+        : "text-white";
 
   const dropdownActive = (sections: Section[]) =>
     sections.some((s) => s.items.some((it) => isPathActive(it.path)));
@@ -302,7 +302,7 @@ function Navbar() {
     <header
       className={cn(
         "fixed top-0 left-0 w-full z-50 transition-all duration-300 py-3",
-        isScrolled ? "bg-white shadow-md" : "bg-transparent"
+        isScrolled ? "bg-white shadow-md" : "bg-transparent",
       )}
     >
       {/* Container – same sizing & spacing as your previous navbar */}
@@ -331,7 +331,7 @@ function Navbar() {
                   to={node.path}
                   className={cn(
                     "font-medium transition-colors hover:text-red-600",
-                    linkColor(node.path)
+                    linkColor(node.path),
                   )}
                 >
                   {node.name}
@@ -348,7 +348,7 @@ function Navbar() {
                   rel="noreferrer"
                   className={cn(
                     "font-medium transition-colors hover:text-red-600",
-                    isScrolled ? "text-gray-800" : "text-white"
+                    isScrolled ? "text-gray-800" : "text-white",
                   )}
                 >
                   {node.name}
@@ -375,8 +375,8 @@ function Navbar() {
                     active
                       ? "text-red-600"
                       : isScrolled
-                      ? "text-gray-800"
-                      : "text-white"
+                        ? "text-gray-800"
+                        : "text-white",
                   )}
                 >
                   {node.name}
@@ -384,7 +384,7 @@ function Navbar() {
                     size={16}
                     className={cn(
                       "transition-transform",
-                      openDropdown === node.name ? "rotate-180" : ""
+                      openDropdown === node.name ? "rotate-180" : "",
                     )}
                   />
                 </button>
@@ -395,7 +395,7 @@ function Navbar() {
                     "absolute left-1/2 -translate-x-1/2 mt-3 w-[720px] max-w-[90vw] rounded-2xl border border-gray-100 bg-white shadow-lg transition-all duration-200",
                     openDropdown === node.name
                       ? "opacity-100 visible translate-y-0"
-                      : "opacity-0 invisible -translate-y-1"
+                      : "opacity-0 invisible -translate-y-1",
                   )}
                 >
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4 p-6">
@@ -438,7 +438,7 @@ function Navbar() {
           className={cn(
             "md:hidden relative z-20 flex items-center justify-center transition-all duration-300 ease-in-out rounded-md font-bold w-12 h-12",
             isOpen || isScrolled ? "text-black bg-white" : "text-black",
-            "hover:bg-red-600 hover:text-white"
+            "hover:bg-red-600 hover:text-white",
           )}
           onClick={() => setIsOpen((v) => !v)}
           aria-label="Toggle menu"
@@ -457,7 +457,7 @@ function Navbar() {
           "md:hidden fixed left-0 right-0 bg-white z-40 transition-all duration-300 ease-in-out",
           "top-[100px] h-[calc(100vh-80px)]", // 👈 below navbar
           "overflow-y-auto overscroll-contain touch-pan-y",
-          isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+          isOpen ? "opacity-100" : "opacity-0 pointer-events-none",
         )}
       >
         <div className="w-full max-w-[1400px] mx-auto px-4 py-4 space-y-4">
@@ -469,7 +469,7 @@ function Navbar() {
                   to={node.path}
                   className={cn(
                     "block text-lg font-medium py-2 transition-colors hover:text-red-600",
-                    isPathActive(node.path) ? "text-red-600" : "text-gray-800"
+                    isPathActive(node.path) ? "text-red-600" : "text-gray-800",
                   )}
                 >
                   {node.name}
@@ -506,14 +506,14 @@ function Navbar() {
                   <ChevronDown
                     className={cn(
                       "h-4 w-4 transition-transform",
-                      open && "rotate-180"
+                      open && "rotate-180",
                     )}
                   />
                 </button>
                 <div
                   className={cn(
                     "grid transition-[grid-template-rows] duration-300 ease-in-out",
-                    open ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+                    open ? "grid-rows-[1fr]" : "grid-rows-[0fr]",
                   )}
                 >
                   <div className="overflow-hidden">
@@ -537,7 +537,7 @@ function Navbar() {
                                     "flex items-center gap-3 py-1.5 text-sm",
                                     isPathActive(item.path)
                                       ? "text-red-600"
-                                      : "text-gray-800 hover:text-red-600"
+                                      : "text-gray-800 hover:text-red-600",
                                   )}
                                   onClick={() => {
                                     setIsOpen(false);

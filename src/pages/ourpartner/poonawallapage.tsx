@@ -2,16 +2,16 @@ import React from "react";
 import { Users, Globe, University } from "lucide-react";
 import BankLayout from "@/components/layout/BankLayout";
 
-export const IDFCpage = () => {
+export const Poonawalla = () => {
   return (
     <BankLayout
       heroBg="/assets/images/partners/our-partners.webp"
-      heroTitle="IDFC FIRST Bank"
+      heroTitle="Poonawalla Fincorp"
       heroSubtitle="Trusted Education Loan Partner"
       interstRate="Starting from 10.0-13.99%"
       serviceCharge="0.5% - 1.5%"
       marginRate="NIL"
-      bankImg="/assets/images/partners/idfc-img.webp"
+      bankImg="/assets/images/partners/poonawalla.png"
       description=""
       trustedBy={[
         { icon: University, label: "Universities", labelCount: 1000 },
@@ -50,4 +50,5 @@ export const IDFCpage = () => {
     />
   );
 };
-export default IDFCpage;
+
+export default Poonawalla;
