@@ -6,7 +6,7 @@ export const AxisPage = () => {
   return (
     <BankLayout
       heroBg="/assets/images/partners/our-partners.webp"
-      heroTitle="IDFC FIRST Bank"
+      heroTitle="Axis Bank"
       heroSubtitle="Trusted Education Loan Partner"
       interstRate="Starting from 10.0-13.99%"
       serviceCharge="0.5% - 1.5%"

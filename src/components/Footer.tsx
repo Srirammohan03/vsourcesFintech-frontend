@@ -19,7 +19,7 @@ function Footer() {
             <div className="flex space-x-4">
               {/* Facebook */}
               <a
-                href="https://www.facebook.com/vsourcembbsabroad"
+                href="https://www.facebook.com/vsourcefintech/"
                 className="group"
               >
                 <img
@@ -31,7 +31,7 @@ function Footer() {
 
               {/* Instagram */}
               <a
-                href="https://www.instagram.com/vsource_mbbs_abroad/"
+                href="https://www.instagram.com/vsource_fintech/"
                 className="group"
               >
                 <img
@@ -43,7 +43,7 @@ function Footer() {
 
               {/* YouTube */}
               <a
-                href="https://www.youtube.com/channel/UCNVjrnqI9L873rkB-5_p4kA"
+                href="https://www.youtube.com/@Vsourcecompany"
                 className="group"
               >
                 <img

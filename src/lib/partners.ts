@@ -49,10 +49,10 @@ export const partners: Partner[] = [
     path: "/our-partners/prodigy-finance",
   },
   {
-    name: "IDFC FIRST Bank",
-    logo: "/assets/images/partners/idfc.webp",
-    slug: "idfc-first-bank",
-    path: "/our-partners/idfc-first-bank",
+    name: "Poonawalla Fincorp",
+    logo: "/assets/images/partners/poonawalla.png",
+    slug: "poonawalla",
+    path: "/our-partners/poonawalla",
   },
   {
     name: "Axis Bank",
