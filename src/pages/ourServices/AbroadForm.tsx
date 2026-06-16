@@ -41,34 +41,50 @@ const AbroadForm = () => {
       const { data } = await axios.post(
         `${import.meta.env.VITE_CMS_GLOBALURL}/api/abroad-forms`,
         {
-          data: payload, // 🔹 Strapi v4 requires wrapping in "data"
-        }
+          data: payload,
+        },
       );
+
+      await fetch(
+        // "https://script.google.com/macros/s/AKfycbweggreBuHA2oxa8Fd7-yLmoB3-2_PhwgE-shKjNJHRIy2e6qShL46UcJ6hVlhQ94Oy/exec",
+
+        "https://script.google.com/macros/s/AKfycbyCVtxlzPaUf8W5O7UlWJlqbCl1E5FO-A8aeGkKgtFheOkoWJIAY_itEFG1rOsZFf7-/exec",
+        {
+          method: "POST",
+          mode: "no-cors",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: payload.name,
+            email: payload.email,
+            number: payload.number,
+            country: payload.country,
+            admission_status: payload.admission_status,
+            loanType: payload.loanType,
+            loanAmount: payload.loanAmount,
+          }),
+        },
+      );
+
       return data;
     },
+
     onSuccess: () => {
       toast.success("Form submitted successfully!");
-      setFormData({
-        name: "",
-        email: "",
-        number: "",
-        country: "",
-        admission_status: "",
-        loanType: "",
-      });
-      setLoanAmount(1000000);
     },
+
     onError: (err: any) => {
-      console.error(err.response?.data);
+      console.error(err?.response?.data);
       toast.error(
-        err.response?.data?.error?.message || "Something went wrong!"
+        err?.response?.data?.error?.message || "Something went wrong!",
       );
     },
   });
 
   // ✅ Handlers
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
