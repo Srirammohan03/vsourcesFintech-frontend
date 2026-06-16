@@ -271,7 +271,7 @@ const AppContent = () => {
                 element={<ProdigyFinancePage />}
               />
               <Route path="/our-partners/poonawalla" element={<Poonawalla />} />
-              <Route path="/our-partners/axis-bank" element={<AxisPage />} />
+              {/* <Route path="/our-partners/axis-bank" element={<AxisPage />} /> */}
               <Route
                 path="/our-partners/compare-loan-offers"
                 element={<CompareLoanOffers />}
