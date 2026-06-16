@@ -213,7 +213,7 @@ const PARTNERS_SECTIONS: Section[] = [
         path: "/our-partners/poonawalla",
         icon: Banknote,
       },
-      { name: "Axis Bank", path: "/our-partners/axis-bank", icon: Banknote },
+      // { name: "Axis Bank", path: "/our-partners/axis-bank", icon: Banknote },
     ],
   },
   {

@@ -54,10 +54,10 @@ export const partners: Partner[] = [
     slug: "poonawalla",
     path: "/our-partners/poonawalla",
   },
-  {
-    name: "Axis Bank",
-    logo: "/assets/images/partners/axis.webp",
-    slug: "axis-bank",
-    path: "/our-partners/axis-bank",
-  },
+  // {
+  //   name: "Axis Bank",
+  //   logo: "/assets/images/partners/axis.webp",
+  //   slug: "axis-bank",
+  //   path: "/our-partners/axis-bank",
+  // },
 ];
