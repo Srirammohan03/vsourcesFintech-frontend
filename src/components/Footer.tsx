@@ -145,7 +145,7 @@ function Footer() {
         </div>
         {/* Bottom Grid: Corporate Office / Branches */}
         <div className="border-t border-gray-800 md:pt-8 pt-5">
-          <h2 className="text-2xl font-bold mb-6">CORPORATE OFFICE</h2>
+          <h2 className="text-2xl font-bold mb-6">OFFICE LOCATIONS</h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Telangana */}
@@ -157,11 +157,11 @@ function Footer() {
                   address:
                     "Vsource, Near Shashi Hospital, Metro pillar no-1519, Dilsukhnagar, Hyderabad- 500060, Telangana.",
                 },
-                {
-                  name: "AMEERPET",
-                  address:
-                    "Vsource, Vsource Building, Kamma Sangam lane, Ameerpet, Hyderabad-500073, Telangana.",
-                },
+                // {
+                //   name: "AMEERPET",
+                //   address:
+                //     "Vsource, Vsource Building, Kamma Sangam lane, Ameerpet, Hyderabad-500073, Telangana.",
+                // },
                 {
                   name: "KPHB- JNTU",
                   address:

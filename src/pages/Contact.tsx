@@ -21,33 +21,6 @@ const ContactPage = () => {
     }
   }, [location]);
 
-  const branches = [
-    {
-      id: 1,
-      city: "Hyderabad",
-      address: "123 Educational Lane, Knowledge City, Hyderabad 500001",
-      phone: "+91 123 456 7890",
-      email: "hyderabad@vsource.com",
-      hours: "Mon-Sat: 10:00 AM - 7:00 PM",
-    },
-    {
-      id: 2,
-      city: "Delhi",
-      address: "456 Academic Avenue, Study District, Delhi 110001",
-      phone: "+91 234 567 8901",
-      email: "delhi@vsource.com",
-      hours: "Mon-Sat: 10:00 AM - 7:00 PM",
-    },
-    {
-      id: 3,
-      city: "Mumbai",
-      address: "789 Campus Road, Education Quarter, Mumbai 400001",
-      phone: "+91 345 678 9012",
-      email: "mumbai@vsource.com",
-      hours: "Mon-Sat: 10:00 AM - 7:00 PM",
-    },
-  ];
-
   // List of available services
   const services = [
     { value: "", label: "Select a service" },
@@ -88,16 +61,16 @@ const ContactPage = () => {
                   "https://www.google.com/maps/place/VSource/@17.3692602,78.519197,17z/data=!3m1!4b1!4m5!3m4!1s0x3bcb98f7d166d455:0x1d4049b98242ba23!8m2!3d17.3692602!4d78.5213857",
                 imageUrl: "/assets/images/branches/Dilsukhnagar.jpg",
               },
-              {
-                city: "Ameerpet",
-                address:
-                  "Vsource Building, Kamma Sangam lane, Ameerpet, Hyderabad- 500073, Telangana.",
-                phone: "+91 91217 11119",
-                email: "Support@vsourceadmissions.com",
-                hours: "10am to 8pm",
-                locationUrl: "https://maps.app.goo.gl/wfy4bB9sGaUVBtKf7",
-                imageUrl: "/assets/images/branches/Ameerpet.webp",
-              },
+              // {
+              //   city: "Ameerpet",
+              //   address:
+              //     "Vsource Building, Kamma Sangam lane, Ameerpet, Hyderabad- 500073, Telangana.",
+              //   phone: "+91 91217 11119",
+              //   email: "Support@vsourceadmissions.com",
+              //   hours: "10am to 8pm",
+              //   locationUrl: "https://maps.app.goo.gl/wfy4bB9sGaUVBtKf7",
+              //   imageUrl: "/assets/images/branches/Ameerpet.webp",
+              // },
               {
                 city: "KPHB - JNTU",
                 address:
