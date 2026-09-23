@@ -17,11 +17,11 @@ const View360 = () => {
       title: "Dilsukhnagar Office",
       subtitle: "Location — Dilsukhnagar, Hyderabad",
     },
-    Ameerpet: {
-      src: "https://www.google.com/maps/embed?pb=!4v1760518863069!6m8!1m7!1sCAoSHENJQUJJaERrUzk3bTZYR3JXMHREbjRtS1VOQnM.!2m2!1d17.43119354453962!2d78.44547854458258!3f200!4f0!5f0.7820865974627469",
-      title: "Ameerpet Office",
-      subtitle: "Location — Ameerpet, Hyderabad",
-    },
+    // Ameerpet: {
+    //   src: "https://www.google.com/maps/embed?pb=!4v1760518863069!6m8!1m7!1sCAoSHENJQUJJaERrUzk3bTZYR3JXMHREbjRtS1VOQnM.!2m2!1d17.43119354453962!2d78.44547854458258!3f200!4f0!5f0.7820865974627469",
+    //   title: "Ameerpet Office",
+    //   subtitle: "Location — Ameerpet, Hyderabad",
+    // },
     "KPHB- JNTU": {
       src: "https://www.google.com/maps/embed?pb=!4v1760518780459!6m8!1m7!1sCAoSHENJQUJJaEFwY3RKdW40bmxYYTBFNHFTdDVuMzM.!2m2!1d17.49847161988275!2d78.38723216509213!3f0!4f0!5f0.7820865974627469",
       title: "KPHB - JNTU Office",
