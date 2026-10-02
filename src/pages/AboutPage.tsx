@@ -447,26 +447,26 @@ const teamMembers = [
     bio: "VSOURCE COMPANY",
   },
 
-  {
-    name: "Ms. NAVYA",
-    position: "HEAD, MARKETING",
-    image: img21,
-    bio: "VSOURCE OVERSEAS",
-  },
+  // {
+  //   name: "Ms. NAVYA",
+  //   position: "HEAD, MARKETING",
+  //   image: img21,
+  //   bio: "VSOURCE OVERSEAS",
+  // },
   // bpo
-  {
-    name: "Ms. DEEPIKA",
-    position: "INCHARGE, B.P.O",
-    image: img22,
-    bio: "VSOURCE FINTECH",
-  },
+  // {
+  //   name: "Ms. DEEPIKA",
+  //   position: "INCHARGE, B.P.O",
+  //   image: img22,
+  //   bio: "VSOURCE FINTECH",
+  // },
 
-  {
-    name: "Mr. MAHESH",
-    position: "INCHARGE, B.P.O",
-    image: img24,
-    bio: "VSOURCE OVERSEAS",
-  },
+  // {
+  //   name: "Mr. MAHESH",
+  //   position: "INCHARGE, B.P.O",
+  //   image: img24,
+  //   bio: "VSOURCE OVERSEAS",
+  // },
   // BRANCH MANAGER
   {
     name: "Ms. RADHA",
@@ -486,30 +486,30 @@ const teamMembers = [
     image: img26,
     bio: "VIJAYAWADA",
   },
-  {
-    name: "Mr. KIRAN KUMAR",
-    position: "BRANCH MANAGER",
-    image: img27,
-    bio: "VIZAG",
-  },
-  {
-    name: "Ms. NIKHITHA",
-    position: "BRANCH MANAGER",
-    image: img28,
-    bio: "DILSUKHNAGAR",
-  },
-  {
-    name: "Mr. Raj",
-    position: "BRANCH MANAGER",
-    image: img29,
-    bio: "AMEERPET",
-  },
-  {
-    name: "Ms. SPANDANA",
-    position: "BRANCH MANAGER",
-    image: img30,
-    bio: "KUKATPALLY",
-  },
+  // {
+  //   name: "Mr. KIRAN KUMAR",
+  //   position: "BRANCH MANAGER",
+  //   image: img27,
+  //   bio: "VIZAG",
+  // },
+  // {
+  //   name: "Ms. NIKHITHA",
+  //   position: "BRANCH MANAGER",
+  //   image: img28,
+  //   bio: "DILSUKHNAGAR",
+  // },
+  // {
+  //   name: "Mr. Raj",
+  //   position: "BRANCH MANAGER",
+  //   image: img29,
+  //   bio: "AMEERPET",
+  // },
+  // {
+  //   name: "Ms. SPANDANA",
+  //   position: "BRANCH MANAGER",
+  //   image: img30,
+  //   bio: "KUKATPALLY",
+  // },
   // ADMINISTRATION
   {
     name: "Mrs. TAKO",
@@ -535,126 +535,135 @@ const teamMembers = [
     image: img35,
     bio: "GEORGIA",
   },
-  {
-    name: "Mr. NOORBAZ KHAN QADERI",
-    position: "ADMINISTRATION",
-    image: img36,
-    bio: "RUSSIA",
-  },
+  // {
+  //   name: "Mr. NOORBAZ KHAN QADERI",
+  //   position: "ADMINISTRATION",
+  //   image: img36,
+  //   bio: "RUSSIA",
+  // },
   {
     name: "Mr. ALEKSANDRE",
     position: "ACCOUNTANT",
     image: img33,
     bio: "GEORGIA",
   },
-  {
-    name: "Mrs. SHAISTA ASHRAF",
-    position: "HEAD ADMISSIONS",
-    image: img37,
-    bio: "UAE & SAUDI ARABIA",
-  },
+  // {
+  //   name: "Mrs. SHAISTA ASHRAF",
+  //   position: "HEAD ADMISSIONS",
+  //   image: img37,
+  //   bio: "UAE & SAUDI ARABIA",
+  // },
   // SR
-  {
-    name: "Mr. SHAIK GAFOOR",
-    position: "Sr. ASSOCIATE",
-    image: img38,
-    bio: "VSOURCE OVERSEAS",
-  },
-  {
-    name: "Mr. VENKATA SASIKUMAR",
-    position: "Sr. ASSOCIATE",
-    image: img39,
-    bio: "VSOURCE VARSITY",
-  },
+  // {
+  //   name: "Mr. SHAIK GAFOOR",
+  //   position: "Sr. ASSOCIATE",
+  //   image: img38,
+  //   bio: "VSOURCE OVERSEAS",
+  // },
+  // {
+  //   name: "Mr. VENKATA SASIKUMAR",
+  //   position: "Sr. ASSOCIATE",
+  //   image: img39,
+  //   bio: "VSOURCE VARSITY",
+  // },
+  // {
+  //   name: "Mr. BHANU SAI PRAKASH",
+  //   position: "Sr. ASSOCIATE",
+  //   image: img41,
+  //   bio: "VSOURCE OVERSEAS",
+  // },
 
-  {
-    name: "Mr. BHANU SAI PRAKASH",
-    position: "Sr. ASSOCIATE",
-    image: img41,
-    bio: "VSOURCE OVERSEAS",
-  },
+  // {
+  //   name: "Mr. VENKAT",
+  //   position: "Sr. ASSOCIATE",
+  //   image: img43,
+  //   bio: "VSOURCE FINTECH",
+  // },
+  // {
+  //   name: "Mr. NAGARAJU",
+  //   position: "Sr. ASSOCIATE",
+  //   image: img44,
+  //   bio: "VSOURCE FINTECH",
+  // },
 
-  {
-    name: "Mr. VENKAT",
-    position: "Sr. ASSOCIATE",
-    image: img43,
-    bio: "VSOURCE FINTECH",
-  },
-  {
-    name: "Mr. NAGARAJU",
-    position: "Sr. ASSOCIATE",
-    image: img44,
-    bio: "VSOURCE FINTECH",
-  },
-
-  {
-    name: "Mr. MAHESH GOUD",
-    position: "Sr. ASSOCIATE",
-    image: img46,
-    bio: "VSOURCE FINTECH",
-  },
+  // {
+  //   name: "Mr. MAHESH GOUD",
+  //   position: "Sr. ASSOCIATE",
+  //   image: img46,
+  //   bio: "VSOURCE FINTECH",
+  // },
   // JR
+  // {
+  //   name: "Mr. RAKESH",
+  //   position: "Jr. ASSOCIATE",
+  //   image: img47,
+  //   bio: "VSOURCE OVERSEAS",
+  // },
+  // {
+  //   name: "Mr. SHAIK MUNEER",
+  //   position: "Jr. ASSOCIATE",
+  //   image: img48,
+  //   bio: "VSOURCE VARSITY",
+  // },
+  // {
+  //   name: "Mr. M PAVAN",
+  //   position: "Jr. ASSOCIATE",
+  //   image: img49,
+  //   bio: "VSOURCE OVERSEAS",
+  // },
+  // {
+  //   name: "Mr. NAGA VENKATESH",
+  //   position: "Jr. ASSOCIATE",
+  //   image: img50,
+  //   bio: "VSOURCE OVERSEAS",
+  // },
+  // {
+  //   name: "Mr. S PAVAN",
+  //   position: "Jr. ASSOCIATE",
+  //   image: img51,
+  //   bio: "VSOURCE OVERSEAS",
+  // },
 
-  {
-    name: "Mr. SHAIK MUNEER",
-    position: "Jr. ASSOCIATE",
-    image: img48,
-    bio: "VSOURCE VARSITY",
-  },
-  {
-    name: "Mr. M PAVAN",
-    position: "Jr. ASSOCIATE",
-    image: img49,
-    bio: "VSOURCE OVERSEAS",
-  },
-  {
-    name: "Mr. NAGA VENKATESH",
-    position: "Jr. ASSOCIATE",
-    image: img50,
-    bio: "VSOURCE OVERSEAS",
-  },
-  {
-    name: "Mr. S PAVAN",
-    position: "Jr. ASSOCIATE",
-    image: img51,
-    bio: "VSOURCE OVERSEAS",
-  },
-
-  {
-    name: "Mr. VIJAY",
-    position: "Jr. ASSOCIATE",
-    image: img53,
-    bio: "VSOURCE OVERSEAS",
-  },
-  {
-    name: "Mr. SUBRAHMANYAM",
-    position: "Jr. ASSOCIATE",
-    image: img54,
-    bio: "VSOURCE VARSITY",
-  },
-  {
-    name: "Mr. LAKSHMAN",
-    position: "Jr. ASSOCIATE",
-    image: img55,
-    bio: "VSOURCE FINTECH",
-  },
-  {
-    name: "Mr. MOHAN KRISHNA",
-    position: "Jr. ASSOCIATE",
-    image: img56,
-    bio: "VSOURCE FINTECH",
-  },
-  {
-    name: "Mr. RAMU",
-    position: "Jr. ASSOCIATE",
-    image: img57,
-    bio: "VSOURCE FINTECH",
-  },
-  {
-    name: "Mr. FAHAD",
-    position: "DIGITAL MARKETING",
-    image: img58,
-    bio: "VSOURCE OVERSEAS",
-  },
-
+  // {
+  //   name: "Mr. VIJAY",
+  //   position: "Jr. ASSOCIATE",
+  //   image: img53,
+  //   bio: "VSOURCE OVERSEAS",
+  // },
+  // {
+  //   name: "Mr. SUBRAHMANYAM",
+  //   position: "Jr. ASSOCIATE",
+  //   image: img54,
+  //   bio: "VSOURCE VARSITY",
+  // },
+  // {
+  //   name: "Mr. LAKSHMAN",
+  //   position: "Jr. ASSOCIATE",
+  //   image: img55,
+  //   bio: "VSOURCE FINTECH",
+  // },
+  // {
+  //   name: "Mr. MOHAN KRISHNA",
+  //   position: "Jr. ASSOCIATE",
+  //   image: img56,
+  //   bio: "VSOURCE FINTECH",
+  // },
+  // {
+  //   name: "Mr. RAMU",
+  //   position: "Jr. ASSOCIATE",
+  //   image: img57,
+  //   bio: "VSOURCE FINTECH",
+  // },
+  // {
+  //   name: "Mr. FAHAD",
+  //   position: "DIGITAL MARKETING",
+  //   image: img58,
+  //   bio: "VSOURCE OVERSEAS",
+  // },
+  // {
+  //   name: "Mr. VAMSHI",
+  //   position: "DIGITAL MARKETING",
+  //   image: img59,
+  //   bio: "VSOURCE VARSITY",
+  // },
 ];
