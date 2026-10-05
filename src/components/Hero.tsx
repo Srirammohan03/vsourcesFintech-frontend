@@ -36,14 +36,25 @@ function HeroSection() {
 
         <div className="relative z-10 flex flex-col justify-between min-h-full">
           <div className="flex">
-            <div className="w-[50%] bg-white/10 backdrop-blur-sm rounded-2xl p-2 flex flex-col justify-center space-y-4 mb-5">
-              <h1 className="text-2xl font-bold leading-snug">
-                Fund Your Dreams of
-                <span className="block text-red-600 text-xl">
-                  Studying Abroad
-                </span>
-              </h1>
-              <div className="bg-white rounded-xl px-2 py-1 mt-3 flex justify-center gap-1 w-fit ">
+            <div className="w-[50%] bg-white/70 backdrop-blur-sm rounded-2xl p-2 flex flex-col justify-center space-y-4 mb-5">
+              <p className="text-red-600 text-[16px] font-bold leading-tight uppercase tracking-wide">
+                STUDY MASTERS IN
+                <br />
+                TOP UK
+                <br />
+                UNIVERSITIES
+                
+                
+              </p>
+              <p className="text-red-600 text-[16px] font-bold leading-tight uppercase tracking-wide mt-3">
+                
+                FREE FLIGHT TICKET
+              </p>
+              <p className="text-red-600 text-[16px] font-bold leading-tight uppercase tracking-wide mt-3">
+                
+                100% EDUCATION LOAN
+              </p>
+              {/* <div className="bg-white rounded-xl px-2 py-1 mt-3 flex justify-center gap-1 w-fit ">
                 {["fr", "us", "ie", "ca", "gb"].map((flag, idx) => (
                   <img
                     key={idx}
@@ -55,11 +66,11 @@ function HeroSection() {
                     fetchPriority={idx < 3 ? "high" : "low"}
                   />
                 ))}
-              </div>
+              </div> */}
 
-              <p className="text-white text-sm">
+              {/* <p className="text-white text-sm">
                 Get instant access to education loans.
-              </p>
+              </p> */}
             </div>
           </div>
 
@@ -78,8 +89,8 @@ function HeroSection() {
           className="text-center space-y-6 sm:space-y-8"
         >
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight">
-            Fund Your Dreams of
-            <span className="block text-red-600">Studying Abroad</span>
+            STUDY MASTERS IN
+            <span className="block text-red-600">TOP UK UNIVERSITIES </span>
           </h1>
 
           <p className="text-lg sm:text-xl lg:text-2xl text-white/90 max-w-2xl mx-auto">
