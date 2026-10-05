@@ -187,7 +187,10 @@ const DelayedPopup: React.FC<DelayedPopupProps> = ({ onMinimize }) => {
                   {/* Header */}
                   <div className="bg-red-500 text-white text-center rounded-t-2xl -mx-4 -mt-4 p-4 md:p-6 md:-mx-6 md:-mt-6 relative space-y-1">
                     <h2 className="text-xl md:text-2xl font-bold tracking-wide">
-                      STUDY IN ABROAD
+                      STUDY MASTERS IN UK
+                    </h2>
+                     <h2 className="text-xl md:text-2xl font-bold tracking-wide">
+                      FREE FLIGHT TICKET
                     </h2>
 
                     <p className="text-sm md:text-base font-medium">
