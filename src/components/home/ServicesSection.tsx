@@ -3,9 +3,9 @@ import AnimateOnScroll from "../AnimateOnScroll";
 
 const services = [
   {
-    title: "ABROAD MASTERS",
+    title: "STUDY MASTERS ABROAD",
     description:
-      "Turn your masters dream into a global reality\nUS | UK | IRELAND | CANADA | FRANCE",
+      "Turn your masters dream into a global reality\nUS | UK ",
     imageSrc: "/assets/images/badges/aborad.jpg",
     externalUrl: "https://vsourceoverseas.com/",
     logoSrc: "/assets/images/logo overseas.png",
@@ -59,14 +59,14 @@ const ServicesSection = () => {
                   {service.title}
                 </h3>
 
-                <p className="text-sm text-white whitespace-pre-line leading-snug">
+                <p className="text-xl sm:text-2xl font-bold text-white whitespace-pre-line leading-snug">
                   {service.description}
                 </p>
               </div>
 
               <div className="mt-3 flex gap-3 flex-wrap sm:flex-nowrap">
                 <a
-                  href="/assets/media/Brochure 16 pages _CTC.pdf"
+                  href="https://vsourceoverseas.com/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-xs sm:text-sm bg-white text-black font-bold px-4 py-2 sm:px-5 sm:py-2.5 rounded-md hover:bg-gray-200 transition text-center flex-1 sm:flex-none"
